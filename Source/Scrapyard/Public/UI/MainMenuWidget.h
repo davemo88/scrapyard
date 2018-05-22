@@ -22,6 +22,13 @@ private:
 
 public:	
 
+//	void AddToGameViewport();
+//	void RemoveFromGameViewport();
+//	void StartOnlinePrivilegeTask(...);
+//	void CleanupOnlinePrivilegeTask(...);
+//	void HostGame(...);// call GameInstance->HostGame(...)
+
+
 	UFUNCTION(BlueprintCallable)
 	void OnGarageButtonClicked();
 	UFUNCTION(BlueprintCallable)

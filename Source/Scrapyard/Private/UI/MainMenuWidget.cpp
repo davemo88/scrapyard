@@ -27,6 +27,8 @@ void UMainMenuWidget::OnHostButtonClicked()
 	UWorld* World = GetWorld();
 	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
 	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(World->GetGameInstance());
+//	EOnlineMode NewOnlineMode = bIsLAN ? EOnlineMode::LAN : EOnlineMode::Online;
+//  GameInstance->SetOnlineMode(EOnlineMode) 
 //	GameInstance->HostSession(Player->GetPreferredUniqueNetId(), FName(TEXT("Lol")), true, true, 4);
 }
 
