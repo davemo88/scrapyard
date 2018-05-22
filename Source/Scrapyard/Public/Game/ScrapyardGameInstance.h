@@ -15,8 +15,8 @@
 #include "ScrapyardGameInstance.generated.h"
 
 class FVariantData;
-class FScrapyardMainMenu;
-class FScrapyardMessageMenu;
+//class FScrapyardMainMenu;
+//class FScrapyardMessageMenu;
 class AScrapyardGameSession;
 
 namespace ScrapyardGameInstanceState
@@ -227,11 +227,11 @@ private:
 	/** Whether the user has an active license to play the game */
 	bool bIsLicensed;
 
-	/** Main menu UI */
-	TSharedPtr<FScrapyardMainMenu> MainMenuUI;
+//	/** Main menu UI */
+//	TSharedPtr<FScrapyardMainMenu> MainMenuUI;
 
-	/** Message menu (Shown in the even of errors - unable to connect etc) */
-	TSharedPtr<FScrapyardMessageMenu> MessageMenuUI;
+//	/** Message menu (Shown in the even of errors - unable to connect etc) */
+//	TSharedPtr<FScrapyardMessageMenu> MessageMenuUI;
 
 	/** Dialog widget to show non-interactive waiting messages for network timeouts and such. */
 //	TSharedPtr<SScrapyardWaitDialog> WaitMessageWidget;

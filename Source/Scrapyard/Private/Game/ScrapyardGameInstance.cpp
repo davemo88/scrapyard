@@ -13,7 +13,7 @@
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerState.h"
 #include "Robots/RobotPlayerController.h"
-#include "UI/Menu/ScrapyardMainMenu.h"
+//#include "UI/Menu/ScrapyardMainMenu.h"
 
 namespace ScrapyardGameInstanceState
 {
@@ -903,9 +903,9 @@ void UScrapyardGameInstance::BeginMainMenuState()
 	// player 0 gets to own the UI
 	ULocalPlayer* const Player = GetFirstGamePlayer();
 
-	MainMenuUI = MakeShareable(new FScrapyardMainMenu());
-	MainMenuUI->Construct(this, Player);
-	MainMenuUI->AddMenuToGameViewport();
+//	MainMenuUI = MakeShareable(new FScrapyardMainMenu());
+//	MainMenuUI->Construct(this, Player);
+//	MainMenuUI->AddMenuToGameViewport();
 
 	RemoveNetworkFailureHandlers();
 }

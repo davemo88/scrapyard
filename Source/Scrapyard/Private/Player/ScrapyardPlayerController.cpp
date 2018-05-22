@@ -4,7 +4,7 @@
 
 #include "Robots/RobotCharacter.h"
 //#include "Online/ScrapyardPlayerState.h"
-#include "UI/Menu/ScrapyardIngameMenu.h"
+//#include "UI/Menu/ScrapyardIngameMenu.h"
 #include "Engine/LocalPlayer.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerState.h"
@@ -49,8 +49,8 @@ void AScrapyardPlayerController::SetPlayer( UPlayer* InPlayer )
 	if (ULocalPlayer* const LocalPlayer = Cast<ULocalPlayer>(Player))
 	{
 		//Build menu only after game is initialized
-		ScrapyardIngameMenu = MakeShareable(new FScrapyardIngameMenu());
-		ScrapyardIngameMenu->Construct(Cast<ULocalPlayer>(Player));
+//		ScrapyardIngameMenu = MakeShareable(new FScrapyardIngameMenu());
+//		ScrapyardIngameMenu->Construct(Cast<ULocalPlayer>(Player));
 
 		FInputModeGameOnly InputMode;
 		SetInputMode(InputMode);

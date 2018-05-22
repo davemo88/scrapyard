@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Levels/ScrapyardLevelScriptActor.h"
-#include "UI/Menu/ScrapyardMainMenu.h"
+//#include "UI/Menu/ScrapyardMainMenu.h"
 #include "MainMenuLevelScriptActor.generated.h"
 
 /**
@@ -25,6 +25,6 @@ protected:
 	
 private:
 
-	TSharedPtr<FScrapyardMainMenu> MainMenuUI;
+//	TSharedPtr<FScrapyardMainMenu> MainMenuUI;
 	
 };

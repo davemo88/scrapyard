@@ -98,7 +98,7 @@ protected:
 	uint8 bGameEndedFrame : 1;
 
 	/** shooter in-game menu */
-	TSharedPtr<class FScrapyardIngameMenu> ScrapyardIngameMenu;
+//	TSharedPtr<class FScrapyardIngameMenu> ScrapyardIngameMenu;
 
 	//Begin AActor interface
 
