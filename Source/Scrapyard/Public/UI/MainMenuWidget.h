@@ -12,7 +12,7 @@
  * 
  */
 UCLASS()
-class SCRAPYARDCLIENT_API UMainMenuWidget : public UUserWidget
+class SCRAPYARD_API UMainMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
