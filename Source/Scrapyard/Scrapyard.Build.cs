@@ -8,11 +8,12 @@ public class Scrapyard : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "OnlineSubsystem", "OnlineSubsystemUtils", "UMG" });
+//        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "OnlineSubsystem", "OnlineSubsystemUtils", "UMG" });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-//        DynamicallyLoadedModuleNames.Add("OnlineSubsystemNull");
+        DynamicallyLoadedModuleNames.Add("OnlineSubsystemNull");
 
     	PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		
