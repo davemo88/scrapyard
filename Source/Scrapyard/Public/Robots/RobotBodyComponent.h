@@ -11,7 +11,6 @@
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
 #include "Robots/RobotPartAssignment.h"
-#include "UObject/ConstructorHelpers.h"
 #include "RobotBodyComponent.generated.h"
 
 

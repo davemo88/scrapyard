@@ -16,16 +16,6 @@ class SCRAPYARDSERVER_API ABattleGameState : public AGameState
 			
 public:
 
-	ABattleGameState();
+//	ABattleGameState();
 
-	/** time left for warmup / match */
-	UPROPERTY(Transient, Replicated)
-	int32 RemainingTime;
-
-	/** is timer paused? */
-	UPROPERTY(Transient, Replicated)
-	bool bTimerPaused;
-
-	void RequestFinishAndExitToMainMenu();
-	
 };

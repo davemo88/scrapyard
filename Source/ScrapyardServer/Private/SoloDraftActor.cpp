@@ -5,7 +5,6 @@
 #include "Kismet/GameplayStatics.h"
 #include "UObjectGlobals.h"
 #include "ScrapyardGameInstance.h"
-#include "ConstructorHelpers.h"
 
 
 // Sets default values

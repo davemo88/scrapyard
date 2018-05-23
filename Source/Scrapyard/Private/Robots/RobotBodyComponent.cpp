@@ -2,6 +2,7 @@
 
 #include "RobotBodyComponent.h"
 #include "Components/SceneComponent.h"
+#include "ConstructorHelpers.h"
 #include "Robots/RobotPartAssignment.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
 

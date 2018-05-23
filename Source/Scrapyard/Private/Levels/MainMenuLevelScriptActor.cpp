@@ -21,15 +21,5 @@ void AMainMenuLevelScriptActor::BeginPlay()
 
 	UE_LOG(LogTemp, Warning, TEXT("MainMenuLevelScriptActor BeginPlay"));
 
-	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-//	ULocalPlayer* const Player = GameInstance->GetFirstGamePlayer();
-
-//	MainMenuUI = MakeShareable(new FScrapyardMainMenu());
-//	MainMenuUI->Construct(GameInstance, Player);
-//	MainMenuUI->AddMenuToGameViewport();
-
-	GameInstance->GotoInitialState();
-
-
-
+//	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
 }

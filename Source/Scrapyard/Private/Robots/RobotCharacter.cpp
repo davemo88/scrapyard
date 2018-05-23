@@ -80,6 +80,8 @@ void ARobotCharacter::SetupBody()
 
 	RootComponent = GetRootComponent();
 	RobotBodyComponent->SetupAttachment(RootComponent);
+
+	RobotBodyComponent->SetIsReplicated(true);
 }
 
 void ARobotCharacter::SetupPartAssignment()

@@ -54,7 +54,7 @@ void AScrapyardGameSession::OnStartOnlineGameComplete(FName InSessionName, bool 
 			ARobotPlayerController* PC = Cast<ARobotPlayerController>(*It);
 			if (PC && !PC->IsLocalPlayerController())
 			{
-				PC->ClientStartOnlineGame();
+//				PC->ClientStartOnlineGame();
 			}
 		}
 	}
@@ -97,7 +97,7 @@ void AScrapyardGameSession::HandleMatchHasEnded()
 				ARobotPlayerController* PC = Cast<ARobotPlayerController>(*It);
 				if (PC && !PC->IsLocalPlayerController())
 				{
-					PC->ClientEndOnlineGame();
+//					PC->ClientEndOnlineGame();
 				}
 			}
 

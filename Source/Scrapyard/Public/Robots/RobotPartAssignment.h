@@ -34,4 +34,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool IsComplete();
+
+	UFUNCTION()
+	void UnassignAll();
 };
