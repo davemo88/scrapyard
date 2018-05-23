@@ -34,7 +34,7 @@ AScrapyardGameSession::AScrapyardGameSession()
  * @param SessionName the name of the session this callback is for
  * @param bWasSuccessful true if the async action completed without error, false if there was an error
  */
-void AScrapyardGameSession::OnStartOnlineGameComplete(FName InSessionName, bool bWasSuccessful)
+void AScrapyardGameSession::OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful)
 {
 	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
 	if (OnlineSub)

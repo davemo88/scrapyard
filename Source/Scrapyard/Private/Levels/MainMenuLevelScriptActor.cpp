@@ -2,7 +2,6 @@
 
 #include "MainMenuLevelScriptActor.h"
 #include "Game/ScrapyardGameInstance.h"
-#include "Game/ScrapyardGameViewportClient.h"
 
 void AMainMenuLevelScriptActor::PreInitializeComponents()
 {
