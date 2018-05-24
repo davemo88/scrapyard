@@ -17,7 +17,7 @@ FScrapyardOnlineSessionSettings::FScrapyardOnlineSessionSettings(bool bIsLAN, bo
 	bAllowJoinViaPresenceFriendsOnly = false;
 }
 
-FScrapyardOnlineSearchSettings::FScrapyardOnlineSearchSettings(bool bSearchingLAN, bool bSearchingPresence)
+FScrapyardOnlineSessionSearch::FScrapyardOnlineSessionSearch(bool bSearchingLAN, bool bSearchingPresence)
 {
 	bIsLanQuery = bSearchingLAN;
 	MaxSearchResults = 10;
@@ -27,11 +27,4 @@ FScrapyardOnlineSearchSettings::FScrapyardOnlineSearchSettings(bool bSearchingLA
 	{
 		QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
 	}
-}
-
-FScrapyardOnlineSearchSettingsEmptyDedicated::FScrapyardOnlineSearchSettingsEmptyDedicated(bool bSearchingLAN, bool bSearchingPresence) :
-	FScrapyardOnlineSearchSettings(bSearchingLAN, bSearchingPresence)
-{
-	QuerySettings.Set(SEARCH_DEDICATED_ONLY, true, EOnlineComparisonOp::Equals);
-	QuerySettings.Set(SEARCH_EMPTY_SERVERS_ONLY, true, EOnlineComparisonOp::Equals);
 }
