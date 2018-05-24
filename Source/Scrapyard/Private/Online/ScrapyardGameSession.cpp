@@ -10,6 +10,7 @@
 
 AScrapyardGameSession::AScrapyardGameSession()
 {
+	UE_LOG(LogTemp, Warning, TEXT("AScrapyardGameSession Constructor"));
 	OnCreateSessionCompleteDelegate = FOnCreateSessionCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnCreateSessionComplete);
 	OnStartSessionCompleteDelegate = FOnStartSessionCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnStartOnlineGameComplete);
 	OnFindSessionsCompleteDelegate = FOnFindSessionsCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnFindSessionsComplete);
@@ -27,13 +28,15 @@ bool AScrapyardGameSession::HostSession(TSharedPtr<const FUniqueNetId> UserId, F
 
 		if (Sessions.IsValid() && UserId.IsValid())
 		{
-			HostSettings = MakeShareable(new FScrapyardOnlineSessionSettings(bIsLAN, bIsPresence, MaxNumPlayers));
+			UE_LOG(LogTemp, Warning, TEXT("about to try to make the session settings"));
 
-			HostSettings->Set(SETTING_MAPNAME, FString("NewMap"), EOnlineDataAdvertisementType::ViaOnlineService);
+			SessionSettings = MakeShareable(new FScrapyardOnlineSessionSettings());
+
+			SessionSettings->Set(SETTING_MAPNAME, FString("BattleLevel"), EOnlineDataAdvertisementType::ViaOnlineService);
 
 			OnCreateSessionCompleteDelegateHandle = Sessions->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
 
-			return Sessions->CreateSession(*UserId, SessionName, *HostSettings);
+			return Sessions->CreateSession(*UserId, SessionName, *SessionSettings);
 		}
 	}
 	else
@@ -56,7 +59,7 @@ void AScrapyardGameSession::FindSessions(TSharedPtr<const FUniqueNetId> UserId, 
 		{
 			SessionSearch = MakeShareable(new FScrapyardOnlineSessionSearch(bIsLAN, bIsPresence));
 
-			TSharedRef<FOnlineSessionSearch> SessionSearchRef = SessionSearch.ToSharedRef();
+			TSharedRef<FScrapyardOnlineSessionSearch> SessionSearchRef = SessionSearch.ToSharedRef();
 
 			OnFindSessionsCompleteDelegateHandle = Sessions->AddOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegate);
 			
@@ -189,7 +192,8 @@ void AScrapyardGameSession::OnJoinSessionComplete(FName SessionName, EOnJoinSess
 			Sessions->ClearOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegateHandle);
 
 			// Get the first local PlayerController, so we can call "ClientTravel" to get to the Server Map
-			APlayerController * const PlayerController = GetFirstLocalPlayerController(GetWorld());
+			// TODO: should get if world is null since i bet this will go wrong haha
+			APlayerController * const PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
 
 			// We need a FString to use ClientTravel and we can let the SessionInterface contruct such a
 			// String for us by giving him the SessionName and an empty String. We want to do this, because

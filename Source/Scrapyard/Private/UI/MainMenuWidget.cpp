@@ -1,9 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MainMenuWidget.h"
-#include "ScrapyardGameInstance.h"
-#include "WidgetTree.h"
-
+#include "Engine/World.h"
+#include "Game/ScrapyardGameInstance.h"
 
 void UMainMenuWidget::NativeConstruct()
 {
@@ -26,20 +25,17 @@ void UMainMenuWidget::OnHostButtonClicked()
 {
 	UWorld* World = GetWorld();
 	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
-	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(World->GetGameInstance());
-//	EOnlineMode NewOnlineMode = bIsLAN ? EOnlineMode::LAN : EOnlineMode::Online;
-//  GameInstance->SetOnlineMode(EOnlineMode) 
-//	GameInstance->HostSession(Player->GetPreferredUniqueNetId(), FName(TEXT("Lol")), true, true, 4);
+	UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
+//	GameInstance->HostSession(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true, 2);
+	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
+	GameSession->HostSession(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true, 2);
 }
 
 void UMainMenuWidget::OnJoinButtonClicked()
 {
 	UWorld* World = GetWorld();
 	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
-	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(World->GetGameInstance());
 	TSharedPtr<const FUniqueNetId> UserId = Player->GetPreferredUniqueNetId();
-//	GameInstance->FindSessions(UserId, true, true);
-//	GameInstance->JoinSession(UserId, )
 }
 
 void UMainMenuWidget::OnQuitButtonClicked()

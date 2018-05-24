@@ -5,23 +5,9 @@
 #include "CoreMinimal.h"
 #include "Online.h"
 #include "GameFramework/GameSession.h"
+#include "OnlineSessionSettings.h"
+#include "Online/ScrapyardOnlineSettings.h"
 #include "ScrapyardGameSession.generated.h"
-
-struct FScrapyardGameSessionParams
-{
-	FName SessionName;
-	bool bIsLAN;
-	bool bIsPresence;
-	TSharedPtr<const FUniqueNetId> UserId;
-	int32 BestSessionIdx;
-
-	FScrapyardGameSessionParams()
-		: SessionName(NAME_None)
-		, bIsLAN(false)
-		, bIsPresence(false)
-		, BestSessionIdx(0)
-	{}
-};
 
 UCLASS()
 class SCRAPYARD_API AScrapyardGameSession : public AGameSession
@@ -29,8 +15,7 @@ class SCRAPYARD_API AScrapyardGameSession : public AGameSession
 	GENERATED_BODY()
 	
 protected:
-	FScrapyardGameSessionParams CurrentSessionParams;
-	TSharedPtr<class FScrapyardOnlineSessionSettings> HostSettings;
+	TSharedPtr<class FScrapyardOnlineSessionSettings> SessionSettings;
 	TSharedPtr<class FScrapyardOnlineSessionSearch> SessionSearch;
 
 	FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;

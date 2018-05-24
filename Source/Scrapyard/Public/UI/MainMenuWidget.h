@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Button.h"
 #include "Kismet/GameplayStatics.h"
+#include "Online/ScrapyardGameSession.h"
 #include "MainMenuWidget.generated.h"
 
 /**
