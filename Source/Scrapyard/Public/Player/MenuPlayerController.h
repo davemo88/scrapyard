@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "MenuPlayerController.generated.h"
 
+class UMainMenuWidget;
 /**
  * 
  */
@@ -17,5 +18,11 @@ class SCRAPYARD_API AMenuPlayerController : public APlayerController
 	AMenuPlayerController();
 
 	void PostInitializeComponents() override;
-	
+
+	virtual void BeginPlay() override;
+
+	UPROPERTY()
+	TSubclassOf<class UMainMenuWidget> wMainMenu;
+
+	UMainMenuWidget* MainMenuWidget;
 };
