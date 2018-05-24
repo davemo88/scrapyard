@@ -24,7 +24,5 @@ protected:
 	void BeginPlay() override;
 	
 private:
-
-//	TSharedPtr<FScrapyardMainMenu> MainMenuUI;
 	
 };

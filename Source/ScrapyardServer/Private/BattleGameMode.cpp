@@ -8,15 +8,13 @@
 ABattleGameMode::ABattleGameMode()
 {
 	DefaultPawnClass = ARobotCharacter::StaticClass();
-//	DefaultPawnClass = nullptr;
-
-//	HUDClass = ABattleHUD::StaticClass();
+// don't need to mess with HUD I think
+//	HUDClass = AHUD::StaticClass();
 	PlayerControllerClass = ARobotPlayerController::StaticClass();
-	DefaultPawnClass = ARobotCharacter::StaticClass();
 //	PlayerControllerClass = APlayerController::StaticClass();
-//	PlayerStateClass = ARobotPlayerState::StaticClass();
-//  SpectatorClass
-//  GameStateClass::StaticClass();
+//  GameStateClass = ABattleGameState::StaticClass();
+//	PlayerStateClass = ABattlePlayerState::StaticClass();
+//  SpectatorClass = ABattleSpectatorPawn::StaticClass();
 
 //	bUseSeamlessTravel = true;
 }

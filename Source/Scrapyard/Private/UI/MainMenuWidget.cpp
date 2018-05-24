@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MainMenuWidget.h"
+#include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "Game/ScrapyardGameInstance.h"
 
@@ -26,7 +27,6 @@ void UMainMenuWidget::OnHostButtonClicked()
 	UWorld* World = GetWorld();
 	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
 	UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
-//	GameInstance->HostSession(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true, 2);
 	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
 	GameSession->HostSession(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true, 2);
 }
@@ -35,7 +35,9 @@ void UMainMenuWidget::OnJoinButtonClicked()
 {
 	UWorld* World = GetWorld();
 	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
-	TSharedPtr<const FUniqueNetId> UserId = Player->GetPreferredUniqueNetId();
+	UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
+	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
+	GameSession->FindSessions(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true);
 }
 
 void UMainMenuWidget::OnQuitButtonClicked()

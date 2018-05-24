@@ -7,10 +7,6 @@ void AMainMenuLevelScriptActor::PreInitializeComponents()
 {
 	Super::PreInitializeComponents();
 
-//	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-
-//	GameInstance->SetOnlineMode(EOnlineMode::Offline);
-
 	UE_LOG(LogTemp, Warning, TEXT("MainMenuLevelScriptActor PreInitializeComponents"));
 }
 
@@ -20,5 +16,4 @@ void AMainMenuLevelScriptActor::BeginPlay()
 
 	UE_LOG(LogTemp, Warning, TEXT("MainMenuLevelScriptActor BeginPlay"));
 
-//	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
 }

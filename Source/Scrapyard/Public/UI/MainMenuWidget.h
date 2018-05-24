@@ -24,13 +24,13 @@ private:
 public:	
 
 	UFUNCTION(BlueprintCallable)
+	void OnDraftButtonClicked();
+	UFUNCTION(BlueprintCallable)
 	void OnGarageButtonClicked();
 	UFUNCTION(BlueprintCallable)
 	void OnHostButtonClicked();
 	UFUNCTION(BlueprintCallable)
-	void OnDraftButtonClicked();
+	void OnJoinButtonClicked();
 	UFUNCTION(BlueprintCallable)
 	void OnQuitButtonClicked();
-	UFUNCTION(BlueprintCallable)
-	void OnJoinButtonClicked();
 };
