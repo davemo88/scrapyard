@@ -26,6 +26,7 @@ void AMenuPlayerController::BeginPlay()
 // TODO: either make a blueprint to set the asset references
 // or do all the layout / styling / event binding in C++ 
 // https://forums.unrealengine.com/development-discussion/c-gameplay-programming/42318-opening-a-widget-blueprint-from-c-code
+// game singleton object for sure
 	FStringClassReference MainMenuWidgetBPClassRef(TEXT("/Game/Levels/Main/MainMenuWidgetBP.MainMenuWidgetBP_C"));
 	if (UClass* MainMenuWidgetBPClass = MainMenuWidgetBPClassRef.TryLoadClass<UMainMenuWidget>())
 	{
