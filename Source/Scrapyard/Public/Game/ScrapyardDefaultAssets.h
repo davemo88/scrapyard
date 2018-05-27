@@ -11,6 +11,7 @@
 // and many related classes might include the Game Instance?
 class UMainMenuWidget;
 class UEscapeMenuWidget;
+class URobotHUDWidget;
 class UHeadPart;
 class UCorePart;
 class UArmsPart;
@@ -34,6 +35,10 @@ public:
 	TSubclassOf<class UEscapeMenuWidget> EscapeMenuWidgetBP;
 
 	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class URobotHUDWidget> RobotHUDWidgetBP;
+
+// default robot parts
+	UPROPERTY(EditDefaultsOnly)
 	UHeadPart* DefaultHeadPart;
 	
 	UPROPERTY(EditDefaultsOnly)
@@ -45,8 +50,6 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	ULegsPart* DefaultLegsPart;
 
-	UPROPERTY(EditDefaultsOnly)
-	FString TestString;
 
 
 	

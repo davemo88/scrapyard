@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotCharacter.h"
+#include "Game/ScrapyardGameInstance.h"
 #include "Robots/RobotMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -16,10 +18,9 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 	bAlwaysRelevant = true;
 
 	SetupCamera();
-	SetupBody();
 	SetupPartAssignment();
+	SetupBody();
 	SetupStats();
-//	UpdateStats();
 
 // allow flying movement
 	UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
@@ -74,19 +75,38 @@ void ARobotCharacter::SetupCamera()
 	OurCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 }
 
+void ARobotCharacter::SetupPartAssignment()
+{
+	RobotPartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("RobotPartAssignment"));
+	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(UGameplayStatics::GetGameInstance(this));
+	if (GameInstance)
+	{
+		if (!GameInstance->RobotPartAssignment->IsComplete())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("setting default part assignment"));
+			RobotPartAssignment->SetDefaultAssignment();
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("setting game instance part assignment"));
+			RobotPartAssignment = GameInstance->RobotPartAssignment;
+		}
+	}
+}
+
 void ARobotCharacter::SetupBody()
 {
 	RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
+	if (RobotPartAssignment->IsComplete())
+	{
+		RobotBodyComponent->SetPartAssignment(RobotPartAssignment);
+	}
 
 	RootComponent = GetRootComponent();
 	RobotBodyComponent->SetupAttachment(RootComponent);
 
-	RobotBodyComponent->SetIsReplicated(true);
-}
-
-void ARobotCharacter::SetupPartAssignment()
-{
-	RobotPartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("RobotPartAssignment"));
+// need that magic DO_REPLIFETIME(?) function
+//	RobotBodyComponent->SetIsReplicated(true);
 }
 
 void ARobotCharacter::SetupStats()

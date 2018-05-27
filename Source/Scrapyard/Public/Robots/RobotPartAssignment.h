@@ -32,9 +32,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UHandheldPart* RightHandheldPart = nullptr;
 
+// TODO: remove when we have proper character init
 	UFUNCTION(BlueprintCallable)
 	bool IsComplete();
 
-	UFUNCTION()
 	void UnassignAll();
+
+	void SetDefaultAssignment();
 };

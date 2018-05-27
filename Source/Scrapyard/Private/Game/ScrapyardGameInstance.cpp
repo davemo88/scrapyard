@@ -3,8 +3,10 @@
 #include "ScrapyardGameInstance.h"
 #include "Engine/Engine.h"
 #include "Kismet/GameplayStatics.h"
-#include "Game/ScrapyardDefaultAssets.h"
 #include "GameFramework/GameModeBase.h"
+#include "Game/ScrapyardDefaultAssets.h"
+#include "Robots/RobotPartAssignment.h"
+#include "SoloDraft.h"
 
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
@@ -18,15 +20,25 @@ UScrapyardGameInstance::UScrapyardGameInstance()
 	if (UClass* DefaultAssetsBPClass =  DefaultAssetsBPClassRef.TryLoadClass<UScrapyardDefaultAssets>())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("we loaded the default assets bp"));
-// new object will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
+// NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
 //		UScrapyardDefaultAssets* lol = NewObject<UScrapyardDefaultAssets>(DefaultAssetsBPClass);
-		const UScrapyardDefaultAssets* lol = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
-		UE_LOG(LogTemp, Warning, TEXT("the teststring is set to: %s"), *lol->TestString)
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *lol->DefaultArmsPart->PartName)
+		DefaultAssetsBP = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *DefaultAssetsBP->DefaultArmsPart->PartName)
 	}
 
 
 };
+
+UScrapyardGameInstance* UScrapyardGameInstance::GetGameInstance()
+{
+	UWorld* World = GEngine->GetWorld();
+	if (World)
+	{
+		return World->GetGameInstance<UScrapyardGameInstance>();
+	}
+
+	return nullptr;
+}
 
 void UScrapyardGameInstance::Init()
 {

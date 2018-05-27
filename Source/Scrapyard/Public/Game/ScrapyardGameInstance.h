@@ -3,16 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-//#include "Online/ScrapyardGameSession.h"
 #include "Online.h"
-#include "GameFramework/GameSession.h"
-#include "OnlineSessionSettings.h"
-#include "Online/ScrapyardOnlineSettings.h"
-#include "Online/ScrapyardGameSession.h"
-#include "SoloDraft.h"
-#include "Robots/RobotPartAssignment.h"
 #include "ScrapyardGameInstance.generated.h"
 
+class UScrapyardDefaultAssets;
+class URobotPartAssignment;
+class USoloDraft;
 class AScrapyardGameSession;
 
 UCLASS()
@@ -20,12 +16,12 @@ class SCRAPYARD_API UScrapyardGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 
-protected:
-
-//	AScrapyardGameSession* GameSession;
-	
 public:	
 	UScrapyardGameInstance();
+
+	static UScrapyardGameInstance* GetGameInstance();
+
+	const UScrapyardDefaultAssets* DefaultAssetsBP;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	URobotPartAssignment* RobotPartAssignment;
