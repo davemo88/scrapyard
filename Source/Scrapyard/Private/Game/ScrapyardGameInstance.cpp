@@ -19,14 +19,10 @@ UScrapyardGameInstance::UScrapyardGameInstance()
 	FStringClassReference DefaultAssetsBPClassRef(TEXT("/Game/ScrapyardDefaultAssetsBP.ScrapyardDefaultAssetsBP_C"));
 	if (UClass* DefaultAssetsBPClass =  DefaultAssetsBPClassRef.TryLoadClass<UScrapyardDefaultAssets>())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("we loaded the default assets bp"));
 // NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
 //		UScrapyardDefaultAssets* lol = NewObject<UScrapyardDefaultAssets>(DefaultAssetsBPClass);
 		DefaultAssetsBP = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *DefaultAssetsBP->DefaultArmsPart->PartName)
 	}
-
-
 };
 
 UScrapyardGameInstance* UScrapyardGameInstance::GetGameInstance()

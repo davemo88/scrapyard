@@ -15,14 +15,8 @@ class SCRAPYARD_API AMenuPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+public:
 	AMenuPlayerController();
 
 	void PostInitializeComponents() override;
-
-	virtual void BeginPlay() override;
-
-	UPROPERTY()
-	TSubclassOf<class UMainMenuWidget> wMainMenu;
-
-	UMainMenuWidget* MainMenuWidget;
 };
