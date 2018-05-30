@@ -30,8 +30,14 @@ UScrapyardGameInstance* UScrapyardGameInstance::GetGameInstance()
 	UWorld* World = GEngine->GetWorld();
 	if (World)
 	{
-		return World->GetGameInstance<UScrapyardGameInstance>();
+		UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
+		if (GameInstance)
+		{
+			return GameInstance;
+		}
 	}
+
+	UE_LOG(LogTemp, Warning, TEXT("couldn't get game instance"));
 
 	return nullptr;
 }

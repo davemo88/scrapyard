@@ -3,9 +3,10 @@
 #include "GarageWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
-#include "UI/PartCardWidget.h"
+#include "Game/ScrapyardGameInstance.h"
 #include "Parts/ArmsPart.h"
 #include "SoloDraft.h"
+#include "UI/PartCardWidget.h"
 
 void UGarageWidget::RemovePartCards()
 {
@@ -23,7 +24,6 @@ void UGarageWidget::DisplayArms()
 	for (int i = 0; i < SoloDraft->DraftedArms.Num(); ++i)
 	{
 		UPartCardWidget* Widget = CreateWidget<UPartCardWidget>(GetWorld(), UPartCardWidget::StaticClass());
-
 	}
 }
 
