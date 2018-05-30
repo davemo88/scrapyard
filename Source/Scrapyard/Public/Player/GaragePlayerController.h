@@ -4,23 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Player/MenuPlayerController.h"
-#include "MainMenuPlayerController.generated.h"
+#include "GaragePlayerController.generated.h"
 
-class MainMenuWidget;
+class UGarageWidget;
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARD_API AMainMenuPlayerController : public AMenuPlayerController
+class SCRAPYARD_API AGaragePlayerController : public AMenuPlayerController
 {
 	GENERATED_BODY()
-
+	
 protected:
 	virtual void BeginPlay() override;
 
-	void SetupMainMenuWidget();
+	void SetupGarageWidget();
 
-	UMainMenuWidget* MainMenuWidget;
-	
+	UGarageWidget* GarageWidget;
 };

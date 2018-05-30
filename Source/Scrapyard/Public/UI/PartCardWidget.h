@@ -8,6 +8,8 @@
 
 class URobotPart;
 
+DECLARE_EVENT_OneParam(UPartCardWidget, FPartCardClickedEvent, URobotPart);
+
 /**
  * 
  */
@@ -22,5 +24,11 @@ public:
 
 	UPROPERTY(BlueprintReadonly)
 	URobotPart* RobotPart;
+	
+	FPartCardClickedEvent& OnPartCardClickedEvent() { return PartCardClickedEvent; }
+
+private:
+
+	FPartCardClickedEvent PartCardClickedEvent;
 
 };

@@ -6,12 +6,12 @@
 #include "UObject/NoExportTypes.h"
 #include "ScrapyardDefaultAssets.generated.h"
 
-// do we need do to a lot of forward declarations here
-// since this will be an attribute of the Game Instance
-// and many related classes might include the Game Instance?
 class UMainMenuWidget;
 class UEscapeMenuWidget;
+class UGarageWidget;
+class UPartCardWidget;
 class URobotHUDWidget;
+
 class UHeadPart;
 class UCorePart;
 class UArmsPart;
@@ -33,6 +33,12 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<class UEscapeMenuWidget> EscapeMenuWidgetBP;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class UGarageWidget> GarageWidgetBP;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class UPartCardWidget> PartCardWidgetBP;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<class URobotHUDWidget> RobotHUDWidgetBP;
