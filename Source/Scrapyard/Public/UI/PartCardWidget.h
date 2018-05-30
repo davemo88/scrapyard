@@ -20,8 +20,7 @@ public:
 
 	void SetRobotPart(URobotPart* RobotPart);
 
-protected:
-
+	UPROPERTY(BlueprintReadonly)
 	URobotPart* RobotPart;
 
 };

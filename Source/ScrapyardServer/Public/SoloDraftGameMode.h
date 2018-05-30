@@ -3,16 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameMode.h"
-#include "Game/MenuGameMode.h"
+#include "GameFramework/GameModeBase.h"
 #include "SoloDraftGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARDSERVER_API ASoloDraftGameMode : public AMenuGameMode
+class SCRAPYARDSERVER_API ASoloDraftGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+
+	ASoloDraftGameMode();
 
 };

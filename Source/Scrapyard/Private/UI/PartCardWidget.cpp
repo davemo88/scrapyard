@@ -5,5 +5,5 @@
 
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
-	RobotPart = RobotPart;
+	RobotPart = NewRobotPart;
 }

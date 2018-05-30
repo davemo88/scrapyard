@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "MenuGameMode.generated.h"
+#include "MainMenuGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARD_API AMenuGameMode : public AGameModeBase
+class SCRAPYARD_API AMainMenuGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
 
-	AMenuGameMode();
+	AMainMenuGameMode();
 
 	virtual void RestartPlayer(class AController* NewPlayer) override;
 
