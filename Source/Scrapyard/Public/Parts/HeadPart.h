@@ -6,6 +6,8 @@
 #include "Parts/RobotPart.h"
 #include "HeadPart.generated.h"
 
+class URobotPartAssignment;
+
 /**
  * 
  */
@@ -17,4 +19,6 @@ class SCRAPYARD_API UHeadPart : public URobotPart
 public:
 
 	void Draft(USoloDraft* SoloDraft);
+
+	void Assign(URobotPartAssignment* PartAssignment);
 };

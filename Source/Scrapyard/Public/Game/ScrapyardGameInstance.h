@@ -19,8 +19,6 @@ class SCRAPYARD_API UScrapyardGameInstance : public UGameInstance
 public:	
 	UScrapyardGameInstance();
 
-	static UScrapyardGameInstance* GetGameInstance();
-
 	const UScrapyardDefaultAssets* DefaultAssetsBP;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

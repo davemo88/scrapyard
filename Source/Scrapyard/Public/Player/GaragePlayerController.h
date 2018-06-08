@@ -7,6 +7,7 @@
 #include "GaragePlayerController.generated.h"
 
 class UGarageWidget;
+class ARobotBodyGarage;
 
 /**
  * 
@@ -20,6 +21,8 @@ protected:
 	virtual void BeginPlay() override;
 
 	void SetupGarageWidget();
+
+	ARobotBodyGarage* GetRobotBody();
 
 	UGarageWidget* GarageWidget;
 };

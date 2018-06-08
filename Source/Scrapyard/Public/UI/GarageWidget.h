@@ -8,6 +8,8 @@
 
 class USoloDraft;
 class UPartCardWidget;
+class URobotPart;
+class URobotPartAssignment;
 
 /**
  * 
@@ -16,15 +18,38 @@ UCLASS()
 class SCRAPYARD_API UGarageWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+
+	void SetSoloDraft(USoloDraft* _SoloDraft);
+
+	void SetPartAssignment(URobotPartAssignment* _PartAssignment);
+
+	UFUNCTION(BlueprintCallable)
+	void DisplayHeads();
+	UFUNCTION(BlueprintCallable)
+	void DisplayCores();
+	UFUNCTION(BlueprintCallable)
+	void DisplayArms();
+	UFUNCTION(BlueprintCallable)
+	void DisplayLegs();
+	UFUNCTION(BlueprintCallable)
+	void GotoGarageTestLevel();
 	
 protected:
-	
+
 	USoloDraft* SoloDraft;
+
+	URobotPartAssignment* PartAssignment;
 	
 	void RemovePartCards();
 
-	void DisplayHeads();
-	void DisplayCores();
-	void DisplayArms();
-	void DisplayLegs();
+	template <class T>
+	void AddPartCards(TArray<T*> Parts);
+
+	UFUNCTION()
+	void AssignPart(URobotPart* Part);
+
+
+
 };

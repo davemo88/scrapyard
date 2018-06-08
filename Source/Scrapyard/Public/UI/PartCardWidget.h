@@ -8,7 +8,7 @@
 
 class URobotPart;
 
-DECLARE_EVENT_OneParam(UPartCardWidget, FPartCardClickedEvent, URobotPart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardClickedDelegate, URobotPart*, Part);
 
 /**
  * 
@@ -22,13 +22,12 @@ public:
 
 	void SetRobotPart(URobotPart* RobotPart);
 
-	UPROPERTY(BlueprintReadonly)
+	UPROPERTY(BlueprintReadOnly)
 	URobotPart* RobotPart;
-	
-	FPartCardClickedEvent& OnPartCardClickedEvent() { return PartCardClickedEvent; }
 
-private:
+	UFUNCTION(BlueprintCallable)
+	void OnPartCardClicked();
 
-	FPartCardClickedEvent PartCardClickedEvent;
+	FPartCardClickedDelegate PartCardClickedDelegate;
 
 };

@@ -3,13 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Parts/RobotPart.h"
-#include "Parts/HeadPart.h"
-#include "Parts/CorePart.h"
-#include "Parts/ArmsPart.h"
-#include "Parts/LegsPart.h"
 #include "Parts/HandheldPart.h"
 #include "RobotPartAssignment.generated.h"
+
+class URobotPart;
+class UHeadPart;
+class UCorePart;
+class UArmsPart;
+class ULegsPart;
 
 /**
  * 

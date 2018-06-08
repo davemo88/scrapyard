@@ -3,14 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SkeletalMeshTypes.h"
-#include "Materials/Material.h"
 #include "Engine/DataAsset.h"
-#include "Parts/Manufacturer.h"
-#include "Parts/Rarity.h"
 #include "RobotPart.generated.h"
 
+class UMaterial;
+class USkeletalMesh;
+class UManufacturer;
+class URarity;
 class USoloDraft;
+class URobotPartAssignment;
+
 /**
  * 
  */
@@ -51,4 +53,6 @@ public:
 	UMaterial* AccentMaterial;
 
 	virtual void Draft(USoloDraft* SoloDraft) {};
+
+	virtual void Assign(URobotPartAssignment* PartAssignment) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign()")); };
 };

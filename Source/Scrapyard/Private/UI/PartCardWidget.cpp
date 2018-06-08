@@ -7,3 +7,9 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
 	RobotPart = NewRobotPart;
 }
+
+void UPartCardWidget::OnPartCardClicked()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Broadcasting"));
+	PartCardClickedDelegate.Broadcast(RobotPart);
+}
