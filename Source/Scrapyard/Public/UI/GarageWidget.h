@@ -9,7 +9,7 @@
 class USoloDraft;
 class UPartCardWidget;
 class URobotPart;
-class URobotPartAssignment;
+class ARobotBodyGarage;
 
 /**
  * 
@@ -23,7 +23,7 @@ public:
 
 	void SetSoloDraft(USoloDraft* _SoloDraft);
 
-	void SetPartAssignment(URobotPartAssignment* _PartAssignment);
+	void SetRobotBodyGarage(ARobotBodyGarage* _RobotBody);
 
 	UFUNCTION(BlueprintCallable)
 	void DisplayHeads();
@@ -40,7 +40,7 @@ protected:
 
 	USoloDraft* SoloDraft;
 
-	URobotPartAssignment* PartAssignment;
+	ARobotBodyGarage* RobotBodyGarage;
 	
 	void RemovePartCards();
 
@@ -49,7 +49,5 @@ protected:
 
 	UFUNCTION()
 	void AssignPart(URobotPart* Part);
-
-
 
 };

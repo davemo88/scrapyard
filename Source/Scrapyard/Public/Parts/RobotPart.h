@@ -12,6 +12,7 @@ class UManufacturer;
 class URarity;
 class USoloDraft;
 class URobotPartAssignment;
+class URobotBodyComponent;
 
 /**
  * 
@@ -54,5 +55,7 @@ public:
 
 	virtual void Draft(USoloDraft* SoloDraft) {};
 
-	virtual void Assign(URobotPartAssignment* PartAssignment) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign()")); };
+	virtual void Assign(URobotPartAssignment* PartAssignment) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(PartAssignment)")); };
+
+	virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
 };

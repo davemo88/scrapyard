@@ -13,6 +13,7 @@ ARobotBodyGarage::ARobotBodyGarage()
 //	RootComponent = GetRootComponent();
 //	RobotBodyComponent->SetupAttachment(RootComponent);
 
+	RobotBodyComponent->SetEnableGravity(false);
 }
 
 // Called when the game starts or when spawned

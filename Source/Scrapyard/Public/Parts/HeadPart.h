@@ -20,5 +20,5 @@ public:
 
 	void Draft(USoloDraft* SoloDraft);
 
-	void Assign(URobotPartAssignment* PartAssignment);
+	void Assign(URobotBodyComponent* RobotBody);
 };

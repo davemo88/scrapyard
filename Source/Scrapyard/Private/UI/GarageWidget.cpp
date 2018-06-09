@@ -1,12 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GarageWidget.h"
+#include "UObjectGlobals.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/PanelWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardDefaultAssets.h"
+#include "Robots/RobotBodyGarage.h"
 #include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
 #include "UI/PartCardWidget.h"
@@ -17,9 +19,9 @@ void UGarageWidget::SetSoloDraft(USoloDraft* _SoloDraft)
 	SoloDraft = _SoloDraft;
 }
 
-void UGarageWidget::SetPartAssignment(URobotPartAssignment* _PartAssignment)
+void UGarageWidget::SetRobotBodyGarage(ARobotBodyGarage* _RobotBodyGarage)
 {
-	PartAssignment = _PartAssignment;
+	RobotBodyGarage = _RobotBodyGarage;
 }
 
 void UGarageWidget::DisplayHeads()
@@ -49,6 +51,8 @@ void UGarageWidget::DisplayLegs()
 
 void UGarageWidget::GotoGarageTestLevel()
 {
+	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
+	GameInstance->RobotPartAssignment = DuplicateObject<URobotPartAssignment>(RobotBodyGarage->RobotBodyComponent->RobotPartAssignment, nullptr);// GetOwningPlayer()->GetWorld());
 	UGameplayStatics::OpenLevel(GetOwningPlayer()->GetWorld(), "GarageTestLevel");
 }
 
@@ -79,6 +83,6 @@ void UGarageWidget::AddPartCards(TArray<T*> Parts)
 
 void UGarageWidget::AssignPart(URobotPart* Part)
 {
-	Part->Assign(PartAssignment);
+	Part->Assign(RobotBodyGarage->RobotBodyComponent);
 }
 

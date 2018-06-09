@@ -22,4 +22,6 @@ public:
 	uint8 RecoilControl;
 
 	void Draft(USoloDraft* SoloDraft);
+
+	void Assign(URobotBodyComponent* RobotBody);
 };

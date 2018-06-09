@@ -24,5 +24,5 @@ public:
 	int32 Cooldown = 0;
 
 	void Draft(USoloDraft* SoloDraft);
-	
+
 };

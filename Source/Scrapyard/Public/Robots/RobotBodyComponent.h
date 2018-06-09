@@ -60,13 +60,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetPartAssignment(URobotPartAssignment* PartAssignment);
 
-// if these weren't UFUNCTIONs then I could write an overloaded function
-	UFUNCTION(BlueprintCallable)
 	void SetHead(UHeadPart* NewHead);
-	UFUNCTION(BlueprintCallable)
 	void SetCore(UCorePart* NewCore);
-	UFUNCTION(BlueprintCallable)
 	void SetArms(UArmsPart* NewArms);
-	UFUNCTION(BlueprintCallable)
 	void SetLegs(ULegsPart* NewLegs);
 };

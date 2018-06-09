@@ -18,4 +18,5 @@ public:
 
 	void Draft(USoloDraft* SoloDraft);
 
+	void Assign(URobotBodyComponent* RobotBody);
 };
