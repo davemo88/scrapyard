@@ -21,6 +21,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 	SetupPartAssignment();
 	SetupBody();
 	SetupStats();
+	UpdateStats();
 
 // allow flying movement
 	UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());

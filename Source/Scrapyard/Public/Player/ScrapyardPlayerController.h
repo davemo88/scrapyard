@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "ScrapyardPlayerController.generated.h"
 
+class URobotHUDWidget;
+
 /**
  * 
  */
@@ -14,8 +16,11 @@ class SCRAPYARD_API AScrapyardPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-public:
-	
-	AScrapyardPlayerController();
+protected:
+	virtual void BeginPlay() override;
+
+	void SetupRobotHUDWidget();
+
+	URobotHUDWidget* RobotHUDWidget;
 	
 };

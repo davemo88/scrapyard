@@ -2,10 +2,12 @@
 
 #include "RobotGameMode.h"
 #include "Robots/RobotCharacter.h"
+#include "Player/ScrapyardPlayerController.h"
 
 ARobotGameMode::ARobotGameMode()
 {
 	DefaultPawnClass = ARobotCharacter::StaticClass();
+	PlayerControllerClass = AScrapyardPlayerController::StaticClass();
 }
 
 
