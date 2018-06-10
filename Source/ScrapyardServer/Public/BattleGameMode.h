@@ -3,17 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameMode.h"
+#include "Game/RobotGameMode.h"
 #include "BattleGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARDSERVER_API ABattleGameMode : public AGameMode
+class SCRAPYARDSERVER_API ABattleGameMode : public ARobotGameMode
 {
 	GENERATED_BODY()
-
-	ABattleGameMode();
 
 };

@@ -16,7 +16,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 
 	bReplicates = true;
 	bAlwaysRelevant = true;
-
+// maybe we need to put the default subobjects in the constructor?
 	SetupCamera();
 	SetupPartAssignment();
 	SetupBody();
@@ -105,9 +105,6 @@ void ARobotCharacter::SetupBody()
 
 	RootComponent = GetRootComponent();
 	RobotBodyComponent->SetupAttachment(RootComponent);
-
-// need that magic DO_REPLIFETIME(?) function
-//	RobotBodyComponent->SetIsReplicated(true);
 }
 
 void ARobotCharacter::SetupStats()
@@ -203,3 +200,8 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 // better to switch on this enum type later
 //	EMovementMode MovementMode = MovementComponent->MovementMode;
 }
+
+//void ARobotCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
+//{
+//    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+//}

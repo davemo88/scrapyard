@@ -14,7 +14,11 @@ class SCRAPYARD_API ARobotGameMode : public AGameMode
 {
 	GENERATED_BODY()
 
+public:
+
 	ARobotGameMode();
+
+	void PostLogin(APlayerController* NewPlayer) override;
 	
 	
 };
