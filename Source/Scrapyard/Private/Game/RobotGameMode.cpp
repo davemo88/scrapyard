@@ -18,10 +18,10 @@ void ARobotGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
 
-	UE_LOG(LogTemp, Warning, TEXT("Num Players: %i"), NumPlayers);
-	UE_LOG(LogTemp, Warning, TEXT("Num PlayerController: %i"), NumPlayers);
-	for (TActorIterator<APlayerController> ActrItr(GetWorld()); ActrItr; ++ActrItr)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("here's a controller")));
-	}
+//	UE_LOG(LogTemp, Warning, TEXT("Num Players: %i"), NumPlayers);
+//	UE_LOG(LogTemp, Warning, TEXT("Num PlayerController: %i"), NumPlayers);
+//	for (TActorIterator<APlayerController> ActrItr(GetWorld()); ActrItr; ++ActrItr)
+//	{
+//		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("here's a controller")));
+//	}
 }

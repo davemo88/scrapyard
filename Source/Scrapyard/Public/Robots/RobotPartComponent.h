@@ -17,8 +17,10 @@ class SCRAPYARD_API URobotPartComponent : public USkeletalMeshComponent
 
 public:
 
-	URobotPart* AssignedPart;
-
 	void AssignPart(URobotPart* Part);
+
+protected:
+
+	URobotPart* AssignedPart;
 
 };
