@@ -35,11 +35,11 @@ void UScrapyardGameInstance::Shutdown()
 	Super::Shutdown();
 }
 
-FGameInstancePIEResult UScrapyardGameInstance::StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params)
-{
-	UE_LOG(LogTemp, Warning, TEXT("StartPlayInEditorGameInstance()"));
-	return Super::StartPlayInEditorGameInstance(LocalPlayer, Params);
-}
+//FGameInstancePIEResult UScrapyardGameInstance::StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params)
+//{
+//	UE_LOG(LogTemp, Warning, TEXT("StartPlayInEditorGameInstance()"));
+//	return Super::StartPlayInEditorGameInstance(LocalPlayer, Params);
+//}
 
 void UScrapyardGameInstance::StartGameInstance()
 {

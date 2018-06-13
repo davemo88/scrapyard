@@ -31,7 +31,7 @@ public:
 
 	virtual void Init() override;
 	virtual void Shutdown() override;
-	FGameInstancePIEResult StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params) override;
+//	FGameInstancePIEResult StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params) override;
 	virtual void StartGameInstance() override;
 	
 };
