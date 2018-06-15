@@ -24,20 +24,21 @@ void UMainMenuWidget::OnGarageButtonClicked()
 
 void UMainMenuWidget::OnHostButtonClicked()
 {
-	UWorld* World = GetWorld();
-	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
-	UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
+	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
 	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
-	GameSession->HostSession(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true, 2);
+	GameSession->HostSession(GetOwningLocalPlayer()->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true, 2);
 }
 
 void UMainMenuWidget::OnJoinButtonClicked()
 {
-	UWorld* World = GetWorld();
-	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
-	UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
+//	UWorld* World = GetWorld();
+//	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
+//	UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
+//	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
+//	GameSession->FindSessions(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true);
+	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
 	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
-	GameSession->FindSessions(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true);
+	GameSession->FindSessions(GetOwningLocalPlayer()->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true);
 }
 
 void UMainMenuWidget::OnQuitButtonClicked()

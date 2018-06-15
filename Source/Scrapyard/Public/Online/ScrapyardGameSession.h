@@ -50,4 +50,6 @@ public:
 
 	const TArray<FOnlineSessionSearchResult> & GetSearchResults() const;
 
+	void RegisterServer() override;
+
 };

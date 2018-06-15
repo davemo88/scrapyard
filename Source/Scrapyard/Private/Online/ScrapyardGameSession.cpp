@@ -239,3 +239,10 @@ const TArray<FOnlineSessionSearchResult> & AScrapyardGameSession::GetSearchResul
 {
 	return SessionSearch->SearchResults;
 }
+
+void AScrapyardGameSession::RegisterServer()
+{
+	Super::RegisterServer();
+
+	HostSession(0, FName(TEXT("DedicatedSession")), true, true, 4);
+}
