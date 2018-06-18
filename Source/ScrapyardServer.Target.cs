@@ -12,5 +12,6 @@ public class ScrapyardServerTarget : TargetRules
 
         ExtraModuleNames.Add("Scrapyard");
         ExtraModuleNames.Add("ScrapyardServer");
+        ExtraModuleNames.Add("ScrapyardClient");
     }
 }

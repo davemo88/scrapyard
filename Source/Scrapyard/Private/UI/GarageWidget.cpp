@@ -53,7 +53,7 @@ void UGarageWidget::GotoGarageTestLevel()
 {
 	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
 	GameInstance->RobotPartAssignment = DuplicateObject<URobotPartAssignment>(RobotBodyGarage->RobotBodyComponent->RobotPartAssignment, nullptr);// GetOwningPlayer()->GetWorld());
-	UGameplayStatics::OpenLevel(GetOwningPlayer()->GetWorld(), "GarageTestLevel");
+	UGameplayStatics::OpenLevel(GetOwningPlayer()->GetWorld(), "/Game/Levels/GarageTestLevel");
 }
 
 void UGarageWidget::RemovePartCards()

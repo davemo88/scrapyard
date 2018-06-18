@@ -13,13 +13,13 @@ void UMainMenuWidget::NativeConstruct()
 void UMainMenuWidget::OnDraftButtonClicked()
 {
 	UWorld* World = GetWorld();
-	UGameplayStatics::OpenLevel(World, "SoloDraftLevel");
+	UGameplayStatics::OpenLevel(World, "/Game/Levels/SoloDraftLevel");
 }
 
 void UMainMenuWidget::OnGarageButtonClicked()
 {
 	UWorld* World = GetWorld();
-	UGameplayStatics::OpenLevel(World, "GarageLevel");
+	UGameplayStatics::OpenLevel(World, "/Game/Levels/GarageLevel");
 }
 
 void UMainMenuWidget::OnHostButtonClicked()
@@ -31,14 +31,12 @@ void UMainMenuWidget::OnHostButtonClicked()
 
 void UMainMenuWidget::OnJoinButtonClicked()
 {
-//	UWorld* World = GetWorld();
-//	ULocalPlayer* const Player = World->GetFirstLocalPlayerFromController();
-//	UScrapyardGameInstance* GameInstance = World->GetGameInstance<UScrapyardGameInstance>();
+//	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
 //	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
-//	GameSession->FindSessions(Player->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true);
-	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
-	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
-	GameSession->FindSessions(GetOwningLocalPlayer()->GetPreferredUniqueNetId(), FName(TEXT("TestSession")), true, true);
+//	GameSession->FindSessions(GetOwningLocalPlayer()->GetPreferredUniqueNetId(), FName(TEXT("DedicatedSession")), true, false);
+	APlayerController* Player = GetOwningPlayer();
+//	Player->ClientTravel("35.171.154.29//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+	Player->ClientTravel("69.69.69.69//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
 }
 
 void UMainMenuWidget::OnQuitButtonClicked()

@@ -6,6 +6,8 @@
 #include "GameFramework/GameMode.h"
 #include "RobotGameMode.generated.h"
 
+class AGameSession;
+
 /**
  * 
  */
@@ -20,5 +22,6 @@ public:
 
 	void PostLogin(APlayerController* NewPlayer) override;
 	
+	virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;	
 	
 };

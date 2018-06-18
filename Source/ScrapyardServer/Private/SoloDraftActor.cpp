@@ -139,7 +139,7 @@ void ASoloDraftActor::DraftPart(URobotPart* RobotPart)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("draft complete"));
 			GameInstance->SoloDraft = DuplicateObject(CurrentDraft, NULL);
-			UGameplayStatics::OpenLevel(GetWorld(), "GarageLevel");
+			UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
 		}
 	}
 }

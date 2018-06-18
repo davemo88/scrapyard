@@ -13,7 +13,7 @@ public class Scrapyard : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-        DynamicallyLoadedModuleNames.Add("OnlineSubsystemNull");
+//        DynamicallyLoadedModuleNames.Add("OnlineSubsystemNull");
 
     	PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		
@@ -22,5 +22,6 @@ public class Scrapyard : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem", "OnlineSubsystemUtils"  });
 
 		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+
 	}
 }

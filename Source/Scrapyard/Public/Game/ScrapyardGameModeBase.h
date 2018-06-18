@@ -14,6 +14,7 @@ class SCRAPYARD_API AScrapyardGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
+public:
 	virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;	
 	
 };

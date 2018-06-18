@@ -12,7 +12,7 @@ public class ScrapyardServer : ModuleRules
 
 //		PrivateDependencyModuleNames.AddRange(new string[] { "Scrapyard" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+//		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 		
 		// Uncomment if you are using online features
    		PrivateDependencyModuleNames.AddRange(new string[] { "OnlineSubsystem", "OnlineSubsystemUtils" });

@@ -11,6 +11,6 @@ public class ScrapyardClientTarget : TargetRules
 		Type = TargetType.Client;
 
 		ExtraModuleNames.Add("Scrapyard");
-        ExtraModuleNames.Add("ScrapyardClient");
+//        ExtraModuleNames.Add("ScrapyardClient");
 	}
 }

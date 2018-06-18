@@ -13,7 +13,7 @@ FScrapyardOnlineSessionSettings::FScrapyardOnlineSessionSettings(bool bIsLAN, bo
 	bAllowJoinInProgress = true;
 	bAllowInvites = true;
 	bUsesPresence = bIsPresence;
-	bAllowJoinViaPresence = true;
+	bAllowJoinViaPresence = false;
 	bAllowJoinViaPresenceFriendsOnly = false;
 }
 

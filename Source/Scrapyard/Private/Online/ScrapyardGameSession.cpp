@@ -39,10 +39,14 @@ bool AScrapyardGameSession::HostSession(TSharedPtr<const FUniqueNetId> UserId, F
 
 			return Sessions->CreateSession(*UserId, SessionName, *SessionSettings);
 		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("couldn't host the session"));
+		}
 	}
 	else
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("No OnlineSubsytem found!"));
+		UE_LOG(LogTemp, Warning, TEXT("couldn't host the session"));
 	}
 
 	return false;
@@ -141,7 +145,7 @@ void AScrapyardGameSession::OnStartOnlineGameComplete(FName SessionName, bool bW
 	// If the start was successful, we can open a NewMap if we want. Make sure to use "listen" as a parameter!
 	if (bWasSuccessful)
 	{
-		UGameplayStatics::OpenLevel(GetWorld(), "BattleLevel", true, "listen");
+		UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/BattleLevel", true, "listen");
 	}
 }
 
@@ -229,7 +233,7 @@ void AScrapyardGameSession::OnDestroySessionComplete(FName SessionName, bool bWa
 
 			if (bWasSuccessful)
 			{
-				UGameplayStatics::OpenLevel(GetWorld(), "Main", true);
+				UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/MainLevel", true);
 			}
 		}
 	}
@@ -243,6 +247,34 @@ const TArray<FOnlineSessionSearchResult> & AScrapyardGameSession::GetSearchResul
 void AScrapyardGameSession::RegisterServer()
 {
 	Super::RegisterServer();
+	
+	UE_LOG(LogTemp, Warning, TEXT("RegisterServer. Hosting DedicatedSession"));
 
-	HostSession(0, FName(TEXT("DedicatedSession")), true, true, 4);
+	IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get();
+
+	if (OnlineSub)
+	{
+		IOnlineSessionPtr Sessions = OnlineSub->GetSessionInterface();
+
+		if (Sessions.IsValid())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("about to try to make the session settings"));
+
+			SessionSettings = MakeShareable(new FScrapyardOnlineSessionSettings());
+
+			SessionSettings->Set(SETTING_MAPNAME, FString("BattleLevel"), EOnlineDataAdvertisementType::ViaOnlineService);
+
+			OnCreateSessionCompleteDelegateHandle = Sessions->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
+
+			Sessions->CreateSession(0, FName(TEXT("DedicatedSession")), *SessionSettings);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("sessions interface is invalid"));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("no online subsystem found"));
+	}
 }
