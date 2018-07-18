@@ -1,4 +1,5 @@
 *.sln
+*.swp
 Binaries/
 Intermediate/
 Saved/
@@ -7,3 +8,17 @@ DerivedDataCache/
 Build/
 Content/StarterContent/
 .vs/
+*.pri
+Scrapyard.
+Makefile
+ScrapyardCodeCompletionFolders.txt
+ScrapyardCodeLitePreProcessor.txt
+CMakeLists.txt
+Scrapyard.code-workspace
+Scrapyard.kdev4
+Scrapyard.pro
+Scrapyard.workspace
+.idea/
+.kdev4/
+.vscode/
+
