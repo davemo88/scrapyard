@@ -43,10 +43,14 @@ public:
 	/** Default number of players allowed in a game */
 	static const int32 DEFAULT_MAX_PLAYERS = 8;
 
-	bool HostSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName,  bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
-	void FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
-	bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult);
-	bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, int32 SessionIndexInSearchResults);
+//	bool HostSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName,  bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
+//	void FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
+//	bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult);
+//	bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, int32 SessionIndexInSearchResults);
+	bool HostSession(FUniqueNetIdRepl UserId, FName SessionName,  bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
+	void FindSessions(FUniqueNetIdRepl UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
+	bool JoinSession(FUniqueNetIdRepl UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult);
+	bool JoinSession(FUniqueNetIdRepl UserId, FName SessionName, int32 SessionIndexInSearchResults);
 
 	const TArray<FOnlineSessionSearchResult> & GetSearchResults() const;
 

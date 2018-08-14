@@ -19,7 +19,8 @@ AScrapyardGameSession::AScrapyardGameSession()
 	OnDestroySessionCompleteDelegate = FOnDestroySessionCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnDestroySessionComplete);
 }
 
-bool AScrapyardGameSession::HostSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
+//bool AScrapyardGameSession::HostSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
+bool AScrapyardGameSession::HostSession(FUniqueNetIdRepl UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
 {
 	IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get();
 
@@ -52,7 +53,8 @@ bool AScrapyardGameSession::HostSession(TSharedPtr<const FUniqueNetId> UserId, F
 	return false;
 }
 
-void AScrapyardGameSession::FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence)
+//void AScrapyardGameSession::FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence)
+void AScrapyardGameSession::FindSessions(FUniqueNetIdRepl UserId, FName SessionName, bool bIsLAN, bool bIsPresence)
 {
 	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
 
@@ -78,7 +80,8 @@ void AScrapyardGameSession::FindSessions(TSharedPtr<const FUniqueNetId> UserId, 
 	}
 }
 
-bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult)
+//bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult)
+bool AScrapyardGameSession::JoinSession(FUniqueNetIdRepl UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult)
 {
 	// Return bool
 	bool bSuccessful = false;
@@ -99,7 +102,8 @@ bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, F
 	return bSuccessful;
 }
 
-bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, int32 SessionIndexInSearchResults)
+//bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, int32 SessionIndexInSearchResults)
+bool AScrapyardGameSession::JoinSession(FUniqueNetIdRepl UserId, FName SessionName, int32 SessionIndexInSearchResults)
 {
 	const FOnlineSessionSearchResult& SearchResult = SessionSearch->SearchResults[SessionIndexInSearchResults];
 	return JoinSession(UserId, SessionName, SearchResult);
