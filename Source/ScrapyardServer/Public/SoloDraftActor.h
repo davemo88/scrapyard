@@ -32,7 +32,6 @@ private:
 	
 	UPROPERTY()
 	URobotPartHelper* RobotPartHelper;
-
 	TArray<UHeadPart*> HeadParts;
 	TArray<UCorePart*> CoreParts;
 	TArray<UArmsPart*> ArmsParts;
