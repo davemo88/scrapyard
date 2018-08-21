@@ -56,4 +56,6 @@ public:
 
 	void RegisterServer() override;
 
+        int Lol;
+
 };
