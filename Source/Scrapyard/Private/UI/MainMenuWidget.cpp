@@ -35,7 +35,8 @@ void UMainMenuWidget::OnJoinButtonClicked()
 //	AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
 //	GameSession->FindSessions(GetOwningLocalPlayer()->GetPreferredUniqueNetId(), FName(TEXT("DedicatedSession")), true, false);
 	APlayerController* Player = GetOwningPlayer();
-	Player->ClientTravel("35.171.154.29//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+//	Player->ClientTravel("35.171.154.29//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+	Player->ClientTravel("127.0.0.1//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
 }
 
 void UMainMenuWidget::OnQuitButtonClicked()

@@ -8,20 +8,19 @@
 
 void AScrapyardPlayerController::BeginPlay()
 {
-	Super::BeginPlay();
+  Super::BeginPlay();
 
-	SetupRobotHUDWidget();
-
+  SetupRobotHUDWidget();
 }
 
 void AScrapyardPlayerController::SetupRobotHUDWidget()
 {
-	if (GetPawn())
-	{
-		UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-		RobotHUDWidget = CreateWidget<URobotHUDWidget>(this, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
-		RobotHUDWidget->SetRobotCharacter(Cast<ARobotCharacter>(GetPawn()));
-		RobotHUDWidget->AddToViewport();
-	}
+  if (GetPawn())
+  {
+    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+    RobotHUDWidget = CreateWidget<URobotHUDWidget>(this, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
+    RobotHUDWidget->SetRobotCharacter(Cast<ARobotCharacter>(GetPawn()));
+    RobotHUDWidget->AddToViewport();
+  }
 }
 

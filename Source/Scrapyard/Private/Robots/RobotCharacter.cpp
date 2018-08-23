@@ -45,18 +45,18 @@ void ARobotCharacter::Tick(float DeltaTime)
 // Called to bind functionality to input
 void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+  Super::SetupPlayerInputComponent(PlayerInputComponent);
 
     /* Movement */
-    PlayerInputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
-    PlayerInputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
+  PlayerInputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
+  PlayerInputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
 
-    PlayerInputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
-    PlayerInputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
+  PlayerInputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
+  PlayerInputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
 
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ARobotCharacter::Jump);
+  PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ARobotCharacter::Jump);
 
-	PlayerInputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
+  PlayerInputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
 }
 
 void ARobotCharacter::SetupCamera()

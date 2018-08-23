@@ -21,4 +21,8 @@ Scrapyard.workspace
 .idea/
 .kdev4/
 .vscode/
-
+compile_commands.json
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+.clang_completer
