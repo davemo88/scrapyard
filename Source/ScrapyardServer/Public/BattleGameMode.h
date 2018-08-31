@@ -12,17 +12,20 @@
 UCLASS()
 class SCRAPYARDSERVER_API ABattleGameMode : public ARobotGameMode
 {
-    GENERATED_BODY()
-    public:
+  GENERATED_BODY()
 
-          void PostLogin(APlayerController* NewPlayer) override;
+  public:
 
-    protected:
-          
-          void HandleMatchIsWaitingToStart() override;
-          void HandleMatchHasStarted() override;
-          void HandleMatchHasEnded() override;
-          void HandleMatchAborted() override;
-          void HandleLeavingMap() override;
-          void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
+    ABattleGameMode();
+
+    void PostLogin(APlayerController* NewPlayer) override;
+
+  protected:
+      
+    void HandleMatchIsWaitingToStart() override;
+    void HandleMatchHasStarted() override;
+    void HandleMatchHasEnded() override;
+    void HandleMatchAborted() override;
+    void HandleLeavingMap() override;
+    void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
 };

@@ -32,7 +32,6 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 void ARobotCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame

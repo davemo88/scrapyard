@@ -3,19 +3,32 @@
 #include "BattleGameMode.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerController.h"
+#include "Player/ScrapyardPlayerController.h"
+
+ABattleGameMode::ABattleGameMode()
+{
+  bDelayedStart = true;
+  DefaultPawnClass = ARobotCharacter::StaticClass();
+  PlayerControllerClass = AScrapyardPlayerController::StaticClass();
+}
 
 void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 {
   Super::PostLogin(NewPlayer);
+  UE_LOG(LogTemp, Warning, TEXT("Battle Game Mode Post Login"));
+  UE_LOG(LogTemp, Warning, TEXT("bDelayedStart: %s"), (this->bDelayedStart ? TEXT("True") : TEXT("False")));
+  
 }
 
 void ABattleGameMode::HandleMatchIsWaitingToStart()
 {
+  Super::HandleMatchIsWaitingToStart();
   UE_LOG(LogTemp, Warning, TEXT("HandleMatchIsWaitingToStart"));
 }
 
 void ABattleGameMode::HandleMatchHasStarted()
 {
+  Super::HandleMatchHasStarted();
   UE_LOG(LogTemp, Warning, TEXT("HandleMatchHasStarted"));
 }
 
@@ -36,5 +49,6 @@ void ABattleGameMode::HandleLeavingMap()
 
 void ABattleGameMode::HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer)
 {
+//  Super::HandleStartingNewPlayer_Implementation();
   UE_LOG(LogTemp, Warning, TEXT("HandleStartingNewPlayer"));
 }
