@@ -10,12 +10,12 @@
  * 
  */
 UCLASS()
-class SCRAPYARDSERVER_API ABattleGameState : public AGameState
+class SCRAPYARD_API ABattleGameState : public AGameState
 {
-	GENERATED_BODY()
-			
+  GENERATED_BODY()
+      
 public:
 
-//	ABattleGameState();
+  ABattleGameState();
 
 };

@@ -204,3 +204,27 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 //{
 //    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 //}
+
+void ARobotCharacter::StartFire(uint8 FireModeNum)
+{
+  UE_LOG(LogTemp, Warning, TEXT("StartFire %d"), FireModeNum);
+
+  if (!IsLocallyControlled())
+  {
+    UE_LOG(LogTemp, Warning, TEXT("StartFire can only be called on the owning client"));
+  }
+  else
+  {
+    
+  }
+}
+
+void ARobotCharacter::StopFire(uint8 FireModeNum)
+{
+
+}
+
+void ARobotCharacter::StopFiring()
+{
+
+}

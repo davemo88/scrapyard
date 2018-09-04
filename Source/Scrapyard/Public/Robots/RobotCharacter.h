@@ -15,60 +15,69 @@
 UCLASS()
 class SCRAPYARD_API ARobotCharacter : public ACharacter
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	ARobotCharacter(const class FObjectInitializer& ObjectInitializer);
+  // Sets default values for this character's properties
+  ARobotCharacter(const class FObjectInitializer& ObjectInitializer);
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+  // Called when the game starts or when spawned
+  virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:  
+  // Called every frame
+  virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+  // Called to bind functionality to input
+  virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 // part assignment
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotPartAssignment* RobotPartAssignment;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  URobotPartAssignment* RobotPartAssignment;
 // body
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotBodyComponent* RobotBodyComponent;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  URobotBodyComponent* RobotBodyComponent;
 // stats
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotStats* RobotStats;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  URobotStats* RobotStats;
 
-	void SetupBody();
-	void SetupPartAssignment();
-	void SetupStats();
+  void SetupBody();
+  void SetupPartAssignment();
+  void SetupStats();
 
-	UFUNCTION(BlueprintCallable)
-	void UpdateStats();
+  UFUNCTION(BlueprintCallable)
+  void UpdateStats();
 
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Durability;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Power = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 Durability;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 Power = 0;
 
 // camera
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* OurCamera;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+  class UCameraComponent* OurCamera;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+  class USpringArmComponent* CameraBoom;
 
-	void SetupCamera();
+  void SetupCamera();
 
 // movement
-	UFUNCTION()
-	virtual void Axis_MoveX(float AxisValue);
-	UFUNCTION()
-	virtual void Axis_MoveY(float AxisValue);
-	UFUNCTION()
-	virtual void Axis_Boost(float AxisValue);
-	
+  UFUNCTION()
+  virtual void Axis_MoveX(float AxisValue);
+  UFUNCTION()
+  virtual void Axis_MoveY(float AxisValue);
+  UFUNCTION()
+  virtual void Axis_Boost(float AxisValue);
+
+// we firing weapons
+  AScrapyardWeapon* CurrentWeapon
+
+  UFUNCTION()
+  virtual void StartFire(uint8 FireModeNum);
+  UFUNCTION()
+  virtual void StopFire(uint8 FireModeNum);
+  UFUNCTION()
+  virtual void StopFiring();
+  
 };
