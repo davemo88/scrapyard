@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Parts/HandheldPart.h"
 #include "RobotPartAssignment.generated.h"
 
 class URobotPart;
@@ -11,6 +10,9 @@ class UHeadPart;
 class UCorePart;
 class UArmsPart;
 class ULegsPart;
+class UHandheldPart;
+class UBoosterPart;
+class UChipPart;
 
 /**
  * 
@@ -31,7 +33,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ULegsPart* Legs = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoosterPart* BoosterPart = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UHandheldPart* RightHandheldPart = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UHandheldPart* LeftHandheldPart = nullptr;
 
 // TODO: remove when we have proper character init
 	UFUNCTION(BlueprintCallable)

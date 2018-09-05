@@ -70,8 +70,8 @@ public:
   UFUNCTION()
   virtual void Axis_Boost(float AxisValue);
 
-// we firing weapons
-  AScrapyardWeapon* CurrentWeapon
+// firing weapons
+//  AScrapyardWeapon* CurrentWeapon
 
   UFUNCTION()
   virtual void StartFire(uint8 FireModeNum);

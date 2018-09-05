@@ -7,12 +7,13 @@
 #include "Kismet/GameplayStatics.h"
 #include "Robots/RobotCharacter.h"
 #include "Online/ScrapyardGameSession.h"
-#include "Player/ScrapyardPlayerController.h"
+//#include "Player/ScrapyardPlayerController.h"
+#include "Robots/RobotPlayerController.h"
 
 ARobotGameMode::ARobotGameMode()
 {
-	DefaultPawnClass = ARobotCharacter::StaticClass();
-	PlayerControllerClass = AScrapyardPlayerController::StaticClass();
+  DefaultPawnClass = ARobotCharacter::StaticClass();
+  PlayerControllerClass = ARobotPlayerController::StaticClass();
 }
 
 void ARobotGameMode::PostLogin(APlayerController* NewPlayer)

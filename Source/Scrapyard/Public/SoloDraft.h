@@ -4,12 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "HeadPart.h"
-#include "CorePart.h"
-#include "ArmsPart.h"
-#include "LegsPart.h"
-#include "RobotPartAssignment.h"
 #include "SoloDraft.generated.h"
+
+class URobotPartAssignment;
+class URobotPart;
+class UHeadPart;
+class UCorePart;
+class UArmsPart;
+class ULegsPart;
+class UHandheldPart;
+class UBoosterPart;
+class UChipPart;
 
 /**
  * 
@@ -37,6 +42,12 @@ public:
 	TArray<UArmsPart*> DraftedArms;
 	UPROPERTY(BlueprintReadOnly)
 	TArray<ULegsPart*> DraftedLegs;
+	UPROPERTY(BlueprintReadOnly)
+	TArray<UHandheldPart*> DraftedHandhelds;
+	UPROPERTY(BlueprintReadOnly)
+	TArray<UBoosterPart*> DraftedBoosters;
+	UPROPERTY(BlueprintReadOnly)
+	TArray<UChipPart*> DraftedChips;
 
 	UPROPERTY(BlueprintReadOnly)
 	URobotPartAssignment* CurrentPack;

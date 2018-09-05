@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Camera/CameraActor.h"
 #include "SoloDraft.h"
+#include "Robots/RobotPartAssignment.h"
 #include "HeadPart.h"
 #include "CorePart.h"
 #include "ArmsPart.h"

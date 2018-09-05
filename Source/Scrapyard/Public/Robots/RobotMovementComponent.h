@@ -12,12 +12,13 @@
 UCLASS()
 class SCRAPYARD_API URobotMovementComponent : public UCharacterMovementComponent
 {
-	GENERATED_BODY()
-	
-	
+  GENERATED_BODY()
+  
 public:
 
-	URobotMovementComponent();
-	
-	
+  URobotMovementComponent();
+  
+  virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 };
+
