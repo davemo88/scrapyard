@@ -8,13 +8,14 @@ ARobotPlayerController::ARobotPlayerController()
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController Constructor"));
   PlayerCameraManagerClass = ARobotPlayerCameraManager::StaticClass();
-//  RobotCharacter = Cast<ARobotCharacter>(GetPawn());
 }
 
 void ARobotPlayerController::Possess(APawn* InPawn)
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController::Possess"));
+
   Super::Possess(InPawn);
+
   RobotCharacter = Cast<ARobotCharacter>(GetPawn());
   SetupInputComponent();
 }
@@ -60,7 +61,7 @@ void ARobotPlayerController::OnFire()
 
 void ARobotPlayerController::OnStopFire()
 {
-
+  UE_LOG(LogTemp, Warning, TEXT("StopFire()"));
 }
 
 bool ARobotPlayerController::HasDeferredFireInputs()
@@ -95,4 +96,5 @@ void ARobotPlayerController::ApplyDeferredFireInputs()
       RobotCharacter->StopFire(Input.FireMode);
     }
   }
+  DeferredFireInputs.Empty();
 }

@@ -44,9 +44,7 @@ void ARobotCharacter::Tick(float DeltaTime)
 // Called to bind functionality to input
 void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-  UE_LOG(LogTemp, Warning, TEXT("RobotCharacter::SetupPlayerInputComponent"));
   Super::SetupPlayerInputComponent(PlayerInputComponent);
-
   /* Movement */
 //  PlayerInputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
 //  PlayerInputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
@@ -224,7 +222,7 @@ void ARobotCharacter::StartFire(uint8 FireModeNum)
 
 void ARobotCharacter::StopFire(uint8 FireModeNum)
 {
-
+  UE_LOG(LogTemp, Warning, TEXT("StopFire()"));
 }
 
 void ARobotCharacter::StopFiring()

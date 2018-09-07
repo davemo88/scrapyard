@@ -10,6 +10,7 @@
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotPartAssignment.h"
 #include "Robots/RobotStats.h"
+#include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
 
 UCLASS()
@@ -70,8 +71,8 @@ public:
   UFUNCTION()
   virtual void Axis_Boost(float AxisValue);
 
-// firing weapons
-//  AScrapyardWeapon* CurrentWeapon
+// abilities 
+  UScrapyardAbility* CurrentAbility;
 
   UFUNCTION()
   virtual void StartFire(uint8 FireModeNum);
