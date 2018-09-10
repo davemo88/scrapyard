@@ -10,7 +10,7 @@
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotPartAssignment.h"
 #include "Robots/RobotStats.h"
-#include "Ability/ScrapyardAbility.h"
+//#include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
 
 UCLASS()
@@ -25,6 +25,9 @@ public:
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
+
+  UPROPERTY()
+  TArray<uint8> PendingFire;
 
 public:  
   // Called every frame
@@ -72,7 +75,7 @@ public:
   virtual void Axis_Boost(float AxisValue);
 
 // abilities 
-  UScrapyardAbility* CurrentAbility;
+//  UScrapyardAbility* CurrentAbility;
 
   UFUNCTION()
   virtual void StartFire(uint8 FireModeNum);
@@ -80,5 +83,28 @@ public:
   virtual void StopFire(uint8 FireModeNum);
   UFUNCTION()
   virtual void StopFiring();
+
+  inline void SetPendingFire(uint8 InFireMode, bool bNowFiring)
+  {
+// extend the PendingFire Array if it's not big enough
+    if (PendingFire.Num() < InFireMode + 1 )
+    {
+      PendingFire.SetNumZeroed(InFireMode + 1);
+    }
+    PendingFire[InFireMode] = bNowFiring ? 1 : 0;
+  }
+
+  inline void ClearPendingFire()
+  {
+    for (int32 i = 0; i < PendingFire.Num(); i++)
+    {
+      PendingFire[i] = 0;
+    }
+  }
+
+  inline bool IsPendingFire(uint8 InFireMode) const
+  {
+    return (InFireMode < PendingFire.Num() && PendingFire[InFireMode] != 0);
+  }
   
 };

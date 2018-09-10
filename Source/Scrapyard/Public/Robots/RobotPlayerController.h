@@ -6,6 +6,8 @@
 #include "Player/ScrapyardPlayerController.h"
 #include "RobotPlayerController.generated.h"
 
+class ARobotCharacter;
+
 struct FDeferredFireInput
 {
   uint8 FireMode;

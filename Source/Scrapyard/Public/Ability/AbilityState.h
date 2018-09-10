@@ -7,12 +7,14 @@
 #include "AbilityState.generated.h"
 
 /**
- * 
+ * the Within specifier will generate some functions such as GetOuterUScrapyardAbility()
  */
-UCLASS()
+UCLASS(Within=ScrapyardAbility)
 class SCRAPYARD_API UAbilityState : public UObject
 {
   GENERATED_BODY()
+
+public:
   
   virtual void BeginState(const UAbilityState* PrevState) {};
 

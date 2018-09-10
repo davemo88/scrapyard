@@ -12,9 +12,10 @@
 UCLASS()
 class SCRAPYARD_API UAbilityStateActive : public UAbilityState
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+
+  virtual void BeginState(const UAbilityState* PrevState) override;
+  virtual bool BeginFiringSequence(uint8 FireModeNum, bool bClientFire) override;
+  virtual bool WillSpawnShot(float DeltaTime) override;
+
 };
