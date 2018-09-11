@@ -41,3 +41,52 @@ void UScrapyardAbility::GotoFireMode(uint8 NewFireMode)
    GotoState(FiringState[NewFireMode]);
  }
 }
+
+bool UScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
+{
+  if (RobotOwner)
+  {
+    RobotOwner->SetPendingFire(FireModeNum, true);
+    if (FiringState.IsValidIndex(FireModeNum))
+    {
+      FiringState[FireModeNum]->PendingFireStarted();
+    }
+    bool bResult = CurrentState->BeginFiringSequence(FireModeNum, bClientFired);
+    return bResult;
+  }
+  return false;
+}
+
+void UScrapyardAbility::EndFiringSequence(uint8 FireModeNum)
+{
+  if (RobotOwner)
+  {
+    RobotOwner->SetPendingFire(FireModeNum, false);
+  }
+  if (FiringState.IsValidIndex(FireModeNum))
+  {
+    FiringState[FireModeNum]->PendingFireStopped();
+  }
+  CurrentState->EndFiringSequence(FireModeNum);
+}
+
+bool UScrapyardAbility::WillSpawnShot(float DeltaTime)
+{
+  return (CurrentState != NULL) && CanFireAgain() && CurrentState->WillSpawnShot(DeltaTime);
+}
+
+bool UScrapyardAbility::CanFireAgain()
+{
+  return true;
+}
+  
+void UScrapyardAbility::FireShot()
+{
+  // can either override this on ability subclasses
+  // or override FireProjectile / FireInstantHit etc
+}
+
+bool UScrapyardAbility::IsFiring() const
+{
+  return CurrentState->IsFiring();
+}

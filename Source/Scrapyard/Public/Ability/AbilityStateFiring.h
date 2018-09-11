@@ -17,4 +17,8 @@ class SCRAPYARD_API UAbilityStateFiring : public UAbilityState
 //  virtual void BeginState(const UAbilityState* PrevState) override;
 //  virtual void EndState() override;
 //  virtual bool BeginFiringSequence(uint8 FireModeNum, bool bClientFired) override;
+public:
+  virtual void PendingFireStarted() {}
+  virtual void PendingFireStopped() {}
 };
+

@@ -74,6 +74,11 @@ public:
   UFUNCTION()
   virtual void Axis_Boost(float AxisValue);
 
+  UPROPERTY()//Replicated
+  uint8 FireMode;
+
+//  virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override
+
 // abilities 
 //  UScrapyardAbility* CurrentAbility;
 
@@ -83,6 +88,12 @@ public:
   virtual void StopFire(uint8 FireModeNum);
   UFUNCTION()
   virtual void StopFiring();
+
+  // redirect engine version
+  virtual void PawnStartFire(uint8 FireModeNum = 0) override
+  {
+    StartFire(FireModeNum);
+  }
 
   inline void SetPendingFire(uint8 InFireMode, bool bNowFiring)
   {

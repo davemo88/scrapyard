@@ -32,6 +32,24 @@ public:
   UFUNCTION()
   virtual void StopFire(uint8 FireModeNum);
 
+  virtual bool BeginFiringSequence(uint8 FireModeNum, bool bClientFired);
+
+  virtual void EndFiringSequence(uint8 FireModeNum);
+
+  virtual bool WillSpawnShot(float DeltaTime);
+
+  virtual bool CanFireAgain();
+
+  virtual void FireShot();
+
+  inline void GotoActiveState()
+  {
+    GotoState(ActiveState);
+  }
+
+  UFUNCTION()
+  bool IsFiring() const;
+
 protected:
    
   UPROPERTY()
@@ -76,5 +94,7 @@ public:
 
   UFUNCTION()
   virtual void GotoFireMode(uint8 NewFireMode);
+
+
 	
 };

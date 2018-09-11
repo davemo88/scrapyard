@@ -6,6 +6,8 @@
 #include "UObject/NoExportTypes.h"
 #include "AbilityState.generated.h"
 
+class ARobotCharacter;
+
 /**
  * the Within specifier will generate some functions such as GetOuterUScrapyardAbility()
  */
@@ -15,6 +17,10 @@ class SCRAPYARD_API UAbilityState : public UObject
   GENERATED_BODY()
 
 public:
+
+  ARobotCharacter* GetRobotOwner();
+
+  UWorld* GetWorld() const override;
   
   virtual void BeginState(const UAbilityState* PrevState) {};
 
@@ -35,6 +41,6 @@ public:
     return false;
   }
 
-  virtual void Tick(float DeltaTime) {};
+//  virtual void Tick(float DeltaTime) {};
   
 };
