@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Ability/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
 class UMaterial;
@@ -42,6 +43,9 @@ public:
 	int32 BallisticDefense;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 EnergyDefense;
+
+        UPROPERTY()
+        UScrapyardAbility* PartAbililty = NULL;
 
 // skeletal mesh 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

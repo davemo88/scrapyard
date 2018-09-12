@@ -6,11 +6,32 @@
 #include "UObject/NoExportTypes.h"
 #include "ScrapyardAbility.generated.h"
 
-//class UAbilityState;
-//class UAbilityStateActive;
-//class UAbilityStateInactive;
-//class UAbilityStateFiring;
+class UAbilityState;
+class UAbilityStateActive;
+class UAbilityStateInactive;
+class UAbilityStateFiring;
 class ARobotCharacter;
+
+USTRUCT()
+struct FPendingFireEvent
+{
+  GENERATED_BODY()
+
+  UPROPERTY()
+  bool bIsStartFire;
+  UPROPERTY()
+  uint8 FireModeNum;
+  UPROPERTY()
+  uint8 FireEventIndex;
+  UPROPERTY()
+  uint8 ZOffset;
+  UPROPERTY()
+  bool bClientFired;
+
+  FPendingFireEvent()
+    : bIsStartFire(false), FireModeNum(0), FireEventIndex(0), ZOffset(0), bClientFired(false) 
+  {}
+};
 
 /**
  * 
@@ -70,6 +91,9 @@ protected:
   UPROPERTY()
   TArray<float> FireInterval;
 
+  UPROPERTY()
+  uint8 FireEventIndex;
+
 public:
 
   inline ARobotCharacter* GetRobotOwner() const 
@@ -95,6 +119,7 @@ public:
   UFUNCTION()
   virtual void GotoFireMode(uint8 NewFireMode);
 
-
+  UFUNCTION(Server, unreliable, WithValidation)
+  virtual void ServerStartFire(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired);
 	
 };

@@ -5,7 +5,7 @@
 
 void UHandheldPart::Draft(USoloDraft* SoloDraft)
 {
-//	SoloDraft->DraftedHandheld.Add(this);
+//  SoloDraft->DraftedHandheld.Add(this);
 }
 
 

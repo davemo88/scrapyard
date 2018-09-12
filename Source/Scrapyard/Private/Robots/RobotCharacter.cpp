@@ -208,7 +208,7 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 
 void ARobotCharacter::StartFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp, Warning, TEXT("StartFire %d"), FireModeNum);
+  UE_LOG(LogTemp,Warning,TEXT("ARobotCharacter::StartFire"));
 
   if (!IsLocallyControlled())
   {
@@ -216,13 +216,20 @@ void ARobotCharacter::StartFire(uint8 FireModeNum)
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("StartFire()"));
+    if (WeaponAbility != NULL)
+    {
+      WeaponAbility->StartFire(FireModeNum);
+    }
+    else
+    {
+      UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::WeaponAbility is NULL"));
+    }
   }
 }
 
 void ARobotCharacter::StopFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp, Warning, TEXT("StopFire()"));
+  UE_LOG(LogTemp,Warning,TEXT("ARobotCharacter::StopFire"));
 }
 
 void ARobotCharacter::StopFiring()

@@ -12,17 +12,17 @@
 UCLASS()
 class SCRAPYARD_API UHandheldPart : public URobotPart
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	UPROPERTY(EditAnywhere)
-	int32 Attack = 0;
+  UPROPERTY(EditAnywhere)
+  int32 Attack = 0;
 
 // milliseconds
-	UPROPERTY(EditAnywhere)
-	int32 Cooldown = 0;
+  UPROPERTY(EditAnywhere)
+  int32 Cooldown = 0;
 
-	void Draft(USoloDraft* SoloDraft);
+  void Draft(USoloDraft* SoloDraft);
 
 };

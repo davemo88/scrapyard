@@ -6,12 +6,29 @@
 
 void UScrapyardAbility::StartFire(uint8 FireModeNum)
 {
+  
+  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::StartFire"));
 
+  bool bClientFired = BeginFiringSequence(FireModeNum, false);
+
+  if (RobotOwner->Role < ROLE_Authority)
+  {
+    UAbilityStateFiring* CurrentFiringState = FiringState.IsValidIndex(FireModeNum) ? FiringState[FireModeNum] : nullptr;  
+    if (CurrentFiringState)
+    {
+      FireEventIndex++;
+      if (FireEventIndex == 255)
+      {
+        FireEventIndex = 0;
+      }
+    }
+    ServerStartFire(FireModeNum, FireEventIndex, bClientFired);
+  }
 }
 
 void UScrapyardAbility::StopFire(uint8 FireModeNum)
 {
-
+  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::StopFire"));
 }
 
 void UScrapyardAbility::GotoState(UAbilityState* NewState)
@@ -35,6 +52,7 @@ void UScrapyardAbility::GotoState(UAbilityState* NewState)
 
 void UScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 {
+ UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::GotoFireMode"));
  if (FiringState.IsValidIndex(NewFireMode))
  {
    CurrentFireMode = NewFireMode;
@@ -44,6 +62,8 @@ void UScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 
 bool UScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
+  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::BeginFiringSequence"));
+
   if (RobotOwner)
   {
     RobotOwner->SetPendingFire(FireModeNum, true);
@@ -89,4 +109,17 @@ void UScrapyardAbility::FireShot()
 bool UScrapyardAbility::IsFiring() const
 {
   return CurrentState->IsFiring();
+}
+
+void UScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
+{
+  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::ServerStartFire_Implementation"));
+
+  BeginFiringSequence(FireModeNum, bClientFired);
+}
+
+bool UScrapyardAbility::ServerStartFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
+{
+  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::ServerStartFire_Validate"));
+  return true;
 }
