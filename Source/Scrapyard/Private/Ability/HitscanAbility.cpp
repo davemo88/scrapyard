@@ -3,6 +3,12 @@
 
 #include "HitscanAbility.h"
 
+UHitscanAbility::UHitscanAbility()
+{
+  AbilityName = TEXT("HitscanAbility");
+}
 
-
-
+void UHitscanAbility::FireShot()
+{
+  UE_LOG(LogTemp, Warning, TEXT("UHitscanAbility::FireShot"));
+}

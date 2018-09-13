@@ -16,6 +16,8 @@ class SCRAPYARD_API UHandheldPart : public URobotPart
 
 public:
 
+  UHandheldPart();
+
   UPROPERTY(EditAnywhere)
   int32 Attack = 0;
 

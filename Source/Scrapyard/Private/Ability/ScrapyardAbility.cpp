@@ -2,7 +2,25 @@
 
 
 #include "ScrapyardAbility.h"
-//#include "Ability/AbilityState.h"
+#include "Ability/AbilityState.h"
+#include "Ability/AbilityStateActive.h"
+#include "Ability/AbilityStateInactive.h"
+#include "Ability/AbilityStateFiring.h"
+
+UScrapyardAbility::UScrapyardAbility()
+{
+  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::UScrapyardAbility"));
+  InactiveState = CreateDefaultSubobject<UAbilityStateInactive>(TEXT("AbilityStateInactive"));
+  ActiveState = CreateDefaultSubobject<UAbilityStateActive>(TEXT("AbilityStateActive"));
+
+  FiringState.Add(CreateDefaultSubobject<UAbilityStateFiring>(TEXT("FiringState0")));
+  FireInterval.Add(1.0f);
+
+  CurrentState = ActiveState;
+
+  AbilityName = TEXT("ScrapyardAbility");
+
+}
 
 void UScrapyardAbility::StartFire(uint8 FireModeNum)
 {
@@ -63,8 +81,7 @@ void UScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 bool UScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
   UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::BeginFiringSequence"));
-
-  if (RobotOwner)
+  if (RobotOwner != NULL)
   {
     RobotOwner->SetPendingFire(FireModeNum, true);
     if (FiringState.IsValidIndex(FireModeNum))

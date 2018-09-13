@@ -58,7 +58,5 @@ public:
 
   UPROPERTY(EditDefaultsOnly)
   UHandheldPart* DefaultHandheldPart;
-
-
   
 };

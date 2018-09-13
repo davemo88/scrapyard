@@ -13,8 +13,9 @@ UCLASS()
 class SCRAPYARD_API UHitscanAbility : public UScrapyardAbility
 {
   GENERATED_BODY()
-	
-	
-	
+
+  UHitscanAbility();
+
+  void FireShot() override;
 	
 };

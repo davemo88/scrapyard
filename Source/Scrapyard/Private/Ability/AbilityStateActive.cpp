@@ -10,6 +10,7 @@
 
 void UAbilityStateActive::BeginState(const UAbilityState* PrevState)
 {
+  UE_LOG(LogTemp, Warning, TEXT("UAbilityStateActive::BeginState"));
   ARobotCharacter* RobotOwner = GetOuterUScrapyardAbility()->GetRobotOwner();
 
   for (uint8 i = 0; i <GetOuterUScrapyardAbility()->GetNumFireModes(); i++)
@@ -28,8 +29,8 @@ void UAbilityStateActive::BeginState(const UAbilityState* PrevState)
 
 bool UAbilityStateActive::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
+  UE_LOG(LogTemp, Warning, TEXT("UAbilityStateActive::BeginFiringSequence"));
   UScrapyardAbility* Ability = GetOuterUScrapyardAbility();
-
   if (Ability->FiringState.IsValidIndex(FireModeNum))
   {
     Ability->CurrentFireMode = FireModeNum;

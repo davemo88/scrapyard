@@ -23,6 +23,8 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   SetupStats();
   UpdateStats();
 
+  SetupAbilities();
+
 // allow flying movement
   UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
 
@@ -110,6 +112,27 @@ void ARobotCharacter::SetupBody()
 void ARobotCharacter::SetupStats()
 {
   RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
+}
+
+void ARobotCharacter::SetupAbilities()
+{
+  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::SetupAbilities"));
+  if (RobotPartAssignment)
+  {
+    if (RobotPartAssignment->RightHandheld)
+    {
+      if (RobotPartAssignment->RightHandheld->PartAbililty)
+      {
+        WeaponAbility = RobotPartAssignment->RightHandheld->PartAbililty;
+      }
+    }
+  }
+  if (WeaponAbility == NULL)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("Couldn't set up Weapon Ability from part, doing it directly :(" ));
+    WeaponAbility = CreateDefaultSubobject<UHitscanAbility>(TEXT("WeaponAbility"));
+    WeaponAbility->RobotOwner = this;
+  }
 }
 
 void ARobotCharacter::UpdateStats()

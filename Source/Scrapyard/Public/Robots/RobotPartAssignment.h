@@ -35,9 +35,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoosterPart* BoosterPart = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UHandheldPart* RightHandheldPart = nullptr;
+	UHandheldPart* RightHandheld = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UHandheldPart* LeftHandheldPart = nullptr;
+	UHandheldPart* LeftHandheld = nullptr;
 
 // TODO: remove when we have proper character init
 	UFUNCTION(BlueprintCallable)

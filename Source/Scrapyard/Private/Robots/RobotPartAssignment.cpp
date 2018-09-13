@@ -15,7 +15,7 @@ void URobotPartAssignment::UnassignAll()
 	Core = nullptr;
 	Arms = nullptr;
 	Legs = nullptr;
-	RightHandheldPart = nullptr;
+	RightHandheld = nullptr;
 }
 
 void URobotPartAssignment::SetDefaultAssignment()
@@ -28,6 +28,7 @@ void URobotPartAssignment::SetDefaultAssignment()
 		Core = GameInstance->DefaultAssetsBP->DefaultCorePart;
 		Arms = GameInstance->DefaultAssetsBP->DefaultArmsPart;
 		Legs = GameInstance->DefaultAssetsBP->DefaultLegsPart;
+                RightHandheld = GameInstance->DefaultAssetsBP->DefaultHandheldPart;
 	}
 	else
 	{

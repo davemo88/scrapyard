@@ -43,10 +43,17 @@ class SCRAPYARD_API UScrapyardAbility : public UObject
 
 public:
 
+  UScrapyardAbility();
+
+  UPROPERTY()
+  ARobotCharacter* RobotOwner;
+
   friend class UAbilityState;
   friend class UAbilityStateActive;
   friend class UAbilityStateInactive;
   friend class UAbilityStateFiring;
+
+  FString AbilityName;
 
   UFUNCTION()
   virtual void StartFire(uint8 FireModeNum);
@@ -63,19 +70,11 @@ public:
 
   virtual void FireShot();
 
-  inline void GotoActiveState()
-  {
-    GotoState(ActiveState);
-  }
-
   UFUNCTION()
   bool IsFiring() const;
 
 protected:
    
-  UPROPERTY()
-  ARobotCharacter* RobotOwner;
-
   UPROPERTY()
   UAbilityState* CurrentState;
 
@@ -83,9 +82,9 @@ protected:
   uint8 CurrentFireMode;
   
   UPROPERTY()
-  UAbilityState* ActiveState;
+  UAbilityStateActive* ActiveState;
   UPROPERTY()
-  UAbilityState* InactiveState;
+  UAbilityStateInactive* InactiveState;
   UPROPERTY()
   TArray<class UAbilityStateFiring*> FiringState;
   UPROPERTY()
@@ -106,7 +105,6 @@ public:
     return CurrentFireMode;
   }
 
-////  virtual void GotoState(class UAbilityState* NewState);
   virtual void GotoState(UAbilityState* NewState);
 
   virtual void StateChanged() {}
