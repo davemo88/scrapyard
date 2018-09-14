@@ -63,6 +63,11 @@ void ARobotPlayerController::OnFire()
 void ARobotPlayerController::OnStopFire()
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController::StopFire"));
+  bFirePressed = false;
+  if (GetPawn() != NULL)
+  {
+    new(DeferredFireInputs)FDeferredFireInput(0, false);
+  }
 }
 
 bool ARobotPlayerController::HasDeferredFireInputs()
@@ -79,7 +84,7 @@ bool ARobotPlayerController::HasDeferredFireInputs()
 
 void ARobotPlayerController::ApplyDeferredFireInputs()
 {
-  UE_LOG(LogTemp,Warning,TEXT("ARobotPlayerController::ApplyDeferredFireInputs"));
+//  UE_LOG(LogTemp,Warning,TEXT("ARobotPlayerController::ApplyDeferredFireInputs"));
   for (FDeferredFireInput Input : DeferredFireInputs)
   {
     if (Input.bStartFire)

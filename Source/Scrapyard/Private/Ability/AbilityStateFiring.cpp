@@ -3,7 +3,6 @@
 
 #include "AbilityStateFiring.h"
 
-
 void UAbilityStateFiring::BeginState(const UAbilityState* PrevState)
 {
   UE_LOG(LogTemp, Warning, TEXT("UAbilityStateFiring::BeginState"));
@@ -13,6 +12,7 @@ void UAbilityStateFiring::BeginState(const UAbilityState* PrevState)
 
 void UAbilityStateFiring::EndState()
 {
+  UE_LOG(LogTemp, Warning, TEXT("UAbilityStateFiring::EndState"));
 //  GetOuterUScrapyardAbility()->OnStoppedFiring()
 }
 
@@ -27,5 +27,10 @@ bool UAbilityStateFiring::BeginFiringSequence(uint8 FireModeNum, bool bClientFir
 void UAbilityStateFiring::FireShot()
 {
   GetOuterUScrapyardAbility()->FireShot();
+}
+
+bool UAbilityStateFiring::WillSpawnShot(float DeltaTime)
+{
+  return GetOuterUScrapyardAbility()->GetRobotOwner()->IsPendingFire(GetOuterUScrapyardAbility()->GetCurrentFireMode());
 }
 

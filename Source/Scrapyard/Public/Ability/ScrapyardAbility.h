@@ -119,5 +119,8 @@ public:
 
   UFUNCTION(Server, unreliable, WithValidation)
   virtual void ServerStartFire(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired);
+
+  UFUNCTION(Server, unreliable, WithValidation)
+  virtual void ServerStopFire(uint8 FireModeNum, uint8 InFireEventIndex);
 	
 };

@@ -253,9 +253,23 @@ void ARobotCharacter::StartFire(uint8 FireModeNum)
 void ARobotCharacter::StopFire(uint8 FireModeNum)
 {
   UE_LOG(LogTemp,Warning,TEXT("ARobotCharacter::StopFire"));
+  if (WeaponAbility != NULL)
+  {
+    WeaponAbility->StopFire(FireModeNum);
+  }
+  else
+  {
+    SetPendingFire(FireModeNum, false); 
+  }
 }
 
 void ARobotCharacter::StopFiring()
 {
-
+  for (int32 i = 0; i < PendingFire.Num(); i++)
+  {
+    if (PendingFire[i])
+    {
+      StopFire(i);
+    }
+  }
 }

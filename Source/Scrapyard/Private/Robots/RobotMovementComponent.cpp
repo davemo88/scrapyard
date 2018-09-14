@@ -18,10 +18,10 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
     if (PC != NULL && PC->PlayerInput != NULL)
     {
 //      UE_LOG(LogTemp, Warning, TEXT("ApplyDeferred"));
-      if (PC->HasDeferredFireInputs())
-      {
+//      if (PC->HasDeferredFireInputs())
+//      {
         PC->ApplyDeferredFireInputs();
-      }
+//      }
     }
   }
 }

@@ -47,6 +47,20 @@ void UScrapyardAbility::StartFire(uint8 FireModeNum)
 void UScrapyardAbility::StopFire(uint8 FireModeNum)
 {
   UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::StopFire"));
+  EndFiringSequence(FireModeNum);
+  if (RobotOwner->Role < ROLE_Authority)
+  {
+    UAbilityStateFiring* CurrentFiringState = FiringState.IsValidIndex(FireModeNum) ? FiringState[FireModeNum] : nullptr;
+    if (CurrentFiringState)
+    {
+      FireEventIndex++;
+      if (FireEventIndex == 255)
+      {
+        FireEventIndex = 0;
+      }
+    }
+    ServerStopFire(FireModeNum, FireEventIndex);
+  }
 }
 
 void UScrapyardAbility::GotoState(UAbilityState* NewState)
@@ -96,6 +110,7 @@ bool UScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired
 
 void UScrapyardAbility::EndFiringSequence(uint8 FireModeNum)
 {
+  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::EndFiringSequence"));
   if (RobotOwner)
   {
     RobotOwner->SetPendingFire(FireModeNum, false);
@@ -138,5 +153,15 @@ void UScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 
 bool UScrapyardAbility::ServerStartFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
   UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::ServerStartFire_Validate"));
+  return true;
+}
+
+void UScrapyardAbility::ServerStopFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex)
+{
+  EndFiringSequence(FireModeNum);
+}
+
+bool UScrapyardAbility::ServerStopFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex)
+{
   return true;
 }
