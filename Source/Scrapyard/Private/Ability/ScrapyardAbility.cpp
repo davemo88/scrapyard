@@ -161,6 +161,61 @@ float UScrapyardAbility::GetRefireTime(uint8 FireModeNum)
 
 }
 
+void UScrapyardAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::FireInstantHit"), *GetName());
+}
+
+FVector UScrapyardAbility::GetFireStartLoc(uint8 FireMode)
+{
+  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::GetFireStartLoc"));  
+  if (FireMode == 255)
+  {
+    FireMode = CurrentFireMode;
+  }
+  if (RobotOwner == NULL)
+  {
+    return FVector::ZeroVector;
+  }
+  else
+  {
+    FVector BaseLoc = RobotOwner->GetActorLocation();
+    return BaseLoc;
+  }
+}
+
+FRotator UScrapyardAbility::GetBaseFireRotation()
+{
+  if (RobotOwner == NULL)
+  {
+    return FRotator::ZeroRotator;
+  }
+  else 
+  {
+    return RobotOwner->GetViewRotation();
+  }
+}
+
+void UScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime)
+{
+  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::HitScanTrace"));
+  const FName TraceTag("MyTraceTag");
+  GetWorld()->DebugDrawTraceTag = TraceTag;
+
+  ECollisionChannel TraceChannel = ECC_Pawn; 
+  FCollisionQueryParams QueryParams(GetClass()->GetFName(), true, RobotOwner);
+  QueryParams.TraceTag = TraceTag;
+// single line trace
+  if (TraceRadius <= 0.0f)
+  {
+    GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndTrace, TraceChannel, QueryParams);
+  }
+  if (!(Hit.Location - StartLocation).IsNearlyZero())
+  {
+
+  }
+}
+
 void UScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
   UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::ServerStartFire_Implementation"));

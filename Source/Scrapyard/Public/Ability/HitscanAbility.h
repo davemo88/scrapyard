@@ -17,5 +17,7 @@ class SCRAPYARD_API UHitscanAbility : public UScrapyardAbility
   UHitscanAbility();
 
   void FireShot() override;
+
+  virtual void FireInstantHit(bool bDealDamage = true, FHitResult* OutHit = NULL) override;
 	
 };

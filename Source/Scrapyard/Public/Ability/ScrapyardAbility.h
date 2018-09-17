@@ -76,6 +76,22 @@ public:
   UFUNCTION()
   virtual float GetRefireTime(uint8 FireModeNum);
 
+  virtual void FireInstantHit(bool bDealDamage = true, FHitResult* OutHit = NULL);
+
+  UFUNCTION()
+  virtual FVector GetFireStartLoc(uint8 FireMode = 255);
+
+  UFUNCTION()
+  virtual FRotator GetBaseFireRotation();
+
+//  UFUNCTION()
+//  virtual FRotator GetAdjustedAim(FVector StartFireLoc);
+//
+  
+  virtual void HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime);
+
+
+
 protected:
    
   UPROPERTY()
