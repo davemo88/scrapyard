@@ -82,6 +82,11 @@ void UScrapyardAbility::GotoState(UAbilityState* NewState)
   }
 }
 
+void UScrapyardAbility::GotoActiveState()
+{
+  GotoState(ActiveState);
+}
+
 void UScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 {
  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::GotoFireMode"));
@@ -141,6 +146,19 @@ void UScrapyardAbility::FireShot()
 bool UScrapyardAbility::IsFiring() const
 {
   return CurrentState->IsFiring();
+}
+
+float UScrapyardAbility::GetRefireTime(uint8 FireModeNum)
+{
+  float RefireTime = 0.1f;
+
+  if (FireInterval.IsValidIndex(FireModeNum))
+  {
+    RefireTime = FireInterval[FireModeNum];
+  }
+
+  return RefireTime;
+
 }
 
 void UScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)

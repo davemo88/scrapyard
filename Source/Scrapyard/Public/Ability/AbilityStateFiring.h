@@ -22,6 +22,14 @@ class SCRAPYARD_API UAbilityStateFiring : public UAbilityState
 
   virtual bool WillSpawnShot(float DeltaTime);
 
+  virtual void RefireCheckTimer();
+
+  FTimerHandle RefireCheckHandle;
+
+// bFinishedCooldown = true;
+
+//  bool bNetDelayedShot;
+
 public:
   virtual void PendingFireStarted() {}
   virtual void PendingFireStopped() {}

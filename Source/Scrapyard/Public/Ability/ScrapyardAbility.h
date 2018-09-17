@@ -73,6 +73,9 @@ public:
   UFUNCTION()
   bool IsFiring() const;
 
+  UFUNCTION()
+  virtual float GetRefireTime(uint8 FireModeNum);
+
 protected:
    
   UPROPERTY()
@@ -106,6 +109,8 @@ public:
   }
 
   virtual void GotoState(UAbilityState* NewState);
+
+  virtual void GotoActiveState();
 
   virtual void StateChanged() {}
 
