@@ -27,5 +27,14 @@ void UHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 
   FHitResult Hit;
   HitScanTrace(SpawnLoc, EndTrace, 0.0f, Hit, 0.0f);
+
+  if (Hit.Actor != NULL && bDealDamage)
+  {
+    Hit.Actor->TakeDamage(1000.0f, )
+  }
+  if (OutHit != NULL)
+  {
+    *OutHit = Hit;
+  }
 }
 

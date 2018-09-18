@@ -6,6 +6,7 @@
 #include "Ability/AbilityStateActive.h"
 #include "Ability/AbilityStateInactive.h"
 #include "Ability/AbilityStateFiring.h"
+#include "DrawDebugHelpers.h"
 
 UScrapyardAbility::UScrapyardAbility()
 {
@@ -210,10 +211,22 @@ void UScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector
   {
     GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndTrace, TraceChannel, QueryParams);
   }
-  if (!(Hit.Location - StartLocation).IsNearlyZero())
+  else
   {
-
+    // this would be some kind of volume or surface
   }
+
+//  if (!(Hit.Location - StartLocation).IsNearlyZero())
+//  {
+//    ARobotCharacter* ClientSideHitActor = (bTrackHitScanReplication && ReceivedHitScanHitChar && ((ReceivedHitScanIndex == FireEventIndex) || (ReceivedHitScanIndex == FireEventIndex - 1))) ? ReceivedHitScanHitChar ? nullptr;
+//    ARobotCharacter* BestTarget = nullptr;
+//    FVector BestPoint(0.f);
+//    FVector BestCapsulePoint(0.f);
+//    for (FConstPawnIterator Iterator = GetRobotOwner()->GetWorld()->GetPawnIterator() Iterator; ++Iterator)
+//    {
+//
+//    }
+//  }
 }
 
 void UScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
@@ -237,4 +250,27 @@ void UScrapyardAbility::ServerStopFire_Implementation(uint8 FireModeNum, uint8 I
 bool UScrapyardAbility::ServerStopFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex)
 {
   return true;
+}
+
+void UScrapyardAbility::ServerHitScanHit_Implementation(ARobotCharacter* HitScanChar, uint8 HitScanEventIndex)
+{
+  ReceivedHitScanHitChar = HitScanChar;
+  ReceivedHitScanIndex = HitScanEventIndex;
+}
+
+bool UScrapyardAbility::ServerHitScanHit_Validate(ARobotCharacter* HitScanChar, uint8 HitScanEventIndex)
+{
+  return true;
+}
+
+void UScrapyardAbility::ClientMissedHitScan_Implementation(FVector_NetQuantize MissedHitScanStart, FVector_NetQuantize MissedHitScanEnd, FVector_NetQuantize MissedHitScanLoc, float MissedHitScanTime, uint8 MissedHitScanIndex)
+{
+  DrawDebugLine(GetWorld(), HitScanStart, HitScanEnd, FColor::Green, false, 8.f);                  
+  DrawDebugLine(GetWorld(), MissedHitScanStart, MissedHitScanEnd, FColor::Yellow, false, 8.f);
+  DrawDebugCapsule(GetWorld(), HitScanCharLoc, HitScanHeight, 40.f, FQuat::Identity, FColor::Green, false, 8.f);
+  ARobotPlayerController* PC = GetRobotOwner() ? Cast<ARobotPlayerController>(GetRobotOwner()->GetController()) : nullptr;
+  if (PC)
+  {
+//    PC->ClientSay(PC->UTPlayerState, FString::Printf(TEXT("HIT MISMATCH LOCAL index %d time %f      SERVER index %d time %f error distance %f"), HitScanIndex, HitScanTime, MissedHitScanIndex, MissedHitScanTime, (HitScanCharLoc - MissedHitScanLoc).Size()), ChatDestinations::System);  
+  }
 }

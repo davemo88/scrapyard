@@ -37,7 +37,8 @@ struct FPendingFireEvent
  * 
  */
 UCLASS()
-class SCRAPYARD_API UScrapyardAbility : public UObject
+class SCRAPYARD_API AScrapyardAbility : public AActor
+//class SCRAPYARD_API UScrapyardAbility : public UObject
 {
   GENERATED_BODY()
 
@@ -90,8 +91,6 @@ public:
   
   virtual void HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime);
 
-
-
 protected:
    
   UPROPERTY()
@@ -143,5 +142,42 @@ public:
 
   UFUNCTION(Server, unreliable, WithValidation)
   virtual void ServerStopFire(uint8 FireModeNum, uint8 InFireEventIndex);
+
+  UPROPERTY()
+  bool bTrackHitScanReplication;
+
+  UPROPERTY()
+  ARobotCharacter* HitScanHitChar;
+
+  UPROPERTY()
+  FVector_NetQuantize HitScanCharLoc;
 	
+  UPROPERTY()
+  FVector_NetQuantize HitScanStart;
+
+  UPROPERTY()
+  FVector_NetQuantize HitScanEnd;
+
+  UPROPERTY()
+  float HitScanHeight;
+
+  UPROPERTY()
+  uint8 HitScanIndex;
+
+
+  UPROPERTY()
+  float HitScanTime;
+
+  UPROPERTY()
+  ARobotCharacter* ReceivedHitScanHitChar;
+ 
+  UPROPERTY()
+  uint8 ReceivedHitScanIndex;
+ 
+  UFUNCTION(Server, Unreliable, WithValidation)
+  void ServerHitScanHit(ARobotCharacter* HitScanChar, uint8 HitScanEventIndex);
+ 
+  UFUNCTION (Client, Unreliable)
+  void ClientMissedHitScan(FVector_NetQuantize MissedHitScanStart, FVector_NetQuantize MissedHitScanEnd, FVector_NetQuantize MissedHitScanLoc, float MissedHitScanTime, uint8 MissedHitScanIndex);
+
 };
