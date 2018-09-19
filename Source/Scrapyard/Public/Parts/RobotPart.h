@@ -45,7 +45,7 @@ public:
 	int32 EnergyDefense;
 
         UPROPERTY()
-        UScrapyardAbility* PartAbililty = NULL;
+        AScrapyardAbility* PartAbililty = NULL;
 
 // skeletal mesh 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

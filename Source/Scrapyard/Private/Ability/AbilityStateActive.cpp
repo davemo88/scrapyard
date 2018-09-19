@@ -11,13 +11,13 @@
 void UAbilityStateActive::BeginState(const UAbilityState* PrevState)
 {
   UE_LOG(LogTemp, Warning, TEXT("UAbilityStateActive::BeginState"));
-  ARobotCharacter* RobotOwner = GetOuterUScrapyardAbility()->GetRobotOwner();
+  ARobotCharacter* RobotOwner = GetOuterAScrapyardAbility()->GetRobotOwner();
 
-  for (uint8 i = 0; i <GetOuterUScrapyardAbility()->GetNumFireModes(); i++)
+  for (uint8 i = 0; i <GetOuterAScrapyardAbility()->GetNumFireModes(); i++)
   {
     if (RobotOwner->IsPendingFire(i))
     {
-      UScrapyardAbility* OuterAbility = GetOuterUScrapyardAbility();
+      AScrapyardAbility* OuterAbility = GetOuterAScrapyardAbility();
 
       OuterAbility->CurrentFireMode = i; 
       OuterAbility->GotoState(OuterAbility->FiringState[i]); 
@@ -30,7 +30,7 @@ void UAbilityStateActive::BeginState(const UAbilityState* PrevState)
 bool UAbilityStateActive::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
   UE_LOG(LogTemp, Warning, TEXT("UAbilityStateActive::BeginFiringSequence"));
-  UScrapyardAbility* Ability = GetOuterUScrapyardAbility();
+  AScrapyardAbility* Ability = GetOuterAScrapyardAbility();
   if (Ability->FiringState.IsValidIndex(FireModeNum))
   {
     Ability->CurrentFireMode = FireModeNum;
@@ -42,6 +42,6 @@ bool UAbilityStateActive::BeginFiringSequence(uint8 FireModeNum, bool bClientFir
 
 bool UAbilityStateActive::WillSpawnShot(float DeltaTime)
 {
-  ARobotPlayerController* PlayerController = Cast<ARobotPlayerController>(GetOuterUScrapyardAbility()->GetRobotOwner()->GetController());
+  ARobotPlayerController* PlayerController = Cast<ARobotPlayerController>(GetOuterAScrapyardAbility()->GetRobotOwner()->GetController());
   return false;
 }

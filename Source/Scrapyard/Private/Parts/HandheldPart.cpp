@@ -8,7 +8,7 @@
 UHandheldPart::UHandheldPart()
 {
   UE_LOG(LogTemp, Warning, TEXT("UHandheldPart:UHandheldPart"));
-  PartAbililty = CreateDefaultSubobject<UHitscanAbility>(TEXT("HitscanAbility"));
+  PartAbililty = CreateDefaultSubobject<AHitscanAbility>(TEXT("HitscanAbility"));
 }
 
 void UHandheldPart::Draft(USoloDraft* SoloDraft)

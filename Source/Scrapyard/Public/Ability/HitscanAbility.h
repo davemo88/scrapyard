@@ -10,11 +10,11 @@
  * 
  */
 UCLASS()
-class SCRAPYARD_API UHitscanAbility : public UScrapyardAbility
+class SCRAPYARD_API AHitscanAbility : public AScrapyardAbility
 {
   GENERATED_BODY()
 
-  UHitscanAbility();
+  AHitscanAbility();
 
   void FireShot() override;
 

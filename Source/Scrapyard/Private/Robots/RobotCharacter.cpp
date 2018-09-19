@@ -2,8 +2,10 @@
 
 #include "RobotCharacter.h"
 #include "Game/ScrapyardGameInstance.h"
+#include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/DamageType.h"
 
 
 // Sets default values
@@ -130,7 +132,7 @@ void ARobotCharacter::SetupAbilities()
   if (WeaponAbility == NULL)
   {
     UE_LOG(LogTemp, Warning, TEXT("Couldn't set up Weapon Ability from part, doing it directly :(" ));
-    WeaponAbility = CreateDefaultSubobject<UHitscanAbility>(TEXT("WeaponAbility"));
+    WeaponAbility = CreateDefaultSubobject<AHitscanAbility>(TEXT("WeaponAbility"));
     WeaponAbility->RobotOwner = this;
   }
 }
@@ -228,6 +230,33 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 //{
 //    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 //}
+//
+
+float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::TakeDamage"));
+
+  // CDO = class default object
+  const UDamageType* const DamageTypeCDO = DamageEvent.DamageTypeClass ? DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>() : GetDefault<UDamageType>();
+
+  const UScrapyardDamageType* const ScrapyardDamageTypeCDO = Cast<UScrapyardDamageType>(DamageTypeCDO);
+  
+  int32 IntDamage = FMath::TruncToInt(Damage);
+
+//  ARobotPlayerState* RobotPlayerState = Cast<ARobotPlayerState>(PlayerState);
+
+  FHitResult HitInfo;
+  {
+    FVector SomeVector;
+    DamageEvent.GetBestHitInfo(this, DamageCauser, HitInfo, SomeVector);
+  }
+
+  ARobotGameMode* GameMode = GetWorld()->GetAuthGameMode<ARobotGameMode>();
+
+  DrawDebugString(GetWorld(), HitInfo.Location, FString::FromInt(IntDamage), nullptr, FColor::Red, 10.f, true);
+  
+  return 0.0f;
+}
 
 void ARobotCharacter::StartFire(uint8 FireModeNum)
 {

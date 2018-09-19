@@ -9,7 +9,7 @@
 class ARobotCharacter;
 
 /**
- * the Within specifier will generate some functions such as GetOuterUScrapyardAbility()
+ * the Within specifier will generate some functions such as GetOuterAScrapyardAbility()
  */
 UCLASS(Within=ScrapyardAbility)
 class SCRAPYARD_API UAbilityState : public UObject

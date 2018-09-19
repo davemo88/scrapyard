@@ -3,22 +3,24 @@
 
 #include "HitscanAbility.h"
 
-UHitscanAbility::UHitscanAbility()
+AHitscanAbility::AHitscanAbility()
 {
   AbilityName = TEXT("HitscanAbility");
+
+  InstantHitInfo.Add(FInstantHitDamageInfo());
 }
 
-void UHitscanAbility::FireShot()
+void AHitscanAbility::FireShot()
 {
-  UE_LOG(LogTemp, Warning, TEXT("UHitscanAbility::FireShot"));
+  UE_LOG(LogTemp, Warning, TEXT("AHitscanAbility::FireShot"));
 
   FHitResult OutHit;
   FireInstantHit(true, &OutHit);
 }
 
-void UHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
+void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UHitscanAbility::FireInstantHit"));
+  UE_LOG(LogTemp, Warning, TEXT("AHitscanAbility::FireInstantHit"));
 
   const FVector SpawnLoc = GetFireStartLoc();
   const FRotator SpawnRot = GetBaseFireRotation();
@@ -30,7 +32,16 @@ void UHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 
   if (Hit.Actor != NULL && bDealDamage)
   {
-    Hit.Actor->TakeDamage(1000.0f, )
+    Hit.Actor->TakeDamage(
+        InstantHitInfo[CurrentFireMode].Damage,
+        FScrapyardPointDamageEvent(
+          InstantHitInfo[CurrentFireMode].Damage,
+          Hit,
+          FireDirection,
+          InstantHitInfo[CurrentFireMode].DamageType,
+          FVector::ZeroVector),
+        RobotOwner->Controller,
+        this);
   }
   if (OutHit != NULL)
   {

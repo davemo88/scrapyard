@@ -78,11 +78,11 @@ public:
   UPROPERTY()//Replicated
   uint8 FireMode;
 
-//  virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override
+  virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 // abilities 
   UPROPERTY()
-  UScrapyardAbility* WeaponAbility;
+  AScrapyardAbility* WeaponAbility;
 
   UFUNCTION()
   virtual void StartFire(uint8 FireModeNum);

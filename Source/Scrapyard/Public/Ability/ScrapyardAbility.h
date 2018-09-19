@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Game/ScrapyardDamageType.h"
 #include "ScrapyardAbility.generated.h"
 
 class UAbilityState;
@@ -13,24 +14,41 @@ class UAbilityStateFiring;
 class ARobotCharacter;
 
 USTRUCT()
+struct FInstantHitDamageInfo
+{
+  GENERATED_BODY()
+
+  UPROPERTY()
+  int32 Damage = 100;
+  UPROPERTY()
+  TSubclassOf<UDamageType> DamageType = UScrapyardDamageType::StaticClass();
+  UPROPERTY()
+  float Momentum = 0.0f;
+  UPROPERTY()
+  float TraceRange = 10000.0f;
+  UPROPERTY()
+  float TraceHalfSize = 0.0f;
+  UPROPERTY()
+  float ConeDotAngle = 0.0f;
+
+};
+
+USTRUCT()
 struct FPendingFireEvent
 {
   GENERATED_BODY()
 
   UPROPERTY()
-  bool bIsStartFire;
+  bool bIsStartFire = false;
   UPROPERTY()
-  uint8 FireModeNum;
+  uint8 FireModeNum = 0;
   UPROPERTY()
-  uint8 FireEventIndex;
+  uint8 FireEventIndex = 0;
   UPROPERTY()
-  uint8 ZOffset;
+  uint8 ZOffset = 0;
   UPROPERTY()
-  bool bClientFired;
+  bool bClientFired = false;
 
-  FPendingFireEvent()
-    : bIsStartFire(false), FireModeNum(0), FireEventIndex(0), ZOffset(0), bClientFired(false) 
-  {}
 };
 
 /**
@@ -38,13 +56,13 @@ struct FPendingFireEvent
  */
 UCLASS()
 class SCRAPYARD_API AScrapyardAbility : public AActor
-//class SCRAPYARD_API UScrapyardAbility : public UObject
+//class SCRAPYARD_API AScrapyardAbility : public UObject
 {
   GENERATED_BODY()
 
 public:
 
-  UScrapyardAbility();
+  AScrapyardAbility();
 
   UPROPERTY()
   ARobotCharacter* RobotOwner;
@@ -85,9 +103,11 @@ public:
   UFUNCTION()
   virtual FRotator GetBaseFireRotation();
 
+  UPROPERTY()
+  TArray<FInstantHitDamageInfo> InstantHitInfo;
+
 //  UFUNCTION()
 //  virtual FRotator GetAdjustedAim(FVector StartFireLoc);
-//
   
   virtual void HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime);
 

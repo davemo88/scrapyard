@@ -5,11 +5,11 @@
 
 ARobotCharacter* UAbilityState::GetRobotOwner()
 {
-  return GetOuterUScrapyardAbility()->GetRobotOwner();
+  return GetOuterAScrapyardAbility()->GetRobotOwner();
 }
 
 UWorld* UAbilityState::GetWorld() const
 {
-  return GetOuterUScrapyardAbility()->GetWorld();
+  return GetOuterAScrapyardAbility()->GetWorld();
 }
 

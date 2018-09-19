@@ -8,9 +8,9 @@
 #include "Ability/AbilityStateFiring.h"
 #include "DrawDebugHelpers.h"
 
-UScrapyardAbility::UScrapyardAbility()
+AScrapyardAbility::AScrapyardAbility()
 {
-  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::UScrapyardAbility"));
+  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::AScrapyardAbility"));
   InactiveState = CreateDefaultSubobject<UAbilityStateInactive>(TEXT("AbilityStateInactive"));
   ActiveState = CreateDefaultSubobject<UAbilityStateActive>(TEXT("AbilityStateActive"));
 
@@ -23,14 +23,14 @@ UScrapyardAbility::UScrapyardAbility()
 
 }
 
-void UScrapyardAbility::StartFire(uint8 FireModeNum)
+void AScrapyardAbility::StartFire(uint8 FireModeNum)
 {
   
-  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::StartFire"));
+  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::StartFire"));
 
   bool bClientFired = BeginFiringSequence(FireModeNum, false);
 
-  if (RobotOwner->Role < ROLE_Authority)
+  if (Role < ROLE_Authority)
   {
     UAbilityStateFiring* CurrentFiringState = FiringState.IsValidIndex(FireModeNum) ? FiringState[FireModeNum] : nullptr;  
     if (CurrentFiringState)
@@ -45,11 +45,11 @@ void UScrapyardAbility::StartFire(uint8 FireModeNum)
   }
 }
 
-void UScrapyardAbility::StopFire(uint8 FireModeNum)
+void AScrapyardAbility::StopFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::StopFire"));
+  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::StopFire"));
   EndFiringSequence(FireModeNum);
-  if (RobotOwner->Role < ROLE_Authority)
+  if (Role < ROLE_Authority)
   {
     UAbilityStateFiring* CurrentFiringState = FiringState.IsValidIndex(FireModeNum) ? FiringState[FireModeNum] : nullptr;
     if (CurrentFiringState)
@@ -64,7 +64,7 @@ void UScrapyardAbility::StopFire(uint8 FireModeNum)
   }
 }
 
-void UScrapyardAbility::GotoState(UAbilityState* NewState)
+void AScrapyardAbility::GotoState(UAbilityState* NewState)
 {
   if (CurrentState != NewState)
   {
@@ -83,14 +83,14 @@ void UScrapyardAbility::GotoState(UAbilityState* NewState)
   }
 }
 
-void UScrapyardAbility::GotoActiveState()
+void AScrapyardAbility::GotoActiveState()
 {
   GotoState(ActiveState);
 }
 
-void UScrapyardAbility::GotoFireMode(uint8 NewFireMode)
+void AScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 {
- UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::GotoFireMode"));
+ UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::GotoFireMode"));
  if (FiringState.IsValidIndex(NewFireMode))
  {
    CurrentFireMode = NewFireMode;
@@ -98,9 +98,9 @@ void UScrapyardAbility::GotoFireMode(uint8 NewFireMode)
  }
 }
 
-bool UScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
+bool AScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
-  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::BeginFiringSequence"));
+  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::BeginFiringSequence"));
   if (RobotOwner != NULL)
   {
     RobotOwner->SetPendingFire(FireModeNum, true);
@@ -114,9 +114,9 @@ bool UScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired
   return false;
 }
 
-void UScrapyardAbility::EndFiringSequence(uint8 FireModeNum)
+void AScrapyardAbility::EndFiringSequence(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("UScrapyardAbility::EndFiringSequence"));
+  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::EndFiringSequence"));
   if (RobotOwner)
   {
     RobotOwner->SetPendingFire(FireModeNum, false);
@@ -128,28 +128,28 @@ void UScrapyardAbility::EndFiringSequence(uint8 FireModeNum)
   CurrentState->EndFiringSequence(FireModeNum);
 }
 
-bool UScrapyardAbility::WillSpawnShot(float DeltaTime)
+bool AScrapyardAbility::WillSpawnShot(float DeltaTime)
 {
   return (CurrentState != NULL) && CanFireAgain() && CurrentState->WillSpawnShot(DeltaTime);
 }
 
-bool UScrapyardAbility::CanFireAgain()
+bool AScrapyardAbility::CanFireAgain()
 {
   return true;
 }
   
-void UScrapyardAbility::FireShot()
+void AScrapyardAbility::FireShot()
 {
   // can either override this on ability subclasses
   // or override FireProjectile / FireInstantHit etc
 }
 
-bool UScrapyardAbility::IsFiring() const
+bool AScrapyardAbility::IsFiring() const
 {
   return CurrentState->IsFiring();
 }
 
-float UScrapyardAbility::GetRefireTime(uint8 FireModeNum)
+float AScrapyardAbility::GetRefireTime(uint8 FireModeNum)
 {
   float RefireTime = 0.1f;
 
@@ -162,14 +162,14 @@ float UScrapyardAbility::GetRefireTime(uint8 FireModeNum)
 
 }
 
-void UScrapyardAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
+void AScrapyardAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::FireInstantHit"), *GetName());
 }
 
-FVector UScrapyardAbility::GetFireStartLoc(uint8 FireMode)
+FVector AScrapyardAbility::GetFireStartLoc(uint8 FireMode)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::GetFireStartLoc"));  
+  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::GetFireStartLoc"));  
   if (FireMode == 255)
   {
     FireMode = CurrentFireMode;
@@ -185,7 +185,7 @@ FVector UScrapyardAbility::GetFireStartLoc(uint8 FireMode)
   }
 }
 
-FRotator UScrapyardAbility::GetBaseFireRotation()
+FRotator AScrapyardAbility::GetBaseFireRotation()
 {
   if (RobotOwner == NULL)
   {
@@ -197,9 +197,9 @@ FRotator UScrapyardAbility::GetBaseFireRotation()
   }
 }
 
-void UScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime)
+void AScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::HitScanTrace"));
+  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::HitScanTrace"));
   const FName TraceTag("MyTraceTag");
   GetWorld()->DebugDrawTraceTag = TraceTag;
 
@@ -210,6 +210,11 @@ void UScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector
   if (TraceRadius <= 0.0f)
   {
     GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndTrace, TraceChannel, QueryParams);
+    UE_LOG(LogTemp, Warning, TEXT("The Hit TraceStart is %s"), *Hit.TraceStart.ToString());
+    if (Hit.Actor != NULL)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("Hit an Actor!"));
+    }
   }
   else
   {
@@ -229,41 +234,41 @@ void UScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector
 //  }
 }
 
-void UScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
+void AScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::ServerStartFire_Implementation"));
+  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::ServerStartFire_Implementation"));
 
   BeginFiringSequence(FireModeNum, bClientFired);
 }
 
-bool UScrapyardAbility::ServerStartFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
+bool AScrapyardAbility::ServerStartFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UScrapyardAbility::ServerStartFire_Validate"));
+  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::ServerStartFire_Validate"));
   return true;
 }
 
-void UScrapyardAbility::ServerStopFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex)
+void AScrapyardAbility::ServerStopFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex)
 {
   EndFiringSequence(FireModeNum);
 }
 
-bool UScrapyardAbility::ServerStopFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex)
+bool AScrapyardAbility::ServerStopFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex)
 {
   return true;
 }
 
-void UScrapyardAbility::ServerHitScanHit_Implementation(ARobotCharacter* HitScanChar, uint8 HitScanEventIndex)
+void AScrapyardAbility::ServerHitScanHit_Implementation(ARobotCharacter* HitScanChar, uint8 HitScanEventIndex)
 {
   ReceivedHitScanHitChar = HitScanChar;
   ReceivedHitScanIndex = HitScanEventIndex;
 }
 
-bool UScrapyardAbility::ServerHitScanHit_Validate(ARobotCharacter* HitScanChar, uint8 HitScanEventIndex)
+bool AScrapyardAbility::ServerHitScanHit_Validate(ARobotCharacter* HitScanChar, uint8 HitScanEventIndex)
 {
   return true;
 }
 
-void UScrapyardAbility::ClientMissedHitScan_Implementation(FVector_NetQuantize MissedHitScanStart, FVector_NetQuantize MissedHitScanEnd, FVector_NetQuantize MissedHitScanLoc, float MissedHitScanTime, uint8 MissedHitScanIndex)
+void AScrapyardAbility::ClientMissedHitScan_Implementation(FVector_NetQuantize MissedHitScanStart, FVector_NetQuantize MissedHitScanEnd, FVector_NetQuantize MissedHitScanLoc, float MissedHitScanTime, uint8 MissedHitScanIndex)
 {
   DrawDebugLine(GetWorld(), HitScanStart, HitScanEnd, FColor::Green, false, 8.f);                  
   DrawDebugLine(GetWorld(), MissedHitScanStart, MissedHitScanEnd, FColor::Yellow, false, 8.f);
