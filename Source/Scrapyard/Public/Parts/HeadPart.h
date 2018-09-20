@@ -18,7 +18,7 @@ class SCRAPYARD_API UHeadPart : public URobotPart
 	
 public:
 
-	void Draft(USoloDraft* SoloDraft);
+	void Draft(USoloDraft* SoloDraft) override;
 
-	void Assign(URobotBodyComponent* RobotBody);
+	void Assign(URobotBodyComponent* RobotBody) override;
 };

@@ -7,6 +7,7 @@
 #include "Ability/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
+class URobotPartAssets;
 class UMaterial;
 class USkeletalMesh;
 class UManufacturer;
@@ -62,5 +63,9 @@ public:
 	virtual void Assign(URobotPartAssignment* PartAssignment) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(PartAssignment)")); };
 
 	virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
+
+        URobotPartAssets* GetRobotPartAssets();
+
+        virtual USkeletalMesh* GetSkeletalMesh() { return nullptr; };
 
 };

@@ -11,52 +11,68 @@
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
 // TODO: find the right place for these
-	RobotPartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("RobotPartAssignment"));
-	SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
+  RobotPartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("RobotPartAssignment"));
+  SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
 
 // TODO: best way to get the BP class ref?
 // https://forums.unrealengine.com/development-discussion/c-gameplay-programming/15841-access-to-blueprints-default-paramteres
-	FStringClassReference DefaultAssetsBPClassRef(TEXT("/Game/ScrapyardDefaultAssetsBP.ScrapyardDefaultAssetsBP_C"));
-	if (UClass* DefaultAssetsBPClass =  DefaultAssetsBPClassRef.TryLoadClass<UScrapyardDefaultAssets>())
-	{
+  FStringClassReference DefaultAssetsBPClassRef(TEXT("/Game/ScrapyardDefaultAssetsBP.ScrapyardDefaultAssetsBP_C"));
+  if (UClass* DefaultAssetsBPClass =  DefaultAssetsBPClassRef.TryLoadClass<UScrapyardDefaultAssets>())
+  {
 // NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
-//		UScrapyardDefaultAssets* lol = NewObject<UScrapyardDefaultAssets>(DefaultAssetsBPClass);
-		DefaultAssetsBP = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
-	}
+//    UScrapyardDefaultAssets* lol = NewObject<UScrapyardDefaultAssets>(DefaultAssetsBPClass);
+    DefaultAssetsBP = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
+  }
+
+  FStringClassReference RobotPartAssetsBPClassRef(TEXT("/Game/RobotPartAssetsBP.RobotPartAssetsBP_C"));
+  if (UClass* RobotPartAssetsBPClass = RobotPartAssetsBPClassRef.TryLoadClass<URobotPartAssets>())
+  {
+// NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
+//    UScrapyardDefaultAssets* lol = NewObject<UScrapyardDefaultAssets>(DefaultAssetsBPClass);
+    RobotPartAssetsBP = RobotPartAssetsBPClass->GetDefaultObject<URobotPartAssets>();
+    if (RobotPartAssetsBP)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was loaded"));
+    }
+    else
+    {
+      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was NOT loaded"));
+    }
+  }
 };
 
 void UScrapyardGameInstance::Init()
 {
-	Super::Init();
+  Super::Init();
 }
 
 void UScrapyardGameInstance::Shutdown()
 {
-	Super::Shutdown();
+  Super::Shutdown();
 }
 
 //FGameInstancePIEResult UScrapyardGameInstance::StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params)
 //{
-//	UE_LOG(LogTemp, Warning, TEXT("StartPlayInEditorGameInstance()"));
-//	return Super::StartPlayInEditorGameInstance(LocalPlayer, Params);
+//  UE_LOG(LogTemp, Warning, TEXT("StartPlayInEditorGameInstance()"));
+//  return Super::StartPlayInEditorGameInstance(LocalPlayer, Params);
 //}
 
 void UScrapyardGameInstance::StartGameInstance()
 {
-	Super::StartGameInstance();
+  Super::StartGameInstance();
 }
 
 AScrapyardGameSession* UScrapyardGameInstance::GetGameSession() const
 {
-	UWorld* const World = GetWorld();
-	if (World)
-	{
-		AGameModeBase* const Game = World->GetAuthGameMode();
-		if (Game)
-		{
-			return Cast<AScrapyardGameSession>(Game->GameSession);
-		}
-	}
+  UWorld* const World = GetWorld();
+  if (World)
+  {
+    AGameModeBase* const Game = World->GetAuthGameMode();
+    if (Game)
+    {
+      return Cast<AScrapyardGameSession>(Game->GameSession);
+    }
+  }
 
-	return nullptr;
+  return nullptr;
 }

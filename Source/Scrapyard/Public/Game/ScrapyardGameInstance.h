@@ -7,6 +7,7 @@
 #include "ScrapyardGameInstance.generated.h"
 
 class UScrapyardDefaultAssets;
+class URobotPartAssets;
 class URobotPartAssignment;
 class USoloDraft;
 class AScrapyardGameSession;
@@ -20,6 +21,8 @@ public:
 	UScrapyardGameInstance();
 
 	const UScrapyardDefaultAssets* DefaultAssetsBP;
+
+        URobotPartAssets* RobotPartAssetsBP;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	URobotPartAssignment* RobotPartAssignment;
