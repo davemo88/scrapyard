@@ -11,9 +11,6 @@ UHeadPart_Default::UHeadPart_Default()
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
-
-  SkeletalMesh = GetSkeletalMesh();
-  
 }
 
 USkeletalMesh* UHeadPart_Default::GetSkeletalMesh()

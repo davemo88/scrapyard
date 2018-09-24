@@ -3,8 +3,21 @@
 #include "RobotPart.h"
 #include "Parts/RobotPartAssets.h"
 
+void URobotPart::BeginPlay()
+{
+  Super::BeginPlay();
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
+
+  USkeletalMesh* Mesh = GetSkeletalMesh();
+  if (Mesh != NULL)
+  {
+    SetSkeletalMesh(Mesh);
+  }
+}
+
 URobotPartAssets* URobotPart::GetRobotPartAssets()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::GetRobotPartAssets"), *GetName());
   UWorld* World = GetWorld();
   if (World)
   {
@@ -18,3 +31,8 @@ URobotPartAssets* URobotPart::GetRobotPartAssets()
   return nullptr;
 }
 
+USkeletalMesh* URobotPart::GetSkeletalMesh()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
+  return nullptr; 
+}

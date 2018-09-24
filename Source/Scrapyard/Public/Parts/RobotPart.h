@@ -21,46 +21,48 @@ class URobotBodyComponent;
 UCLASS(BlueprintType)
 class SCRAPYARD_API URobotPart : public USkeletalMeshComponent
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	
-// stats
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FString PartName;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UManufacturer* Manufacturer;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	URarity* Rarity;
-// this integer type because only uint8 and int32 are supported by blueprints
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 Mass;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 PowerDrain;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 Durability;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 BallisticDefense;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 EnergyDefense;
 
-        UPROPERTY()
-        AScrapyardAbility* PartAbililty = NULL;
+  virtual void BeginPlay() override;
+  
+// stats
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  FString PartName;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UManufacturer* Manufacturer;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  URarity* Rarity;
+// this integer type because only uint8 and int32 are supported by blueprints
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  int32 Mass;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  int32 PowerDrain;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  int32 Durability;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  int32 BallisticDefense;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  int32 EnergyDefense;
+
+  UPROPERTY()
+  AScrapyardAbility* PartAbililty = NULL;
 
 // skeletal mesh 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UMaterial* MajorMaterial;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UMaterial* MinorMaterial;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UMaterial* AccentMaterial;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UMaterial* MajorMaterial;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UMaterial* MinorMaterial;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UMaterial* AccentMaterial;
 
-	virtual void Draft(USoloDraft* SoloDraft) {};
+  virtual void Draft(USoloDraft* SoloDraft) {};
 
-	virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
+  virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
 
-        URobotPartAssets* GetRobotPartAssets();
+  URobotPartAssets* GetRobotPartAssets();
 
-        virtual USkeletalMesh* GetSkeletalMesh() { return nullptr; };
+  virtual USkeletalMesh* GetSkeletalMesh();
 
 };

@@ -11,13 +11,11 @@ UArmsPart_Default::UArmsPart_Default()
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
-
-  SkeletalMesh = GetSkeletalMesh();
-  
 }
 
 USkeletalMesh* UArmsPart_Default::GetSkeletalMesh()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
   URobotPartAssets* RobotPartAssets = GetRobotPartAssets();
   if (RobotPartAssets != NULL)
   {
@@ -31,7 +29,3 @@ USkeletalMesh* UArmsPart_Default::GetSkeletalMesh()
   
   return nullptr;
 }
-
-
-
-

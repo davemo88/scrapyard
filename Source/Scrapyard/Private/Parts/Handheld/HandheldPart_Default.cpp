@@ -11,9 +11,6 @@ UHandheldPart_Default::UHandheldPart_Default()
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
-
-  SkeletalMesh = GetSkeletalMesh();
-  
 }
 
 USkeletalMesh* UHandheldPart_Default::GetSkeletalMesh()

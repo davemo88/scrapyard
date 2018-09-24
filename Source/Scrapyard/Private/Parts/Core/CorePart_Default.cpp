@@ -11,9 +11,6 @@ UCorePart_Default::UCorePart_Default()
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
-
-  SkeletalMesh = GetSkeletalMesh();
-  
 }
 
 USkeletalMesh* UCorePart_Default::GetSkeletalMesh()

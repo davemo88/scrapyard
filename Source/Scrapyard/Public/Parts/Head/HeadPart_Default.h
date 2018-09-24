@@ -14,6 +14,8 @@ class SCRAPYARD_API UHeadPart_Default : public UHeadPart
 {
   GENERATED_BODY()
 
+public:
+
   UHeadPart_Default();
 
   USkeletalMesh* GetSkeletalMesh() override;

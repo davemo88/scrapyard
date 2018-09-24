@@ -14,6 +14,8 @@ class SCRAPYARD_API ULegsPart_Default : public ULegsPart
 {
   GENERATED_BODY()
 
+public:
+
   ULegsPart_Default();
 
   USkeletalMesh* GetSkeletalMesh() override;

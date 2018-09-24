@@ -25,7 +25,11 @@ ASoloDraftActor::ASoloDraftActor()
 // Called when the game starts or when spawned
 void ASoloDraftActor::BeginPlay()
 {
+  UE_LOG(LogTemp, Warning, TEXT("ASoloDraftActor::BeginPlay"));
   Super::BeginPlay();
+
+//  UArmsPart_Default* hpd = NewObject<UArmsPart_Default>();
+//  hpd->BeginPlay();
 
   HeadParts.Add(NewObject<UHeadPart_Default>());
   CoreParts.Add(NewObject<UCorePart_Default>()); 
@@ -67,6 +71,7 @@ void ASoloDraftActor::SpawnPartCards()
   for (int32 i = 0; i < CurrentDraft->CurrentPack.Num(); ++i)
   {
     float YVal = FMath::Pow(-1,i) * 100.f; 
+//    float ZVal = FMath::Pow(-1,i) * 50.f + 250.f;
     float ZVal = (i < (CurrentDraft->CurrentPack.Num()/2)) ? 200.f : 300.f;
     PartCardActors.Add(SpawnRobotPartCardActor(CurrentDraft->CurrentPack[i],FVector(0,YVal,ZVal),Rot));
   }
@@ -74,14 +79,7 @@ void ASoloDraftActor::SpawnPartCards()
 
 void ASoloDraftActor::DestroyPartCards()
 {
-//  for (TActorIterator<ARobotPartCardActor> ActrItr(GetWorld()); ActrItr; ++ActrItr)
-//  {
-//    ActrItr->Destroy();
-//  }
-  for (int32 i = 0; i < PartCardActors.Num(); ++i)
-  {
-    PartCardActors[i]->Destroy();
-  }
+  PartCardActors.Empty();
 }
 
 void ASoloDraftActor::NextPack()

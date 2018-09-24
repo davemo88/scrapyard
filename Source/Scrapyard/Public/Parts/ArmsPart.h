@@ -12,16 +12,18 @@
 UCLASS()
 class SCRAPYARD_API UArmsPart : public URobotPart
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	UPROPERTY(EditAnywhere)
-	uint16 MaxWeight;
-	UPROPERTY(EditAnywhere)
-	uint8 RecoilControl;
+  UPROPERTY(EditAnywhere)
+  uint16 MaxWeight;
+  UPROPERTY(EditAnywhere)
+  uint8 RecoilControl;
 
-	void Draft(USoloDraft* SoloDraft);
+//  virtual USkeletalMesh* GetSkeletalMesh() override { return nullptr; };
 
-	void Assign(URobotBodyComponent* RobotBody);
+  void Draft(USoloDraft* SoloDraft);
+
+  void Assign(URobotBodyComponent* RobotBody);
 };

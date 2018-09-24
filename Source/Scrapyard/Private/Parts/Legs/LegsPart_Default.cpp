@@ -11,9 +11,6 @@ ULegsPart_Default::ULegsPart_Default()
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
-
-  SkeletalMesh = GetSkeletalMesh();
-  
 }
 
 USkeletalMesh* ULegsPart_Default::GetSkeletalMesh()

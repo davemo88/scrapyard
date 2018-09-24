@@ -14,7 +14,11 @@ class SCRAPYARD_API UArmsPart_Default : public UArmsPart
 {
   GENERATED_BODY()
 
+public:
+
   UArmsPart_Default();
 
-  USkeletalMesh* GetSkeletalMesh() override;
+  virtual USkeletalMesh* GetSkeletalMesh() override;
+
+  void BeginPlay() override { UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName()); GetSkeletalMesh(); };
 };
