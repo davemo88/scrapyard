@@ -30,7 +30,7 @@ ARobotBodyGarage* AGaragePlayerController::FindRobotBodyGarage()
 {
 	for (TActorIterator<ARobotBodyGarage> ActrItr(GetWorld()); ActrItr; ++ActrItr)
 	{
-		ensure(ActrItr->RobotBodyComponent->RobotPartAssignment != nullptr);
+		ensure(ActrItr->RobotBodyComponent != nullptr);
 		return *ActrItr;
 	}
 	return nullptr;

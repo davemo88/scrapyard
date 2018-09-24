@@ -6,13 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "Camera/CameraActor.h"
 #include "SoloDraft.h"
-#include "Robots/RobotPartAssignment.h"
 #include "HeadPart.h"
 #include "CorePart.h"
 #include "ArmsPart.h"
 #include "LegsPart.h"
 #include "RobotPartCardActor.h"
-#include "RobotPartHelper.h"
 #include "SoloDraftActor.generated.h"
 
 
@@ -30,9 +28,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	
-	UPROPERTY()
-	URobotPartHelper* RobotPartHelper;
+
 	TArray<UHeadPart*> HeadParts;
 	TArray<UCorePart*> CoreParts;
 	TArray<UArmsPart*> ArmsParts;
@@ -52,7 +48,10 @@ private:
 
 	void NextPack();
 
-	URobotPartAssignment* SamplePack();
+	void SamplePack();
+
+        UPROPERTY()
+        TArray<ARobotPartCardActor*> PartCardActors;
 
 	template<typename T>
 	T* SamplePart(TArray<T*>& Parts, bool Replacement = true);

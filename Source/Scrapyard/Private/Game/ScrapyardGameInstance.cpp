@@ -5,13 +5,12 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 #include "Game/ScrapyardDefaultAssets.h"
-#include "Robots/RobotPartAssignment.h"
 #include "SoloDraft.h"
 
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
 // TODO: find the right place for these
-  RobotPartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("RobotPartAssignment"));
+  RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
   SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
 
 // TODO: best way to get the BP class ref?

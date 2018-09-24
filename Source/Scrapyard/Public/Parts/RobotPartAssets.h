@@ -33,4 +33,15 @@ public:
   UPROPERTY(EditDefaultsOnly)
   USkeletalMesh* HandheldPart_Default_SkeletalMesh;
 
+  UPROPERTY(EditDefaultsOnly)
+  UMaterial* RedMaterial;
+  UPROPERTY(EditDefaultsOnly)
+  UMaterial* BlueMaterial;
+  UPROPERTY(EditDefaultsOnly)
+  UMaterial* GreenMaterial;
+  UPROPERTY(EditDefaultsOnly)
+  UMaterial* PurpleMaterial;
+  UPROPERTY(EditDefaultsOnly)
+  UMaterial* OrangeMaterial;
+
 };

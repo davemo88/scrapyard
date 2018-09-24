@@ -5,63 +5,54 @@
 #include "CoreMinimal.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
-#include "Robots/RobotPartComponent.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
-#include "Robots/RobotPartAssignment.h"
+#include "Parts/HandheldPart.h"
 #include "RobotBodyComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SCRAPYARD_API URobotBodyComponent : public USkeletalMeshComponent
 {
-	GENERATED_BODY()
-
-public:	
-	// Sets default values for this component's properties
-	URobotBodyComponent();
+  GENERATED_BODY()
+  // Sets default values for this component's properties
+  URobotBodyComponent();
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+  // Called when the game starts
+  virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+public:  
+  // Called every frame
+  virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 // default skeletal mesh
-	FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
+  FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
 
 // animation instance class
 // https://answers.unrealengine.com/questions/153496/how-to-set-animation-blueprint-in-c.html
-	FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
-
-// part assignment
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotPartAssignment* RobotPartAssignment;
+  FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
 
 // part components
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotPartComponent* HeadComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotPartComponent* CoreComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotPartComponent* ArmsComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotPartComponent* LegsComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URobotPartComponent* RightHandheldComponent;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UHeadPart* Head;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UCorePart* Core;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UArmsPart* Arms;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  ULegsPart* Legs;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UHandheldPart* RightHandheld;
 
-//	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-//	UParticleSystemComponent* BoostingParticleComponent;
+//  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+//  UParticleSystemComponent* BoostingParticleComponent;
 
-	UFUNCTION(BlueprintCallable)
-	void SetPartAssignment(URobotPartAssignment* PartAssignment);
-
-	void SetHead(UHeadPart* NewHead);
-	void SetCore(UCorePart* NewCore);
-	void SetArms(UArmsPart* NewArms);
-	void SetLegs(ULegsPart* NewLegs);
+  void SetHead(UHeadPart* NewHead);
+  void SetCore(UCorePart* NewCore);
+  void SetArms(UArmsPart* NewArms);
+  void SetLegs(ULegsPart* NewLegs);
+  void SetRightHandheld(UHandheldPart* NewRightHandheld);
 };

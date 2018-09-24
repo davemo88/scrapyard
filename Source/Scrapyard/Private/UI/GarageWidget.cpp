@@ -52,7 +52,7 @@ void UGarageWidget::DisplayLegs()
 void UGarageWidget::GotoGarageTestLevel()
 {
 	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
-	GameInstance->RobotPartAssignment = DuplicateObject<URobotPartAssignment>(RobotBodyGarage->RobotBodyComponent->RobotPartAssignment, nullptr);// GetOwningPlayer()->GetWorld());
+	GameInstance->RobotBodyComponent = DuplicateObject<URobotBodyComponent>(RobotBodyGarage->RobotBodyComponent, nullptr);// GetOwningPlayer()->GetWorld());
 	UGameplayStatics::OpenLevel(GetOwningPlayer()->GetWorld(), "/Game/Levels/GarageTestLevel");
 }
 

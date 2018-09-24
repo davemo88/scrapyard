@@ -20,7 +20,6 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   bAlwaysRelevant = true;
 // maybe we need to put the default subobjects in the constructor?
   SetupCamera();
-  SetupPartAssignment();
   SetupBody();
   SetupStats();
   UpdateStats();
@@ -80,32 +79,9 @@ void ARobotCharacter::SetupCamera()
   OurCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 }
 
-void ARobotCharacter::SetupPartAssignment()
-{
-  RobotPartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("RobotPartAssignment"));
-  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(UGameplayStatics::GetGameInstance(this));
-  if (GameInstance)
-  {
-    if (!GameInstance->RobotPartAssignment->IsComplete())
-    {
-      UE_LOG(LogTemp, Warning, TEXT("setting default part assignment"));
-      RobotPartAssignment->SetDefaultAssignment();
-    }
-    else
-    {
-      UE_LOG(LogTemp, Warning, TEXT("setting game instance part assignment"));
-      RobotPartAssignment = GameInstance->RobotPartAssignment;
-    }
-  }
-}
-
 void ARobotCharacter::SetupBody()
 {
   RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
-  if (RobotPartAssignment->IsComplete())
-  {
-    RobotBodyComponent->SetPartAssignment(RobotPartAssignment);
-  }
 
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
@@ -119,15 +95,9 @@ void ARobotCharacter::SetupStats()
 void ARobotCharacter::SetupAbilities()
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::SetupAbilities"));
-  if (RobotPartAssignment)
+  if (RobotBodyComponent && RobotBodyComponent->RightHandheld && RobotBodyComponent->RightHandheld->PartAbililty)
   {
-    if (RobotPartAssignment->RightHandheld)
-    {
-      if (RobotPartAssignment->RightHandheld->PartAbililty)
-      {
-        WeaponAbility = RobotPartAssignment->RightHandheld->PartAbililty;
-      }
-    }
+    WeaponAbility = RobotBodyComponent->RightHandheld->PartAbililty;
   }
   if (WeaponAbility == NULL)
   {
@@ -139,14 +109,7 @@ void ARobotCharacter::SetupAbilities()
 
 void ARobotCharacter::UpdateStats()
 {
-//  RobotStats->MaxDurability += RobotPartAssignment->Head->Durability;
-//  RobotStats->MaxDurability += RobotPartAssignment->Core->Durability;
-//  RobotStats->MaxDurability += RobotPartAssignment->Arms->Durability;
-//  RobotStats->MaxDurability += RobotPartAssignment->Legs->Durability;
-
-////  RobotStats->MaxPower += RobotPartAssignment->PowerPlant->PowerSupply;
   RobotStats->MaxPower += 1000;
-
 }
 
 void ARobotCharacter::Axis_MoveX(float AxisValue)

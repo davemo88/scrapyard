@@ -8,7 +8,6 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Robots/RobotBodyComponent.h"
-#include "Robots/RobotPartAssignment.h"
 #include "Robots/RobotStats.h"
 #include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
@@ -36,9 +35,6 @@ public:
   // Called to bind functionality to input
   virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-// part assignment
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  URobotPartAssignment* RobotPartAssignment;
 // body
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   URobotBodyComponent* RobotBodyComponent;
@@ -47,7 +43,6 @@ public:
   URobotStats* RobotStats;
 
   void SetupBody();
-  void SetupPartAssignment();
   void SetupStats();
   void SetupAbilities();
 

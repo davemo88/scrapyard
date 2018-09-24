@@ -6,7 +6,6 @@
 #include "UObject/NoExportTypes.h"
 #include "SoloDraft.generated.h"
 
-class URobotPartAssignment;
 class URobotPart;
 class UHeadPart;
 class UCorePart;
@@ -50,9 +49,6 @@ public:
 	TArray<UChipPart*> DraftedChips;
 
 	UPROPERTY(BlueprintReadOnly)
-	URobotPartAssignment* CurrentPack;
-
-// also might need to keep track of the robot(s) they built
-// i.e. as a Part Assignment
+        TArray<URobotPart*> CurrentPack;
 
 };

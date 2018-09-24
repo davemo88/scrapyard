@@ -6,8 +6,6 @@
 #include "Parts/RobotPart.h"
 #include "HeadPart.generated.h"
 
-class URobotPartAssignment;
-
 /**
  * 
  */

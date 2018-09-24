@@ -3,101 +3,90 @@
 #include "RobotBodyComponent.h"
 #include "Components/SceneComponent.h"
 #include "ConstructorHelpers.h"
-#include "Robots/RobotPartAssignment.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
 
 
 // Sets default values for this component's properties
 URobotBodyComponent::URobotBodyComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+  // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+  // off to improve performance if you don't need them.
+  PrimaryComponentTick.bCanEverTick = true;
 
-	bVisible = false;
-	
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(*DefaultMeshPath);
-	SetSkeletalMesh(DefaultMesh.Object);
-	static ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass> DefaultAnimBP(*DefaultAnimPath);
-	SetAnimInstanceClass(DefaultAnimBP.Object);
+  bVisible = false;
+  
+  static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(*DefaultMeshPath);
+  SetSkeletalMesh(DefaultMesh.Object);
+  static ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass> DefaultAnimBP(*DefaultAnimPath);
+  SetAnimInstanceClass(DefaultAnimBP.Object);
 
-	FVector DefaultLoc = FVector(0.f, 0.f, -85.f);
-	FRotator DefaultRot = FRotator(0.f, -90.f, 0.f);
-	SetRelativeLocation(DefaultLoc);
-	SetRelativeRotation(DefaultRot);
+  FVector DefaultLoc = FVector(0.f, 0.f, -85.f);
+  FRotator DefaultRot = FRotator(0.f, -90.f, 0.f);
+  SetRelativeLocation(DefaultLoc);
+  SetRelativeRotation(DefaultRot);
 
-	RobotPartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("RobotPartAssignment"));
+  Head = CreateDefaultSubobject<UHeadPart>(TEXT("HeadComponent"));
+  Core = CreateDefaultSubobject<UCorePart>(TEXT("CoreComponent"));
+  Arms = CreateDefaultSubobject<UArmsPart>(TEXT("ArmsComponent"));
+  Legs = CreateDefaultSubobject<ULegsPart>(TEXT("LegsComponent"));
+  RightHandheld = CreateDefaultSubobject<UHandheldPart>(TEXT("RightHandheldComponent"));
 
-	HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
-	CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));
-	ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("ArmsComponent"));
-	LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("LegsComponent"));
-	RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RightHandheldComponent"));
+  Head->SetupAttachment(this);
+  Core->SetupAttachment(this);
+  Arms->SetupAttachment(this);
+  Legs->SetupAttachment(this);
+  RightHandheld->SetupAttachment(this);
 
-	HeadComponent->SetupAttachment(this);
-	CoreComponent->SetupAttachment(this);
-	ArmsComponent->SetupAttachment(this);
-	LegsComponent->SetupAttachment(this);
-	RightHandheldComponent->SetupAttachment(this);
-
-	HeadComponent->SetMasterPoseComponent(this);
-	CoreComponent->SetMasterPoseComponent(this);
-	ArmsComponent->SetMasterPoseComponent(this);
-	LegsComponent->SetMasterPoseComponent(this);
-//	RightHandheldComponent->SetMasterPoseComponent(this);
-	
-//	BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
-//	BoostingParticleComponent->SetupAttachment(this);
+  Head->SetMasterPoseComponent(this);
+  Core->SetMasterPoseComponent(this);
+  Arms->SetMasterPoseComponent(this);
+  Legs->SetMasterPoseComponent(this);
+//  RightHandheldComponent->SetMasterPoseComponent(this);
+  
+//  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
+//  BoostingParticleComponent->SetupAttachment(this);
 
 
-}
-
-void URobotBodyComponent::SetPartAssignment(URobotPartAssignment* PartAssignment)
-{
-	RobotPartAssignment = PartAssignment;
-	HeadComponent->AssignPart(PartAssignment->Head);
-	CoreComponent->AssignPart(PartAssignment->Core);
-	ArmsComponent->AssignPart(PartAssignment->Arms);
-	LegsComponent->AssignPart(PartAssignment->Legs);
 }
 
 void URobotBodyComponent::SetHead(UHeadPart* NewHead)
 {
-	RobotPartAssignment->Head = NewHead;
-	HeadComponent->AssignPart(NewHead);
+  Head = NewHead;
 }
 
 void URobotBodyComponent::SetCore(UCorePart* NewCore)
 {
-	RobotPartAssignment->Core = NewCore;
-	CoreComponent->AssignPart(NewCore);
+  Core = NewCore;
 }
 
 void URobotBodyComponent::SetArms(UArmsPart* NewArms)
 {
-	RobotPartAssignment->Arms = NewArms;
-	ArmsComponent->AssignPart(NewArms);
+  Arms = NewArms;
 }
  
 void URobotBodyComponent::SetLegs(ULegsPart* NewLegs)
 {
-	RobotPartAssignment->Legs = NewLegs;
-	LegsComponent->AssignPart(NewLegs);
+  Legs = NewLegs;
+}
+
+void URobotBodyComponent::SetRightHandheld(UHandheldPart* NewRightHandheld)
+{
+  RightHandheld = NewRightHandheld;
 }
 // Called when the game starts
 void URobotBodyComponent::BeginPlay()
 {
-	Super::BeginPlay();
+  Super::BeginPlay();
 
-	// ...
-	
+  // ...
+  
 }
 
 
 // Called every frame
 void URobotBodyComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+  Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+  // ...
 }

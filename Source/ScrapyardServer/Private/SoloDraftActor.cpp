@@ -5,141 +5,145 @@
 #include "Kismet/GameplayStatics.h"
 #include "UObjectGlobals.h"
 #include "ScrapyardGameInstance.h"
+#include "Parts/Head/HeadPart_Default.h"
+#include "Parts/Core/CorePart_Default.h"
+#include "Parts/Arms/ArmsPart_Default.h"
+#include "Parts/Legs/LegsPart_Default.h"
+#include "Parts/Handheld/HandheldPart_Default.h"
 
 
 // Sets default values
 ASoloDraftActor::ASoloDraftActor()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	
-	CurrentDraft = CreateDefaultSubobject<USoloDraft>(TEXT("CurrentDraft"));
-
-	RobotPartHelper = CreateDefaultSubobject<URobotPartHelper>(TEXT("RobotPartHelper"));
+   // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+  PrimaryActorTick.bCanEverTick = true;
+  
+  CurrentDraft = CreateDefaultSubobject<USoloDraft>(TEXT("CurrentDraft"));
 
 }
 
 // Called when the game starts or when spawned
 void ASoloDraftActor::BeginPlay()
 {
-	Super::BeginPlay();
+  Super::BeginPlay();
 
-	HeadParts = RobotPartHelper->GetAllHeads();
-	CoreParts = RobotPartHelper->GetAllCores();
-	ArmsParts = RobotPartHelper->GetAllArms();
-	LegsParts = RobotPartHelper->GetAllLegs();
+  HeadParts.Add(NewObject<UHeadPart_Default>());
+  CoreParts.Add(NewObject<UCorePart_Default>()); 
+  ArmsParts.Add(NewObject<UArmsPart_Default>()); 
+  LegsParts.Add(NewObject<ULegsPart_Default>());
 
-	SpawnDraftCamera();
+  SpawnDraftCamera();
 
-	NextPack();
-
+  NextPack();
 
 }
 
 // Called every frame
 void ASoloDraftActor::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+  Super::Tick(DeltaTime);
 
 }
 
 void ASoloDraftActor::SpawnDraftCamera()
 {
-	UWorld* World = GetWorld();
-	ACameraActor* DraftCamera = World->SpawnActor<ACameraActor>(FVector(-420.0f, 0.0f, 200.0f), FRotator(0.0f, 0.0f, 0.0f), FActorSpawnParameters());
-	World->GetFirstPlayerController()->SetViewTarget(DraftCamera);
+  UWorld* World = GetWorld();
+  ACameraActor* DraftCamera = World->SpawnActor<ACameraActor>(FVector(-420.0f, 0.0f, 200.0f), FRotator(0.0f, 0.0f, 0.0f), FActorSpawnParameters());
+  World->GetFirstPlayerController()->SetViewTarget(DraftCamera);
 }
 
 ARobotPartCardActor* ASoloDraftActor::SpawnRobotPartCardActor(URobotPart* RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
 {
-	UWorld* World = GetWorld();
-	ARobotPartCardActor* CardActor = World->SpawnActor<ARobotPartCardActor>(Loc, Rot, SpawnParams);
-	CardActor->SetRobotPart(RobotPart);
-	CardActor->OnRobotPartCardClicked.AddDynamic(this, &ASoloDraftActor::DraftPart);
-	return CardActor;
+  UWorld* World = GetWorld();
+  ARobotPartCardActor* CardActor = World->SpawnActor<ARobotPartCardActor>(Loc, Rot, SpawnParams);
+  CardActor->SetRobotPart(RobotPart);
+  CardActor->OnRobotPartCardClicked.AddDynamic(this, &ASoloDraftActor::DraftPart);
+  return CardActor;
 }
 
 void ASoloDraftActor::SpawnPartCards()
 {
-	if (CurrentDraft->CurrentPack->IsComplete())
-	{
-		ARobotPartCardActor* HeadPartCardActor = SpawnRobotPartCardActor(CurrentDraft->CurrentPack->Head, FVector(0,-100,200), FRotator(0.0f, 180.f, 0.f));
-		ARobotPartCardActor* CorePartCardActor = SpawnRobotPartCardActor(CurrentDraft->CurrentPack->Core, FVector(0,100,200), FRotator(0.0f, 180.f, 0.f));
-		ARobotPartCardActor* ArmsPartCardActor = SpawnRobotPartCardActor(CurrentDraft->CurrentPack->Arms, FVector(0,-100,300), FRotator(0.0f, 180.f, 0.f));
-		ARobotPartCardActor* LegsPartCardActor = SpawnRobotPartCardActor(CurrentDraft->CurrentPack->Legs, FVector(0,100,300), FRotator(0.0f, 180.f, 0.f));
-	}
+  FRotator Rot = FRotator(0.f, 180.f, 0.f);
+  for (int32 i = 0; i < CurrentDraft->CurrentPack.Num(); ++i)
+  {
+    float YVal = FMath::Pow(-1,i) * 100.f; 
+    float ZVal = (i < (CurrentDraft->CurrentPack.Num()/2)) ? 200.f : 300.f;
+    PartCardActors.Add(SpawnRobotPartCardActor(CurrentDraft->CurrentPack[i],FVector(0,YVal,ZVal),Rot));
+  }
 }
 
 void ASoloDraftActor::DestroyPartCards()
 {
-	for (TActorIterator<ARobotPartCardActor> ActrItr(GetWorld()); ActrItr; ++ActrItr)
-	{
-		ActrItr->Destroy();
-	}
+//  for (TActorIterator<ARobotPartCardActor> ActrItr(GetWorld()); ActrItr; ++ActrItr)
+//  {
+//    ActrItr->Destroy();
+//  }
+  for (int32 i = 0; i < PartCardActors.Num(); ++i)
+  {
+    PartCardActors[i]->Destroy();
+  }
 }
 
 void ASoloDraftActor::NextPack()
 {
-	DestroyPartCards();
-	CurrentDraft->CurrentPack = SamplePack();
-	SpawnPartCards();
+  DestroyPartCards();
+  SamplePack();
+  SpawnPartCards();
 }
 
-URobotPartAssignment* ASoloDraftActor::SamplePack()
+void ASoloDraftActor::SamplePack()
 {
-	URobotPartAssignment* Pack = NewObject<URobotPartAssignment>();
+//  if (Role == ROLE_Authority)
+//  {
+  CurrentDraft->CurrentPack.Empty();
+  CurrentDraft->CurrentPack.Add(SamplePart<UHeadPart>(HeadParts));
+  CurrentDraft->CurrentPack.Add(SamplePart<UCorePart>(CoreParts));
+  CurrentDraft->CurrentPack.Add(SamplePart<UArmsPart>(ArmsParts));
+  CurrentDraft->CurrentPack.Add(SamplePart<ULegsPart>(LegsParts));
+//  }
 
-//	if (Role == ROLE_Authority)
-//	{
-		Pack->Head = SamplePart<UHeadPart>(HeadParts);
-		Pack->Core = SamplePart<UCorePart>(CoreParts);
-	 	Pack->Arms = SamplePart<UArmsPart>(ArmsParts);
-		Pack->Legs = SamplePart<ULegsPart>(LegsParts);
-//	}
-
-	return Pack;
 }
 
 template<typename T>
 T* ASoloDraftActor::SamplePart(TArray<T*>& Parts, bool Replacement)
 {
-	int32 NumParts = Parts.Num();
-	T* RobotPart = nullptr;
-	if (NumParts > 0)
-	{
-		int Index = FMath::RandRange(0, NumParts - 1);
-		RobotPart = Parts[Index];
-		if (!Replacement)
-		{
-			Parts.RemoveAt(Index);
-		}
-	}
-	return RobotPart;
+  int32 NumParts = Parts.Num();
+  T* RobotPart = nullptr;
+  if (NumParts > 0)
+  {
+    int Index = FMath::RandRange(0, NumParts - 1);
+    RobotPart = Parts[Index];
+    if (!Replacement)
+    {
+      Parts.RemoveAt(Index);
+    }
+  }
+  return RobotPart;
 }
 
 void ASoloDraftActor::DraftPart(URobotPart* RobotPart)
 {
-	UE_LOG(LogTemp, Warning, TEXT("drafting %s"), *RobotPart->PartName);
-	CurrentDraft->Picks++;
-	RobotPart->Draft(CurrentDraft);
+  UE_LOG(LogTemp, Warning, TEXT("drafting %s"), *RobotPart->PartName);
+  CurrentDraft->Picks++;
+  RobotPart->Draft(CurrentDraft);
 
-	UE_LOG(LogTemp, Warning, TEXT("num heads %i"), CurrentDraft->DraftedHeads.Num());
-	UE_LOG(LogTemp, Warning, TEXT("num cores %i"), CurrentDraft->DraftedCores.Num());
-	UE_LOG(LogTemp, Warning, TEXT("num arms %i"), CurrentDraft->DraftedArms.Num());
-	UE_LOG(LogTemp, Warning, TEXT("num legs %i"), CurrentDraft->DraftedLegs.Num());
+  UE_LOG(LogTemp, Warning, TEXT("num heads %i"), CurrentDraft->DraftedHeads.Num());
+  UE_LOG(LogTemp, Warning, TEXT("num cores %i"), CurrentDraft->DraftedCores.Num());
+  UE_LOG(LogTemp, Warning, TEXT("num arms %i"), CurrentDraft->DraftedArms.Num());
+  UE_LOG(LogTemp, Warning, TEXT("num legs %i"), CurrentDraft->DraftedLegs.Num());
 
-	if (CurrentDraft->Picks < CurrentDraft->MaxPicks)
-	{
-		NextPack();
-	}
-	else
-	{
-		UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-		if (CurrentDraft != nullptr)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("draft complete"));
-			GameInstance->SoloDraft = DuplicateObject(CurrentDraft, NULL);
-			UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
-		}
-	}
+  if (CurrentDraft->Picks < CurrentDraft->MaxPicks)
+  {
+    NextPack();
+  }
+  else
+  {
+    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+    if (CurrentDraft != nullptr)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("draft complete"));
+      GameInstance->SoloDraft = DuplicateObject(CurrentDraft, NULL);
+      UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
+    }
+  }
 }

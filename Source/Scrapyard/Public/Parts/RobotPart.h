@@ -13,14 +13,13 @@ class USkeletalMesh;
 class UManufacturer;
 class URarity;
 class USoloDraft;
-class URobotPartAssignment;
 class URobotBodyComponent;
 
 /**
  * 
  */
 UCLASS(BlueprintType)
-class SCRAPYARD_API URobotPart : public UDataAsset
+class SCRAPYARD_API URobotPart : public USkeletalMeshComponent
 {
 	GENERATED_BODY()
 
@@ -50,8 +49,6 @@ public:
 
 // skeletal mesh 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	USkeletalMesh* SkeletalMesh;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UMaterial* MajorMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UMaterial* MinorMaterial;
@@ -59,8 +56,6 @@ public:
 	UMaterial* AccentMaterial;
 
 	virtual void Draft(USoloDraft* SoloDraft) {};
-
-	virtual void Assign(URobotPartAssignment* PartAssignment) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(PartAssignment)")); };
 
 	virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
 

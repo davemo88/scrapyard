@@ -8,7 +8,7 @@
 
 class UScrapyardDefaultAssets;
 class URobotPartAssets;
-class URobotPartAssignment;
+class URobotBodyComponent;
 class USoloDraft;
 class AScrapyardGameSession;
 
@@ -25,7 +25,7 @@ public:
         URobotPartAssets* RobotPartAssetsBP;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	URobotPartAssignment* RobotPartAssignment;
+	URobotBodyComponent* RobotBodyComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USoloDraft* SoloDraft;
