@@ -29,15 +29,21 @@ protected:
 
 private:
 
-	TArray<UHeadPart*> HeadParts;
-	TArray<UCorePart*> CoreParts;
-	TArray<UArmsPart*> ArmsParts;
-	TArray<ULegsPart*> LegsParts;
+//	TArray<UHeadPart*> HeadParts;
+//	TArray<UCorePart*> CoreParts;
+//	TArray<UArmsPart*> ArmsParts;
+//	TArray<ULegsPart*> LegsParts;
+        
+	TArray<TSubclassOf<UHeadPart>> HeadParts;
+	TArray<TSubclassOf<UCorePart>> CoreParts;
+	TArray<TSubclassOf<UArmsPart>> ArmsParts;
+	TArray<TSubclassOf<ULegsPart>> LegsParts;
 
 	void SpawnDraftCamera();
 
 	ARobotPartCardActor* SpawnRobotPartCardActor(
-		URobotPart* RobotPart,
+//		URobotPart* RobotPart,
+		TSubclassOf<URobotPart> RobotPartClass,
 		FVector Loc = FVector(0.0f, 0.0f, 0.0f),
 		FRotator Rot = FRotator(0.0f, 0.0f, 0.0f),
 		FActorSpawnParameters SpawnParams = FActorSpawnParameters()
@@ -54,10 +60,12 @@ private:
         TArray<ARobotPartCardActor*> PartCardActors;
 
 	template<typename T>
-	T* SamplePart(TArray<T*>& Parts, bool Replacement = true);
+//	T* SamplePart(TArray<T*>& Parts, bool Replacement = true);
+	T SamplePart(TArray<T>& Parts, bool Replacement = true);
 
 	UFUNCTION()
 	void DraftPart(URobotPart* RobotPart);
+//	void DraftPart(TSubclassOf<URobotPart> RobotPart);
 
 public:	
 	// Called every frame

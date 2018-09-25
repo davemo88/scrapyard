@@ -6,10 +6,12 @@
 
 void UArmsPart::Draft(USoloDraft* SoloDraft)
 {
-	SoloDraft->DraftedArms.AddUnique(this);
+//  SoloDraft->DraftedArms.AddUnique(this);
+  UE_LOG(LogTemp, Warning, TEXT("Drafted %s"), *this->GetClass()->GetName());
+  SoloDraft->DraftedArms.AddUnique(this->GetClass());
 }
 
 void UArmsPart::Assign(URobotBodyComponent* RobotBody)
 {
-	RobotBody->SetArms(this);
+  RobotBody->SetArms(this);
 }

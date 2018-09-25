@@ -12,9 +12,9 @@
 UCLASS()
 class SCRAPYARD_API AScrapyardLevelScriptActor : public ALevelScriptActor
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+  
+  
+  
+  
 };

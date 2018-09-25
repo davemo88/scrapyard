@@ -4,11 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "HeadPart.h"
-#include "CorePart.h"
-#include "ArmsPart.h"
-#include "LegsPart.h"
 #include "RobotPartHelper.generated.h"
+
+class URobotPart;
+class UHeadPart;
+class UCorePart;
+class UArmsPart;
+class ULegsPart;
 
 /**
  * 
@@ -16,32 +18,38 @@
 UCLASS()
 class SCRAPYARD_API URobotPartHelper : public UObject
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-//	URobotPartHelper();
-	
+//  URobotPartHelper();
+  
 private:
 
-	UPROPERTY()
-	FString HeadPath = FString(TEXT("/Game/Parts/Head"));
-	UPROPERTY()
-	FString CorePath = FString(TEXT("/Game/Parts/Core"));
-	UPROPERTY()
-	FString ArmsPath = FString(TEXT("/Game/Parts/Arms"));
-	UPROPERTY()
-	FString LegsPath = FString(TEXT("/Game/Parts/Legs"));
+  static const FString HeadPath;
+  static const FString CorePath;
+  static const FString ArmsPath;
+  static const FString LegsPath;
 
 
-	template <typename T>
-	TArray<T*> GetAllPartsInFolder(FString Path);
+  template <typename T>
+  static TArray<T*> GetAllPartsInFolder(FString Path);
 
 public:
 
-	TArray<UHeadPart*> GetAllHeads();
-	TArray<UCorePart*> GetAllCores();
-	TArray<UArmsPart*> GetAllArms();
-	TArray<ULegsPart*> GetAllLegs();
+  static TArray<UHeadPart*> GetAllHeads();
+  static TArray<UCorePart*> GetAllCores();
+  static TArray<UArmsPart*> GetAllArms();
+  static TArray<ULegsPart*> GetAllLegs();
+
+  static ARobotPartCardActor* SpawnRobotPartCardActor(
+    UWorld* World,
+    TSubclassOf<URobotPart> RobotPartClass,
+    FVector Loc = FVector(0.0f, 0.0f, 0.0f),
+    FRotator Rot = FRotator(0.0f, 0.0f, 0.0f),
+    FActorSpawnParameters SpawnParams = FActorSpawnParameters()
+  );
+
+
 
 };

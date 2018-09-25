@@ -1,16 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotPartHelper.h"
+#include "Parts/RobotPartCardActor.h"
 #include "AssetRegistryModule.h"
 #include "EngineUtils.h"
 
-//URobotPartHelper::URobotPartHelper()
-//{
-//	FString HEADS_PATH = FString(TEXT("/Game/Parts/Head"));
-//	FString CORES_PATH = "/Game/Parts/Core";
-//	FString ARMS_PATH = "/Game/Parts/Arms";
-//	FString LEGS_PATH = "/Game/Parts/Legs";
-//}
+const FString URobotPartHelper::HeadPath = FString(TEXT("/Game/Parts/Head"));
+const FString URobotPartHelper::CorePath = FString(TEXT("/Game/Parts/Core"));
+const FString URobotPartHelper::ArmsPath = FString(TEXT("/Game/Parts/Arms"));
+const FString URobotPartHelper::LegsPath = FString(TEXT("/Game/Parts/Legs"));
 
 template <typename T>
 TArray<T*> URobotPartHelper::GetAllPartsInFolder(FString Path)
@@ -44,20 +42,32 @@ TArray<T*> URobotPartHelper::GetAllPartsInFolder(FString Path)
 
 TArray<UHeadPart*> URobotPartHelper::GetAllHeads()
 {
-	return GetAllPartsInFolder<UHeadPart>(HeadPath);
+	return URobotPartHelper::GetAllPartsInFolder<UHeadPart>(HeadPath);
 }
 
 TArray<UCorePart*> URobotPartHelper::GetAllCores()
 {
-	return GetAllPartsInFolder<UCorePart>(CorePath);
+	return URobotPartHelper::GetAllPartsInFolder<UCorePart>(CorePath);
 }
 
 TArray<UArmsPart*> URobotPartHelper::GetAllArms()
 {
-	return GetAllPartsInFolder<UArmsPart>(ArmsPath);
+	return URobotPartHelper::GetAllPartsInFolder<UArmsPart>(ArmsPath);
 }
 
 TArray<ULegsPart*> URobotPartHelper::GetAllLegs()
 {
-	return GetAllPartsInFolder<ULegsPart>(LegsPath);
+	return URobotPartHelper::GetAllPartsInFolder<ULegsPart>(LegsPath);
 }
+
+ARobotPartCardActor* URobotPartHelper::SpawnRobotPartCardActor(UWorld* World, TSubclassOf<URobotPart> RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
+{
+  if (World)
+  {
+    ARobotPartCardActor* CardActor = World->SpawnActor<ARobotPartCardActor>(Loc, Rot, SpawnParams);
+    CardActor->SetRobotPart(RobotPart);
+    return CardActor;
+  }
+  return nullptr;
+}
+

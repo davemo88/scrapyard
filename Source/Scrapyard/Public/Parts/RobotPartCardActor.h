@@ -10,6 +10,7 @@
 #include "RobotPartCardActor.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRobotPartCardClickedEvent, URobotPart*, RobotPart);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRobotPartCardClickedEvent, TSubclassOf<URobotPart>, RobotPart);
 
 UCLASS()
 class SCRAPYARD_API ARobotPartCardActor : public AActor
@@ -31,7 +32,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void SetRobotPart(URobotPart* NewRobotPart);
+//	void SetRobotPart(URobotPart* NewRobotPart);
+	void SetRobotPart(TSubclassOf<URobotPart> NewRobotPart);
 
 	UPROPERTY(EditAnywhere)
 	UTextRenderComponent* CardTitleComponent;

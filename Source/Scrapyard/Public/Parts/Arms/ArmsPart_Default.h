@@ -18,7 +18,6 @@ public:
 
   UArmsPart_Default();
 
-  virtual USkeletalMesh* GetSkeletalMesh() override;
+  USkeletalMesh* GetSkeletalMesh() override;
 
-  void BeginPlay() override { UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName()); GetSkeletalMesh(); };
 };

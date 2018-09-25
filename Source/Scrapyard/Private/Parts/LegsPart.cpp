@@ -6,10 +6,11 @@
 
 void ULegsPart::Draft(USoloDraft* SoloDraft)
 {
-	SoloDraft->DraftedLegs.AddUnique(this);
+//  SoloDraft->DraftedLegs.AddUnique(this);
+  SoloDraft->DraftedLegs.AddUnique(this->GetClass());
 }
 
 void ULegsPart::Assign(URobotBodyComponent* RobotBody)
 {
-	RobotBody->SetLegs(this);
+  RobotBody->SetLegs(this);
 }

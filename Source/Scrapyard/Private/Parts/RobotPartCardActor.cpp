@@ -2,8 +2,6 @@
 
 #include "RobotPartCardActor.h"
 
-
-
 // Sets default values
 ARobotPartCardActor::ARobotPartCardActor()
 {
@@ -15,7 +13,7 @@ ARobotPartCardActor::ARobotPartCardActor()
   ClickableComponent->bHiddenInGame = false;
   RootComponent = ClickableComponent;
 
-  RobotPart = CreateDefaultSubobject<URobotPart>(TEXT("RobotPart"));
+//  RobotPart = CreateDefaultSubobject<URobotPart>(TEXT("RobotPart"));
   CardTitleComponent = CreateDefaultSubobject<UTextRenderComponent>(TEXT("CardTitleComponent"));
   CardTitleComponent->SetupAttachment(GetRootComponent());
 
@@ -44,10 +42,14 @@ void ARobotPartCardActor::Tick(float DeltaTime)
 
 }
 
-void ARobotPartCardActor::SetRobotPart(URobotPart* NewRobotPart)
+//void ARobotPartCardActor::SetRobotPart(URobotPart* NewRobotPart)
+void ARobotPartCardActor::SetRobotPart(TSubclassOf<URobotPart> NewRobotPartClass)
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotPartCardActor::SetRobotPart %s"), *NewRobotPart->PartName);
-  RobotPart = NewRobotPart;
+  UE_LOG(LogTemp, Warning, TEXT("ARobotPartCardActor::SetRobotPart"));
+  RobotPart = NewObject<URobotPart>(this, *NewRobotPartClass);
+  RobotPart->SetupAttachment(GetRootComponent());
+  RobotPart->RegisterComponent();
+  RobotPart->SetVisibility(false);
   CardTitleComponent->SetText(FText::FromString(RobotPart->PartName));
 }
 

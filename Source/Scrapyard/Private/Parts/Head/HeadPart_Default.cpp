@@ -18,13 +18,7 @@ USkeletalMesh* UHeadPart_Default::GetSkeletalMesh()
   URobotPartAssets* RobotPartAssets = GetRobotPartAssets();
   if (RobotPartAssets != NULL)
   {
-    UE_LOG(LogTemp, Warning, TEXT("RobotPartAssets isn't NULL"));
     return RobotPartAssets->HeadPart_Default_SkeletalMesh;
   }
-  else 
-  {
-    UE_LOG(LogTemp, Warning, TEXT("RobotPartAssets is NULL"));
-  }
-  
   return nullptr;
 }
