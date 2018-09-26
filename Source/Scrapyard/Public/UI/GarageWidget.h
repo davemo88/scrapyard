@@ -17,37 +17,22 @@ class ARobotBodyGarage;
 UCLASS()
 class SCRAPYARD_API UGarageWidget : public UUserWidget
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
+
+  AGarageLevelScriptActor* GarageLevelScriptActor;
 
 public:
 
-	void SetSoloDraft(USoloDraft* _SoloDraft);
+  UFUNCTION(BlueprintCallable)
+  void DisplayHeads();
+  UFUNCTION(BlueprintCallable)
+  void DisplayCores();
+  UFUNCTION(BlueprintCallable)
+  void DisplayArms();
+  UFUNCTION(BlueprintCallable)
+  void DisplayLegs();
 
-	void SetRobotBodyGarage(ARobotBodyGarage* _RobotBody);
-
-	UFUNCTION(BlueprintCallable)
-	void DisplayHeads();
-	UFUNCTION(BlueprintCallable)
-	void DisplayCores();
-	UFUNCTION(BlueprintCallable)
-	void DisplayArms();
-	UFUNCTION(BlueprintCallable)
-	void DisplayLegs();
-	UFUNCTION(BlueprintCallable)
-	void GotoGarageTestLevel();
-	
-protected:
-
-	USoloDraft* SoloDraft;
-
-	ARobotBodyGarage* RobotBodyGarage;
-	
-	void RemovePartCards();
-
-	template <class T>
-	void AddPartCards(TArray<T*> Parts);
-
-	UFUNCTION()
-	void AssignPart(URobotPart* Part);
+  UFUNCTION(BlueprintCallable)
+  void GotoGarageTestLevel();
 
 };

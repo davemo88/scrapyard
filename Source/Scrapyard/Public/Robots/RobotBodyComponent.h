@@ -55,4 +55,12 @@ public:
   void SetArms(UArmsPart* NewArms);
   void SetLegs(ULegsPart* NewLegs);
   void SetRightHandheld(UHandheldPart* NewRightHandheld);
+
+  void SetPart(URobotPart* Component, TSubclassOf<URobotPart> NewPartClass);
+
+  void SetHead(TSubclassOf<UHeadPart> NewHeadClass);
+  void SetCore(TSubclassOf<UCorePart> NewCoreClass);
+  void SetArms(TSubclassOf<UArmsPart> NewArmsClass);
+  void SetLegs(TSubclassOf<ULegsPart> NewLegsClass);
+  void SetRightHandheld(TSubclassOf<UHandheldPart> NewRightHandheldClass);
 };

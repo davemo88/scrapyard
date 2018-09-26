@@ -49,6 +49,15 @@ URobotBodyComponent::URobotBodyComponent()
 
 }
 
+// Called when the game starts
+void URobotBodyComponent::BeginPlay()
+{
+  Super::BeginPlay();
+
+  // ...
+  
+}
+
 void URobotBodyComponent::SetHead(UHeadPart* NewHead)
 {
   Head = NewHead;
@@ -73,15 +82,38 @@ void URobotBodyComponent::SetRightHandheld(UHandheldPart* NewRightHandheld)
 {
   RightHandheld = NewRightHandheld;
 }
-// Called when the game starts
-void URobotBodyComponent::BeginPlay()
-{
-  Super::BeginPlay();
 
-  // ...
-  
+void URobotBodyComponent::SetPart(URobotPart* Component, TSubclassOf<URobotPart> NewPartClass)
+{
+  Component = NewObject<URobotPart>(this, *NewPartClass);
+  Component->SetupAttachment(this);
+  Component->RegisterComponent();
 }
 
+void URobotBodyComponent::SetHead(TSubclassOf<UHeadPart> NewHeadClass)
+{
+  SetPart(Head, NewHeadClass);
+}
+
+void URobotBodyComponent::SetCore(TSubclassOf<UCorePart> NewCoreClass)
+{
+  SetPart(Core, NewCoreClass);
+}
+
+void URobotBodyComponent::SetArms(TSubclassOf<UArmsPart> NewArmsClass)
+{
+  SetPart(Arms, NewArmsClass);
+}
+ 
+void URobotBodyComponent::SetLegs(TSubclassOf<ULegsPart> NewLegsClass)
+{
+  SetPart(Legs, NewLegsClass);
+}
+
+void URobotBodyComponent::SetRightHandheld(TSubclassOf<UHandheldPart> NewRightHandheldClass)
+{
+  SetPart(RightHandheld, NewRightHandheldClass);
+}
 
 // Called every frame
 void URobotBodyComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

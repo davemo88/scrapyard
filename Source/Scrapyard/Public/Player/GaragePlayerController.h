@@ -22,7 +22,5 @@ protected:
 
 	void SetupGarageWidget();
 
-	ARobotBodyGarage* FindRobotBodyGarage();
-
 	UGarageWidget* GarageWidget;
 };

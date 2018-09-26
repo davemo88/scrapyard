@@ -7,7 +7,8 @@
 #include "GarageLevelScriptActor.generated.h"
 
 class USoloDraft;
-class ARobotBodyGarage* RobotBodyGarage;
+class ARobotBodyGarage;
+class ARobotPartCardActor;
 
 /**
  * 
@@ -29,5 +30,13 @@ class SCRAPYARD_API AGarageLevelScriptActor : public AScrapyardLevelScriptActor
   void AssignPart(URobotPart* Part);
 
   TArray<ARobotPartCardActor*> DisplayedPartCards;
+
+  ARobotBodyGarage* RobotBodyGarage;
+
+  void GotoTestLevel();
+
+public:
+
+  ARobotBodyGarage* GetRobotBodyGarage();
 
 };

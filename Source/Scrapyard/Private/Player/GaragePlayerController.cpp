@@ -12,27 +12,15 @@
 
 void AGaragePlayerController::BeginPlay()
 {
-	Super::BeginPlay();
+  Super::BeginPlay();
 
-	SetupGarageWidget();
+  SetupGarageWidget();
 }
 
 void AGaragePlayerController::SetupGarageWidget()
 {
-	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-	GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
-	GarageWidget->SetSoloDraft(GameInstance->SoloDraft);
-	GarageWidget->SetRobotBodyGarage(FindRobotBodyGarage());
-	GarageWidget->AddToViewport();
-}
-
-ARobotBodyGarage* AGaragePlayerController::FindRobotBodyGarage()
-{
-	for (TActorIterator<ARobotBodyGarage> ActrItr(GetWorld()); ActrItr; ++ActrItr)
-	{
-		ensure(ActrItr->RobotBodyComponent != nullptr);
-		return *ActrItr;
-	}
-	return nullptr;
+  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+  GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
+  GarageWidget->AddToViewport();
 }
 
