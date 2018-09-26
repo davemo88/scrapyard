@@ -7,10 +7,6 @@
 #include "RobotPartHelper.generated.h"
 
 class URobotPart;
-class UHeadPart;
-class UCorePart;
-class UArmsPart;
-class ULegsPart;
 
 /**
  * 
@@ -22,26 +18,6 @@ class SCRAPYARD_API URobotPartHelper : public UObject
 
 public:
 
-//  URobotPartHelper();
-  
-private:
-
-  static const FString HeadPath;
-  static const FString CorePath;
-  static const FString ArmsPath;
-  static const FString LegsPath;
-
-
-  template <typename T>
-  static TArray<T*> GetAllPartsInFolder(FString Path);
-
-public:
-
-  static TArray<UHeadPart*> GetAllHeads();
-  static TArray<UCorePart*> GetAllCores();
-  static TArray<UArmsPart*> GetAllArms();
-  static TArray<ULegsPart*> GetAllLegs();
-
   static ARobotPartCardActor* SpawnRobotPartCardActor(
     UWorld* World,
     TSubclassOf<URobotPart> RobotPartClass,
@@ -49,7 +25,5 @@ public:
     FRotator Rot = FRotator(0.0f, 0.0f, 0.0f),
     FActorSpawnParameters SpawnParams = FActorSpawnParameters()
   );
-
-
 
 };
