@@ -7,19 +7,18 @@
 #include "Components/TextRenderComponent.h"
 #include "Components/BoxComponent.h"
 #include "RobotPart.h"
-#include "RobotPartCardActor.generated.h"
+#include "RobotPartActor.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRobotPartCardClickedEvent, URobotPart*, RobotPart);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRobotPartCardClickedEvent, TSubclassOf<URobotPart>, RobotPart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRobotPartClickedEvent, URobotPart*, RobotPart);
 
 UCLASS()
-class SCRAPYARD_API ARobotPartCardActor : public AActor
+class SCRAPYARD_API ARobotPartActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ARobotPartCardActor();
+	ARobotPartActor();
 
 protected:
 	// Called when the game starts or when spawned
@@ -29,14 +28,11 @@ private:
 
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 //	void SetRobotPart(URobotPart* NewRobotPart);
 	void SetRobotPart(TSubclassOf<URobotPart> NewRobotPart);
 
 	UPROPERTY(EditAnywhere)
-	UTextRenderComponent* CardTitleComponent;
+	UTextRenderComponent* TextComponent;
 
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* ClickableComponent;
@@ -45,7 +41,7 @@ public:
 	void DoOnClicked(AActor *Target, FKey ButtonPressed);
 
 	UPROPERTY()
-	FRobotPartCardClickedEvent OnRobotPartCardClicked;
+	FRobotPartClickedEvent OnRobotPartClicked;
 
 	UPROPERTY(EditAnywhere)
 	URobotPart* RobotPart;

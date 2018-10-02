@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Camera/CameraActor.h"
-#include "SoloDraft.h"
-#include "HeadPart.h"
-#include "CorePart.h"
-#include "ArmsPart.h"
-#include "LegsPart.h"
-#include "RobotPartCardActor.h"
 #include "SoloDraftActor.generated.h"
+
+class USoloDraft;
+class UHeadPart;
+class UCorePart;
+class UArmsPart;
+class ULegsPart;
+class ARobotPartActor;
 
 
 UCLASS()
@@ -41,7 +42,7 @@ private:
 
 	void SpawnDraftCamera();
 
-	ARobotPartCardActor* SpawnRobotPartCardActor(
+	ARobotPartActor* SpawnRobotPartActor(
 //		URobotPart* RobotPart,
 		TSubclassOf<URobotPart> RobotPartClass,
 		FVector Loc = FVector(0.0f, 0.0f, 0.0f),
@@ -57,7 +58,7 @@ private:
 	void SamplePack();
 
         UPROPERTY()
-        TArray<ARobotPartCardActor*> PartCardActors;
+        TArray<ARobotPartActor*> PartActors;
 
 	template<typename T>
 //	T* SamplePart(TArray<T*>& Parts, bool Replacement = true);

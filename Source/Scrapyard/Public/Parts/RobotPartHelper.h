@@ -40,7 +40,7 @@ class SCRAPYARD_API URobotPartHelper : public UObject
 
 public:
 
-  static ARobotPartCardActor* SpawnRobotPartCardActor(
+  static ARobotPartActor* SpawnRobotPartActor(
     UWorld* World,
     TSubclassOf<URobotPart> RobotPartClass,
     FVector Loc = FVector(0.0f, 0.0f, 0.0f),

@@ -21,9 +21,13 @@ class SCRAPYARD_API UPartCardWidget : public UUserWidget
 public:
 
 	void SetRobotPart(URobotPart* RobotPart);
+	void SetRobotPart(TSubclassOf<URobotPart> RobotPartClass);
 
 	UPROPERTY(BlueprintReadOnly)
 	URobotPart* RobotPart;
+
+        UPROPERTY(BlueprintReadOnly)
+        TSubclassOf<URobotPart> RobotPartClass;
 
 	UFUNCTION(BlueprintCallable)
 	void OnPartCardClicked();

@@ -8,7 +8,7 @@
 
 class USoloDraft;
 class ARobotBodyGarage;
-class ARobotPartCardActor;
+class ARobotPartActor;
 
 /**
  * 
@@ -29,7 +29,7 @@ class SCRAPYARD_API AGarageLevelScriptActor : public AScrapyardLevelScriptActor
   UFUNCTION()
   void AssignPart(URobotPart* Part);
 
-  TArray<ARobotPartCardActor*> DisplayedPartCards;
+  TArray<ARobotPartActor*> DisplayedParts;
 
   ARobotBodyGarage* RobotBodyGarage;
 

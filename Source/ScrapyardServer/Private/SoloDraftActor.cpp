@@ -5,6 +5,12 @@
 #include "Kismet/GameplayStatics.h"
 #include "UObjectGlobals.h"
 #include "ScrapyardGameInstance.h"
+#include "SoloDraft.h"
+#include "HeadPart.h"
+#include "CorePart.h"
+#include "ArmsPart.h"
+#include "LegsPart.h"
+#include "RobotPartActor.h"
 #include "Parts/Head/HeadPart_Default.h"
 #include "Parts/Core/CorePart_Default.h"
 #include "Parts/Arms/ArmsPart_Default.h"
@@ -56,14 +62,14 @@ void ASoloDraftActor::SpawnDraftCamera()
   World->GetFirstPlayerController()->SetViewTarget(DraftCamera);
 }
 
-//ARobotPartCardActor* ASoloDraftActor::SpawnRobotPartCardActor(URobotPart* RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
-ARobotPartCardActor* ASoloDraftActor::SpawnRobotPartCardActor(TSubclassOf<URobotPart> RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
+//ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(URobotPart* RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
+ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(TSubclassOf<URobotPart> RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
 {
   UWorld* World = GetWorld();
-  ARobotPartCardActor* CardActor = World->SpawnActor<ARobotPartCardActor>(Loc, Rot, SpawnParams);
-  CardActor->SetRobotPart(RobotPart);
-  CardActor->OnRobotPartCardClicked.AddDynamic(this, &ASoloDraftActor::DraftPart);
-  return CardActor;
+  ARobotPartActor* RobotPartActor = World->SpawnActor<ARobotPartActor>(Loc, Rot, SpawnParams);
+  RobotPartActor->SetRobotPart(RobotPart);
+  RobotPartActor->OnRobotPartClicked.AddDynamic(this, &ASoloDraftActor::DraftPart);
+  return RobotPartActor;
 }
 
 void ASoloDraftActor::SpawnPartCards()
@@ -74,13 +80,13 @@ void ASoloDraftActor::SpawnPartCards()
     float YVal = FMath::Pow(-1,i) * 100.f; 
 //    float ZVal = FMath::Pow(-1,i) * 50.f + 250.f;
     float ZVal = (i < (CurrentDraft->CurrentPack.Num()/2)) ? 200.f : 300.f;
-    PartCardActors.Add(SpawnRobotPartCardActor(CurrentDraft->CurrentPack[i],FVector(0,YVal,ZVal),Rot));
+    PartActors.Add(SpawnRobotPartActor(CurrentDraft->CurrentPack[i],FVector(0,YVal,ZVal),Rot));
   }
 }
 
 void ASoloDraftActor::DestroyPartCards()
 {
-  PartCardActors.Empty();
+  PartActors.Empty();
 }
 
 void ASoloDraftActor::NextPack()
