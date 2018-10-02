@@ -4,6 +4,7 @@
 #include "Components/SceneComponent.h"
 #include "ConstructorHelpers.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
+#include "Robots/RobotPartComponent.h"
 
 
 // Sets default values for this component's properties
@@ -25,22 +26,22 @@ URobotBodyComponent::URobotBodyComponent()
   SetRelativeLocation(DefaultLoc);
   SetRelativeRotation(DefaultRot);
 
-  Head = CreateDefaultSubobject<UHeadPart>(TEXT("HeadComponent"));
-  Core = CreateDefaultSubobject<UCorePart>(TEXT("CoreComponent"));
-  Arms = CreateDefaultSubobject<UArmsPart>(TEXT("ArmsComponent"));
-  Legs = CreateDefaultSubobject<ULegsPart>(TEXT("LegsComponent"));
-  RightHandheld = CreateDefaultSubobject<UHandheldPart>(TEXT("RightHandheldComponent"));
+  HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
+  CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));
+  ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("ArmsComponent"));
+  LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("LegsComponent"));
+  RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RightHandheldComponent"));
 
-  Head->SetupAttachment(this);
-  Core->SetupAttachment(this);
-  Arms->SetupAttachment(this);
-  Legs->SetupAttachment(this);
-  RightHandheld->SetupAttachment(this);
+  HeadComponent->SetupAttachment(this);
+  CoreComponent->SetupAttachment(this);
+  ArmsComponent->SetupAttachment(this);
+  LegsComponent->SetupAttachment(this);
+  RightHandheldComponent->SetupAttachment(this);
 
-  Head->SetMasterPoseComponent(this);
-  Core->SetMasterPoseComponent(this);
-  Arms->SetMasterPoseComponent(this);
-  Legs->SetMasterPoseComponent(this);
+  HeadComponent->SetMasterPoseComponent(this);
+  CoreComponent->SetMasterPoseComponent(this);
+  ArmsComponent->SetMasterPoseComponent(this);
+  LegsComponent->SetMasterPoseComponent(this);
 //  RightHandheldComponent->SetMasterPoseComponent(this);
   
 //  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
@@ -58,67 +59,32 @@ void URobotBodyComponent::BeginPlay()
   
 }
 
-void URobotBodyComponent::SetHead(UHeadPart* NewHead)
-{
-  Head = NewHead;
-}
-
-void URobotBodyComponent::SetCore(UCorePart* NewCore)
-{
-  Core = NewCore;
-}
-
-void URobotBodyComponent::SetArms(UArmsPart* NewArms)
-{
-  Arms = NewArms;
-}
- 
-void URobotBodyComponent::SetLegs(ULegsPart* NewLegs)
-{
-  Legs = NewLegs;
-}
-
-void URobotBodyComponent::SetRightHandheld(UHandheldPart* NewRightHandheld)
-{
-  RightHandheld = NewRightHandheld;
-}
-
-void URobotBodyComponent::SetPart(URobotPart* Component, TSubclassOf<URobotPart> NewPartClass)
-{
-  Component = NewObject<URobotPart>(this, *NewPartClass);
-  Component->SetupAttachment(this);
-  Component->RegisterComponent();
-}
-
-void URobotBodyComponent::SetHead(TSubclassOf<UHeadPart> NewHeadClass)
-{
-  SetPart(Head, NewHeadClass);
-}
-
-void URobotBodyComponent::SetCore(TSubclassOf<UCorePart> NewCoreClass)
-{
-  SetPart(Core, NewCoreClass);
-}
-
-void URobotBodyComponent::SetArms(TSubclassOf<UArmsPart> NewArmsClass)
-{
-  SetPart(Arms, NewArmsClass);
-}
- 
-void URobotBodyComponent::SetLegs(TSubclassOf<ULegsPart> NewLegsClass)
-{
-  SetPart(Legs, NewLegsClass);
-}
-
-void URobotBodyComponent::SetRightHandheld(TSubclassOf<UHandheldPart> NewRightHandheldClass)
-{
-  SetPart(RightHandheld, NewRightHandheldClass);
-}
-
-// Called every frame
-void URobotBodyComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-  Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-  // ...
-}
+//void URobotBodyComponent::SetPart(URobotPartComponent* Component, URobotPart* NewPart)
+//{      
+//  Component->SetRobotPart(NewPart);
+//}
+//
+//void URobotBodyComponent::SetHead(UHeadPart* NewHead)
+//{
+//   
+//}
+//
+//void URobotBodyComponent::SetCore(UCorePart* NewCore)
+//{
+//  PartAssignment.Core = NewCore;
+//}
+//
+//void URobotBodyComponent::SetArms(UArmsPart* NewArms)
+//{
+//  PartAssignment.Arms = NewArms;
+//}
+// 
+//void URobotBodyComponent::SetLegs(ULegsPart* NewLegs)
+//{
+//  PartAssignment.Legs = NewLegs;
+//}
+//
+//void URobotBodyComponent::SetRightHandheld(UHandheldPart* NewRightHandheld)
+//{
+//  PartAssignment.RightHandheld = NewRightHandheld;
+//}

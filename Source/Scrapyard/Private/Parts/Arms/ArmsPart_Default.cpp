@@ -6,11 +6,12 @@
 
 UArmsPart_Default::UArmsPart_Default()
 {
-  PartName = TEXT("Default Arms");
+  PartName = TEXT("Default Core");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
+
 }
 
 USkeletalMesh* UArmsPart_Default::GetSkeletalMesh()

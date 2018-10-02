@@ -62,8 +62,8 @@ void ASoloDraftActor::SpawnDraftCamera()
   World->GetFirstPlayerController()->SetViewTarget(DraftCamera);
 }
 
-//ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(URobotPart* RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
-ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(TSubclassOf<URobotPart> RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
+ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(URobotPart* RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
+//ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(TSubclassOf<URobotPart> RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
 {
   UWorld* World = GetWorld();
   ARobotPartActor* RobotPartActor = World->SpawnActor<ARobotPartActor>(Loc, Rot, SpawnParams);

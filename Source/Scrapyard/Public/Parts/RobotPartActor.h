@@ -28,13 +28,12 @@ private:
 
 
 public:	
-//	void SetRobotPart(URobotPart* NewRobotPart);
-	void SetRobotPart(TSubclassOf<URobotPart> NewRobotPart);
+	void SetRobotPart(URobotPart* NewRobotPart);
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	UTextRenderComponent* TextComponent;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	UBoxComponent* ClickableComponent;
 	
 	UFUNCTION()
@@ -43,7 +42,7 @@ public:
 	UPROPERTY()
 	FRobotPartClickedEvent OnRobotPartClicked;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY()
 	URobotPart* RobotPart;
 	
 };

@@ -23,25 +23,25 @@ class SCRAPYARD_API URobotPartAssets : public UObject
 public:
 
   UPROPERTY(EditDefaultsOnly)
-  USkeletalMesh* HeadPart_Default_SkeletalMesh;
+  TAssetPtr<USkeletalMesh> HeadPart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  USkeletalMesh* CorePart_Default_SkeletalMesh;
+  TAssetPtr<USkeletalMesh> CorePart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  USkeletalMesh* ArmsPart_Default_SkeletalMesh;
+  TAssetPtr<USkeletalMesh> ArmsPart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  USkeletalMesh* LegsPart_Default_SkeletalMesh;
+  TAssetPtr<USkeletalMesh> LegsPart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  USkeletalMesh* HandheldPart_Default_SkeletalMesh;
+  TAssetPtr<USkeletalMesh> HandheldPart_Default_SkeletalMesh;
 
   UPROPERTY(EditDefaultsOnly)
-  UMaterial* RedMaterial;
+  TAssetPtr<UMaterial> RedMaterial;
   UPROPERTY(EditDefaultsOnly)
-  UMaterial* BlueMaterial;
+  TAssetPtr<UMaterial> BlueMaterial;
   UPROPERTY(EditDefaultsOnly)
-  UMaterial* GreenMaterial;
+  TAssetPtr<UMaterial> GreenMaterial;
   UPROPERTY(EditDefaultsOnly)
-  UMaterial* PurpleMaterial;
+  TAssetPtr<UMaterial> PurpleMaterial;
   UPROPERTY(EditDefaultsOnly)
-  UMaterial* OrangeMaterial;
+  TAssetPtr<UMaterial> OrangeMaterial;
 
 };

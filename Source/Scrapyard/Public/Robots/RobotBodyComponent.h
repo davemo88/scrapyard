@@ -5,13 +5,15 @@
 #include "CoreMinimal.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
-#include "Parts/HeadPart.h"
-#include "Parts/CorePart.h"
-#include "Parts/ArmsPart.h"
-#include "Parts/LegsPart.h"
-#include "Parts/HandheldPart.h"
 #include "RobotBodyComponent.generated.h"
 
+class URobotPartComponent;
+class UHeadPart;
+class UCorePart;
+class UArmsPart;
+class ULegsPart;
+class UHandheldPart;
+struct FRobotPartAssignment;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SCRAPYARD_API URobotBodyComponent : public USkeletalMeshComponent
@@ -25,9 +27,6 @@ protected:
   virtual void BeginPlay() override;
 
 public:  
-  // Called every frame
-  virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
 // default skeletal mesh
   FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
 
@@ -36,31 +35,26 @@ public:
   FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
 
 // part components
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  UHeadPart* Head;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  UCorePart* Core;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  UArmsPart* Arms;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  ULegsPart* Legs;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  UHandheldPart* RightHandheld;
+  UPROPERTY(BlueprintReadOnly)
+  URobotPartComponent* HeadComponent;
+  UPROPERTY(BlueprintReadOnly)
+  URobotPartComponent* CoreComponent;
+  UPROPERTY(BlueprintReadOnly)
+  URobotPartComponent* ArmsComponent;
+  UPROPERTY(BlueprintReadOnly)
+  URobotPartComponent* LegsComponent;
+  UPROPERTY(BlueprintReadOnly)
+  URobotPartComponent* RightHandheldComponent;
 
 //  UPROPERTY(EditAnywhere, BlueprintReadWrite)
 //  UParticleSystemComponent* BoostingParticleComponent;
 
-  void SetHead(UHeadPart* NewHead);
-  void SetCore(UCorePart* NewCore);
-  void SetArms(UArmsPart* NewArms);
-  void SetLegs(ULegsPart* NewLegs);
-  void SetRightHandheld(UHandheldPart* NewRightHandheld);
+//  void SetPart(URobotPartComponent* Component, URobotPart* NewPart);
+//
+//  void SetHead(UHeadPart* NewHead);
+//  void SetCore(UCorePart* NewCore);
+//  void SetArms(UArmsPart* NewArms);
+//  void SetLegs(ULegsPart* NewLegs);
+//  void SetRightHandheld(UHandheldPart* NewRightHandheld);
 
-  void SetPart(URobotPart* Component, TSubclassOf<URobotPart> NewPartClass);
-
-  void SetHead(TSubclassOf<UHeadPart> NewHeadClass);
-  void SetCore(TSubclassOf<UCorePart> NewCoreClass);
-  void SetArms(TSubclassOf<UArmsPart> NewArmsClass);
-  void SetLegs(TSubclassOf<ULegsPart> NewLegsClass);
-  void SetRightHandheld(TSubclassOf<UHandheldPart> NewRightHandheldClass);
 };

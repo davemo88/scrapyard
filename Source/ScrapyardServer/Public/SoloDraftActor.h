@@ -43,8 +43,8 @@ private:
 	void SpawnDraftCamera();
 
 	ARobotPartActor* SpawnRobotPartActor(
-//		URobotPart* RobotPart,
-		TSubclassOf<URobotPart> RobotPartClass,
+		URobotPart* RobotPart,
+//		TSubclassOf<URobotPart> RobotPartClass,
 		FVector Loc = FVector(0.0f, 0.0f, 0.0f),
 		FRotator Rot = FRotator(0.0f, 0.0f, 0.0f),
 		FActorSpawnParameters SpawnParams = FActorSpawnParameters()

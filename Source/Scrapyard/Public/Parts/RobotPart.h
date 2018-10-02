@@ -3,66 +3,65 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
-#include "Ability/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
-class URobotPartAssets;
-class UMaterial;
-class USkeletalMesh;
 class UManufacturer;
 class URarity;
 class USoloDraft;
 class URobotBodyComponent;
+class URobotPartAssets;
+class AScrapyardAbility;
 
 /**
  * 
  */
-UCLASS(BlueprintType)
-class SCRAPYARD_API URobotPart : public USkeletalMeshComponent
+UCLASS()
+class SCRAPYARD_API URobotPart : public UObject
 {
   GENERATED_BODY()
 
 public:
-
-  virtual void BeginPlay() override;
-  
 // stats
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  
+  UPROPERTY()
   FString PartName;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY()
   UManufacturer* Manufacturer;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY()
   URarity* Rarity;
 // this integer type because only uint8 and int32 are supported by blueprints
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY()
   int32 Mass;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY()
   int32 PowerDrain;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY()
   int32 Durability;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY()
   int32 BallisticDefense;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY()
   int32 EnergyDefense;
 
   UPROPERTY()
-  AScrapyardAbility* PartAbililty = NULL;
+  TSubclassOf<AScrapyardAbility> AbilityClass;
 
 // skeletal mesh 
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+// maybe this should be a TAssetPtr, but I think just the thing on the asset blueprint needs to be a TAssetPtr ? ? 
+  UPROPERTY(BlueprintReadOnly)
+  USkeletalMesh* SkeletalMesh;
+
+  UPROPERTY(BlueprintReadOnly)
   UMaterial* MajorMaterial;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY(BlueprintReadOnly)
   UMaterial* MinorMaterial;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UPROPERTY(BlueprintReadOnly)
   UMaterial* AccentMaterial;
 
   virtual void Draft(USoloDraft* SoloDraft) {};
 
   virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
+//  virtual void Assign(URobotPartAssignment* RobotPartAssignment);
 
   URobotPartAssets* GetRobotPartAssets();
 
   virtual USkeletalMesh* GetSkeletalMesh();
-
 };

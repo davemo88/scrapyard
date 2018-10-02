@@ -4,6 +4,7 @@
 #include "GarageLevelScriptActor.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Robots/RobotBodyGarage.h"
+#include "Parts/RobotPart.h"
 
 
 void AGarageLevelScriptActor::BeginPlay()

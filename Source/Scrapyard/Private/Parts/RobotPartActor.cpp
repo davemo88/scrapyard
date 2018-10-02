@@ -36,13 +36,13 @@ void ARobotPartActor::DoOnClicked(AActor* Target, FKey ButtonPressed)
 }
 
 //void ARobotPartActor::SetRobotPart(URobotPart* NewRobotPart)
-void ARobotPartActor::SetRobotPart(TSubclassOf<URobotPart> NewRobotPartClass)
+void ARobotPartActor::SetRobotPart(URobotPart* NewRobotPart)
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotPartActor::SetRobotPart"));
-  RobotPart = NewObject<URobotPart>(this, *NewRobotPartClass);
-  RobotPart->SetupAttachment(GetRootComponent());
-  RobotPart->RegisterComponent();
-  RobotPart->SetVisibility(false);
+  RobotPart = NewRobotPart;
+//  RobotPart->SetupAttachment(GetRootComponent());
+//  RobotPart->RegisterComponent();
+//  RobotPart->SetVisibility(false);
   TextComponent->SetText(FText::FromString(RobotPart->PartName));
 }
 
