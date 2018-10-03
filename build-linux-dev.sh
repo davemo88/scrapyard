@@ -1,2 +1,2 @@
 #!/bin/bash
-/home/hg/UnrealEngine/Engine/Build/BatchFiles/Linux/RunMono.sh /home/hg/UnrealEngine/Engine/Binaries/DotNET/UnrealBuildTool.exe Scrapyard Linux Development "/home/hg/Scrapyard/Scrapyard.uproject" -progress -verbose -waitmutex
+$HOME/UnrealEngine/Engine/Build/BatchFiles/Linux/RunMono.sh $HOME/UnrealEngine/Engine/Binaries/DotNET/UnrealBuildTool.exe Scrapyard Linux Development "$HOME/Scrapyard/Scrapyard.uproject" -progress -verbose -waitmutex
