@@ -18,6 +18,6 @@ public:
 
   UArmsPart_Default();
 
-  USkeletalMesh* GetSkeletalMesh() override;
+  TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
 
 };

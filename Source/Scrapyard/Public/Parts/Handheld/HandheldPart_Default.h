@@ -16,5 +16,5 @@ class SCRAPYARD_API UHandheldPart_Default : public UHandheldPart
 
   UHandheldPart_Default();
 
-  USkeletalMesh* GetSkeletalMesh() override;
+  TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
 };

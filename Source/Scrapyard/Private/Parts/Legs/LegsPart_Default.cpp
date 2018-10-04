@@ -13,16 +13,7 @@ ULegsPart_Default::ULegsPart_Default()
   EnergyDefense = 10;
 }
 
-USkeletalMesh* ULegsPart_Default::GetSkeletalMesh()
+TSoftObjectPtr<USkeletalMesh> ULegsPart_Default::GetSkeletalMeshAssetPtr()
 {
-  URobotPartAssets* RobotPartAssets = GetRobotPartAssets();
-  if (RobotPartAssets != NULL)
-  {
-    return RobotPartAssets->LegsPart_Default_SkeletalMesh;
-  }
-  return nullptr;
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->LegsPart_Default_SkeletalMesh : nullptr;
 }
-
-
-
-

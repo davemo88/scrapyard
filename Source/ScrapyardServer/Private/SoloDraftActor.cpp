@@ -37,10 +37,10 @@ void ASoloDraftActor::BeginPlay()
 //  UArmsPart_Default* hpd = NewObject<UArmsPart_Default>();
 //  hpd->BeginPlay();
 
-  HeadParts.Add(UHeadPart_Default::StaticClass());
-  CoreParts.Add(UCorePart_Default::StaticClass()); 
-  ArmsParts.Add(UArmsPart_Default::StaticClass()); 
-  LegsParts.Add(ULegsPart_Default::StaticClass());
+  HeadParts.Add(NewObject<UHeadPart_Default>());
+  CoreParts.Add(NewObject<UCorePart_Default>()); 
+  ArmsParts.Add(NewObject<UArmsPart_Default>()); 
+  LegsParts.Add(NewObject<ULegsPart_Default>());
 
   SpawnDraftCamera();
 
@@ -63,7 +63,6 @@ void ASoloDraftActor::SpawnDraftCamera()
 }
 
 ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(URobotPart* RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
-//ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(TSubclassOf<URobotPart> RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
 {
   UWorld* World = GetWorld();
   ARobotPartActor* RobotPartActor = World->SpawnActor<ARobotPartActor>(Loc, Rot, SpawnParams);
@@ -105,19 +104,19 @@ void ASoloDraftActor::SamplePack()
 //  CurrentDraft->CurrentPack.Add(SamplePart<UCorePart>(CoreParts));
 //  CurrentDraft->CurrentPack.Add(SamplePart<UArmsPart>(ArmsParts));
 //  CurrentDraft->CurrentPack.Add(SamplePart<ULegsPart>(LegsParts));
-  CurrentDraft->CurrentPack.Add(SamplePart<TSubclassOf<UHeadPart>>(HeadParts));
-  CurrentDraft->CurrentPack.Add(SamplePart<TSubclassOf<UCorePart>>(CoreParts));
-  CurrentDraft->CurrentPack.Add(SamplePart<TSubclassOf<UArmsPart>>(ArmsParts));
-  CurrentDraft->CurrentPack.Add(SamplePart<TSubclassOf<ULegsPart>>(LegsParts));
+  CurrentDraft->CurrentPack.Add(SamplePart<UHeadPart>(HeadParts));
+  CurrentDraft->CurrentPack.Add(SamplePart<UCorePart>(CoreParts));
+  CurrentDraft->CurrentPack.Add(SamplePart<UArmsPart>(ArmsParts));
+  CurrentDraft->CurrentPack.Add(SamplePart<ULegsPart>(LegsParts));
 //  }
 
 }
 
 template<typename T>
-T ASoloDraftActor::SamplePart(TArray<T>& Parts, bool Replacement)
+T* ASoloDraftActor::SamplePart(TArray<T*>& Parts, bool Replacement)
 {
   int32 NumParts = Parts.Num();
-  T RobotPart = nullptr;
+  T* RobotPart = nullptr;
   if (NumParts > 0)
   {
     int Index = FMath::RandRange(0, NumParts - 1);
@@ -131,7 +130,6 @@ T ASoloDraftActor::SamplePart(TArray<T>& Parts, bool Replacement)
 }
 
 void ASoloDraftActor::DraftPart(URobotPart* RobotPart)
-//void ASoloDraftActor::DraftPart(TSubclassOf<URobotPart> RobotPart)
 {
 //  UE_LOG(LogTemp, Warning, TEXT("drafting %s"), *RobotPart->PartName);
   UE_LOG(LogTemp, Warning, TEXT("drafting a part"));

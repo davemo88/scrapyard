@@ -12,5 +12,5 @@ void UCorePart::Draft(USoloDraft* SoloDraft)
 
 void UCorePart::Assign(URobotBodyComponent* RobotBody)
 {
-	RobotBody->SetCore(this);
+//	RobotBody->SetCore(this);
 }

@@ -94,11 +94,11 @@ void ARobotCharacter::SetupStats()
 
 void ARobotCharacter::SetupAbilities()
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::SetupAbilities"));
-  if (RobotBodyComponent && RobotBodyComponent->RightHandheld && RobotBodyComponent->RightHandheld->PartAbililty)
-  {
-    WeaponAbility = RobotBodyComponent->RightHandheld->PartAbililty;
-  }
+//  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::SetupAbilities"));
+//  if (RobotBodyComponent && RobotBodyComponent->RightHandheld && RobotBodyComponent->RightHandheld->PartAbililty)
+//  {
+//    WeaponAbility = RobotBodyComponent->RightHandheld->PartAbililty;
+//  }
   if (WeaponAbility == NULL)
   {
     UE_LOG(LogTemp, Warning, TEXT("Couldn't set up Weapon Ability from part, doing it directly :(" ));

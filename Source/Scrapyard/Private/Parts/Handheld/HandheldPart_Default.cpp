@@ -13,14 +13,9 @@ UHandheldPart_Default::UHandheldPart_Default()
   EnergyDefense = 10;
 }
 
-USkeletalMesh* UHandheldPart_Default::GetSkeletalMesh()
+TSoftObjectPtr<USkeletalMesh> UHandheldPart_Default::GetSkeletalMeshAssetPtr()
 {
-  URobotPartAssets* RobotPartAssets = GetRobotPartAssets();
-  if (RobotPartAssets != NULL)
-  {
-    return RobotPartAssets->HandheldPart_Default_SkeletalMesh;
-  }
-  return nullptr;
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->HandheldPart_Default_SkeletalMesh : nullptr;
 }
 
 

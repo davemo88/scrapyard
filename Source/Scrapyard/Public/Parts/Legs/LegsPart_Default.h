@@ -18,5 +18,5 @@ public:
 
   ULegsPart_Default();
 
-  USkeletalMesh* GetSkeletalMesh() override;
+  TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
 };

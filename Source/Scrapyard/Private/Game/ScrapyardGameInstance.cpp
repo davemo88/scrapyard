@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 #include "Game/ScrapyardDefaultAssets.h"
+#include "Parts/RobotPart.h"
 #include "SoloDraft.h"
 
 UScrapyardGameInstance::UScrapyardGameInstance()
@@ -38,6 +39,7 @@ UScrapyardGameInstance::UScrapyardGameInstance()
       UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was NOT loaded"));
     }
   }
+  URobotPart::RobotPartAssetsBP = RobotPartAssetsBP;
 };
 
 void UScrapyardGameInstance::Init()

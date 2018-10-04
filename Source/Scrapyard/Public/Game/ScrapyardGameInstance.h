@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Online.h"
+#include "Engine/StreamableManager.h"
 #include "ScrapyardGameInstance.generated.h"
 
 class UScrapyardDefaultAssets;
@@ -19,6 +20,8 @@ class SCRAPYARD_API UScrapyardGameInstance : public UGameInstance
 
 public:	
 	UScrapyardGameInstance();
+
+        FStreamableManager AssetLoader;
 
 	const UScrapyardDefaultAssets* DefaultAssetsBP;
 

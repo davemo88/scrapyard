@@ -14,14 +14,9 @@ UArmsPart_Default::UArmsPart_Default()
 
 }
 
-USkeletalMesh* UArmsPart_Default::GetSkeletalMesh()
+TSoftObjectPtr<USkeletalMesh> UArmsPart_Default::GetSkeletalMeshAssetPtr()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
-  URobotPartAssets* RobotPartAssets = GetRobotPartAssets();
-  if (RobotPartAssets != NULL)
-  {
-    return RobotPartAssets->ArmsPart_Default_SkeletalMesh;
-  }
-  
-  return nullptr;
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->ArmsPart_Default_SkeletalMesh : nullptr;
 }
+
+

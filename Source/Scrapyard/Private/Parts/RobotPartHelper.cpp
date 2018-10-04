@@ -2,6 +2,7 @@
 
 #include "RobotPartHelper.h"
 #include "Parts/RobotPartActor.h"
+#include "Parts/RobotPart.h"
 #include "AssetRegistryModule.h"
 #include "EngineUtils.h"
 
@@ -10,7 +11,6 @@ ARobotPartActor* URobotPartHelper::SpawnRobotPartActor(UWorld* World, FVector Lo
   if (World)
   {
     ARobotPartActor* RobotPartActor = World->SpawnActor<ARobotPartActor>(Loc, Rot, SpawnParams);
-    RobotPartActor->SetRobotPart(RobotPart);
     return RobotPartActor;
   }
   return nullptr;
@@ -18,7 +18,7 @@ ARobotPartActor* URobotPartHelper::SpawnRobotPartActor(UWorld* World, FVector Lo
 
 URobotPartAssets* URobotPartHelper::GetRobotPartAssets(UWorld* World)
 {
-  UE_LOG(LogTemp, Warning, TEXT("URobotPartHelper::GetRobotPartAssets"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("URobotPartHelper::GetRobotPartAssets"));
   if (World)
   {
     UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(World->GetGameInstance());

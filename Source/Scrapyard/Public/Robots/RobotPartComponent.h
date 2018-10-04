@@ -29,4 +29,6 @@ public:
 
   virtual void BeginPlay() override;
 
+  void SetRobotPart(URobotPart* NewRobotPart);
+
 };

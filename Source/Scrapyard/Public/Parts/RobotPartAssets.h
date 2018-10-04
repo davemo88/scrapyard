@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/StreamableManager.h"
 #include "RobotPartAssets.generated.h"
 
 class UHeadPart;
@@ -23,25 +24,30 @@ class SCRAPYARD_API URobotPartAssets : public UObject
 public:
 
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<USkeletalMesh> HeadPart_Default_SkeletalMesh;
+  TSoftObjectPtr<USkeletalMesh> HeadPart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<USkeletalMesh> CorePart_Default_SkeletalMesh;
+  TSoftObjectPtr<USkeletalMesh> CorePart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<USkeletalMesh> ArmsPart_Default_SkeletalMesh;
+  TSoftObjectPtr<USkeletalMesh> ArmsPart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<USkeletalMesh> LegsPart_Default_SkeletalMesh;
+  TSoftObjectPtr<USkeletalMesh> LegsPart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<USkeletalMesh> HandheldPart_Default_SkeletalMesh;
+  TSoftObjectPtr<USkeletalMesh> HandheldPart_Default_SkeletalMesh;
 
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<UMaterial> RedMaterial;
+  TSoftObjectPtr<UMaterial> RedMaterial;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<UMaterial> BlueMaterial;
+  TSoftObjectPtr<UMaterial> BlueMaterial;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<UMaterial> GreenMaterial;
+  TSoftObjectPtr<UMaterial> GreenMaterial;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<UMaterial> PurpleMaterial;
+  TSoftObjectPtr<UMaterial> PurpleMaterial;
   UPROPERTY(EditDefaultsOnly)
-  TAssetPtr<UMaterial> OrangeMaterial;
+  TSoftObjectPtr<UMaterial> OrangeMaterial;
+
+//  template<typename T>
+  void LoadAsset(TSoftObjectPtr<UObject> SoftObjectPtr, FStreamableDelegate DelegateToCall);
+
+  void OnAssetsLoaded();
 
 };

@@ -8,11 +8,6 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 	RobotPart = NewRobotPart;
 }
 
-void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
-{
-	RobotPart = NewRobotPart;
-}
-
 void UPartCardWidget::OnPartCardClicked()
 {
 	PartCardClickedDelegate.Broadcast(RobotPart);

@@ -12,5 +12,5 @@ void UHeadPart::Draft(USoloDraft* SoloDraft)
 
 void UHeadPart::Assign(URobotBodyComponent* RobotBody)
 {
-  RobotBody->SetHead(this);
+//  RobotBody->SetHead(this);
 }

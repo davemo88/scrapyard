@@ -49,19 +49,27 @@ public:
   UPROPERTY(BlueprintReadOnly)
   USkeletalMesh* SkeletalMesh;
 
+  void SetSkeletalMesh();
+
+  USkeletalMesh* GetSkeletalMesh();
+
+  void OnSkeletalMeshAssetLoaded();
+
   UPROPERTY(BlueprintReadOnly)
   UMaterial* MajorMaterial;
   UPROPERTY(BlueprintReadOnly)
   UMaterial* MinorMaterial;
   UPROPERTY(BlueprintReadOnly)
   UMaterial* AccentMaterial;
-
   virtual void Draft(USoloDraft* SoloDraft) {};
 
   virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
+
 //  virtual void Assign(URobotPartAssignment* RobotPartAssignment);
 
-  URobotPartAssets* GetRobotPartAssets();
+  static URobotPartAssets* RobotPartAssetsBP;
 
-  virtual USkeletalMesh* GetSkeletalMesh();
+protected: 
+
+  virtual TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() { return nullptr; };
 };

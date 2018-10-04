@@ -18,6 +18,6 @@ public:
 
   UCorePart_Default();
 
-  USkeletalMesh* GetSkeletalMesh() override;
+  TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
 
 };

@@ -13,12 +13,7 @@ UHeadPart_Default::UHeadPart_Default()
   EnergyDefense = 10;
 }
 
-USkeletalMesh* UHeadPart_Default::GetSkeletalMesh()
+TSoftObjectPtr<USkeletalMesh> UHeadPart_Default::GetSkeletalMeshAssetPtr()
 {
-  URobotPartAssets* RobotPartAssets = GetRobotPartAssets();
-  if (RobotPartAssets != NULL)
-  {
-    return RobotPartAssets->HeadPart_Default_SkeletalMesh;
-  }
-  return nullptr;
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->HeadPart_Default_SkeletalMesh : nullptr;
 }

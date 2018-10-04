@@ -13,5 +13,5 @@ void UArmsPart::Draft(USoloDraft* SoloDraft)
 
 void UArmsPart::Assign(URobotBodyComponent* RobotBody)
 {
-  RobotBody->SetArms(this);
+//  RobotBody->SetArms(this);
 }

@@ -12,5 +12,5 @@ void ULegsPart::Draft(USoloDraft* SoloDraft)
 
 void ULegsPart::Assign(URobotBodyComponent* RobotBody)
 {
-  RobotBody->SetLegs(this);
+//  RobotBody->SetLegs(this);
 }
