@@ -16,6 +16,7 @@
 #include "Parts/Arms/ArmsPart_Default.h"
 #include "Parts/Legs/LegsPart_Default.h"
 #include "Parts/Handheld/HandheldPart_Default.h"
+#include "Player/SoloDraftPlayerController.h"
 
 
 // Sets default values
@@ -34,15 +35,16 @@ void ASoloDraftActor::BeginPlay()
   UE_LOG(LogTemp, Warning, TEXT("ASoloDraftActor::BeginPlay"));
   Super::BeginPlay();
 
-//  UArmsPart_Default* hpd = NewObject<UArmsPart_Default>();
-//  hpd->BeginPlay();
-
   HeadParts.Add(NewObject<UHeadPart_Default>());
   CoreParts.Add(NewObject<UCorePart_Default>()); 
   ArmsParts.Add(NewObject<UArmsPart_Default>()); 
   LegsParts.Add(NewObject<ULegsPart_Default>());
 
   SpawnDraftCamera();
+
+  ASoloDraftPlayerController* PC = Cast<ASoloDraftPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+
+  NextPackReady.AddDynamic(PC, &ASoloDraftPlayerController::OnNextPack);
 
   NextPack();
 
@@ -93,6 +95,7 @@ void ASoloDraftActor::NextPack()
   DestroyPartCards();
   SamplePack();
   SpawnPartCards();
+  NextPackReady.Broadcast();
 }
 
 void ASoloDraftActor::SamplePack()
@@ -100,10 +103,6 @@ void ASoloDraftActor::SamplePack()
 //  if (Role == ROLE_Authority)
 //  {
   CurrentDraft->CurrentPack.Empty();
-//  CurrentDraft->CurrentPack.Add(SamplePart<UHeadPart>(HeadParts));
-//  CurrentDraft->CurrentPack.Add(SamplePart<UCorePart>(CoreParts));
-//  CurrentDraft->CurrentPack.Add(SamplePart<UArmsPart>(ArmsParts));
-//  CurrentDraft->CurrentPack.Add(SamplePart<ULegsPart>(LegsParts));
   CurrentDraft->CurrentPack.Add(SamplePart<UHeadPart>(HeadParts));
   CurrentDraft->CurrentPack.Add(SamplePart<UCorePart>(CoreParts));
   CurrentDraft->CurrentPack.Add(SamplePart<UArmsPart>(ArmsParts));

@@ -9,6 +9,7 @@
 class UMainMenuWidget;
 class UEscapeMenuWidget;
 class UGarageWidget;
+class USoloDraftWidget;
 class UPartCardWidget;
 class URobotHUDWidget;
 
@@ -38,25 +39,12 @@ public:
   TSubclassOf<class UGarageWidget> GarageWidgetBP;
 
   UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<class USoloDraftWidget> SoloDraftWidgetBP;
+
+  UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class UPartCardWidget> PartCardWidgetBP;
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class URobotHUDWidget> RobotHUDWidgetBP;
-
-// default robot parts
-  UPROPERTY(EditDefaultsOnly)
-  UHeadPart* DefaultHeadPart;
-  
-  UPROPERTY(EditDefaultsOnly)
-  UCorePart* DefaultCorePart; 
-  
-  UPROPERTY(EditDefaultsOnly)
-  UArmsPart* DefaultArmsPart;
-
-  UPROPERTY(EditDefaultsOnly)
-  ULegsPart* DefaultLegsPart;
-
-  UPROPERTY(EditDefaultsOnly)
-  UHandheldPart* DefaultHandheldPart;
 
 };

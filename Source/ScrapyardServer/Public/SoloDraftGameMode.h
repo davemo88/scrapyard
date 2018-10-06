@@ -12,10 +12,10 @@
 UCLASS()
 class SCRAPYARDSERVER_API ASoloDraftGameMode : public AGameModeBase
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	ASoloDraftGameMode();
+  ASoloDraftGameMode();
 
 };

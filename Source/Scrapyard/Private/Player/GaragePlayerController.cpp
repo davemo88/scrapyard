@@ -10,17 +10,11 @@
 #include "Robots/RobotBodyGarage.h"
 #include "UI/GarageWidget.h"
 
-void AGaragePlayerController::BeginPlay()
+void AGaragePlayerController::SetupWidget()
 {
-  Super::BeginPlay();
-
-  SetupGarageWidget();
-}
-
-void AGaragePlayerController::SetupGarageWidget()
-{
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
-  GarageWidget->AddToViewport();
+  Widget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
+  Widget->AddToViewport();
 }
 

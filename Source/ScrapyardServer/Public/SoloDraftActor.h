@@ -14,6 +14,7 @@ class UArmsPart;
 class ULegsPart;
 class ARobotPartActor;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FNextPackReadyDelegate);
 
 UCLASS()
 class SCRAPYARDSERVER_API ASoloDraftActor : public AActor
@@ -69,5 +70,7 @@ public:
 //TODO needs to be uproperty or attributes get GC'ed ??
   UPROPERTY(VisibleAnywhere)
   USoloDraft* CurrentDraft;
+
+  FNextPackReadyDelegate NextPackReady;
 
 };

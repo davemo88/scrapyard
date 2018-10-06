@@ -18,13 +18,15 @@
 //  return nullptr;
 //}
 
+URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
+
 USkeletalMesh* URobotPart::GetSkeletalMesh()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
 
   if (SkeletalMesh == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
-    URobotPart::RobotPartAssetsBP->LoadAsset(GetSkeletalMeshAssetPtr(), FStreamableDelegate::CreateUObject(this, URobotPart::OnSkeletalMeshAssetLoaded));
+    URobotPart::RobotPartAssetsBP->LoadAsset(GetSkeletalMeshAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnSkeletalMeshAssetLoaded));
   }
 
   return SkeletalMesh;

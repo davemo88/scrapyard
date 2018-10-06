@@ -16,22 +16,22 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardClickedDelegate, URobotPart
 UCLASS()
 class SCRAPYARD_API UPartCardWidget : public UUserWidget
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	void SetRobotPart(URobotPart* RobotPart);
-	void SetRobotPart(TSubclassOf<URobotPart> RobotPartClass);
+  void SetRobotPart(URobotPart* RobotPart);
+  void SetRobotPart(TSubclassOf<URobotPart> RobotPartClass);
 
-	UPROPERTY(BlueprintReadOnly)
-	URobotPart* RobotPart;
+  UPROPERTY(BlueprintReadOnly)
+  URobotPart* RobotPart;
 
-        UPROPERTY(BlueprintReadOnly)
-        TSubclassOf<URobotPart> RobotPartClass;
+  UPROPERTY(BlueprintReadOnly)
+  TSubclassOf<URobotPart> RobotPartClass;
 
-	UFUNCTION(BlueprintCallable)
-	void OnPartCardClicked();
+  UFUNCTION(BlueprintCallable)
+  void OnPartCardClicked();
 
-	FPartCardClickedDelegate PartCardClickedDelegate;
+  FPartCardClickedDelegate PartCardClickedDelegate;
 
 };

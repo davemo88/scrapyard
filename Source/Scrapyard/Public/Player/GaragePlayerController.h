@@ -15,12 +15,7 @@ class ARobotBodyGarage;
 UCLASS()
 class SCRAPYARD_API AGaragePlayerController : public AMenuPlayerController
 {
-	GENERATED_BODY()
-	
-protected:
-	virtual void BeginPlay() override;
+  GENERATED_BODY()
 
-	void SetupGarageWidget();
-
-	UGarageWidget* GarageWidget;
+  void SetupWidget();
 };

@@ -13,10 +13,17 @@ class UMainMenuWidget;
 UCLASS()
 class SCRAPYARD_API AMenuPlayerController : public APlayerController
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	AMenuPlayerController();
+  AMenuPlayerController();
 
-	void PostInitializeComponents() override;
+  void PostInitializeComponents() override;
+
+  void BeginPlay() override;
+
+  UPROPERTY()
+  UUserWidget* Widget;
+
+  virtual void SetupWidget() {};
 };

@@ -8,13 +8,20 @@
 
 AMenuPlayerController::AMenuPlayerController()
 {
-	bShowMouseCursor = true;
-	bEnableClickEvents = true;
-	bEnableMouseOverEvents = true;
+  bShowMouseCursor = true;
+  bEnableClickEvents = true;
+  bEnableMouseOverEvents = true;
 
 }
 
 void AMenuPlayerController::PostInitializeComponents()
 {
-	Super::PostInitializeComponents();
+  Super::PostInitializeComponents();
+}
+
+void AMenuPlayerController::BeginPlay()
+{
+  Super::BeginPlay();
+
+  SetupWidget();
 }
