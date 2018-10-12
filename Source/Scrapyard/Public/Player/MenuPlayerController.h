@@ -7,8 +7,6 @@
 #include "GameFramework/PlayerController.h"
 #include "MenuPlayerController.generated.h"
 
-class UMainMenuWidget;
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWidgetReadyDelegate);
 
 /**
@@ -25,9 +23,6 @@ public:
   void PostInitializeComponents() override;
 
   void BeginPlay() override;
-
-  UPROPERTY()
-  UUserWidget* Widget;
 
   virtual void SetupWidget() {};
 

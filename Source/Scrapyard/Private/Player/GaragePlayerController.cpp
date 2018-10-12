@@ -14,7 +14,7 @@ void AGaragePlayerController::SetupWidget()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  Widget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
-  Widget->AddToViewport();
+  GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
+  GarageWidget->AddToViewport();
 }
 

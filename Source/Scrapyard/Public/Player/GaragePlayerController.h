@@ -17,5 +17,9 @@ class SCRAPYARD_API AGaragePlayerController : public AMenuPlayerController
 {
   GENERATED_BODY()
 
+protected:
+
+  UGarageWidget* GarageWidget;
+
   void SetupWidget();
 };

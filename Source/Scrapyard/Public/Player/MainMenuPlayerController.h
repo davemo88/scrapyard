@@ -6,7 +6,7 @@
 #include "Player/MenuPlayerController.h"
 #include "MainMenuPlayerController.generated.h"
 
-class MainMenuWidget;
+class UMainMenuWidget;
 
 /**
  * 

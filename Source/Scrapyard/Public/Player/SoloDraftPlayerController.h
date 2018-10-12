@@ -6,6 +6,8 @@
 #include "Player/MenuPlayerController.h"
 #include "SoloDraftPlayerController.generated.h"
 
+class USoloDraftWidget;
+
 /**
  * 
  */
@@ -22,6 +24,9 @@ public:
   void OnNextPack(TArray<URobotPart*> NextPack);
 
 protected:
+
+  UPROPERTY()
+  USoloDraftWidget* SoloDraftWidget;
 
   void SetupWidget() override;
 

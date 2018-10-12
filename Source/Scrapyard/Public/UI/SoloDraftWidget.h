@@ -6,7 +6,9 @@
 #include "Blueprint/UserWidget.h"
 #include "SoloDraftWidget.generated.h"
 
+class UUserWidget;
 class UYourPartsWidget;
+class UUniformGridPanel;
 
 /**
  * 
@@ -16,8 +18,16 @@ class SCRAPYARD_API USoloDraftWidget : public UUserWidget
 {
   GENERATED_BODY()
 
-  TArray<UPartCardWidget*> PartCards;
+protected:
 
+  void NativeConstruct() override;
+
+public:
+
+  UPROPERTY(meta=(BindWidget))
+  UUniformGridPanel* PackDisplayPanel;
+
+  UPROPERTY(meta=(BindWidget))
   UYourPartsWidget* YourPartsWidget;
   
 };
