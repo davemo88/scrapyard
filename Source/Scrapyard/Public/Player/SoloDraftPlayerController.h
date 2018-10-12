@@ -14,16 +14,24 @@ class SCRAPYARD_API ASoloDraftPlayerController : public AMenuPlayerController
 {
   GENERATED_BODY()
 
+public:
+
+  ASoloDraftPlayerController();
+
+  UFUNCTION()
+  void OnNextPack(TArray<URobotPart*> NextPack);
+
+protected:
+
   void SetupWidget() override;
 
   void RemoveCardWidgets();
 
-  void AddCardWidgets();
+  void AddCardWidgets(TArray<URobotPart*> Parts);
 
-public:
   UFUNCTION()
-  void OnNextPack();
-  UFUNCTION()
-  void OnPartDrafted();
+  void OnPartCardHovered(URobotPart* RobotPart);
 
+  UFUNCTION()
+  void OnPartDrafted(URobotPart* RobotPart);
 };

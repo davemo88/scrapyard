@@ -21,7 +21,10 @@ void AMenuPlayerController::PostInitializeComponents()
 
 void AMenuPlayerController::BeginPlay()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
   SetupWidget();
+
+  OnWidgetReadyDelegate.Broadcast();
 }

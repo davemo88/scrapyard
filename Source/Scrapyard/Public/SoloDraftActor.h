@@ -14,10 +14,10 @@ class UArmsPart;
 class ULegsPart;
 class ARobotPartActor;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FNextPackReadyDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNextPackReadyDelegate, TArray<URobotPart*>, NextPack);
 
 UCLASS()
-class SCRAPYARDSERVER_API ASoloDraftActor : public AActor
+class SCRAPYARD_API ASoloDraftActor : public AActor
 {
   GENERATED_BODY()
   
@@ -28,8 +28,6 @@ public:
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
-
-private:
 
   TArray<UHeadPart*> HeadParts;
   TArray<UCorePart*> CoreParts;
@@ -62,6 +60,10 @@ private:
   UFUNCTION()
   void DraftPart(URobotPart* RobotPart);
 //  void DraftPart(TSubclassOf<URobotPart> RobotPart);
+//
+  
+  UFUNCTION()
+  void OnSoloDraftWidgetReady();
 
 public:  
   // Called every frame
@@ -71,6 +73,6 @@ public:
   UPROPERTY(VisibleAnywhere)
   USoloDraft* CurrentDraft;
 
-  FNextPackReadyDelegate NextPackReady;
+  FOnNextPackReadyDelegate OnNextPackReady;
 
 };

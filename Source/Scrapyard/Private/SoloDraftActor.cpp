@@ -23,6 +23,7 @@
 ASoloDraftActor::ASoloDraftActor()
 {
    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+  UE_LOG(LogTemp, Warning, TEXT("ASoloDraftActor::ASoloDraftActor"));
   PrimaryActorTick.bCanEverTick = true;
   
   CurrentDraft = CreateDefaultSubobject<USoloDraft>(TEXT("CurrentDraft"));
@@ -32,7 +33,7 @@ ASoloDraftActor::ASoloDraftActor()
 // Called when the game starts or when spawned
 void ASoloDraftActor::BeginPlay()
 {
-  UE_LOG(LogTemp, Warning, TEXT("ASoloDraftActor::BeginPlay"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
   HeadParts.Add(NewObject<UHeadPart_Default>());
@@ -44,10 +45,16 @@ void ASoloDraftActor::BeginPlay()
 
   ASoloDraftPlayerController* PC = Cast<ASoloDraftPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 
-  NextPackReady.AddDynamic(PC, &ASoloDraftPlayerController::OnNextPack);
+  OnNextPackReady.AddDynamic(PC, &ASoloDraftPlayerController::OnNextPack);
 
+  PC->OnWidgetReadyDelegate.AddDynamic(this, &ASoloDraftActor::OnSoloDraftWidgetReady);
+
+}
+
+void ASoloDraftActor::OnSoloDraftWidgetReady()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnSoloDraftWidgetReady"), *GetName());
   NextPack();
-
 }
 
 // Called every frame
@@ -81,7 +88,7 @@ void ASoloDraftActor::SpawnPartCards()
     float YVal = FMath::Pow(-1,i) * 100.f; 
 //    float ZVal = FMath::Pow(-1,i) * 50.f + 250.f;
     float ZVal = (i < (CurrentDraft->CurrentPack.Num()/2)) ? 200.f : 300.f;
-    PartActors.Add(SpawnRobotPartActor(CurrentDraft->CurrentPack[i],FVector(0,YVal,ZVal),Rot));
+//    PartActors.Add(SpawnRobotPartActor(CurrentDraft->CurrentPack[i],FVector(0,YVal,ZVal),Rot));
   }
 }
 
@@ -95,7 +102,7 @@ void ASoloDraftActor::NextPack()
   DestroyPartCards();
   SamplePack();
   SpawnPartCards();
-  NextPackReady.Broadcast();
+  OnNextPackReady.Broadcast(CurrentDraft->CurrentPack);
 }
 
 void ASoloDraftActor::SamplePack()

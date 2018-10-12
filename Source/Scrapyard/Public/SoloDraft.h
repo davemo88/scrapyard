@@ -50,7 +50,6 @@ public:
 	TArray<TSubclassOf<UChipPart>> DraftedChips;
 
 	UPROPERTY(BlueprintReadOnly)
-//        TArray<TSubclassOf<URobotPart>> CurrentPack;
         TArray<URobotPart*> CurrentPack;
 
 };

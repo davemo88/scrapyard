@@ -5,10 +5,31 @@
 
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
-	RobotPart = NewRobotPart;
+  RobotPart = NewRobotPart;
 }
 
 void UPartCardWidget::OnPartCardClicked()
 {
-	PartCardClickedDelegate.Broadcast(RobotPart);
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnPartCardClicked"), *GetName());
+  PartCardClickedDelegate.Broadcast(RobotPart);
+}
+
+FReply UPartCardWidget::NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseButtonDoubleClick"), *GetName());
+  PartCardClickedDelegate.Broadcast(RobotPart);
+  return Super::NativeOnMouseButtonDoubleClick(InGeometry, InMouseEvent);
+}
+
+void UPartCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseEnter"), *GetName());
+  MouseEnteredDelegate.Broadcast(RobotPart);
+  Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
+}
+
+void UPartCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseLeave"), *GetName());
+  Super::NativeOnMouseLeave(InMouseEvent);
 }

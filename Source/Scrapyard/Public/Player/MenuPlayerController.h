@@ -2,11 +2,15 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "MenuPlayerController.generated.h"
 
 class UMainMenuWidget;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWidgetReadyDelegate);
+
 /**
  * 
  */
@@ -26,4 +30,6 @@ public:
   UUserWidget* Widget;
 
   virtual void SetupWidget() {};
+
+  FOnWidgetReadyDelegate OnWidgetReadyDelegate;
 };

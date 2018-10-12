@@ -23,25 +23,25 @@ class SCRAPYARD_API URobotPart : public UObject
 public:
 // stats
   
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   FString PartName;
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   UManufacturer* Manufacturer;
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   URarity* Rarity;
 // this integer type because only uint8 and int32 are supported by blueprints
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   int32 Mass;
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   int32 PowerDrain;
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   int32 Durability;
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   int32 BallisticDefense;
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   int32 EnergyDefense;
 
-  UPROPERTY()
+  UPROPERTY(BlueprintReadOnly)
   TSubclassOf<AScrapyardAbility> AbilityClass;
 
 // skeletal mesh 

@@ -9,6 +9,7 @@
 class URobotPart;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardClickedDelegate, URobotPart*, Part);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMouseEnteredDelegate, URobotPart*, Part);
 
 /**
  * 
@@ -32,6 +33,16 @@ public:
   UFUNCTION(BlueprintCallable)
   void OnPartCardClicked();
 
+
   FPartCardClickedDelegate PartCardClickedDelegate;
 
+  FMouseEnteredDelegate MouseEnteredDelegate;
+
+protected:
+
+  void NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
+
+  void NativeOnMouseLeave(const FPointerEvent & InMouseEvent) override;
+
+  FReply NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 };
