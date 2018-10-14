@@ -6,7 +6,7 @@
 #include "Robots/RobotMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
-
+#include "Ability/HitscanAbility.h"
 
 // Sets default values
 ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializer)
@@ -35,6 +35,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 void ARobotCharacter::BeginPlay()
 {
   Super::BeginPlay();
+
 }
 
 // Called every frame

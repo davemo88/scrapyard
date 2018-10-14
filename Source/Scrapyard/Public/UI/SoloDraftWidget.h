@@ -9,6 +9,7 @@
 class UUserWidget;
 class UYourPartsWidget;
 class UUniformGridPanel;
+class UHorizontalBox;
 
 /**
  * 

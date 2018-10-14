@@ -3,6 +3,7 @@
 #include "TestCameraActor.h"
 
 
-ATestCameraActor::ATestCameraActor() {
+ATestCameraActor::ATestCameraActor() 
+{
 
 }

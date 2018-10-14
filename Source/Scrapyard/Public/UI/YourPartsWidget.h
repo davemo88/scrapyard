@@ -8,6 +8,7 @@
 
 class UButton;
 class UScrollBox;
+class UPartCard;
 
 /**
  * 
@@ -32,15 +33,13 @@ protected:
   UPROPERTY(meta=(BindWidget))   
   UButton* HandheldFilterButton;
   UPROPERTY(meta=(BindWidget))   
-  UButton* ChipFilterButton;
-
-  void EmptyDisplayedPartsBox();
-
-  void PopulateDisplayedPartsBox(TArray<URobotPart*> RobotParts);
+  UScrollBox* DisplayedCards;
 
 public:
 
-  UPROPERTY(meta=(BindWidget))   
-  UScrollBox* DisplayedPartsBox;
+  void ClearDisplayedCards();
+
+  void AddDisplayedCard(UPartCardWidget* Card);
+
   
 };

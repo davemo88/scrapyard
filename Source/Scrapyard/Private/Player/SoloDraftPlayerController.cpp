@@ -3,8 +3,9 @@
 
 #include "SoloDraftPlayerController.h"
 #include "SoloDraftWidget.h"
-#include "PartCardWidget.h"
-#include "YourPartsWidget.h"
+#include "Parts/RobotPart.h"
+#include "UI/PartCardWidget.h"
+#include "UI/YourPartsWidget.h"
 #include "Components/UniformGridPanel.h"
 #include "Components/UniformGridSlot.h"
 #include "Components/HorizontalBox.h"
@@ -21,6 +22,8 @@ void ASoloDraftPlayerController::SetupWidget()
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->DefaultAssetsBP->SoloDraftWidgetBP);
   SoloDraftWidget->AddToViewport();
+
+
 }
 
 void ASoloDraftPlayerController::OnNextPack(TArray<URobotPart*> NextPack)
@@ -30,36 +33,23 @@ void ASoloDraftPlayerController::OnNextPack(TArray<URobotPart*> NextPack)
   {
     UE_LOG(LogTemp, Warning, TEXT("Widget is live"), *GetName());
     UE_LOG(LogTemp, Warning, TEXT("Next Pack has %i items"), NextPack.Num());
-    AddCardWidgets(NextPack);
+    SoloDraftWidget->PackDisplayPanel->ClearChildren();
+    for (int32 i = 0; i < NextPack.Num(); ++i)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("creating card for %s"), *NextPack[i]->PartName);
+      UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+      UPartCardWidget* Card = CreateWidget<UPartCardWidget>(this, GameInstance->DefaultAssetsBP->PartCardWidgetBP); 
+      Card->SetRobotPart(NextPack[i]);
+      Card->MouseEnteredDelegate.AddDynamic(this, & ASoloDraftPlayerController::OnPartCardHovered);
+      Card->PartCardClickedDelegate.AddDynamic(this, &ASoloDraftPlayerController::OnPartDrafted);
+      SoloDraftWidget->PackDisplayPanel->AddChild(Card);
+    }
   }
   else
   {
     UE_LOG(LogTemp, Warning, TEXT("Widget is not live"), *GetName());
   }
   
-}
-
-void ASoloDraftPlayerController::RemoveCardWidgets()
-{
-
-}
-
-void ASoloDraftPlayerController::AddCardWidgets(TArray<URobotPart*> Parts)
-{
-  for (int32 i = 0; i < Parts.Num(); ++i)
-  {
-    UE_LOG(LogTemp, Warning, TEXT("creating card for %s"), *Parts[i]->PartName);
-    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-    UPartCardWidget* PartCard = CreateWidget<UPartCardWidget>(this, GameInstance->DefaultAssetsBP->PartCardWidgetBP); 
-    PartCard->SetRobotPart(Parts[i]);
-    SoloDraftWidget->PackDisplayPanel->AddChildToUniformGrid(PartCard);
-    if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(PartCard->Slot))
-    {
-     Slot->SetColumn(i%Parts.Num());
-    }
-    PartCard->MouseEnteredDelegate.AddDynamic(this, & ASoloDraftPlayerController::OnPartCardHovered);
-    PartCard->PartCardClickedDelegate.AddDynamic(this, &ASoloDraftPlayerController::OnPartDrafted);
-  }
 }
 
 void ASoloDraftPlayerController::OnPartDrafted(URobotPart* RobotPart)
@@ -70,7 +60,7 @@ void ASoloDraftPlayerController::OnPartDrafted(URobotPart* RobotPart)
   UPartCardWidget* PartCard = CreateWidget<UPartCardWidget>(this, GameInstance->DefaultAssetsBP->PartCardWidgetBP); 
 
   PartCard->SetRobotPart(RobotPart);
-  SoloDraftWidget->YourPartsWidget->DisplayedPartsBox->AddChild(PartCard);
+  SoloDraftWidget->YourPartsWidget->AddDisplayedCard(PartCard);
 }
 
 void ASoloDraftPlayerController::OnPartCardHovered(URobotPart* RobotPart)

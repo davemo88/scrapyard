@@ -30,10 +30,6 @@ protected:
 
   void SetupWidget() override;
 
-  void RemoveCardWidgets();
-
-  void AddCardWidgets(TArray<URobotPart*> Parts);
-
   UFUNCTION()
   void OnPartCardHovered(URobotPart* RobotPart);
 
