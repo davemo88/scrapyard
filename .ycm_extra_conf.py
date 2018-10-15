@@ -385,28 +385,28 @@ flags = [
   "-I/home/hg/UnrealEngine/Engine/Source/Runtime/AudioMixer",
   "-I/home/hg/UnrealEngine/Engine/Source/Runtime/AudioMixer/Public/Components",
   "-I/home/hg/UnrealEngine/Engine/Source/Runtime/AudioMixer/Public/DSP",
-  "-I/home/hg/Scrapyard/Source",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public",
-  "-I/home/hg/Scrapyard/Source/Scrapyard",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Ability",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Game",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Levels",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Online",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Arms",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Core",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Handheld",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Head",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Legs",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Player",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Robots",
-  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/UI",
-  "-I/home/hg/Scrapyard/Source/ScrapyardServer/Private",
-  "-I/home/hg/Scrapyard/Source/ScrapyardServer/Public",
-  "-I/home/hg/Scrapyard/Source/ScrapyardServer",
-  "-I/home/hg/Scrapyard/Source/ScrapyardClient/Private",
-  "-I/home/hg/Scrapyard/Source/ScrapyardClient/Public",
-  "-I/home/hg/Scrapyard/Source/ScrapyardClient",
+#  "-I/home/hg/Scrapyard/Source",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Ability",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Game",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Levels",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Online",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Arms",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Core",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Handheld",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Head",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Parts/Legs",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Player",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/Robots",
+#  "-I/home/hg/Scrapyard/Source/Scrapyard/Public/UI",
+#  "-I/home/hg/Scrapyard/Source/ScrapyardServer/Private",
+#  "-I/home/hg/Scrapyard/Source/ScrapyardServer/Public",
+#  "-I/home/hg/Scrapyard/Source/ScrapyardServer",
+#  "-I/home/hg/Scrapyard/Source/ScrapyardClient/Private",
+#  "-I/home/hg/Scrapyard/Source/ScrapyardClient/Public",
+#  "-I/home/hg/Scrapyard/Source/ScrapyardClient",
   "-I/usr/include",
   "-I/usr/local/include"
 ]
@@ -516,6 +516,7 @@ def FlagsForFile( filename, **kwargs ):
     relative_to = DirectoryOfThisScript()
     final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
 #    final_flags = final_flags + gen_recursive_include_path('/Users/Shared/Epic Games/UE_4.15/Engine')
+  final_flags = final_flags + gen_recursive_include_path('/home/hg/Scrapyard/Source')
   final_flags = final_flags + gen_recursive_include_path('/home/hg/Scrapyard/Intermediate/Build/Linux/B4D820EA')
   final_flags = final_flags + flags
 

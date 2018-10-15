@@ -6,6 +6,8 @@
 #include "Parts/RobotPart.h"
 #include "UI/PartCardWidget.h"
 #include "UI/YourPartsWidget.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardDefaultAssets.h"
 #include "Components/UniformGridPanel.h"
 #include "Components/UniformGridSlot.h"
 #include "Components/HorizontalBox.h"
@@ -43,6 +45,11 @@ void ASoloDraftPlayerController::OnNextPack(TArray<URobotPart*> NextPack)
       Card->MouseEnteredDelegate.AddDynamic(this, & ASoloDraftPlayerController::OnPartCardHovered);
       Card->PartCardClickedDelegate.AddDynamic(this, &ASoloDraftPlayerController::OnPartDrafted);
       SoloDraftWidget->PackDisplayPanel->AddChild(Card);
+      if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))
+      {
+        Slot->SetColumn(i);
+      }
+
     }
   }
   else

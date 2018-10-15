@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotPart.h"
+#include "RobotPartAssets.h"
+#include "Engine/SkeletalMesh.h"
 
 //URobotPartAssets* URobotPart::GetRobotPartAssets()
 //{
@@ -35,5 +37,6 @@ USkeletalMesh* URobotPart::GetSkeletalMesh()
 void URobotPart::OnSkeletalMeshAssetLoaded()
 {
   SkeletalMesh = GetSkeletalMeshAssetPtr().Get();
+
 }
 

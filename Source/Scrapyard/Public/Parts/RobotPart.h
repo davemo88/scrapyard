@@ -61,6 +61,7 @@ public:
   UMaterial* MinorMaterial;
   UPROPERTY(BlueprintReadOnly)
   UMaterial* AccentMaterial;
+
   virtual void Draft(USoloDraft* SoloDraft) {};
 
   virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
