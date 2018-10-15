@@ -7,8 +7,8 @@
 void UArmsPart::Draft(USoloDraft* SoloDraft)
 {
 //  SoloDraft->DraftedArms.AddUnique(this);
-  UE_LOG(LogTemp, Warning, TEXT("Drafted %s"), *this->GetClass()->GetName());
-  SoloDraft->DraftedArms.AddUnique(this->GetClass());
+  UE_LOG(LogTemp, Warning, TEXT("Drafted %s"), *PartName);
+  SoloDraft->DraftedArms.AddUnique(this);
 }
 
 void UArmsPart::Assign(URobotBodyComponent* RobotBody)

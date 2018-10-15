@@ -299,6 +299,10 @@
 		{
 			"Name": "AudioCapture",
 			"Enabled": false
+		},
+		{
+			"Name": "CLionSourceCodeAccess",
+			"Enabled": false
 		}
 	]
 }

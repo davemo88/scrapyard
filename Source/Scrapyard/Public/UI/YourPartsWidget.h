@@ -41,5 +41,9 @@ public:
 
   void AddDisplayedCard(UPartCardWidget* Card);
 
+  void FilterDisplayedCards(TSubclassOf<URobotPart> RobotPartClass);
+
+  UFUNCTION()
+  void OnHeadFilterButtonClicked();
   
 };

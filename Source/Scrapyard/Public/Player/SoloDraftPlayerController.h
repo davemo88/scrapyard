@@ -8,6 +8,7 @@
 
 class USoloDraftWidget;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartDraftedDelegate, URobotPart*, DraftedPart);
 /**
  * 
  */
@@ -21,7 +22,9 @@ public:
   ASoloDraftPlayerController();
 
   UFUNCTION()
-  void OnNextPack(TArray<URobotPart*> NextPack);
+  void OnNextPack();
+
+  FPartDraftedDelegate PartDraftedDelegate;
 
 protected:
 
@@ -34,5 +37,6 @@ protected:
   void OnPartCardHovered(URobotPart* RobotPart);
 
   UFUNCTION()
-  void OnPartDrafted(URobotPart* RobotPart);
+  void OnPartDoubleClicked(URobotPart* RobotPart);
+
 };

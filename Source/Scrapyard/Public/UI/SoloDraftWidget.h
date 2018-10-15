@@ -10,6 +10,7 @@ class UUserWidget;
 class UYourPartsWidget;
 class UUniformGridPanel;
 class UHorizontalBox;
+class UTextBlock;
 
 /**
  * 
@@ -30,5 +31,11 @@ public:
 
   UPROPERTY(meta=(BindWidget))
   UYourPartsWidget* YourPartsWidget;
+
+  UPROPERTY(meta=(BindWidget))
+  UTextBlock* PickCounter;
+
+  UFUNCTION()
+  void UpdatePickCounter();
   
 };

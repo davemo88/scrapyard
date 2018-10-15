@@ -12,6 +12,7 @@
 #include "Components/UniformGridSlot.h"
 #include "Components/HorizontalBox.h"
 #include "Components/ScrollBox.h"
+#include "Components/TextBlock.h"
 
 ASoloDraftPlayerController::ASoloDraftPlayerController()
 {
@@ -24,15 +25,15 @@ void ASoloDraftPlayerController::SetupWidget()
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->DefaultAssetsBP->SoloDraftWidgetBP);
   SoloDraftWidget->AddToViewport();
-
-
 }
 
-void ASoloDraftPlayerController::OnNextPack(TArray<URobotPart*> NextPack)
+void ASoloDraftPlayerController::OnNextPack()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnNextPack"), *GetName());
   if (SoloDraftWidget)
   {
+    ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
+    TArray<URobotPart*> NextPack = GameState->CurrentDraft->CurrentPack;
     UE_LOG(LogTemp, Warning, TEXT("Widget is live"), *GetName());
     UE_LOG(LogTemp, Warning, TEXT("Next Pack has %i items"), NextPack.Num());
     SoloDraftWidget->PackDisplayPanel->ClearChildren();
@@ -42,8 +43,8 @@ void ASoloDraftPlayerController::OnNextPack(TArray<URobotPart*> NextPack)
       UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
       UPartCardWidget* Card = CreateWidget<UPartCardWidget>(this, GameInstance->DefaultAssetsBP->PartCardWidgetBP); 
       Card->SetRobotPart(NextPack[i]);
-      Card->MouseEnteredDelegate.AddDynamic(this, & ASoloDraftPlayerController::OnPartCardHovered);
-      Card->PartCardClickedDelegate.AddDynamic(this, &ASoloDraftPlayerController::OnPartDrafted);
+      Card->CardMouseEnteredDelegate.AddDynamic(this, & ASoloDraftPlayerController::OnPartCardHovered);
+      Card->CardDoubleClickedDelegate.AddDynamic(this, &ASoloDraftPlayerController::OnPartDoubleClicked);
       SoloDraftWidget->PackDisplayPanel->AddChild(Card);
       if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))
       {
@@ -59,7 +60,7 @@ void ASoloDraftPlayerController::OnNextPack(TArray<URobotPart*> NextPack)
   
 }
 
-void ASoloDraftPlayerController::OnPartDrafted(URobotPart* RobotPart)
+void ASoloDraftPlayerController::OnPartDoubleClicked(URobotPart* RobotPart)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnPartDrafted"), *GetName());  
 
@@ -68,6 +69,10 @@ void ASoloDraftPlayerController::OnPartDrafted(URobotPart* RobotPart)
 
   PartCard->SetRobotPart(RobotPart);
   SoloDraftWidget->YourPartsWidget->AddDisplayedCard(PartCard);
+
+  PartDraftedDelegate.Broadcast(RobotPart);
+
+  SoloDraftWidget->UpdatePickCounter();
 }
 
 void ASoloDraftPlayerController::OnPartCardHovered(URobotPart* RobotPart)

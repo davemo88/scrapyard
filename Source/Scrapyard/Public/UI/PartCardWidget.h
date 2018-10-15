@@ -8,8 +8,9 @@
 
 class URobotPart;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardClickedDelegate, URobotPart*, Part);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMouseEnteredDelegate, URobotPart*, Part);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardClickedDelegate, URobotPart*, Part);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPart*, Part);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseEnteredDelegate, URobotPart*, Part);
 
 /**
  * 
@@ -34,9 +35,10 @@ public:
   void OnPartCardClicked();
 
 
-  FPartCardClickedDelegate PartCardClickedDelegate;
+  FCardClickedDelegate CardClickedDelegate;
+  FCardDoubleClickedDelegate CardDoubleClickedDelegate;
 
-  FMouseEnteredDelegate MouseEnteredDelegate;
+  FCardMouseEnteredDelegate CardMouseEnteredDelegate;
 
 protected:
 

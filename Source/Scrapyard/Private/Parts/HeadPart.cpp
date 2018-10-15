@@ -7,7 +7,7 @@
 void UHeadPart::Draft(USoloDraft* SoloDraft)
 {
 //  SoloDraft->DraftedHeads.AddUnique(this);
-  SoloDraft->DraftedHeads.AddUnique(this->GetClass());
+  SoloDraft->DraftedHeads.AddUnique(this);
 }
 
 void UHeadPart::Assign(URobotBodyComponent* RobotBody)

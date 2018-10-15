@@ -7,7 +7,7 @@
 void ULegsPart::Draft(USoloDraft* SoloDraft)
 {
 //  SoloDraft->DraftedLegs.AddUnique(this);
-  SoloDraft->DraftedLegs.AddUnique(this->GetClass());
+  SoloDraft->DraftedLegs.AddUnique(this);
 }
 
 void ULegsPart::Assign(URobotBodyComponent* RobotBody)

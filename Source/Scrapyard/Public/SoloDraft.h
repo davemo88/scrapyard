@@ -21,35 +21,34 @@ class UChipPart;
 UCLASS(BlueprintType)
 class SCRAPYARD_API USoloDraft : public UObject
 {
-	GENERATED_BODY()
-	
-	
+  GENERATED_BODY()
+  
+  
 public:
-	USoloDraft();
+  USoloDraft();
 
-//	UPROPERTY()
-	int32 Picks = 0;
+//  UPROPERTY()
+  int32 Picks = 0;
 
-//	UPROPERTY()
-	int32 MaxPicks = 24;
+//  UPROPERTY()
+  int32 MaxPicks = 20;
 
-	UPROPERTY(BlueprintReadOnly)
-//	TArray<UHeadPart*> DraftedHeads;
-	TArray<TSubclassOf<UHeadPart>> DraftedHeads;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<TSubclassOf<UCorePart>> DraftedCores;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<TSubclassOf<UArmsPart>> DraftedArms;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<TSubclassOf<ULegsPart>> DraftedLegs;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<TSubclassOf<UHandheldPart>> DraftedHandhelds;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<TSubclassOf<UBoosterPart>> DraftedBoosters;
-	UPROPERTY(BlueprintReadOnly)
-	TArray<TSubclassOf<UChipPart>> DraftedChips;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<UHeadPart*> DraftedHeads;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<UCorePart*> DraftedCores;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<UArmsPart*> DraftedArms;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<ULegsPart*> DraftedLegs;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<UHandheldPart*> DraftedHandhelds;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<UBoosterPart*> DraftedBoosters;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<UChipPart*> DraftedChips;
 
-	UPROPERTY(BlueprintReadOnly)
-        TArray<URobotPart*> CurrentPack;
+  UPROPERTY(BlueprintReadOnly)
+  TArray<URobotPart*> CurrentPack;
 
 };

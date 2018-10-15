@@ -14,7 +14,7 @@ class UArmsPart;
 class ULegsPart;
 class ARobotPartActor;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNextPackReadyDelegate, TArray<URobotPart*>, NextPack);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNextPackReadyDelegate);
 
 UCLASS()
 class SCRAPYARD_API ASoloDraftActor : public AActor
@@ -44,23 +44,15 @@ protected:
     FActorSpawnParameters SpawnParams = FActorSpawnParameters()
   );
 
-  void SpawnPartCards();
-  void DestroyPartCards();
-
   void NextPack();
 
   void SamplePack();
 
-        UPROPERTY()
-        TArray<ARobotPartActor*> PartActors;
-
   template<typename T>
   T* SamplePart(TArray<T*>& Parts, bool Replacement = true);
 
-  UFUNCTION()
-  void DraftPart(URobotPart* RobotPart);
-//  void DraftPart(TSubclassOf<URobotPart> RobotPart);
-//
+  UFUNCTION(Server, reliable, WithValidation)
+  void ServerDraftPart(URobotPart* RobotPart);
   
   UFUNCTION()
   void OnSoloDraftWidgetReady();
@@ -70,8 +62,8 @@ public:
   virtual void Tick(float DeltaTime) override;
 
 //TODO needs to be uproperty or attributes get GC'ed ??
-  UPROPERTY(VisibleAnywhere)
-  USoloDraft* CurrentDraft;
+//  UPROPERTY()
+//  USoloDraft* CurrentDraft;
 
   FOnNextPackReadyDelegate OnNextPackReady;
 

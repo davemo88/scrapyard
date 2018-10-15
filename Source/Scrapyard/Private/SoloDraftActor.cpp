@@ -25,8 +25,6 @@ ASoloDraftActor::ASoloDraftActor()
    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   UE_LOG(LogTemp, Warning, TEXT("ASoloDraftActor::ASoloDraftActor"));
   PrimaryActorTick.bCanEverTick = true;
-  
-  CurrentDraft = CreateDefaultSubobject<USoloDraft>(TEXT("CurrentDraft"));
 
 }
 
@@ -48,6 +46,7 @@ void ASoloDraftActor::BeginPlay()
   OnNextPackReady.AddDynamic(PC, &ASoloDraftPlayerController::OnNextPack);
 
   PC->OnWidgetReadyDelegate.AddDynamic(this, &ASoloDraftActor::OnSoloDraftWidgetReady);
+  PC->PartDraftedDelegate.AddDynamic(this, &ASoloDraftActor::ServerDraftPart);
 
 }
 
@@ -76,39 +75,22 @@ ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(URobotPart* RobotPart, FVe
   UWorld* World = GetWorld();
   ARobotPartActor* RobotPartActor = World->SpawnActor<ARobotPartActor>(Loc, Rot, SpawnParams);
   RobotPartActor->SetRobotPart(RobotPart);
-  RobotPartActor->OnRobotPartClicked.AddDynamic(this, &ASoloDraftActor::DraftPart);
   return RobotPartActor;
-}
-
-void ASoloDraftActor::SpawnPartCards()
-{
-  FRotator Rot = FRotator(0.f, 180.f, 0.f);
-  for (int32 i = 0; i < CurrentDraft->CurrentPack.Num(); ++i)
-  {
-    float YVal = FMath::Pow(-1,i) * 100.f; 
-//    float ZVal = FMath::Pow(-1,i) * 50.f + 250.f;
-    float ZVal = (i < (CurrentDraft->CurrentPack.Num()/2)) ? 200.f : 300.f;
-//    PartActors.Add(SpawnRobotPartActor(CurrentDraft->CurrentPack[i],FVector(0,YVal,ZVal),Rot));
-  }
-}
-
-void ASoloDraftActor::DestroyPartCards()
-{
-  PartActors.Empty();
 }
 
 void ASoloDraftActor::NextPack()
 {
-  DestroyPartCards();
   SamplePack();
-  SpawnPartCards();
-  OnNextPackReady.Broadcast(CurrentDraft->CurrentPack);
+  OnNextPackReady.Broadcast();
 }
 
 void ASoloDraftActor::SamplePack()
 {
 //  if (Role == ROLE_Authority)
 //  {
+  ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
+  USoloDraft* CurrentDraft = GameState->CurrentDraft;
+
   CurrentDraft->CurrentPack.Empty();
   CurrentDraft->CurrentPack.Add(SamplePart<UHeadPart>(HeadParts));
   CurrentDraft->CurrentPack.Add(SamplePart<UCorePart>(CoreParts));
@@ -135,9 +117,18 @@ T* ASoloDraftActor::SamplePart(TArray<T*>& Parts, bool Replacement)
   return RobotPart;
 }
 
-void ASoloDraftActor::DraftPart(URobotPart* RobotPart)
+bool ASoloDraftActor::ServerDraftPart_Validate(URobotPart* RobotPart)
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::ServerDraftPart_Validate"), *GetName());
+  return true;
+}
+
+void ASoloDraftActor::ServerDraftPart_Implementation(URobotPart* RobotPart)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
 //  UE_LOG(LogTemp, Warning, TEXT("drafting %s"), *RobotPart->PartName);
+  ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
+  USoloDraft* CurrentDraft = GameState->CurrentDraft;
   UE_LOG(LogTemp, Warning, TEXT("drafting a part"));
   CurrentDraft->Picks++;
   RobotPart->Draft(CurrentDraft);

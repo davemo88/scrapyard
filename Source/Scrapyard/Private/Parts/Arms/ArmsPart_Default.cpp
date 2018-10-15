@@ -6,7 +6,7 @@
 
 UArmsPart_Default::UArmsPart_Default()
 {
-  PartName = TEXT("Default Core");
+  PartName = TEXT("Default Arms");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

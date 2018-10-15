@@ -7,7 +7,7 @@
 void UCorePart::Draft(USoloDraft* SoloDraft)
 {
 //	SoloDraft->DraftedCores.AddUnique(this);
-	SoloDraft->DraftedCores.AddUnique(this->GetClass());
+	SoloDraft->DraftedCores.AddUnique(this);
 }
 
 void UCorePart::Assign(URobotBodyComponent* RobotBody)
