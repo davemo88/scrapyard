@@ -37,5 +37,7 @@ public:
 
   UFUNCTION()
   void UpdatePickCounter();
+
+  void DisplayNextPack();
   
 };

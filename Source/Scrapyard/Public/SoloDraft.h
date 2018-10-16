@@ -34,19 +34,19 @@ public:
   int32 MaxPicks = 20;
 
   UPROPERTY(BlueprintReadOnly)
-  TArray<UHeadPart*> DraftedHeads;
+  TArray<URobotPart*> DraftedHeads;
   UPROPERTY(BlueprintReadOnly)
-  TArray<UCorePart*> DraftedCores;
+  TArray<URobotPart*> DraftedCores;
   UPROPERTY(BlueprintReadOnly)
-  TArray<UArmsPart*> DraftedArms;
+  TArray<URobotPart*> DraftedArms;
   UPROPERTY(BlueprintReadOnly)
-  TArray<ULegsPart*> DraftedLegs;
+  TArray<URobotPart*> DraftedLegs;
   UPROPERTY(BlueprintReadOnly)
-  TArray<UHandheldPart*> DraftedHandhelds;
+  TArray<URobotPart*> DraftedHandhelds;
   UPROPERTY(BlueprintReadOnly)
-  TArray<UBoosterPart*> DraftedBoosters;
+  TArray<URobotPart*> DraftedBoosters;
   UPROPERTY(BlueprintReadOnly)
-  TArray<UChipPart*> DraftedChips;
+  TArray<URobotPart*> DraftedChips;
 
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> CurrentPack;

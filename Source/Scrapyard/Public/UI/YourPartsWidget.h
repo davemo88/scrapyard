@@ -35,15 +35,34 @@ protected:
   UPROPERTY(meta=(BindWidget))   
   UScrollBox* DisplayedCards;
 
+  void NativeConstruct() override;
+
+  USoloDraft* CurrentDraft;
+
+  UFUNCTION()
+  void OnAllFilterButtonClicked();
+
+  UFUNCTION()
+  void OnHeadFilterButtonClicked();
+
+  UFUNCTION()
+  void OnCoreFilterButtonClicked();
+
+  UFUNCTION()
+  void OnArmsFilterButtonClicked();
+
+  UFUNCTION()
+  void OnLegsFilterButtonClicked();
+
 public:
 
   void ClearDisplayedCards();
 
   void AddDisplayedCard(UPartCardWidget* Card);
 
-  void FilterDisplayedCards(TSubclassOf<URobotPart> RobotPartClass);
+  void AddDisplayedPart(URobotPart* RobotPart);
 
-  UFUNCTION()
-  void OnHeadFilterButtonClicked();
+  void DisplayParts(TArray<URobotPart*> RobotParts);
+
   
 };

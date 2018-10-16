@@ -26,17 +26,17 @@ public:
 
   FPartDraftedDelegate PartDraftedDelegate;
 
+  UFUNCTION()
+  void OnPartCardHovered(URobotPart* RobotPart);
+
+  UFUNCTION()
+  void OnPartDoubleClicked(URobotPart* RobotPart);
+
 protected:
 
   UPROPERTY()
   USoloDraftWidget* SoloDraftWidget;
 
   void SetupWidget() override;
-
-  UFUNCTION()
-  void OnPartCardHovered(URobotPart* RobotPart);
-
-  UFUNCTION()
-  void OnPartDoubleClicked(URobotPart* RobotPart);
 
 };
