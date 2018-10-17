@@ -57,6 +57,11 @@ protected:
   UFUNCTION()
   void OnSoloDraftWidgetReady();
 
+  void AddHeads();
+  void AddCores();
+  void AddArms();
+  void AddLegs();
+
 public:  
   // Called every frame
   virtual void Tick(float DeltaTime) override;

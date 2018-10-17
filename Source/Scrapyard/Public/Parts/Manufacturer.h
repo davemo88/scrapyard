@@ -13,11 +13,13 @@
 UCLASS()
 class SCRAPYARD_API UManufacturer : public UDataAsset
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
-	FString ManufacturerName;
-	
-	UPROPERTY(EditAnywhere)
-	UTexture2D* Logo;
+public:
+
+  UPROPERTY(EditDefaultsOnly)
+  FString ManufacturerName;
+  
+  UPROPERTY(EditDefaultsOnly)
+  UTexture2D* Logo;
 };

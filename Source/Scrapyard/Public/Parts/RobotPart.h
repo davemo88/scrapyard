@@ -53,7 +53,11 @@ public:
 
   USkeletalMesh* GetSkeletalMesh();
 
-  void OnSkeletalMeshAssetLoaded();
+  void OnSkeletalMeshLoaded();
+
+  UMaterial* GetMajorMaterial();
+
+  void OnMajorMaterialLoaded();
 
   UPROPERTY(BlueprintReadOnly)
   UMaterial* MajorMaterial;
@@ -70,7 +74,16 @@ public:
 
   static URobotPartAssets* RobotPartAssetsBP;
 
+  UManufacturer* GetManufacturer();
+
+  void OnManufacturerLoaded();
+
 protected: 
 
   virtual TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() { return nullptr; };
+
+  virtual TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() { return nullptr; };
+
+  virtual TSoftObjectPtr<UManufacturer> GetManufacturerAssetPtr() { return nullptr; };
+
 };

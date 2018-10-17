@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 #include "Game/ScrapyardDefaultAssets.h"
+#include "Parts/RobotPartAssets.h"
 #include "Parts/RobotPart.h"
 #include "SoloDraft.h"
 
@@ -33,6 +34,8 @@ UScrapyardGameInstance::UScrapyardGameInstance()
     if (RobotPartAssetsBP)
     {
       UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was loaded"));
+// TODO: this is a hack since getting game instance outside of actor is mysterious
+      RobotPartAssetsBP->GameInstance = this;
     }
     else
     {

@@ -9,17 +9,12 @@
 //template <typename T>
 void URobotPartAssets::LoadAsset(TSoftObjectPtr<UObject> AssetPtr, FStreamableDelegate DelegateToCall)
 {
-  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(((UGameEngine*)GEngine)->GameInstance);
+  UE_LOG(LogTemp, Warning, TEXT("%s::LoadAsset"), *GetName());
 
   if (GameInstance)
   {
-    GameInstance->AssetLoader.RequestAsyncLoad(AssetPtr.ToSoftObjectPath(), FStreamableDelegate::CreateUObject(this, &URobotPartAssets::OnAssetsLoaded));
-//  GameInstance->AssetLoader.RequestAsyncLoad(AssetPtr.ToStringReference(), Delegate);
+    UE_LOG(LogTemp, Warning, TEXT("GameInstance For LoadAsset OK"));
+    GameInstance->AssetLoader.RequestAsyncLoad(AssetPtr.ToSoftObjectPath(), DelegateToCall);
   }
   
-}
-
-void URobotPartAssets::OnAssetsLoaded()
-{
-    
 }

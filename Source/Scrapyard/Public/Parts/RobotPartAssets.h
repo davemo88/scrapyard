@@ -12,6 +12,8 @@ class UCorePart;
 class UArmsPart;
 class ULegsPart;
 class UHandheldPart;
+class UManufacturer;
+class UScrapyardGameInstance;
 
 /**
  * 
@@ -45,9 +47,19 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UMaterial> OrangeMaterial;
 
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UManufacturer> RedCorp;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UManufacturer> BlueCorp;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UManufacturer> GreenCorp;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UManufacturer> OrangeCorp;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UManufacturer> PurpleCorp;
+
 //  template<typename T>
   void LoadAsset(TSoftObjectPtr<UObject> SoftObjectPtr, FStreamableDelegate DelegateToCall);
 
-  void OnAssetsLoaded();
-
+  UScrapyardGameInstance* GameInstance;
 };

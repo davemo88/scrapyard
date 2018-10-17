@@ -34,12 +34,10 @@ void ASoloDraftActor::BeginPlay()
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
-  HeadParts.Add(NewObject<UHeadPart_Default>());
-  CoreParts.Add(NewObject<UCorePart_Default>()); 
-  ArmsParts.Add(NewObject<UArmsPart_Default>()); 
-  LegsParts.Add(NewObject<ULegsPart_Default>());
-
-  SpawnDraftCamera();
+  AddHeads();
+  AddCores();
+  AddArms();
+  AddLegs();
 
   ASoloDraftPlayerController* PC = Cast<ASoloDraftPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 
@@ -61,6 +59,31 @@ void ASoloDraftActor::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
 
+}
+
+void ASoloDraftActor::AddHeads()
+{
+  HeadParts.Add(NewObject<UHeadPart_Default>());
+}
+
+void ASoloDraftActor::AddCores()
+{
+  CoreParts.Add(NewObject<UCorePart_Default>()); 
+}
+
+void ASoloDraftActor::AddArms()
+{
+  ArmsParts.Add(NewObject<UArmsPart_Default>()); 
+  ArmsParts.Add(NewObject<UArmsPart_Red>()); 
+  ArmsParts.Add(NewObject<UArmsPart_Blue>()); 
+  ArmsParts.Add(NewObject<UArmsPart_Green>()); 
+  ArmsParts.Add(NewObject<UArmsPart_Orange>()); 
+  ArmsParts.Add(NewObject<UArmsPart_Purple>()); 
+}
+
+void ASoloDraftActor::AddLegs()
+{
+  LegsParts.Add(NewObject<ULegsPart_Default>());
 }
 
 void ASoloDraftActor::SpawnDraftCamera()
