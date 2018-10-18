@@ -31,3 +31,4 @@ TSoftObjectPtr<UManufacturer> UArmsPart_Blue::GetManufacturerAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->BlueCorp : nullptr;
 } 
+

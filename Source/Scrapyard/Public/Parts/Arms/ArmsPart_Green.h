@@ -14,13 +14,12 @@ class SCRAPYARD_API UArmsPart_Green : public UArmsPart
 {
   GENERATED_BODY()
   
-
 public:
 
   UArmsPart_Green();
 
   TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
-  
-  
+  TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() override;
+  TSoftObjectPtr<UManufacturer> GetManufacturerAssetPtr() override;
   
 };

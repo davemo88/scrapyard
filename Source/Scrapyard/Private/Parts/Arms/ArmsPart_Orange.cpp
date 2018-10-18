@@ -12,6 +12,8 @@ UArmsPart_Orange::UArmsPart_Orange()
   BallisticDefense = 10;
   EnergyDefense = 10;
 
+  Manufacturer = GetManufacturer();
+
 }
 
 TSoftObjectPtr<USkeletalMesh> UArmsPart_Orange::GetSkeletalMeshAssetPtr()
@@ -19,6 +21,15 @@ TSoftObjectPtr<USkeletalMesh> UArmsPart_Orange::GetSkeletalMeshAssetPtr()
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->ArmsPart_Default_SkeletalMesh : nullptr;
 }
 
+TSoftObjectPtr<UMaterial> UArmsPart_Orange::GetMajorMaterialAssetPtr()
+{
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->OrangeMaterial : nullptr;
+} 
+
+TSoftObjectPtr<UManufacturer> UArmsPart_Orange::GetManufacturerAssetPtr()
+{
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->OrangeCorp : nullptr;
+} 
 
 
 

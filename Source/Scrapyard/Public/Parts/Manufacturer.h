@@ -22,4 +22,7 @@ public:
   
   UPROPERTY(EditDefaultsOnly)
   UTexture2D* Logo;
+
+  UPROPERTY(EditDefaultsOnly)
+  FLinearColor CardBackgroundColor;
 };

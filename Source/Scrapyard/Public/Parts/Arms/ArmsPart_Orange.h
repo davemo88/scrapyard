@@ -19,6 +19,8 @@ public:
   UArmsPart_Orange();
 
   TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
+  TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() override;
+  TSoftObjectPtr<UManufacturer> GetManufacturerAssetPtr() override;
   
   
 };

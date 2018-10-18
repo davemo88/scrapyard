@@ -6,6 +6,10 @@
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
   RobotPart = NewRobotPart;
+  if (RobotPart->Manufacturer)
+  {
+    CardBackground->SetBrushColor(RobotPart->Manufacturer->CardBackgroundColor);
+  }
 }
 
 void UPartCardWidget::OnPartCardClicked()

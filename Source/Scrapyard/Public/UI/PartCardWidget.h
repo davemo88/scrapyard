@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Border.h"
 #include "PartCardWidget.generated.h"
 
 class URobotPart;
@@ -34,7 +35,6 @@ public:
   UFUNCTION(BlueprintCallable)
   void OnPartCardClicked();
 
-
   FCardClickedDelegate CardClickedDelegate;
   FCardDoubleClickedDelegate CardDoubleClickedDelegate;
 
@@ -47,4 +47,7 @@ protected:
   void NativeOnMouseLeave(const FPointerEvent & InMouseEvent) override;
 
   FReply NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
+
+  UPROPERTY(meta=(BindWidget))
+  UBorder* CardBackground;
 };
