@@ -29,27 +29,17 @@ protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
 
-  TArray<UHeadPart*> HeadParts;
-  TArray<UCorePart*> CoreParts;
-  TArray<UArmsPart*> ArmsParts;
-  TArray<ULegsPart*> LegsParts;
+  UPROPERTY()
+  int32 NumChoices = 3;
 
-  void SpawnDraftCamera();
-
-  ARobotPartActor* SpawnRobotPartActor(
-    URobotPart* RobotPart,
-//    TSubclassOf<URobotPart> RobotPartClass,
-    FVector Loc = FVector(0.0f, 0.0f, 0.0f),
-    FRotator Rot = FRotator(0.0f, 0.0f, 0.0f),
-    FActorSpawnParameters SpawnParams = FActorSpawnParameters()
-  );
+  UPROPERTY()
+  TArray<URobotPart*> RobotPartPool;
 
   void NextPack();
 
   void SamplePack();
 
-  template<typename T>
-  T* SamplePart(TArray<T*>& Parts, bool Replacement = true);
+  URobotPart* SamplePart(bool Replacement = true);
 
   UFUNCTION(Server, reliable, WithValidation)
   void ServerDraftPart(URobotPart* RobotPart);
@@ -57,18 +47,11 @@ protected:
   UFUNCTION()
   void OnSoloDraftWidgetReady();
 
-  void AddHeads();
-  void AddCores();
-  void AddArms();
-  void AddLegs();
+  void SetupRobotPartPool();
 
 public:  
   // Called every frame
   virtual void Tick(float DeltaTime) override;
-
-//TODO needs to be uproperty or attributes get GC'ed ??
-//  UPROPERTY()
-//  USoloDraft* CurrentDraft;
 
   FOnNextPackReadyDelegate OnNextPackReady;
 

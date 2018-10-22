@@ -6,6 +6,11 @@
 
 URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
 
+URobotPart::URobotPart()
+{
+//  GetManufacturer();
+}
+
 USkeletalMesh* URobotPart::GetSkeletalMesh()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
@@ -45,7 +50,7 @@ UManufacturer* URobotPart::GetManufacturer()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetManufacturer"), *GetName());
 
-  if (Manufacturer == NULL && URobotPart::RobotPartAssetsBP != NULL)
+  if (Manufacturer == NULL && URobotPart::RobotPartAssetsBP != NULL)// && GetManufacturerAssetPtr() != NULL)
   {
     URobotPart::RobotPartAssetsBP->LoadAsset(GetManufacturerAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnManufacturerLoaded));
   }
@@ -58,4 +63,20 @@ void URobotPart::OnManufacturerLoaded()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnManufacturerLoaded"), *GetName());
   Manufacturer = GetManufacturerAssetPtr().Get();
+}
+
+UTexture2D* URobotPart::GetCardIcon()
+{
+  if (CardIcon == NULL && URobotPart::RobotPartAssetsBP != NULL)
+  {
+    URobotPart::RobotPartAssetsBP->LoadAsset(GetCardIconAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnCardIconLoaded));
+  }
+
+  return CardIcon;
+}
+
+void URobotPart::OnCardIconLoaded()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardIconLoaded"), *GetName());
+  CardIcon = GetCardIconAssetPtr().Get(); 
 }

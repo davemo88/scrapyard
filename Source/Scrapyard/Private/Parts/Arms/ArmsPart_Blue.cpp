@@ -2,8 +2,6 @@
 
 
 #include "ArmsPart_Blue.h"
-#include "Parts/RobotPartAssets.h"
-#include "Parts/Manufacturer.h"
 
 UArmsPart_Blue::UArmsPart_Blue()
 {

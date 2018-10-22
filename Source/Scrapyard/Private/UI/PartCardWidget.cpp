@@ -2,6 +2,7 @@
 
 #include "PartCardWidget.h"
 #include "Parts/RobotPart.h"
+#include "Components/Image.h"
 
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
@@ -9,6 +10,10 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
   if (RobotPart->Manufacturer)
   {
     CardBackground->SetBrushColor(RobotPart->Manufacturer->CardBackgroundColor);
+  }
+  if (RobotPart->CardIcon)
+  {
+    PartTypeIcon->SetBrushFromTexture(RobotPart->CardIcon); 
   }
 }
 

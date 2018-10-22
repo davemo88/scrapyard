@@ -31,17 +31,22 @@ URobotBodyComponent::URobotBodyComponent()
 //  ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("ArmsComponent"));
 //  LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("LegsComponent"));
 //  RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RightHandheldComponent"));
-//
-//  HeadComponent->SetupAttachment(this);
-//  CoreComponent->SetupAttachment(this);
-//  ArmsComponent->SetupAttachment(this);
-//  LegsComponent->SetupAttachment(this);
-//  RightHandheldComponent->SetupAttachment(this);
-//
-//  HeadComponent->SetMasterPoseComponent(this);
-//  CoreComponent->SetMasterPoseComponent(this);
-//  ArmsComponent->SetMasterPoseComponent(this);
-//  LegsComponent->SetMasterPoseComponent(this);
+  HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyHeadComponent"));
+  CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyCoreComponent"));
+  ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyArmsComponent"));
+  LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyLegsComponent"));
+  RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyRightHandheldComponent"));
+
+  HeadComponent->SetupAttachment(this);
+  CoreComponent->SetupAttachment(this);
+  ArmsComponent->SetupAttachment(this);
+  LegsComponent->SetupAttachment(this);
+  RightHandheldComponent->SetupAttachment(this);
+
+  HeadComponent->SetMasterPoseComponent(this);
+  CoreComponent->SetMasterPoseComponent(this);
+  ArmsComponent->SetMasterPoseComponent(this);
+  LegsComponent->SetMasterPoseComponent(this);
 //  RightHandheldComponent->SetMasterPoseComponent(this);
   
 //  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));

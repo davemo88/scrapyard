@@ -8,6 +8,7 @@
 #include "PartCardWidget.generated.h"
 
 class URobotPart;
+class UImage;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardClickedDelegate, URobotPart*, Part);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPart*, Part);
@@ -50,4 +51,7 @@ protected:
 
   UPROPERTY(meta=(BindWidget))
   UBorder* CardBackground;
+
+  UPROPERTY(meta=(BindWidget))
+  UImage* PartTypeIcon;
 };

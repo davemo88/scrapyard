@@ -58,8 +58,19 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UManufacturer> PurpleCorp;
 
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> HeadCardIcon;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> CoreCardIcon;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> ArmsCardIcon;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> LegsCardIcon;
+
+
 //  template<typename T>
   void LoadAsset(TSoftObjectPtr<UObject> SoftObjectPtr, FStreamableDelegate DelegateToCall);
 
+// TODO: this is hack because getting gameinstance outside of actors is mysterious
   UScrapyardGameInstance* GameInstance;
 };

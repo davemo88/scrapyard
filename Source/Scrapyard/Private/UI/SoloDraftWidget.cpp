@@ -18,7 +18,7 @@ void USoloDraftWidget::NativeConstruct()
 void USoloDraftWidget::UpdatePickCounter()
 {
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
-  FString PickCounterText = FString::Printf(TEXT("%i/%i"), GameState->CurrentDraft->Picks, GameState->CurrentDraft->MaxPicks);
+  FString PickCounterText = FString::Printf(TEXT("%i/%i"), GameState->CurrentDraft->NumPicks, GameState->CurrentDraft->MaxPicks);
   PickCounter->SetText(FText::FromString(PickCounterText));
 }
 

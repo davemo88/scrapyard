@@ -1,0 +1,28 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Parts/HeadPart.h"
+#include "HeadPart_Red.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class SCRAPYARD_API UHeadPart_Red : public UHeadPart
+{
+	GENERATED_BODY()
+	
+	
+public:
+
+  UHeadPart_Red();
+
+  TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
+  TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() override;
+  TSoftObjectPtr<UManufacturer> GetManufacturerAssetPtr() override;
+  
+	
+	
+};

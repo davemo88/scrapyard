@@ -12,8 +12,14 @@
 #include "LegsPart.h"
 #include "RobotPartActor.h"
 #include "Parts/Head/HeadPart_Default.h"
+#include "Parts/Head/HeadPart_Blue.h"
 #include "Parts/Core/CorePart_Default.h"
 #include "Parts/Arms/ArmsPart_Default.h"
+#include "Parts/Arms/ArmsPart_Red.h"
+#include "Parts/Arms/ArmsPart_Blue.h"
+#include "Parts/Arms/ArmsPart_Green.h"
+#include "Parts/Arms/ArmsPart_Purple.h"
+#include "Parts/Arms/ArmsPart_Orange.h"
 #include "Parts/Legs/LegsPart_Default.h"
 #include "Parts/Handheld/HandheldPart_Default.h"
 #include "Player/SoloDraftPlayerController.h"
@@ -22,9 +28,9 @@
 // Sets default values
 ASoloDraftActor::ASoloDraftActor()
 {
-   // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   UE_LOG(LogTemp, Warning, TEXT("ASoloDraftActor::ASoloDraftActor"));
-  PrimaryActorTick.bCanEverTick = true;
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+//  PrimaryActorTick.bCanEverTick = true;
 
 }
 
@@ -34,10 +40,7 @@ void ASoloDraftActor::BeginPlay()
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
-  AddHeads();
-  AddCores();
-  AddArms();
-  AddLegs();
+  SetupRobotPartPool();
 
   ASoloDraftPlayerController* PC = Cast<ASoloDraftPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 
@@ -61,44 +64,32 @@ void ASoloDraftActor::Tick(float DeltaTime)
 
 }
 
-void ASoloDraftActor::AddHeads()
+void ASoloDraftActor::SetupRobotPartPool()
 {
-  HeadParts.Add(NewObject<UHeadPart_Default>());
-}
-
-void ASoloDraftActor::AddCores()
-{
-  CoreParts.Add(NewObject<UCorePart_Default>()); 
-}
-
-void ASoloDraftActor::AddArms()
-{
-  ArmsParts.Add(NewObject<UArmsPart_Default>()); 
-  ArmsParts.Add(NewObject<UArmsPart_Red>()); 
-  ArmsParts.Add(NewObject<UArmsPart_Blue>()); 
-  ArmsParts.Add(NewObject<UArmsPart_Green>()); 
-  ArmsParts.Add(NewObject<UArmsPart_Orange>()); 
-  ArmsParts.Add(NewObject<UArmsPart_Purple>()); 
-}
-
-void ASoloDraftActor::AddLegs()
-{
-  LegsParts.Add(NewObject<ULegsPart_Default>());
-}
-
-void ASoloDraftActor::SpawnDraftCamera()
-{
-  UWorld* World = GetWorld();
-  ACameraActor* DraftCamera = World->SpawnActor<ACameraActor>(FVector(-420.0f, 0.0f, 200.0f), FRotator(0.0f, 0.0f, 0.0f), FActorSpawnParameters());
-  World->GetFirstPlayerController()->SetViewTarget(DraftCamera);
-}
-
-ARobotPartActor* ASoloDraftActor::SpawnRobotPartActor(URobotPart* RobotPart, FVector Loc, FRotator Rot, FActorSpawnParameters SpawnParams)
-{
-  UWorld* World = GetWorld();
-  ARobotPartActor* RobotPartActor = World->SpawnActor<ARobotPartActor>(Loc, Rot, SpawnParams);
-  RobotPartActor->SetRobotPart(RobotPart);
-  return RobotPartActor;
+//  RobotPartPool.Add(NewObject<UHeadPart_Default>());
+  RobotPartPool.Add(NewObject<UHeadPart_Red>());
+  RobotPartPool.Add(NewObject<UHeadPart_Blue>());
+  RobotPartPool.Add(NewObject<UHeadPart_Green>());
+  RobotPartPool.Add(NewObject<UHeadPart_Orange>());
+  RobotPartPool.Add(NewObject<UHeadPart_Purple>());
+//  RobotPartPool.Add(NewObject<UCorePart_Default>()); 
+  RobotPartPool.Add(NewObject<UCorePart_Red>()); 
+  RobotPartPool.Add(NewObject<UCorePart_Blue>()); 
+  RobotPartPool.Add(NewObject<UCorePart_Green>()); 
+  RobotPartPool.Add(NewObject<UCorePart_Orange>()); 
+  RobotPartPool.Add(NewObject<UCorePart_Purple>()); 
+//  RobotPartPool.Add(NewObject<UArmsPart_Default>()); 
+  RobotPartPool.Add(NewObject<UArmsPart_Red>()); 
+  RobotPartPool.Add(NewObject<UArmsPart_Blue>()); 
+  RobotPartPool.Add(NewObject<UArmsPart_Green>()); 
+  RobotPartPool.Add(NewObject<UArmsPart_Orange>()); 
+  RobotPartPool.Add(NewObject<UArmsPart_Purple>()); 
+//  RobotPartPool.Add(NewObject<ULegsPart_Default>());
+  RobotPartPool.Add(NewObject<ULegsPart_Red>()); 
+  RobotPartPool.Add(NewObject<ULegsPart_Blue>()); 
+  RobotPartPool.Add(NewObject<ULegsPart_Green>()); 
+  RobotPartPool.Add(NewObject<ULegsPart_Orange>()); 
+  RobotPartPool.Add(NewObject<ULegsPart_Purple>()); 
 }
 
 void ASoloDraftActor::NextPack()
@@ -115,27 +106,23 @@ void ASoloDraftActor::SamplePack()
   USoloDraft* CurrentDraft = GameState->CurrentDraft;
 
   CurrentDraft->CurrentPack.Empty();
-  CurrentDraft->CurrentPack.Add(SamplePart<UHeadPart>(HeadParts));
-  CurrentDraft->CurrentPack.Add(SamplePart<UCorePart>(CoreParts));
-  CurrentDraft->CurrentPack.Add(SamplePart<UArmsPart>(ArmsParts));
-  CurrentDraft->CurrentPack.Add(SamplePart<ULegsPart>(LegsParts));
-//  }
 
+  for (int32 i = 0; i < NumChoices; ++i)
+  {
+    CurrentDraft->CurrentPack.Add(SamplePart());
+  }
+
+  OnNextPackReady.Broadcast();
 }
 
-template<typename T>
-T* ASoloDraftActor::SamplePart(TArray<T*>& Parts, bool Replacement)
+URobotPart* ASoloDraftActor::SamplePart(bool Replacement)
 {
-  int32 NumParts = Parts.Num();
-  T* RobotPart = nullptr;
-  if (NumParts > 0)
+  URobotPart* RobotPart = nullptr;
+  int Index = FMath::RandRange(0, RobotPartPool.Num() - 1);
+  RobotPart = RobotPartPool[Index];
+  if (!Replacement)
   {
-    int Index = FMath::RandRange(0, NumParts - 1);
-    RobotPart = Parts[Index];
-    if (!Replacement)
-    {
-      Parts.RemoveAt(Index);
-    }
+    RobotPartPool.RemoveAt(Index);
   }
   return RobotPart;
 }
@@ -153,7 +140,7 @@ void ASoloDraftActor::ServerDraftPart_Implementation(URobotPart* RobotPart)
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
   USoloDraft* CurrentDraft = GameState->CurrentDraft;
   UE_LOG(LogTemp, Warning, TEXT("drafting a part"));
-  CurrentDraft->Picks++;
+  CurrentDraft->NumPicks++;
   RobotPart->Draft(CurrentDraft);
 
   UE_LOG(LogTemp, Warning, TEXT("num heads %i"), CurrentDraft->DraftedHeads.Num());
@@ -161,7 +148,7 @@ void ASoloDraftActor::ServerDraftPart_Implementation(URobotPart* RobotPart)
   UE_LOG(LogTemp, Warning, TEXT("num arms %i"), CurrentDraft->DraftedArms.Num());
   UE_LOG(LogTemp, Warning, TEXT("num legs %i"), CurrentDraft->DraftedLegs.Num());
 
-  if (CurrentDraft->Picks < CurrentDraft->MaxPicks)
+  if (CurrentDraft->NumPicks < CurrentDraft->MaxPicks)
   {
     NextPack();
   }

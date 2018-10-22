@@ -19,6 +19,7 @@ public:
 
   ASoloDraftGameState();
   
+  UPROPERTY()
   USoloDraft* CurrentDraft;
   
 };

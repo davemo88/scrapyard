@@ -13,4 +13,3 @@ void ASoloDraftLevelScriptActor::BeginPlay()
   World->SpawnActor<ASoloDraftActor>(FVector::ZeroVector, FRotator::ZeroRotator, FActorSpawnParameters());
 }
 
-

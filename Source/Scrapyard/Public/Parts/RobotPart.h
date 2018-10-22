@@ -22,6 +22,9 @@ class SCRAPYARD_API URobotPart : public UObject
 
 public:
 // stats
+//
+
+  URobotPart();
   
   UPROPERTY(BlueprintReadOnly)
   FString PartName;
@@ -29,6 +32,9 @@ public:
   UManufacturer* Manufacturer;
   UPROPERTY(BlueprintReadOnly)
   URarity* Rarity;
+  UPROPERTY(BlueprintReadOnly)
+  UTexture2D* CardIcon;
+
 // this integer type because only uint8 and int32 are supported by blueprints
   UPROPERTY(BlueprintReadOnly)
   int32 Mass;
@@ -78,6 +84,10 @@ public:
 
   void OnManufacturerLoaded();
 
+  UTexture2D* GetCardIcon();
+
+  void OnCardIconLoaded();
+
 protected: 
 
   virtual TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() { return nullptr; };
@@ -85,5 +95,7 @@ protected:
   virtual TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() { return nullptr; };
 
   virtual TSoftObjectPtr<UManufacturer> GetManufacturerAssetPtr() { return nullptr; };
+
+  virtual TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr() { return nullptr; };
 
 };

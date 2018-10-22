@@ -27,6 +27,5 @@ void ARobotBodyGarage::BeginPlay()
 void ARobotBodyGarage::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

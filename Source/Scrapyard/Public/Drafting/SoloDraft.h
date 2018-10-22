@@ -27,11 +27,15 @@ class SCRAPYARD_API USoloDraft : public UObject
 public:
   USoloDraft();
 
-//  UPROPERTY()
-  int32 Picks = 0;
+  UPROPERTY()
+  int32 MaxPicks = 13;
 
-//  UPROPERTY()
-  int32 MaxPicks = 20;
+  UPROPERTY()
+  int32 NumPicks = 0;
+
+
+  UPROPERTY()
+  int32 NumChoicesPerPick = 3;
 
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> DraftedHeads;
