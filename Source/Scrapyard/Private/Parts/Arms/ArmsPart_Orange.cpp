@@ -13,6 +13,7 @@ UArmsPart_Orange::UArmsPart_Orange()
   EnergyDefense = 10;
 
   Manufacturer = GetManufacturer();
+  CardIcon = GetCardIcon();
 
 }
 

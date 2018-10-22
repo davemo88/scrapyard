@@ -15,3 +15,8 @@ void UArmsPart::Assign(URobotBodyComponent* RobotBody)
 {
 //  RobotBody->SetArms(this);
 }
+
+TSoftObjectPtr<UTexture2D> UArmsPart::GetCardIconAssetPtr()
+{
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->ArmsCardIcon: nullptr;
+}

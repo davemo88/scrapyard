@@ -67,6 +67,7 @@ void URobotPart::OnManufacturerLoaded()
 
 UTexture2D* URobotPart::GetCardIcon()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::GetCardIcon"), *GetName());
   if (CardIcon == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
     URobotPart::RobotPartAssetsBP->LoadAsset(GetCardIconAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnCardIconLoaded));

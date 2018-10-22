@@ -13,6 +13,7 @@ UArmsPart_Purple::UArmsPart_Purple()
   EnergyDefense = 10;
 
   Manufacturer = GetManufacturer();
+  CardIcon = GetCardIcon();
 
 }
 

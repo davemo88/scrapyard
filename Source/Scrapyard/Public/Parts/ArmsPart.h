@@ -26,4 +26,6 @@ public:
   void Draft(USoloDraft* SoloDraft);
 
   void Assign(URobotBodyComponent* RobotBody);
+
+  TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
 };

@@ -14,6 +14,7 @@ UArmsPart_Green::UArmsPart_Green()
   EnergyDefense = 10;
 
   Manufacturer = GetManufacturer();
+  CardIcon = GetCardIcon();
 
 }
 
