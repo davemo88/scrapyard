@@ -2,7 +2,7 @@
 
 #include "PartCardWidget.h"
 #include "Parts/RobotPart.h"
-#include "Components/Image.h"
+#include "Components/TextBlock.h"
 
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
@@ -15,6 +15,7 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
   {
     PartTypeIcon->SetBrushFromTexture(RobotPart->CardIcon); 
   }
+  AddStatsText();
 }
 
 void UPartCardWidget::OnPartCardClicked()
@@ -41,4 +42,21 @@ void UPartCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseLeave"), *GetName());
   Super::NativeOnMouseLeave(InMouseEvent);
+}
+
+void UPartCardWidget::AddStatsText()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::AddStatsText"), *GetName());
+  TArray<FStatText> StatsText = RobotPart->GetStatsText();
+  for (int32 i = 0; i < StatsText.Num(); ++i)
+  {
+    UTextBlock* StatName = CreateWidget<UTextBlock>(GetOwningPlayer(), UTextBlock::StaticClass()); 
+    UTextBlock* StatValue = CreateWidget<UTextBlock>(GetOwningPlayer(), UTextBlock::StaticClass()); 
+    StatName->SetText(FText::FromString(StatsText[0].StatName));
+    StatValue->SetText(FText::FromString(StatsText[0].StatValue));
+    StatsBox->AddChild(StatName);
+    StatsBox->AddChild(StatValue);
+  }
+
+      
 }

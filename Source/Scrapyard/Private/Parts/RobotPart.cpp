@@ -8,7 +8,14 @@ URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
 
 URobotPart::URobotPart()
 {
-//  GetManufacturer();
+
+}
+
+void URobotPart::PostInitProperties()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
+  Super::PostInitProperties();
+  SetupAssetAttributes();
 }
 
 USkeletalMesh* URobotPart::GetSkeletalMesh()
@@ -80,4 +87,19 @@ void URobotPart::OnCardIconLoaded()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnCardIconLoaded"), *GetName());
   CardIcon = GetCardIconAssetPtr().Get(); 
+}
+
+void URobotPart::SetupAssetAttributes()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAssetAttributes"), *GetName());
+  GetManufacturer();
+  GetCardIcon();
+}
+
+
+TArray<FStatText> URobotPart::GetStatsText()
+{
+  TArray<FStatText> StatsText;
+  StatsText.Add(FStatText("hello","uh oh"));
+  return StatsText;
 }

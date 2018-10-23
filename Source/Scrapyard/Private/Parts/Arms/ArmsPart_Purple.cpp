@@ -12,9 +12,6 @@ UArmsPart_Purple::UArmsPart_Purple()
   BallisticDefense = 10;
   EnergyDefense = 10;
 
-  Manufacturer = GetManufacturer();
-  CardIcon = GetCardIcon();
-
 }
 
 TSoftObjectPtr<USkeletalMesh> UArmsPart_Purple::GetSkeletalMeshAssetPtr()

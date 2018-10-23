@@ -5,10 +5,11 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Border.h"
+#include "Components/Image.h"
+#include "Components/VerticalBox.h"
 #include "PartCardWidget.generated.h"
 
 class URobotPart;
-class UImage;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardClickedDelegate, URobotPart*, Part);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPart*, Part);
@@ -49,9 +50,15 @@ protected:
 
   FReply NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 
+  void AddStatsText();
+
   UPROPERTY(meta=(BindWidget))
   UBorder* CardBackground;
 
   UPROPERTY(meta=(BindWidget))
   UImage* PartTypeIcon;
+
+  UPROPERTY(meta=(BindWidget))
+  UVerticalBox* StatsBox;
+
 };

@@ -14,3 +14,8 @@ void ULegsPart::Assign(URobotBodyComponent* RobotBody)
 {
 //  RobotBody->SetLegs(this);
 }
+
+TSoftObjectPtr<UTexture2D> ULegsPart::GetCardIconAssetPtr()
+{
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->LegsCardIcon: nullptr;
+}

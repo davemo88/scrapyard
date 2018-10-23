@@ -14,3 +14,8 @@ void UHeadPart::Assign(URobotBodyComponent* RobotBody)
 {
 //  RobotBody->SetHead(this);
 }
+
+TSoftObjectPtr<UTexture2D> UHeadPart::GetCardIconAssetPtr()
+{
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->HeadCardIcon: nullptr;
+}

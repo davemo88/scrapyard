@@ -12,6 +12,16 @@ class URobotBodyComponent;
 class URobotPartAssets;
 class AScrapyardAbility;
 
+USTRUCT()
+struct FStatText {
+  GENERATED_BODY()
+
+  FString StatName;
+  FString StatValue;
+
+  FStatText(FString InStatName = TEXT(""), FString InStatValue = TEXT("")) : StatName(InStatName), StatValue(InStatValue) {};
+};
+
 /**
  * 
  */
@@ -25,6 +35,8 @@ public:
 //
 
   URobotPart();
+
+  virtual void PostInitProperties() override;
   
   UPROPERTY(BlueprintReadOnly)
   FString PartName;
@@ -55,6 +67,13 @@ public:
   UPROPERTY(BlueprintReadOnly)
   USkeletalMesh* SkeletalMesh;
 
+  UPROPERTY(BlueprintReadOnly)
+  UMaterial* MajorMaterial;
+  UPROPERTY(BlueprintReadOnly)
+  UMaterial* MinorMaterial;
+  UPROPERTY(BlueprintReadOnly)
+  UMaterial* AccentMaterial;
+
   void SetSkeletalMesh();
 
   USkeletalMesh* GetSkeletalMesh();
@@ -64,13 +83,6 @@ public:
   UMaterial* GetMajorMaterial();
 
   void OnMajorMaterialLoaded();
-
-  UPROPERTY(BlueprintReadOnly)
-  UMaterial* MajorMaterial;
-  UPROPERTY(BlueprintReadOnly)
-  UMaterial* MinorMaterial;
-  UPROPERTY(BlueprintReadOnly)
-  UMaterial* AccentMaterial;
 
   virtual void Draft(USoloDraft* SoloDraft) {};
 
@@ -88,7 +100,12 @@ public:
 
   void OnCardIconLoaded();
 
+  TArray<FStatText> GetStatsText();
+
 protected: 
+
+  UFUNCTION()
+  void SetupAssetAttributes();
 
   virtual TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() { return nullptr; };
 

@@ -11,8 +11,6 @@ UHeadPart_Purple::UHeadPart_Purple()
   BallisticDefense = 10;
   EnergyDefense = 10;
 
-  Manufacturer = GetManufacturer();
-
 }
 
 TSoftObjectPtr<USkeletalMesh> UHeadPart_Purple::GetSkeletalMeshAssetPtr()

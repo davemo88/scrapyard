@@ -12,8 +12,6 @@ ULegsPart_Green::ULegsPart_Green()
   BallisticDefense = 10;
   EnergyDefense = 10;
 
-  Manufacturer = GetManufacturer();
-
 }
 
 TSoftObjectPtr<USkeletalMesh> ULegsPart_Green::GetSkeletalMeshAssetPtr()

@@ -12,8 +12,6 @@ UCorePart_Red::UCorePart_Red()
   BallisticDefense = 10;
   EnergyDefense = 10;
 
-  Manufacturer = GetManufacturer();
-
 }
 
 TSoftObjectPtr<USkeletalMesh> UCorePart_Red::GetSkeletalMeshAssetPtr()
@@ -30,8 +28,4 @@ TSoftObjectPtr<UManufacturer> UCorePart_Red::GetManufacturerAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->RedCorp : nullptr;
 } 
-
-
-
-
 

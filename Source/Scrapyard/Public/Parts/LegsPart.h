@@ -12,11 +12,13 @@
 UCLASS()
 class SCRAPYARD_API ULegsPart : public URobotPart
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	void Draft(USoloDraft* SoloDraft);
+  void Draft(USoloDraft* SoloDraft);
 
-	void Assign(URobotBodyComponent* RobotBody);
+  void Assign(URobotBodyComponent* RobotBody);
+
+  TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
 };

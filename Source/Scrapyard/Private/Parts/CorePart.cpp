@@ -14,3 +14,8 @@ void UCorePart::Assign(URobotBodyComponent* RobotBody)
 {
 //	RobotBody->SetCore(this);
 }
+
+TSoftObjectPtr<UTexture2D> UCorePart::GetCardIconAssetPtr()
+{
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->CoreCardIcon: nullptr;
+}
