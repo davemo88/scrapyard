@@ -11,6 +11,7 @@ ULegsPart_Purple::ULegsPart_Purple()
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
+  MovementSpeed = 10;
 
 }
 

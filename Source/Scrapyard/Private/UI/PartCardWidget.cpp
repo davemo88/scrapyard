@@ -60,6 +60,7 @@ void UPartCardWidget::AddStatsText()
 // TODO: maybe make stat lines into a userwidget 
 void UPartCardWidget::AddStatLine(FStatText StatText)
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::AddStatLine"), *GetName());
   UHorizontalBox* StatLine = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass());
   UTextBlock* StatName = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
   UTextBlock* StatValue = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
@@ -71,5 +72,6 @@ void UPartCardWidget::AddStatLine(FStatText StatText)
   if (UHorizontalBoxSlot* Slot = Cast<UHorizontalBoxSlot>(StatValue->Slot))
   {
     Slot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Right);
+    Slot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
   }
 }

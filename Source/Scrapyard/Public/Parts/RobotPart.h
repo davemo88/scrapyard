@@ -100,7 +100,7 @@ public:
 
   void OnCardIconLoaded();
 
-  TArray<FStatText> GetStatsText();
+  virtual TArray<FStatText> GetStatsText();
 
 protected: 
 

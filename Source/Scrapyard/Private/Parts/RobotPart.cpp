@@ -96,10 +96,11 @@ void URobotPart::SetupAssetAttributes()
   GetCardIcon();
 }
 
-
 TArray<FStatText> URobotPart::GetStatsText()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::GetStatsText"), *GetName());
   TArray<FStatText> StatsText;
-  StatsText.Add(FStatText("hello","uh oh"));
+  StatsText.Add(FStatText("Mass",FString::Printf(TEXT("%i"), Mass)));
+  StatsText.Add(FStatText("Power Drain",FString::Printf(TEXT("%i"), PowerDrain)));
   return StatsText;
 }

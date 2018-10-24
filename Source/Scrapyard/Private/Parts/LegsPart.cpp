@@ -19,3 +19,10 @@ TSoftObjectPtr<UTexture2D> ULegsPart::GetCardIconAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->LegsCardIcon: nullptr;
 }
+
+TArray<FStatText> ULegsPart::GetStatsText()
+{
+  TArray<FStatText> StatsText = Super::GetStatsText();
+  StatsText.Add(FStatText("Movement Speed",FString::Printf(TEXT("%i"), MovementSpeed)));
+  return StatsText;
+}

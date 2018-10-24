@@ -24,15 +24,6 @@ class SCRAPYARD_API UGarageWidget : public UUserWidget
 public:
 
   UFUNCTION(BlueprintCallable)
-  void DisplayHeads();
-  UFUNCTION(BlueprintCallable)
-  void DisplayCores();
-  UFUNCTION(BlueprintCallable)
-  void DisplayArms();
-  UFUNCTION(BlueprintCallable)
-  void DisplayLegs();
-
-  UFUNCTION(BlueprintCallable)
   void GotoGarageTestLevel();
 
 };

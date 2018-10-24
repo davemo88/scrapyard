@@ -12,6 +12,7 @@ ULegsPart_Orange::ULegsPart_Orange()
   PowerDrain = 100;
   BallisticDefense = 10;
   EnergyDefense = 10;
+  MovementSpeed = 10;
 
 }
 

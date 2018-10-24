@@ -16,9 +16,19 @@ class SCRAPYARD_API ULegsPart : public URobotPart
 
 public:
 
+  UPROPERTY(BlueprintReadOnly)
+  int32 MovementSpeed;
+
+//  UPROPERTY(BlueprintReadOnly)
+//  int32 Stability;
+
   void Draft(USoloDraft* SoloDraft);
 
   void Assign(URobotBodyComponent* RobotBody);
+
+  virtual TArray<FStatText> GetStatsText();
+
+protected:
 
   TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
 };
