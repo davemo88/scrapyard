@@ -10,6 +10,7 @@
 #include "PartCardWidget.generated.h"
 
 class URobotPart;
+struct FStatText;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardClickedDelegate, URobotPart*, Part);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPart*, Part);
@@ -51,6 +52,8 @@ protected:
   FReply NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 
   void AddStatsText();
+
+  void AddStatLine(FStatText StatText);
 
   UPROPERTY(meta=(BindWidget))
   UBorder* CardBackground;

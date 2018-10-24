@@ -18,12 +18,12 @@ ARobotGameMode::ARobotGameMode()
 
 void ARobotGameMode::PostLogin(APlayerController* NewPlayer)
 {
-	Super::PostLogin(NewPlayer);
+  Super::PostLogin(NewPlayer);
 
-	UE_LOG(LogTemp, Warning, TEXT("A player has logged in"));
+  UE_LOG(LogTemp, Warning, TEXT("A player has logged in"));
 }
 
 TSubclassOf<AGameSession> ARobotGameMode::GetGameSessionClass() const
 {
-	return AScrapyardGameSession::StaticClass();
+  return AScrapyardGameSession::StaticClass();
 }

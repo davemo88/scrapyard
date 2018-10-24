@@ -3,6 +3,9 @@
 #include "PartCardWidget.h"
 #include "Parts/RobotPart.h"
 #include "Components/TextBlock.h"
+#include "Components/HorizontalBox.h"
+#include "Components/HorizontalBoxSlot.h"
+#include "Blueprint/WidgetTree.h"
 
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
@@ -50,13 +53,23 @@ void UPartCardWidget::AddStatsText()
   TArray<FStatText> StatsText = RobotPart->GetStatsText();
   for (int32 i = 0; i < StatsText.Num(); ++i)
   {
-    UTextBlock* StatName = CreateWidget<UTextBlock>(GetOwningPlayer(), UTextBlock::StaticClass()); 
-    UTextBlock* StatValue = CreateWidget<UTextBlock>(GetOwningPlayer(), UTextBlock::StaticClass()); 
-    StatName->SetText(FText::FromString(StatsText[0].StatName));
-    StatValue->SetText(FText::FromString(StatsText[0].StatValue));
-    StatsBox->AddChild(StatName);
-    StatsBox->AddChild(StatValue);
+    AddStatLine(StatsText[i]); 
   }
+}
 
-      
+// TODO: maybe make stat lines into a userwidget 
+void UPartCardWidget::AddStatLine(FStatText StatText)
+{
+  UHorizontalBox* StatLine = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass());
+  UTextBlock* StatName = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
+  UTextBlock* StatValue = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
+  StatName->SetText(FText::FromString(StatText.StatName));
+  StatValue->SetText(FText::FromString(StatText.StatValue));
+  StatLine->AddChild(StatName);
+  StatLine->AddChild(StatValue);
+  StatsBox->AddChild(StatLine);
+  if (UHorizontalBoxSlot* Slot = Cast<UHorizontalBoxSlot>(StatValue->Slot))
+  {
+    Slot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Right);
+  }
 }
