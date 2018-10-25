@@ -13,7 +13,7 @@ class UCorePart;
 class UArmsPart;
 class ULegsPart;
 class UHandheldPart;
-struct FRobotPartAssignment;
+class URobotPartAssignment;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SCRAPYARD_API URobotBodyComponent : public USkeletalMeshComponent
@@ -34,6 +34,9 @@ public:
 // https://answers.unrealengine.com/questions/153496/how-to-set-animation-blueprint-in-c.html
   FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
 
+  UPROPERTY(BlueprintReadOnly)
+  URobotPartAssignment* PartAssignment;
+
 // part components
   UPROPERTY(BlueprintReadOnly)
   URobotPartComponent* HeadComponent;
@@ -48,13 +51,5 @@ public:
 
 //  UPROPERTY(EditAnywhere, BlueprintReadWrite)
 //  UParticleSystemComponent* BoostingParticleComponent;
-
-//  void SetPart(URobotPartComponent* Component, URobotPart* NewPart);
-//
-//  void SetHead(UHeadPart* NewHead);
-//  void SetCore(UCorePart* NewCore);
-//  void SetArms(UArmsPart* NewArms);
-//  void SetLegs(ULegsPart* NewLegs);
-//  void SetRightHandheld(UHandheldPart* NewRightHandheld);
 
 };

@@ -10,7 +10,6 @@
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Robots/RobotBodyGarage.h"
 #include "Parts/RobotPart.h"
-#include "Parts/HeadPart.h"
 #include "UI/PartCardWidget.h"
 #include "SoloDraft.h"
 

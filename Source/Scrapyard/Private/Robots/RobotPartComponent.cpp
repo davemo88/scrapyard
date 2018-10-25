@@ -17,5 +17,15 @@ void URobotPartComponent::BeginPlay()
 
 void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart"), *GetName());
   RobotPart = NewRobotPart;
+  if (RobotPart->SkeletalMesh != NULL)
+  {
+    SetSkeletalMesh(RobotPart->SkeletalMesh);
+  }
+  else
+  {
+//    RobotPart->GetSkeletalMesh();
+  }
+
 }

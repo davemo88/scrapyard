@@ -8,7 +8,9 @@
 
 class UButton;
 class UScrollBox;
-class UPartCard;
+class UPartCardWidget;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewPartCardAdded, UPartCardWidget*, PartCard);
 
 /**
  * 
@@ -37,8 +39,6 @@ protected:
 
   void NativeConstruct() override;
 
-  USoloDraft* CurrentDraft;
-
   UFUNCTION()
   void OnAllFilterButtonClicked();
 
@@ -56,6 +56,9 @@ protected:
 
 public:
 
+  UPROPERTY()
+  USoloDraft* CurrentDraft;
+
   void ClearDisplayedCards();
 
   void AddDisplayedCard(UPartCardWidget* Card);
@@ -63,6 +66,10 @@ public:
   void AddDisplayedPart(URobotPart* RobotPart);
 
   void DisplayParts(TArray<URobotPart*> RobotParts);
+
+  void DisplayAll();
+
+  FNewPartCardAdded NewPartCardAdded;
 
   
 };

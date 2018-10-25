@@ -48,9 +48,16 @@ URobotBodyComponent::URobotBodyComponent()
   ArmsComponent->SetMasterPoseComponent(this);
   LegsComponent->SetMasterPoseComponent(this);
 //  RightHandheldComponent->SetMasterPoseComponent(this);
+//
+  PartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("PartAssignment"));
   
 //  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
 //  BoostingParticleComponent->SetupAttachment(this);
+//
+  PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(HeadComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
 
 
 }
@@ -64,32 +71,3 @@ void URobotBodyComponent::BeginPlay()
   
 }
 
-//void URobotBodyComponent::SetPart(URobotPartComponent* Component, URobotPart* NewPart)
-//{      
-//  Component->SetRobotPart(NewPart);
-//}
-//
-//void URobotBodyComponent::SetHead(UHeadPart* NewHead)
-//{
-//   
-//}
-//
-//void URobotBodyComponent::SetCore(UCorePart* NewCore)
-//{
-//  PartAssignment.Core = NewCore;
-//}
-//
-//void URobotBodyComponent::SetArms(UArmsPart* NewArms)
-//{
-//  PartAssignment.Arms = NewArms;
-//}
-// 
-//void URobotBodyComponent::SetLegs(ULegsPart* NewLegs)
-//{
-//  PartAssignment.Legs = NewLegs;
-//}
-//
-//void URobotBodyComponent::SetRightHandheld(UHandheldPart* NewRightHandheld)
-//{
-//  PartAssignment.RightHandheld = NewRightHandheld;
-//}

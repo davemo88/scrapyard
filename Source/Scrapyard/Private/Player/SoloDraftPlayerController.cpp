@@ -24,6 +24,7 @@ void ASoloDraftPlayerController::SetupWidget()
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->DefaultAssetsBP->SoloDraftWidgetBP);
+  SoloDraftWidget->YourPartsWidget->CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
   SoloDraftWidget->AddToViewport();
 }
 

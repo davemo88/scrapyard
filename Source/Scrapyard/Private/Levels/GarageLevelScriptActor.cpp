@@ -24,6 +24,7 @@ USoloDraft* AGarageLevelScriptActor::GetCurrentSoloDraft()
 
 void AGarageLevelScriptActor::SpawnRobotBodyGarage()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::SpawnRobotBodyGarage"), *GetName());
   UWorld* World = GetWorld();
   RobotBodyGarage = World->SpawnActor<ARobotBodyGarage>(FVector(0.f, 0.f, 0.f), FRotator(0.f, 0.f, 90.f), FActorSpawnParameters());
 }

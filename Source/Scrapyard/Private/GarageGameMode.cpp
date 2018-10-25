@@ -5,5 +5,5 @@
 
 AGarageGameMode::AGarageGameMode()
 {
-	PlayerControllerClass = AGaragePlayerController::StaticClass();
+  PlayerControllerClass = AGaragePlayerController::StaticClass();
 }

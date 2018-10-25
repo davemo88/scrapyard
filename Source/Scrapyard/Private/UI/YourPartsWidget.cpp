@@ -11,7 +11,8 @@
 void UYourPartsWidget::NativeConstruct()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::NativeConstruct"), *GetName());
-  CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
+  Super::NativeConstruct();
+//  CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
 
   AllFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnAllFilterButtonClicked);
   HeadFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnHeadFilterButtonClicked);
@@ -36,6 +37,7 @@ void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
   UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->DefaultAssetsBP->PartCardWidgetBP); 
   Card->SetRobotPart(RobotPart);
   AddDisplayedCard(Card);
+  NewPartCardAdded.Broadcast(Card);
 }
 
 void UYourPartsWidget::DisplayParts(TArray<URobotPart*> Parts)
@@ -47,15 +49,20 @@ void UYourPartsWidget::DisplayParts(TArray<URobotPart*> Parts)
   }
 }
 
-void UYourPartsWidget::OnAllFilterButtonClicked()
+void UYourPartsWidget::DisplayAll()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnAllFilterButtonClicked"), *GetName());
   TArray<URobotPart*> AllParts; 
   AllParts.Append(CurrentDraft->DraftedHeads);
   AllParts.Append(CurrentDraft->DraftedCores);
   AllParts.Append(CurrentDraft->DraftedArms);
   AllParts.Append(CurrentDraft->DraftedLegs);
   DisplayParts(AllParts);
+}
+
+void UYourPartsWidget::OnAllFilterButtonClicked()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnAllFilterButtonClicked"), *GetName());
+  DisplayAll();
 }
 
 void UYourPartsWidget::OnHeadFilterButtonClicked()
