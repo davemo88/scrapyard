@@ -19,9 +19,17 @@ void AGaragePlayerController::SetupWidget()
   GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
   GarageWidget->YourPartsWidget->CurrentDraft = GameInstance->SoloDraft;
   
-  GarageWidget->YourPartsWidget->NewPartCardAdded.AddDynamic(GarageActor->GetRobotBodyGarage(), &ARobotBodyGarage::)
+  GarageWidget->YourPartsWidget->NewPartCardAdded.AddDynamic(this, &AGaragePlayerController::OnNewCardReady)
    
   GarageWidget->YourPartsWidget->DisplayAll();
   GarageWidget->AddToViewport();
 }
+
+void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardDoubleClicked"), *GetName());
+  
+  CardWidget->CardDoubleClickedDelegate.AddDynamic(CardWidget->RobotPart, &URobotPart::AssignPart)
+}
+
 

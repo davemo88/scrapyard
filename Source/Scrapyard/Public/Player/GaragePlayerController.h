@@ -22,4 +22,6 @@ protected:
   UGarageWidget* GarageWidget;
 
   void SetupWidget();
+
+  void OnNewCardReady(CardWidget* CardWidget);
 };
