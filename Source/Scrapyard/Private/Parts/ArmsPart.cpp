@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ArmsPart.h"
-#include "Robots/RobotBodyComponent.h"
+#include "RobotPartAssignment.h"
 #include "SoloDraft.h"
 
 void UArmsPart::Draft(USoloDraft* SoloDraft)
@@ -11,9 +11,10 @@ void UArmsPart::Draft(USoloDraft* SoloDraft)
   SoloDraft->DraftedArms.AddUnique(this);
 }
 
-void UArmsPart::Assign(URobotBodyComponent* RobotBody)
+void UArmsPart::Assign(URobotPartAssignment* PartAssignment)
 {
-//  RobotBody->SetArms(this);
+  UE_LOG(LogTemp, Warning, TEXT("%s::Assign"), *GetName());
+  PartAssignment->SetArms(this);
 }
 
 TSoftObjectPtr<UTexture2D> UArmsPart::GetCardIconAssetPtr()

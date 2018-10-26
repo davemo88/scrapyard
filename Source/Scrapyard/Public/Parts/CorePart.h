@@ -16,9 +16,9 @@ class SCRAPYARD_API UCorePart : public URobotPart
 
 public:
 
-  void Draft(USoloDraft* SoloDraft);
+  void Draft(USoloDraft* SoloDraft) override;
 
-  void Assign(URobotBodyComponent* RobotBody);
+  void Assign(URobotPartAssignment* PartAssignment) override;
 
   TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
 };

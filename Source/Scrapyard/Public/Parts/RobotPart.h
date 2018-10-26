@@ -8,7 +8,7 @@
 class UManufacturer;
 class URarity;
 class USoloDraft;
-class URobotBodyComponent;
+class URobotPartAssignment;
 class URobotPartAssets;
 class AScrapyardAbility;
 
@@ -86,9 +86,7 @@ public:
 
   virtual void Draft(USoloDraft* SoloDraft) {};
 
-  virtual void Assign(URobotBodyComponent* RobotBody) { UE_LOG(LogTemp, Warning, TEXT("RobotPart.Assign(RobotBodyComponent)")); };
-
-//  virtual void Assign(URobotPartAssignment* RobotPartAssignment);
+  virtual void Assign(URobotPartAssignment* RobotPartAssignment) {};
 
   static URobotPartAssets* RobotPartAssetsBP;
 

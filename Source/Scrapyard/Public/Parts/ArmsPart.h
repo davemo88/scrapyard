@@ -6,6 +6,7 @@
 #include "Parts/RobotPart.h"
 #include "ArmsPart.generated.h"
 
+class URobotPartAssignment;
 /**
  * 
  */
@@ -23,9 +24,9 @@ public:
 
 //  virtual USkeletalMesh* GetSkeletalMesh() override { return nullptr; };
 
-  void Draft(USoloDraft* SoloDraft);
+  void Draft(USoloDraft* SoloDraft) override;
 
-  void Assign(URobotBodyComponent* RobotBody);
+  void Assign(URobotPartAssignment* PartAssignment) override;
 
   TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
 };

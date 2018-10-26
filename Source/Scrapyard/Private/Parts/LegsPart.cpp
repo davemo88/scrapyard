@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "LegsPart.h"
-#include "Robots/RobotBodyComponent.h"
+#include "RobotPartAssignment.h"
 #include "SoloDraft.h"
 
 void ULegsPart::Draft(USoloDraft* SoloDraft)
@@ -10,9 +10,9 @@ void ULegsPart::Draft(USoloDraft* SoloDraft)
   SoloDraft->DraftedLegs.AddUnique(this);
 }
 
-void ULegsPart::Assign(URobotBodyComponent* RobotBody)
+void ULegsPart::Assign(URobotPartAssignment* PartAssignment)
 {
-//  RobotBody->SetLegs(this);
+  PartAssignment->SetLegs(this);
 }
 
 TSoftObjectPtr<UTexture2D> ULegsPart::GetCardIconAssetPtr()

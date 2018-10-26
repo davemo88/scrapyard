@@ -22,9 +22,9 @@ public:
 //  UPROPERTY(BlueprintReadOnly)
 //  int32 Stability;
 
-  void Draft(USoloDraft* SoloDraft);
+  void Draft(USoloDraft* SoloDraft) override;
 
-  void Assign(URobotBodyComponent* RobotBody);
+  void Assign(URobotPartAssignment* PartAssignment) override;
 
   virtual TArray<FStatText> GetStatsText();
 

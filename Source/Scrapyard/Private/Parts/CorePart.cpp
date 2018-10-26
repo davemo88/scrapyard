@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CorePart.h"
-#include "Robots/RobotBodyComponent.h"
+#include "RobotPartAssignment.h"
 #include "SoloDraft.h"
 
 void UCorePart::Draft(USoloDraft* SoloDraft)
@@ -10,9 +10,9 @@ void UCorePart::Draft(USoloDraft* SoloDraft)
 	SoloDraft->DraftedCores.AddUnique(this);
 }
 
-void UCorePart::Assign(URobotBodyComponent* RobotBody)
+void UCorePart::Assign(URobotPartAssignment* PartAssignment)
 {
-//	RobotBody->SetCore(this);
+  PartAssignment->SetCore(this);
 }
 
 TSoftObjectPtr<UTexture2D> UCorePart::GetCardIconAssetPtr()

@@ -34,11 +34,6 @@ ARobotBodyGarage* AGarageLevelScriptActor::GetRobotBodyGarage()
   return RobotBodyGarage;
 }
 
-void AGarageLevelScriptActor::AssignPart(URobotPart* Part)
-{
-  Part->Assign(RobotBodyGarage->RobotBodyComponent);
-}
-
 void AGarageLevelScriptActor::GotoTestLevel()
 {
 // better to do proper level transition and move the entire robot body garage actor over ?

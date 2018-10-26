@@ -20,6 +20,7 @@ void URobotPartAssignment::SetCore(UCorePart* NewCore)
 
 void URobotPartAssignment::SetArms(UArmsPart* NewArms)
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetArms"), *GetName());
   Arms = NewArms;
   PartAssignmentChangedDelegate.Broadcast();
   ArmsAssignmentChangedDelegate.Broadcast(NewArms);

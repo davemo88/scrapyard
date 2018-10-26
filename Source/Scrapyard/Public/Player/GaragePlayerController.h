@@ -8,6 +8,7 @@
 
 class UGarageWidget;
 class ARobotBodyGarage;
+class UPartCardWidget;
 
 /**
  * 
@@ -19,9 +20,15 @@ class SCRAPYARD_API AGaragePlayerController : public AMenuPlayerController
 
 protected:
 
+  URobotPartAssignment* PartAssignment;
+
   UGarageWidget* GarageWidget;
 
   void SetupWidget();
 
-  void OnNewCardReady(CardWidget* CardWidget);
+  UFUNCTION()
+  void OnNewCardReady(UPartCardWidget* CardWidget);
+
+  UFUNCTION()
+  void OnCardDoubleClicked(URobotPart* RobotPart);
 };

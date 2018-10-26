@@ -153,6 +153,7 @@ void ASoloDraftActor::ServerDraftPart_Implementation(URobotPart* RobotPart)
     NextPack();
   }
   else
+// this should be an event
   {
     UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
     if (CurrentDraft != nullptr)

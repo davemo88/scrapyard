@@ -18,7 +18,7 @@ public:
 
   void Draft(USoloDraft* SoloDraft) override;
 
-  void Assign(URobotBodyComponent* RobotBody) override;
+  void Assign(URobotPartAssignment* PartAssignment) override;
 
   TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
 };

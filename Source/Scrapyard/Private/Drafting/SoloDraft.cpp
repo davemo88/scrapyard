@@ -11,8 +11,9 @@
 #include "Parts/Arms/ArmsPart_Orange.h"
 #include "Parts/Legs/LegsPart_Default.h"
 #include "Parts/Handheld/HandheldPart_Default.h"
+#include "RobotPartAssignment.h"
 
 USoloDraft::USoloDraft()
 {
-
+  PartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("PartAssignment"));  
 }

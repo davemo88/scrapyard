@@ -14,6 +14,7 @@ class ULegsPart;
 class UHandheldPart;
 class UBoosterPart;
 class UChipPart;
+class URobotPartAssignment;
 
 /**
  * 
@@ -28,11 +29,10 @@ public:
   USoloDraft();
 
   UPROPERTY()
-  int32 MaxPicks = 13;
+  int32 MaxPicks = 6;
 
   UPROPERTY()
   int32 NumPicks = 0;
-
 
   UPROPERTY()
   int32 NumChoicesPerPick = 3;
@@ -54,5 +54,8 @@ public:
 
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> CurrentPack;
+
+  UPROPERTY(BlueprintReadOnly)
+  URobotPartAssignment* PartAssignment;
 
 };
