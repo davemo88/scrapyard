@@ -10,7 +10,7 @@ ARobotBodyGarage::ARobotBodyGarage()
   PrimaryActorTick.bCanEverTick = true;
 
   RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
-//  RootComponent = GetRootComponent();
+  RootComponent = RobotBodyComponent;
 //  RobotBodyComponent->SetupAttachment(RootComponent);
 
   RobotBodyComponent->SetEnableGravity(false);

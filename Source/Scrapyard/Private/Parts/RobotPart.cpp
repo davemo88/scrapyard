@@ -32,6 +32,7 @@ USkeletalMesh* URobotPart::GetSkeletalMesh()
 
 void URobotPart::OnSkeletalMeshLoaded()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnSkeletalMeshLoaded"), *GetName());
   SkeletalMesh = GetSkeletalMeshAssetPtr().Get();
 }
 

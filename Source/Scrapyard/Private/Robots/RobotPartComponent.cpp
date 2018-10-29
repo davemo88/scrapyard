@@ -23,9 +23,10 @@ void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
   {
     SetSkeletalMesh(RobotPart->SkeletalMesh);
   }
-  else
+
+  if (RobotPart->MajorMaterial != NULL)
   {
-//    RobotPart->GetSkeletalMesh();
+    SetMaterial(0, RobotPart->MajorMaterial);
   }
 
 }

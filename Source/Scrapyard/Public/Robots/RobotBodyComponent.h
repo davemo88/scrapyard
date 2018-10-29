@@ -34,19 +34,19 @@ public:
 // https://answers.unrealengine.com/questions/153496/how-to-set-animation-blueprint-in-c.html
   FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
 
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartAssignment* PartAssignment;
 
 // part components
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* HeadComponent;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* CoreComponent;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* ArmsComponent;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* LegsComponent;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* RightHandheldComponent;
 
 //  UPROPERTY(EditAnywhere, BlueprintReadWrite)

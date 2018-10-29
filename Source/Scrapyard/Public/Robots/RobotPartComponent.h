@@ -23,7 +23,7 @@ class SCRAPYARD_API URobotPartComponent : public USkeletalMeshComponent
 {
   GENERATED_BODY()
 
-  UPROPERTY()
+  UPROPERTY(EditAnywhere)
   URobotPart* RobotPart;
 
 public:

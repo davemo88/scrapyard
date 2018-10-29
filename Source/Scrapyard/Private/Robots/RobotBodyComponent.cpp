@@ -16,26 +16,17 @@ URobotBodyComponent::URobotBodyComponent()
 
   bVisible = false;
   
+// TODO: put these assets in a blueprint
   static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(*DefaultMeshPath);
   SetSkeletalMesh(DefaultMesh.Object);
   static ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass> DefaultAnimBP(*DefaultAnimPath);
   SetAnimInstanceClass(DefaultAnimBP.Object);
 
-  FVector DefaultLoc = FVector(0.f, 0.f, -85.f);
-  FRotator DefaultRot = FRotator(0.f, -90.f, 0.f);
-  SetRelativeLocation(DefaultLoc);
-  SetRelativeRotation(DefaultRot);
-
-//  HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
-//  CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));
-//  ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("ArmsComponent"));
-//  LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("LegsComponent"));
-//  RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RightHandheldComponent"));
-  HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyHeadComponent"));
-  CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyCoreComponent"));
-  ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyArmsComponent"));
-  LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyLegsComponent"));
-  RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RobotBodyRightHandheldComponent"));
+  HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
+  CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));
+  ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("ArmsComponent"));
+  LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("LegsComponent"));
+  RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RightHandheldComponent"));
 
   HeadComponent->SetupAttachment(this);
   CoreComponent->SetupAttachment(this);

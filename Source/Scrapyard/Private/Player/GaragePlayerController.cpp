@@ -24,12 +24,16 @@ void AGaragePlayerController::SetupWidget()
    
   GarageWidget->YourPartsWidget->DisplayAll();
   GarageWidget->AddToViewport();
+
+  PartAssignment = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor())->GetRobotBodyGarage()->RobotBodyComponent->PartAssignment;
 }
 
 void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnNewCardReady"), *GetName());
   
+  CardWidget->RobotPart->GetSkeletalMesh();
+  CardWidget->RobotPart->GetMajorMaterial();
   CardWidget->CardDoubleClickedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardDoubleClicked);
 }
 
