@@ -5,7 +5,7 @@
 
 UHeadPart_Purple::UHeadPart_Purple()
 {
-  PartName = TEXT("Purple Head");
+  PartName = NSLOCTEXT("SY", "PurpleHeadName", "Purple Head");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

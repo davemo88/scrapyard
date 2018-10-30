@@ -19,7 +19,7 @@ struct FStatText {
   FText StatName;
   FText StatValue;
 
-  FStatText(FText InStatName = TEXT(""), FText InStatValue = TEXT("")) : StatName(InStatName), StatValue(InStatValue) {};
+  FStatText(FText InStatName = FText(), FText InStatValue = FText()) : StatName(InStatName), StatValue(InStatValue) {};
 };
 
 /**
@@ -39,7 +39,7 @@ public:
   virtual void PostInitProperties() override;
   
   UPROPERTY(BlueprintReadOnly)
-  FString PartName;
+  FText PartName;
   UPROPERTY(BlueprintReadOnly)
   UManufacturer* Manufacturer;
   UPROPERTY(BlueprintReadOnly)

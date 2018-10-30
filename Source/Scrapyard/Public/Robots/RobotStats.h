@@ -5,27 +5,46 @@
 #include "CoreMinimal.h"
 #include "RobotStats.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRobotStatsUpdatedDelegate);
+
+class URobotPartAssignment;
+struct FStatText;
+
 /**
  * 
  */
 UCLASS()
 class SCRAPYARD_API URobotStats : public UObject
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
+
+protected:
+
+  URobotPartAssignment* PartAssignment;
 
 public:
-	URobotStats() {};
-	
-public:
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 Mass = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxDurability = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxPower = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 BallisticDefense = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 EnergyDefense = 0;
+
+  void SetPartAssignment(URobotPartAssignment* NewPartAssignment);
+
+  UFUNCTION()
+  void UpdateStats();
+
+  void ZeroStats();
+
+  TMap<FString, FText> GetRobotStatValues();
+  
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 Mass = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 MaxHitPoints = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 MaxPower = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 PowerDrain = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 PhysicalDefense = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 EnergyDefense = 0;
+
+  FRobotStatsUpdatedDelegate RobotStatsUpdatedDelegate;
 };

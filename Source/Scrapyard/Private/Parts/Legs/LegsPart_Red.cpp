@@ -6,7 +6,7 @@
 
 ULegsPart_Red::ULegsPart_Red()
 {
-  PartName = TEXT("Red Legs");
+  PartName = NSLOCTEXT("SY", "RegLegsName", "Red Legs");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

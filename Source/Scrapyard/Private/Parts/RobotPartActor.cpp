@@ -31,7 +31,7 @@ void ARobotPartActor::BeginPlay()
 
 void ARobotPartActor::DoOnClicked(AActor* Target, FKey ButtonPressed)
 {
-  UE_LOG(LogTemp, Warning, TEXT("clicked %s"), *RobotPart->PartName);
+  UE_LOG(LogTemp, Warning, TEXT("%s::DoOnClicked"), *GetName());
   OnRobotPartClicked.Broadcast(RobotPart);
 }
 
@@ -43,6 +43,6 @@ void ARobotPartActor::SetRobotPart(URobotPart* NewRobotPart)
 //  RobotPart->SetupAttachment(GetRootComponent());
 //  RobotPart->RegisterComponent();
 //  RobotPart->SetVisibility(false);
-  TextComponent->SetText(FText::FromString(RobotPart->PartName));
+  TextComponent->SetText(RobotPart->PartName);
 }
 

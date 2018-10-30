@@ -7,7 +7,7 @@
 void UArmsPart::Draft(USoloDraft* SoloDraft)
 {
 //  SoloDraft->DraftedArms.AddUnique(this);
-  UE_LOG(LogTemp, Warning, TEXT("Drafted %s"), *PartName);
+//  UE_LOG(LogTemp, Warning, TEXT("Drafted %s"), *PartName);
   SoloDraft->DraftedArms.AddUnique(this);
 }
 

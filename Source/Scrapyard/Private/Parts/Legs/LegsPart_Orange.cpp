@@ -7,7 +7,7 @@
 
 ULegsPart_Orange::ULegsPart_Orange()
 {
-  PartName = TEXT("Orange Legs");
+  PartName = NSLOCTEXT("SY", "OrangeLegsName", "Orange Legs");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

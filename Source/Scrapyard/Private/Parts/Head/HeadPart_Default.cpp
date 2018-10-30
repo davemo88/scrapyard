@@ -6,7 +6,7 @@
 
 UHeadPart_Default::UHeadPart_Default()
 {
-  PartName = TEXT("Default Head");
+  PartName = NSLOCTEXT("SY", "DefaultHeadName", "Default Head");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

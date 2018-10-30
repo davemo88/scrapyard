@@ -6,7 +6,7 @@
 
 UArmsPart_Purple::UArmsPart_Purple()
 {
-  PartName = TEXT("Purple Arms");
+  PartName = NSLOCTEXT("SY", "PurpleArmsName", "Purple Arms");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

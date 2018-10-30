@@ -6,7 +6,7 @@
 
 ULegsPart_Green::ULegsPart_Green()
 {
-  PartName = TEXT("Green Legs");
+  PartName = NSLOCTEXT("SY", "GreenLegsName", "Green Legs");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

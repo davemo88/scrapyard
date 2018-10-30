@@ -5,7 +5,7 @@
 
 UCorePart_Green::UCorePart_Green()
 {
-  PartName = TEXT("Green Core");
+  PartName = NSLOCTEXT("SY", "GreenCoreName", "Green Core");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

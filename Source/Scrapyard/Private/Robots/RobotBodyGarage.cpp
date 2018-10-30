@@ -11,9 +11,10 @@ ARobotBodyGarage::ARobotBodyGarage()
 
   RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
   RootComponent = RobotBodyComponent;
-//  RobotBodyComponent->SetupAttachment(RootComponent);
 
   RobotBodyComponent->SetEnableGravity(false);
+
+  RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
 }
 
 // Called when the game starts or when spawned

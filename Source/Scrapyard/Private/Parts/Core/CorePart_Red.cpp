@@ -6,7 +6,7 @@
 
 UCorePart_Red::UCorePart_Red()
 {
-  PartName = TEXT("Red Core");
+  PartName = NSLOCTEXT("SY", "RedCoreName", "Red Core");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

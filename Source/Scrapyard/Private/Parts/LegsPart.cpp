@@ -23,6 +23,6 @@ TSoftObjectPtr<UTexture2D> ULegsPart::GetCardIconAssetPtr()
 TArray<FStatText> ULegsPart::GetStatsText()
 {
   TArray<FStatText> StatsText = Super::GetStatsText();
-  StatsText.Add(FStatText("Movement Speed",FString::Printf(TEXT("%i"), MovementSpeed)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "MovementSpeedStatText","Movement Speed"),FText::AsNumber(MovementSpeed)));
   return StatsText;
 }

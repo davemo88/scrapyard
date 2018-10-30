@@ -6,7 +6,7 @@
 
 UArmsPart_Red::UArmsPart_Red()
 {
-  PartName = TEXT("Red Arms");
+  PartName = NSLOCTEXT("SY", "RedArmsName", "Red Arms");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

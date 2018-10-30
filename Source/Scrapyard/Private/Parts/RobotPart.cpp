@@ -101,7 +101,7 @@ TArray<FStatText> URobotPart::GetStatsText()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetStatsText"), *GetName());
   TArray<FStatText> StatsText;
-  StatsText.Add(FStatText("Mass",FString::Printf(TEXT("%i"), Mass)));
-  StatsText.Add(FStatText("Power Drain",FString::Printf(TEXT("%i"), PowerDrain)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "MassStatText", "Mass"),FText::AsNumber(Mass)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "PowerDrainStatText", "Power Drain"),FText::AsNumber(PowerDrain)));
   return StatsText;
 }

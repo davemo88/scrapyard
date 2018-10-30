@@ -5,7 +5,7 @@
 
 UHeadPart_Green::UHeadPart_Green()
 {
-  PartName = TEXT("Green Head");
+  PartName = NSLOCTEXT("SY", "GreenHeadName", "Green Head");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

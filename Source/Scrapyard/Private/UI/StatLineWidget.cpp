@@ -10,4 +10,10 @@ void UStatLineWidget::SetStatLine(FStatText StatText)
   StatValue->SetText(StatText.StatValue);
 }
 
+void UStatLineWidget::SetStatValue(FText NewStatValue)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetStatValue"), *GetName());
+  StatValue->SetText(NewStatValue);
+}
+
 

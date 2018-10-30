@@ -5,7 +5,7 @@
 
 UHeadPart_Orange::UHeadPart_Orange()
 {
-  PartName = TEXT("Orange Head");
+  PartName = NSLOCTEXT("SY", "OrangeHeadName", "Orange Head");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

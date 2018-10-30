@@ -16,8 +16,18 @@ UCLASS()
 class SCRAPYARD_API URobotStatsWidget : public UUserWidget
 {
   GENERATED_BODY()
+
+public:
+
+  void SetRobotStats(URobotStats* NewRobotStats); 
   
 protected:
+
+  UPROPERTY()
+  URobotStats* RobotStats; 
+
+  UFUNCTION()
+  void UpdateStats();
 
   UPROPERTY(meta=(BindWidget))
   UVerticalBox* StatsPanel;
@@ -25,7 +35,7 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* HitPoints;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* Mass;
+  UStatLineWidget* MassStatLine;
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* EnergySupply;
   UPROPERTY(meta=(BindWidget))
@@ -42,6 +52,5 @@ protected:
   UStatLineWidget* BoosterThrust;
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* MovementSpeed;
-
   
 };

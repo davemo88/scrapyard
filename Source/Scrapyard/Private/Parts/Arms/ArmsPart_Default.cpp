@@ -6,7 +6,7 @@
 
 UArmsPart_Default::UArmsPart_Default()
 {
-  PartName = TEXT("Default Arms");
+  PartName = NSLOCTEXT("SY", "DefaultArmsName", "Default Arms");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

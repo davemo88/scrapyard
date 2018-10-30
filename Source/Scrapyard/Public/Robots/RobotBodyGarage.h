@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Robots/RobotBodyComponent.h"
 #include "RobotBodyGarage.generated.h"
+
+class URobotBodyComponent;
+class URobotStats;
 
 UCLASS()
 class SCRAPYARD_API ARobotBodyGarage : public AActor
@@ -26,4 +28,7 @@ public:
 
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotBodyComponent* RobotBodyComponent;
+
+  UPROPERTY(BlueprintReadOnly)
+  URobotStats* RobotStats;
 };

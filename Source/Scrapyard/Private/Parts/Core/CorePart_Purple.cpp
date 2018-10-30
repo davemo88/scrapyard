@@ -6,7 +6,7 @@
 
 UCorePart_Purple::UCorePart_Purple()
 {
-  PartName = TEXT("Purple Core");
+  PartName = NSLOCTEXT("SY", "PurpleCoreName", "Purple Core");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

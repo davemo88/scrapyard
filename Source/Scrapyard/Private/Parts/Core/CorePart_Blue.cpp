@@ -6,7 +6,7 @@
 
 UCorePart_Blue::UCorePart_Blue()
 {
-  PartName = TEXT("Blue Core");
+  PartName = NSLOCTEXT("SY", "BlueCoreName", "Blue Core");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

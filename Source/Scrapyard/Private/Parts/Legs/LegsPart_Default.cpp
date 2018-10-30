@@ -6,7 +6,7 @@
 
 ULegsPart_Default::ULegsPart_Default()
 {
-  PartName = TEXT("Default Legs");
+  PartName = NSLOCTEXT("SY", "DefaultLegsName", "Default Legs");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

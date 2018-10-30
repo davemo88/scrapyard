@@ -25,7 +25,10 @@ void AGaragePlayerController::SetupWidget()
   GarageWidget->YourPartsWidget->DisplayAll();
   GarageWidget->AddToViewport();
 
-  PartAssignment = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor())->GetRobotBodyGarage()->RobotBodyComponent->PartAssignment;
+  AGarageLevelScriptActor* GarageActor = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor());
+  ARobotBodyGarage* RobotBodyGarage = GarageActor->GetRobotBodyGarage();
+  PartAssignment = RobotBodyGarage->RobotBodyComponent->PartAssignment;
+  RobotBodyGarage->RobotStats->SetPartAssignment(PartAssignment);
 }
 
 void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)

@@ -136,7 +136,6 @@ bool ASoloDraftActor::ServerDraftPart_Validate(URobotPart* RobotPart)
 void ASoloDraftActor::ServerDraftPart_Implementation(URobotPart* RobotPart)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
-//  UE_LOG(LogTemp, Warning, TEXT("drafting %s"), *RobotPart->PartName);
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
   USoloDraft* CurrentDraft = GameState->CurrentDraft;
   UE_LOG(LogTemp, Warning, TEXT("drafting a part"));

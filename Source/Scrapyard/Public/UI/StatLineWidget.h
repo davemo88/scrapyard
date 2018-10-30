@@ -26,5 +26,8 @@ public:
   
   UFUNCTION()
   void SetStatLine(FStatText StatText);
+
+  UFUNCTION()
+  void SetStatValue(FText NewStatValue);
   
 };

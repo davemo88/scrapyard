@@ -5,7 +5,7 @@
 
 UCorePart_Orange::UCorePart_Orange()
 {
-  PartName = TEXT("Orange Core");
+  PartName = NSLOCTEXT("SY", "OrangeCoreName", "Orange Core");
   Mass = 100;
   PowerDrain = 100;
   BallisticDefense = 10;

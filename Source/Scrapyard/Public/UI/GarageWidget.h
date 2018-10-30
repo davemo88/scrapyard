@@ -9,6 +9,7 @@
 class USoloDraft;
 class UPartCardWidget;
 class UYourPartsWidget;
+class URobotStatsWidget;
 class URobotPart;
 class ARobotBodyGarage;
 
@@ -23,6 +24,9 @@ class SCRAPYARD_API UGarageWidget : public UUserWidget
   AGarageLevelScriptActor* GarageLevelScriptActor;
 
 public:
+  
+  UPROPERTY(meta=(BindWidget))
+  URobotStatsWidget* RobotStatsWidget;
 
   UPROPERTY(meta=(BindWidget))
   UYourPartsWidget* YourPartsWidget;
