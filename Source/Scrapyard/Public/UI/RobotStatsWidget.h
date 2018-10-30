@@ -39,11 +39,9 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* WeaponDexterity;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* HitPoints;
+  UStatLineWidget* BoosterThrust;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* Booster Thrust;
-  UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* Movement Speed;
+  UStatLineWidget* MovementSpeed;
 
   
 };

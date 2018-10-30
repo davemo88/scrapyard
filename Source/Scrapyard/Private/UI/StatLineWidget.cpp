@@ -4,5 +4,10 @@
 #include "StatLineWidget.h"
 
 
+void UStatLineWidget::SetStatLine(FStatText StatText)
+{
+  StatName->SetText(StatText.StatName);
+  StatValue->SetText(StatText.StatValue);
+}
 
 

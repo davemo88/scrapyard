@@ -64,8 +64,8 @@ void UPartCardWidget::AddStatLine(FStatText StatText)
   UHorizontalBox* StatLine = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass());
   UTextBlock* StatName = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
   UTextBlock* StatValue = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
-  StatName->SetText(FText::FromString(StatText.StatName));
-  StatValue->SetText(FText::FromString(StatText.StatValue));
+  StatName->SetText(StatText.StatName);
+  StatValue->SetText(StatText.StatValue);
   StatLine->AddChild(StatName);
   StatLine->AddChild(StatValue);
   StatsBox->AddChild(StatLine);

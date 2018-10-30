@@ -25,8 +25,6 @@ protected:
 public:
   
   UFUNCTION()
-  void SetStatName();
-  UFUNCTION()
-  void SetStatValue();
+  void SetStatLine(FStatText StatText);
   
 };

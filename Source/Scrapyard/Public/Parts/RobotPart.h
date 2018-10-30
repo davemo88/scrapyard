@@ -16,10 +16,10 @@ USTRUCT()
 struct FStatText {
   GENERATED_BODY()
 
-  FString StatName;
-  FString StatValue;
+  FText StatName;
+  FText StatValue;
 
-  FStatText(FString InStatName = TEXT(""), FString InStatValue = TEXT("")) : StatName(InStatName), StatValue(InStatValue) {};
+  FStatText(FText InStatName = TEXT(""), FText InStatValue = TEXT("")) : StatName(InStatName), StatValue(InStatValue) {};
 };
 
 /**
