@@ -49,9 +49,13 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* TargetingAbilityStatLine;
   UPROPERTY(meta=(BindWidget))
+  UStatLineWidget* ChipSlotsStatLine;
+  UPROPERTY(meta=(BindWidget))
   UStatLineWidget* WeaponDexterityStatLine;
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* BoosterThrustStatLine;
+  UPROPERTY(meta=(BindWidget))
+  UStatLineWidget* BoosterPowerDrainStatLine;
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* MovementSpeedStatLine;
   

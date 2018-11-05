@@ -12,12 +12,7 @@ class UGarageWidget;
 class USoloDraftWidget;
 class UPartCardWidget;
 class URobotHUDWidget;
-
-class UHeadPart;
-class UCorePart;
-class UArmsPart;
-class ULegsPart;
-class UHandheldPart;
+class UStatLineWidget;
 
 /**
  * 
@@ -46,5 +41,8 @@ public:
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class URobotHUDWidget> RobotHUDWidgetBP;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<class UStatLineWidget> StatLineWidgetBP;
 
 };

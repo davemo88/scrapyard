@@ -2,9 +2,9 @@
 
 #include "PartCardWidget.h"
 #include "Parts/RobotPart.h"
-#include "Components/TextBlock.h"
-#include "Components/HorizontalBox.h"
-#include "Components/HorizontalBoxSlot.h"
+#include "UI/StatLineWidget.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Components/VerticalBox.h"
 #include "Blueprint/WidgetTree.h"
 
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
@@ -61,17 +61,10 @@ void UPartCardWidget::AddStatsText()
 void UPartCardWidget::AddStatLine(FStatText StatText)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::AddStatLine"), *GetName());
-  UHorizontalBox* StatLine = WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass());
-  UTextBlock* StatName = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
-  UTextBlock* StatValue = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass()); 
-  StatName->SetText(StatText.StatName);
-  StatValue->SetText(StatText.StatValue);
-  StatLine->AddChild(StatName);
-  StatLine->AddChild(StatValue);
+  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
+  UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(GetOwningPlayer(), GameInstance->DefaultAssetsBP->StatLineWidgetBP);
+  StatLine->SetStatLine(StatText);
   StatsBox->AddChild(StatLine);
-  if (UHorizontalBoxSlot* Slot = Cast<UHorizontalBoxSlot>(StatValue->Slot))
-  {
-    Slot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Right);
-    Slot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-  }
+
+
 }

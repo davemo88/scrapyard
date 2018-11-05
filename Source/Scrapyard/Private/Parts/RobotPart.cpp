@@ -100,8 +100,12 @@ void URobotPart::SetupAssetAttributes()
 TArray<FStatText> URobotPart::GetStatsText()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetStatsText"), *GetName());
+
   TArray<FStatText> StatsText;
   StatsText.Add(FStatText(NSLOCTEXT("SY", "MassStatText", "Mass"),FText::AsNumber(Mass)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "HitPointsStatText", "Hit Points"),FText::AsNumber(Mass)));
   StatsText.Add(FStatText(NSLOCTEXT("SY", "PowerDrainStatText", "Power Drain"),FText::AsNumber(PowerDrain)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "PhysicalDefenseStatText", "Physical Defense"),FText::AsNumber(PhysicalDefense)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "EnergyDefenseStatText", "Energy Defense"),FText::AsNumber(EnergyDefense)));
   return StatsText;
 }

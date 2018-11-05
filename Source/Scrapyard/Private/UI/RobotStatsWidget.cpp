@@ -13,8 +13,10 @@ void URobotStatsWidget::NativeConstruct()
   PhysicalDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetPhysicalDefenseName", "Physical Defense"), FText::AsNumber(0)));
   EnergyDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetEnergyDefenseName", "Energy Defense"), FText::AsNumber(0)));
   TargetingAbilityStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetTargetingAbilityName", "Targeting Ability"), FText::AsNumber(0)));
+  ChipSlotsStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetChipSlotsName", "Chip Slots"), FText::AsNumber(0)));
   WeaponDexterityStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetWeaponDexterityName", "Weapon Dexterity"), FText::AsNumber(0)));
   BoosterThrustStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetBoosterThrustName", "Booster Thrust"), FText::AsNumber(0)));
+  BoosterPowerDrainStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetBoosterPowerDrainName", "Booster Power Drain"), FText::AsNumber(0)));
   MovementSpeedStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetMovementSpeedName", "Movement Speed"), FText::AsNumber(0)));
 }
 
@@ -33,8 +35,10 @@ void URobotStatsWidget::UpdateStats()
   PhysicalDefenseStatLine->SetStatLine(RobotStats->GetPhysicalDefenseStatText());
   EnergyDefenseStatLine->SetStatLine(RobotStats->GetEnergyDefenseStatText());
   TargetingAbilityStatLine->SetStatLine(RobotStats->GetTargetingAbilityStatText());
+  ChipSlotsStatLine->SetStatLine(RobotStats->GetChipSlotsStatText());
   WeaponDexterityStatLine->SetStatLine(RobotStats->GetWeaponDexterityStatText());
   BoosterThrustStatLine->SetStatLine(RobotStats->GetBoosterThrustStatText());
+  BoosterPowerDrainStatLine->SetStatLine(RobotStats->GetBoosterPowerDrainStatText());
   MovementSpeedStatLine->SetStatLine(RobotStats->GetMovementSpeedStatText());
 
 }
