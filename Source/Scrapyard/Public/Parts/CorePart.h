@@ -16,9 +16,20 @@ class SCRAPYARD_API UCorePart : public URobotPart
 
 public:
 
+  UPROPERTY()
+  int32 MaxWeight;
+  UPROPERTY()
+  int32 PowerSupply;
+  UPROPERTY()
+  int32 BoosterThrust;
+  UPROPERTY()
+  int32 BoosterPowerDrain;
+
   void Draft(USoloDraft* SoloDraft) override;
 
   void Assign(URobotPartAssignment* PartAssignment) override;
 
   TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
+
+  virtual TArray<FStatText> GetStatsText();
 };

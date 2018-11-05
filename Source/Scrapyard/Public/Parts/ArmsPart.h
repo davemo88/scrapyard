@@ -17,10 +17,12 @@ class SCRAPYARD_API UArmsPart : public URobotPart
 
 public:
 
-  UPROPERTY(EditAnywhere)
-  uint16 MaxWeight;
-  UPROPERTY(EditAnywhere)
-  uint8 RecoilControl;
+  UPROPERTY()
+  int32 MaxWeight;
+  UPROPERTY()
+  int32 RecoilControl;
+  UPROPERTY() 
+  int32 WeaponDexterity;
 
 //  virtual USkeletalMesh* GetSkeletalMesh() override { return nullptr; };
 
@@ -29,4 +31,7 @@ public:
   void Assign(URobotPartAssignment* PartAssignment) override;
 
   TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
+
+  virtual TArray<FStatText> GetStatsText();
+
 };

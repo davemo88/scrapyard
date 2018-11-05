@@ -7,10 +7,12 @@
 UArmsPart_Orange::UArmsPart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeArmsName", "Orange Arms");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  Mass = 52;
+  HitPoints = 42;
+  PowerDrain = 12;
+  PhysicalDefense = 12;
+  EnergyDefense = 11;
+  WeaponDexterity = 20;
 
 }
 

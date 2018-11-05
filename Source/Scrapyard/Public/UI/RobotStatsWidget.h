@@ -23,6 +23,8 @@ public:
   
 protected:
 
+  void NativeConstruct() override;
+
   UPROPERTY()
   URobotStats* RobotStats; 
 
@@ -33,24 +35,24 @@ protected:
   UVerticalBox* StatsPanel;
  
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* HitPoints;
+  UStatLineWidget* HitPointsStatLine;
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* MassStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* EnergySupply;
+  UStatLineWidget* PowerSupplyStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* EnergyDrain;
+  UStatLineWidget* PowerDrainStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* PhysicalDefense;
+  UStatLineWidget* PhysicalDefenseStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* EnergyDefense;
+  UStatLineWidget* EnergyDefenseStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* TargetingAbility;
+  UStatLineWidget* TargetingAbilityStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* WeaponDexterity;
+  UStatLineWidget* WeaponDexterityStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* BoosterThrust;
+  UStatLineWidget* BoosterThrustStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* MovementSpeed;
+  UStatLineWidget* MovementSpeedStatLine;
   
 };

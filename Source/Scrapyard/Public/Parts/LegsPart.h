@@ -17,10 +17,13 @@ class SCRAPYARD_API ULegsPart : public URobotPart
 public:
 
   UPROPERTY(BlueprintReadOnly)
+  int32 MaxWeight;
+
+  UPROPERTY(BlueprintReadOnly)
   int32 MovementSpeed;
 
-//  UPROPERTY(BlueprintReadOnly)
-//  int32 Stability;
+  UPROPERTY(BlueprintReadOnly)
+  int32 Stability;
 
   void Draft(USoloDraft* SoloDraft) override;
 

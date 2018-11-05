@@ -8,10 +8,12 @@
 UArmsPart_Green::UArmsPart_Green()
 {
   PartName = NSLOCTEXT("SY", "GreenArmsName", "Green Arms");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  Mass = 61;
+  HitPoints = 58;
+  PowerDrain = 7;
+  PhysicalDefense = 9;
+  EnergyDefense = 16;
+  WeaponDexterity = 6;
 
 }
 

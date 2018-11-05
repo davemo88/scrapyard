@@ -8,9 +8,13 @@ UCorePart_Purple::UCorePart_Purple()
 {
   PartName = NSLOCTEXT("SY", "PurpleCoreName", "Purple Core");
   Mass = 100;
+  HitPoints = 97;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 10;
   EnergyDefense = 10;
+  PowerSupply = 1420;
+  BoosterThrust = 77;
+  BoosterPowerDrain = 122;
 
 }
 

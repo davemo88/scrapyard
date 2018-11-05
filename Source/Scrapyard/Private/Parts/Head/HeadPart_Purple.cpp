@@ -6,10 +6,13 @@
 UHeadPart_Purple::UHeadPart_Purple()
 {
   PartName = NSLOCTEXT("SY", "PurpleHeadName", "Purple Head");
-  Mass = 100;
+  Mass = 64;
+  HitPoints = 41;
   PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  PhysicalDefense = 8;
+  EnergyDefense = 22;
+  TargetingAbility = 22;
+  ChipSlots = 2;
 
 }
 

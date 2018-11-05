@@ -7,9 +7,12 @@ UHeadPart_Green::UHeadPart_Green()
 {
   PartName = NSLOCTEXT("SY", "GreenHeadName", "Green Head");
   Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  HitPoints = 69;
+  PowerDrain = 50;
+  PhysicalDefense = 7;
+  EnergyDefense = 14;
+  TargetingAbility = 8;
+  ChipSlots = 2; 
 
 }
 

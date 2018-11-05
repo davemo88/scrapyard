@@ -9,7 +9,7 @@ UCorePart_Default::UCorePart_Default()
   PartName = NSLOCTEXT("SY", "DefaultCoreName", "Default Core");
   Mass = 100;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 10;
   EnergyDefense = 10;
 }
 

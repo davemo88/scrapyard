@@ -8,9 +8,13 @@ UCorePart_Red::UCorePart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedCoreName", "Red Core");
   Mass = 100;
+  HitPoints = 211;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 10;
   EnergyDefense = 10;
+  PowerSupply = 704;
+  BoosterThrust = 80;
+  BoosterPowerDrain = 130;
 
 }
 

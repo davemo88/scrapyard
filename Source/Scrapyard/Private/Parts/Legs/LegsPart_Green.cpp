@@ -7,11 +7,12 @@
 ULegsPart_Green::ULegsPart_Green()
 {
   PartName = NSLOCTEXT("SY", "GreenLegsName", "Green Legs");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
-  MovementSpeed = 10;
+  Mass = 120;
+  HitPoints = 67;
+  PowerDrain = 77;
+  PhysicalDefense = 6;
+  EnergyDefense = 11;
+  MovementSpeed = 93;
 
 }
 

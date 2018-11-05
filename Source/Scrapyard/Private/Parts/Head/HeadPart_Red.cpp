@@ -6,10 +6,13 @@
 UHeadPart_Red::UHeadPart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedHeadName", "Red Head");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  Mass = 111;
+  HitPoints = 88;
+  PowerDrain = 120;
+  PhysicalDefense = 30;
+  EnergyDefense = 5;
+  TargetingAbility = 10;
+  ChipSlots = 0;
 
 }
 

@@ -8,11 +8,12 @@
 ULegsPart_Orange::ULegsPart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeLegsName", "Orange Legs");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
-  MovementSpeed = 10;
+  Mass = 77;
+  HitPoints = 33;
+  PowerDrain = 81;
+  PhysicalDefense = 5;
+  EnergyDefense = 5;
+  MovementSpeed = 163;
 
 }
 

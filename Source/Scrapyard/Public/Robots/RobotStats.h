@@ -36,7 +36,7 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int32 Mass = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  int32 MaxHitPoints = 0;
+  int32 HitPoints = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int32 MaxPower = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -45,6 +45,34 @@ public:
   int32 PhysicalDefense = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int32 EnergyDefense = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 TargetingAbility = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 ChipSlots = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 WeaponDexterity = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 PowerSupply = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 BoosterThrust = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 BoosterPowerDrain = 0;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  int32 MovementSpeed = 0;
+
+  FStatText GetMassStatText();
+  FStatText GetHitPointsStatText();
+  FStatText GetMaxPowerStatText();
+  FStatText GetPowerDrainStatText();
+  FStatText GetPhysicalDefenseStatText();
+  FStatText GetEnergyDefenseStatText();
+  FStatText GetTargetingAbilityStatText();
+  FStatText GetChipSlotsStatText();
+  FStatText GetWeaponDexterityStatText();
+  FStatText GetPowerSupplyStatText();
+  FStatText GetBoosterThrustStatText();
+  FStatText GetBoosterPowerDrainStatText();
+  FStatText GetMovementSpeedStatText();
 
   FRobotStatsUpdatedDelegate RobotStatsUpdatedDelegate;
 };

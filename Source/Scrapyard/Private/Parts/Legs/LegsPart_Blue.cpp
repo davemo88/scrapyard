@@ -7,11 +7,12 @@
 ULegsPart_Blue::ULegsPart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueLegsName", "Blue Legs");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
-  MovementSpeed = 10;
+  Mass = 101;
+  HitPoints = 50;
+  PowerDrain = 99;
+  PhysicalDefense = 8;
+  EnergyDefense = 7;
+  MovementSpeed = 117;
 
 }
 

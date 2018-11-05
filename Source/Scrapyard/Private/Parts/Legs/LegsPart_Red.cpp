@@ -7,11 +7,12 @@
 ULegsPart_Red::ULegsPart_Red()
 {
   PartName = NSLOCTEXT("SY", "RegLegsName", "Red Legs");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
-  MovementSpeed = 10;
+  Mass = 121;
+  HitPoints = 86;
+  PowerDrain = 101;
+  PhysicalDefense = 15;
+  EnergyDefense = 3;
+  MovementSpeed = 77;
 
 }
 

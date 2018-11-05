@@ -53,9 +53,11 @@ public:
   UPROPERTY(BlueprintReadOnly)
   int32 PowerDrain;
   UPROPERTY(BlueprintReadOnly)
+  int32 HitPoints;
+  UPROPERTY(BlueprintReadOnly)
   int32 Durability;
   UPROPERTY(BlueprintReadOnly)
-  int32 BallisticDefense;
+  int32 PhysicalDefense;
   UPROPERTY(BlueprintReadOnly)
   int32 EnergyDefense;
 

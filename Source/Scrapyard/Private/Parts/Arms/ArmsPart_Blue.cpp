@@ -6,11 +6,12 @@
 UArmsPart_Blue::UArmsPart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueArmsName", "Blue Arms");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
-
+  Mass = 56;
+  HitPoints = 44;
+  PowerDrain = 18;
+  PhysicalDefense = 17;
+  EnergyDefense = 15;
+  WeaponDexterity = 7;
 }
 
 TSoftObjectPtr<USkeletalMesh> UArmsPart_Blue::GetSkeletalMeshAssetPtr()

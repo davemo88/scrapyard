@@ -8,9 +8,13 @@ UCorePart_Blue::UCorePart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueCoreName", "Blue Core");
   Mass = 100;
+  HitPoints = 155;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 10;
   EnergyDefense = 10;
+  PowerSupply = 1022;
+  BoosterThrust = 80;
+  BoosterPowerDrain = 107;
 
 }
 

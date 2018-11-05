@@ -7,10 +7,12 @@
 UArmsPart_Purple::UArmsPart_Purple()
 {
   PartName = NSLOCTEXT("SY", "PurpleArmsName", "Purple Arms");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  Mass = 39;
+  HitPoints = 31;
+  PowerDrain = 30;
+  PhysicalDefense = 3;
+  EnergyDefense = 24;
+  WeaponDexterity = 19;
 
 }
 

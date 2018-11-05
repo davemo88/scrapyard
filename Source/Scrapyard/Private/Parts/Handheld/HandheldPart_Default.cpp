@@ -9,7 +9,7 @@ UHandheldPart_Default::UHandheldPart_Default()
   PartName = NSLOCTEXT("SY", "DefaultHandheldName", "Default Handheld");
   Mass = 100;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 10;
   EnergyDefense = 10;
 }
 

@@ -12,6 +12,7 @@
 #include "UI/GarageWidget.h"
 #include "UI/YourPartsWidget.h"
 #include "UI/PartCardWidget.h"
+#include "UI/RobotStatsWidget.h"
 
 void AGaragePlayerController::SetupWidget()
 {
@@ -29,6 +30,8 @@ void AGaragePlayerController::SetupWidget()
   ARobotBodyGarage* RobotBodyGarage = GarageActor->GetRobotBodyGarage();
   PartAssignment = RobotBodyGarage->RobotBodyComponent->PartAssignment;
   RobotBodyGarage->RobotStats->SetPartAssignment(PartAssignment);
+
+  GarageWidget->RobotStatsWidget->SetRobotStats(RobotBodyGarage->RobotStats);
 }
 
 void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)

@@ -7,10 +7,12 @@
 UArmsPart_Red::UArmsPart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedArmsName", "Red Arms");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  Mass = 79;
+  HitPoints = 75;
+  PowerDrain = 12;
+  PhysicalDefense = 15;
+  EnergyDefense = 9;
+  WeaponDexterity = 5;
 
 }
 

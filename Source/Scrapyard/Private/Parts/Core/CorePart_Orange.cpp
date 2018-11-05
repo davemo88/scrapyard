@@ -7,9 +7,13 @@ UCorePart_Orange::UCorePart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeCoreName", "Orange Core");
   Mass = 100;
+  HitPoints = 121;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 10;
   EnergyDefense = 10;
+  PowerSupply = 999;
+  BoosterThrust = 91;
+  BoosterPowerDrain = 110;
 
 }
 

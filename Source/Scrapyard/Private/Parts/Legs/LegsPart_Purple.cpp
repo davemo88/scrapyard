@@ -7,11 +7,12 @@
 ULegsPart_Purple::ULegsPart_Purple()
 {
   PartName = NSLOCTEXT("SY", "PurpleLegsName", "Purple Legs");
-  Mass = 100;
+  Mass = 68;
+  HitPoints = 30;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 2;
   EnergyDefense = 10;
-  MovementSpeed = 10;
+  MovementSpeed = 133;
 
 }
 

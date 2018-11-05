@@ -9,7 +9,7 @@ ULegsPart_Default::ULegsPart_Default()
   PartName = NSLOCTEXT("SY", "DefaultLegsName", "Default Legs");
   Mass = 100;
   PowerDrain = 100;
-  BallisticDefense = 10;
+  PhysicalDefense = 10;
   EnergyDefense = 10;
 }
 

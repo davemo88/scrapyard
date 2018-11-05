@@ -6,10 +6,13 @@
 UHeadPart_Orange::UHeadPart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeHeadName", "Orange Head");
-  Mass = 100;
-  PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  Mass = 55;
+  HitPoints = 77;
+  PowerDrain = 111;
+  PhysicalDefense = 11;
+  EnergyDefense = 11;
+  TargetingAbility = 21;
+  ChipSlots = 2;
 
 }
 

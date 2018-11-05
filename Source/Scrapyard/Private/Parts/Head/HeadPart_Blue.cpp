@@ -7,9 +7,12 @@ UHeadPart_Blue::UHeadPart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueHeadName", "Blue Head");
   Mass = 100;
+  HitPoints = 76;
   PowerDrain = 100;
-  BallisticDefense = 10;
-  EnergyDefense = 10;
+  PhysicalDefense = 17;
+  EnergyDefense = 12;
+  TargetingAbility = 11;
+  ChipSlots = 1;
 
 }
 
