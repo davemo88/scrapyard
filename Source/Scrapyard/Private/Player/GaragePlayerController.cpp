@@ -32,6 +32,8 @@ void AGaragePlayerController::SetupWidget()
   RobotBodyGarage->RobotStats->SetPartAssignment(PartAssignment);
 
   GarageWidget->RobotStatsWidget->SetRobotStats(RobotBodyGarage->RobotStats);
+
+  GarageWidget->RobotStatsWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
 }
 
 void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
@@ -49,6 +51,11 @@ void AGaragePlayerController::OnCardDoubleClicked(URobotPart* RobotPart)
   RobotPart->Assign(PartAssignment);
 }
 
-
+void AGaragePlayerController::GotoGarageTestLevel()
+{
+  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
+  GameInstance->PartAssignment = DuplicateObject<URobotPartAssignment>(PartAssignment, NULL);
+  UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageTestLevel");
+}
 
 

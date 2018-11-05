@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
 #include "RobotStatsWidget.generated.h"
 
 class UStatLineWidget;
 class UVerticalBox;
+class UButton;
 
 /**
  * 
@@ -20,6 +22,9 @@ class SCRAPYARD_API URobotStatsWidget : public UUserWidget
 public:
 
   void SetRobotStats(URobotStats* NewRobotStats); 
+
+  UPROPERTY(meta=(BindWidget))
+  UButton* RobotTestButton;
   
 protected:
 

@@ -31,8 +31,4 @@ public:
   UPROPERTY(meta=(BindWidget))
   UYourPartsWidget* YourPartsWidget;
 
-
-  UFUNCTION(BlueprintCallable)
-  void GotoGarageTestLevel();
-
 };

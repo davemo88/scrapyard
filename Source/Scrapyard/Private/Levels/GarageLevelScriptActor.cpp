@@ -33,12 +33,3 @@ ARobotBodyGarage* AGarageLevelScriptActor::GetRobotBodyGarage()
 {
   return RobotBodyGarage;
 }
-
-void AGarageLevelScriptActor::GotoTestLevel()
-{
-// better to do proper level transition and move the entire robot body garage actor over ?
-// either that or we want our part assignment abstraction back so we can just take the part classes instead of this whole component
-  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  GameInstance->RobotBodyComponent = DuplicateObject<URobotBodyComponent>(RobotBodyGarage->RobotBodyComponent, nullptr);// GetOwningPlayer()->GetWorld());
-  UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageTestLevel");
-}

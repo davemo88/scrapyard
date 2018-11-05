@@ -61,8 +61,9 @@ void UPartCardWidget::AddStatsText()
 void UPartCardWidget::AddStatLine(FStatText StatText)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::AddStatLine"), *GetName());
-  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(GetOwningPlayer(), GameInstance->DefaultAssetsBP->StatLineWidgetBP);
+  APlayerController* OwningPlayer = GetOwningPlayer();
+  UScrapyardGameInstance* GameInstance = OwningPlayer->GetWorld()->GetGameInstance<UScrapyardGameInstance>();
+  UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(OwningPlayer, GameInstance->DefaultAssetsBP->StatLineWidgetBP);
   StatLine->SetStatLine(StatText);
   StatsBox->AddChild(StatLine);
 

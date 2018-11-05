@@ -33,8 +33,6 @@ class SCRAPYARD_API AGarageLevelScriptActor : public AScrapyardLevelScriptActor
 
   ARobotBodyGarage* RobotBodyGarage;
 
-  void GotoTestLevel();
-
 public:
 
   ARobotBodyGarage* GetRobotBodyGarage();

@@ -31,4 +31,7 @@ protected:
 
   UFUNCTION()
   void OnCardDoubleClicked(URobotPart* RobotPart);
+
+  UFUNCTION()
+  void GotoGarageTestLevel();
 };

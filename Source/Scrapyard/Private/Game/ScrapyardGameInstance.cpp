@@ -8,11 +8,12 @@
 #include "Parts/RobotPartAssets.h"
 #include "Parts/RobotPart.h"
 #include "SoloDraft.h"
+#include "Components/Button.h"
 
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
 // TODO: find the right place for these
-  RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
+//  RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
   SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
 
 // TODO: best way to get the BP class ref?

@@ -12,9 +12,12 @@
 UCLASS()
 class SCRAPYARD_API AGarageTestLevelScriptActor : public AScrapyardLevelScriptActor
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+
+public:
+  
+  void BeginPlay() override;
+  
+  
+  
 };

@@ -11,33 +11,36 @@ class UScrapyardDefaultAssets;
 class URobotPartAssets;
 class URobotBodyComponent;
 class USoloDraft;
+class URobotPartAssignment;
 class AScrapyardGameSession;
 
 UCLASS()
 class SCRAPYARD_API UScrapyardGameInstance : public UGameInstance
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
-public:	
-	UScrapyardGameInstance();
+public:  
+  UScrapyardGameInstance();
 
-        FStreamableManager AssetLoader;
+  FStreamableManager AssetLoader;
 
-	const UScrapyardDefaultAssets* DefaultAssetsBP;
+  UPROPERTY()
+  const UScrapyardDefaultAssets* DefaultAssetsBP;
 
-        URobotPartAssets* RobotPartAssetsBP;
+  UPROPERTY()
+  URobotPartAssets* RobotPartAssetsBP;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	URobotBodyComponent* RobotBodyComponent;
+  UPROPERTY()
+  USoloDraft* SoloDraft;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USoloDraft* SoloDraft;
+  UPROPERTY()
+  URobotPartAssignment* PartAssignment;
 
-	 AScrapyardGameSession* GetGameSession() const;	
+  AScrapyardGameSession* GetGameSession() const;  
 
-	virtual void Init() override;
-	virtual void Shutdown() override;
-//	FGameInstancePIEResult StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params) override;
-	virtual void StartGameInstance() override;
-	
+  virtual void Init() override;
+  virtual void Shutdown() override;
+//  FGameInstancePIEResult StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params) override;
+  virtual void StartGameInstance() override;
+  
 };
