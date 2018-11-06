@@ -66,6 +66,7 @@ void URobotStats::UpdateStats()
 
 void URobotStats::ZeroStats()
 {
+// TODO: zero them all
   Mass = 0;
   HitPoints = 0;
   MaxPower = 0;

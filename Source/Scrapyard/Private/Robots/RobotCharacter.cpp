@@ -22,11 +22,11 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   SetupCamera();
   SetupBody();
   SetupStats();
-  UpdateStats();
 
   SetupAbilities();
 
 // allow flying movement
+// why is this here as well as the movement component in the initializer list
   UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
 
 }
@@ -91,6 +91,7 @@ void ARobotCharacter::SetupBody()
 void ARobotCharacter::SetupStats()
 {
   RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
+  RobotStats->SetPartAssignment(RobotBodyComponent->PartAssignment);
 }
 
 void ARobotCharacter::SetupAbilities()
@@ -106,11 +107,6 @@ void ARobotCharacter::SetupAbilities()
     WeaponAbility = CreateDefaultSubobject<AHitscanAbility>(TEXT("WeaponAbility"));
     WeaponAbility->RobotOwner = this;
   }
-}
-
-void ARobotCharacter::UpdateStats()
-{
-  RobotStats->MaxPower += 1000;
 }
 
 void ARobotCharacter::Axis_MoveX(float AxisValue)

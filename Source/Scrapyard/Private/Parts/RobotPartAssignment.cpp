@@ -20,7 +20,6 @@ void URobotPartAssignment::SetCore(UCorePart* NewCore)
 
 void URobotPartAssignment::SetArms(UArmsPart* NewArms)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetArms"), *GetName());
   Arms = NewArms;
   PartAssignmentChangedDelegate.Broadcast();
   ArmsAssignmentChangedDelegate.Broadcast(NewArms);
@@ -31,6 +30,20 @@ void URobotPartAssignment::SetLegs(ULegsPart* NewLegs)
   Legs = NewLegs;
   PartAssignmentChangedDelegate.Broadcast();
   LegsAssignmentChangedDelegate.Broadcast(NewLegs);
+}
+
+void URobotPartAssignment::CopyAssignment(URobotPartAssignment* NewPartAssignment)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::CopyAssignment"), *GetName());
+  Head = NewPartAssignment->Head;
+  Core = NewPartAssignment->Core;
+  Arms = NewPartAssignment->Arms;
+  Legs = NewPartAssignment->Legs;
+  HeadAssignmentChangedDelegate.Broadcast(Head);
+  CoreAssignmentChangedDelegate.Broadcast(Core);
+  ArmsAssignmentChangedDelegate.Broadcast(Arms);
+  LegsAssignmentChangedDelegate.Broadcast(Legs);
+  PartAssignmentChangedDelegate.Broadcast();
 }
 
 UHeadPart* URobotPartAssignment::GetHead()

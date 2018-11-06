@@ -50,7 +50,6 @@ URobotBodyComponent::URobotBodyComponent()
   PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
 
-
 }
 
 // Called when the game starts

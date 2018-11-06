@@ -36,28 +36,25 @@ public:
   virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 // body
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY()
   URobotBodyComponent* RobotBodyComponent;
 // stats
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY()
   URobotStats* RobotStats;
 
   void SetupBody();
   void SetupStats();
   void SetupAbilities();
 
-  UFUNCTION(BlueprintCallable)
-  void UpdateStats();
-
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY()
   int32 Durability;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY()
   int32 Power = 0;
 
 // camera
-  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+  UPROPERTY(BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
   class UCameraComponent* OurCamera;
-  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+  UPROPERTY(BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
   class USpringArmComponent* CameraBoom;
 
   void SetupCamera();

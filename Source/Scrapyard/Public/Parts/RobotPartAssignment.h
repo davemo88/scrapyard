@@ -46,6 +46,8 @@ public:
   void SetArms(UArmsPart* NewArms);
   void SetLegs(ULegsPart* NewLegs);
 
+  void CopyAssignment(URobotPartAssignment* NewPartAssignment);
+
   UHeadPart* GetHead();
   UCorePart* GetCore();
   UArmsPart* GetArms();

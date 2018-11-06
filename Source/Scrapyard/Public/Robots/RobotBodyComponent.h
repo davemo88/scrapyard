@@ -27,10 +27,9 @@ protected:
   virtual void BeginPlay() override;
 
 public:  
+// TODO: put these asset refs into a blueprint
 // default skeletal mesh
   FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
-
-// animation instance class
 // https://answers.unrealengine.com/questions/153496/how-to-set-animation-blueprint-in-c.html
   FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
 
@@ -48,8 +47,8 @@ public:
   URobotPartComponent* LegsComponent;
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* RightHandheldComponent;
-
 //  UPROPERTY(EditAnywhere, BlueprintReadWrite)
 //  UParticleSystemComponent* BoostingParticleComponent;
+//
 
 };

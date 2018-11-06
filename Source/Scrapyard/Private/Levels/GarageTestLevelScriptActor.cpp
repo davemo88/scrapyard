@@ -18,9 +18,7 @@ void AGarageTestLevelScriptActor::BeginPlay()
     ARobotCharacter* Char = Cast<ARobotCharacter>(PlayerController->GetPawn());
     if (Char != NULL)
     {
-      UE_LOG(LogTemp, Warning, TEXT("Got the char!"));
-      UE_LOG(LogTemp, Warning, TEXT("Got the char!"));
+      Char->RobotBodyComponent->PartAssignment->CopyAssignment(GameInstance->PartAssignment);
     }
   }
 }
-
