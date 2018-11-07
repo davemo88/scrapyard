@@ -3,6 +3,10 @@
 
 #include "RobotPartAssignment.h"
 
+bool URobotPartAssignment::IsComplete()
+{
+  return (Head != NULL) && (Core != NULL) && (Arms != NULL) && (Legs != NULL);
+}
 
 void URobotPartAssignment::SetHead(UHeadPart* NewHead)
 {
@@ -35,15 +39,19 @@ void URobotPartAssignment::SetLegs(ULegsPart* NewLegs)
 void URobotPartAssignment::CopyAssignment(URobotPartAssignment* NewPartAssignment)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::CopyAssignment"), *GetName());
-  Head = NewPartAssignment->Head;
-  Core = NewPartAssignment->Core;
-  Arms = NewPartAssignment->Arms;
-  Legs = NewPartAssignment->Legs;
-  HeadAssignmentChangedDelegate.Broadcast(Head);
-  CoreAssignmentChangedDelegate.Broadcast(Core);
-  ArmsAssignmentChangedDelegate.Broadcast(Arms);
-  LegsAssignmentChangedDelegate.Broadcast(Legs);
-  PartAssignmentChangedDelegate.Broadcast();
+  if (NewPartAssignment->IsComplete())
+  {
+// TODO: unsafe with incomplete assignments but should be possible
+    Head = NewPartAssignment->Head;
+    Core = NewPartAssignment->Core;
+    Arms = NewPartAssignment->Arms;
+    Legs = NewPartAssignment->Legs;
+    HeadAssignmentChangedDelegate.Broadcast(Head);
+    CoreAssignmentChangedDelegate.Broadcast(Core);
+    ArmsAssignmentChangedDelegate.Broadcast(Arms);
+    LegsAssignmentChangedDelegate.Broadcast(Legs);
+    PartAssignmentChangedDelegate.Broadcast();
+  }
 }
 
 UHeadPart* URobotPartAssignment::GetHead()

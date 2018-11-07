@@ -42,6 +42,8 @@ protected:
 
 public:
 
+  bool IsComplete();
+
   void SetHead(UHeadPart* NewHead);
   void SetCore(UCorePart* NewCore);
   void SetArms(UArmsPart* NewArms);
