@@ -36,7 +36,7 @@ public:
   virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 // body
-  UPROPERTY()
+  UPROPERTY(EditAnywhere)
   URobotBodyComponent* RobotBodyComponent;
 // stats
   UPROPERTY()

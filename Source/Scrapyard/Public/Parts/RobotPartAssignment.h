@@ -16,6 +16,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPartAssignmentChangedDelegate);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAssignmentChangedDelegate, UCorePart*, NewCore);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FArmsAssignmentChangedDelegate, UArmsPart*, NewArms);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLegsAssignmentChangedDelegate, ULegsPart*, NewLegs);
+// possible to clean this up?
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeadAssignmentChangedDelegate, URobotPart*, NewHead);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAssignmentChangedDelegate, URobotPart*, NewCore);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FArmsAssignmentChangedDelegate, URobotPart*, NewArms);

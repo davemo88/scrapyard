@@ -86,6 +86,9 @@ void ARobotCharacter::SetupBody()
 
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
+// TODO: why do i have to make these weird adjustments?
+  RobotBodyComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -88.f));
+  RobotBodyComponent->SetRelativeRotation(FRotator(0.0f,-90.0f,0.f));
 }
 
 void ARobotCharacter::SetupStats()
