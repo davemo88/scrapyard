@@ -28,6 +28,13 @@ protected:
   UPROPERTY()
   TArray<uint8> PendingFire;
 
+  void SetupBody();
+  void SetupStats();
+  void SetupAbilities();
+
+  UFUNCTION()
+  void OnStatsUpdated();
+
 public:  
   // Called every frame
   virtual void Tick(float DeltaTime) override;
@@ -42,12 +49,8 @@ public:
   UPROPERTY()
   URobotStats* RobotStats;
 
-  void SetupBody();
-  void SetupStats();
-  void SetupAbilities();
-
   UPROPERTY()
-  int32 Durability;
+  int32 HitPoints = 0;
   UPROPERTY()
   int32 Power = 0;
 

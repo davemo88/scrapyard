@@ -61,6 +61,8 @@ void URobotStats::UpdateStats()
     MovementSpeed = Legs->MovementSpeed;
   }
 
+  MaxPower = PowerSupply - PowerDrain;
+
   RobotStatsUpdatedDelegate.Broadcast();
 }
 
@@ -70,6 +72,7 @@ void URobotStats::ZeroStats()
   Mass = 0;
   HitPoints = 0;
   MaxPower = 0;
+  PowerSupply = 0;
   PowerDrain = 0;
   PhysicalDefense = 0;
   EnergyDefense = 0;

@@ -94,6 +94,7 @@ void ARobotCharacter::SetupBody()
 void ARobotCharacter::SetupStats()
 {
   RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
+  RobotStats->RobotStatsUpdatedDelegate.AddDynamic(this, &ARobotCharacter::OnStatsUpdated);
   RobotStats->SetPartAssignment(RobotBodyComponent->PartAssignment);
 }
 
@@ -110,6 +111,14 @@ void ARobotCharacter::SetupAbilities()
     WeaponAbility = CreateDefaultSubobject<AHitscanAbility>(TEXT("WeaponAbility"));
     WeaponAbility->RobotOwner = this;
   }
+}
+
+void ARobotCharacter::OnStatsUpdated()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnStatsUpdated"), *GetName());
+  HitPoints = RobotStats->HitPoints;
+  UE_LOG(LogTemp, Warning, TEXT("Power: %i"), RobotStats->MaxPower);
+  Power = RobotStats->MaxPower;
 }
 
 void ARobotCharacter::Axis_MoveX(float AxisValue)
@@ -144,7 +153,7 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 //  UE_LOG(LogTemp, Warning, TEXT("Preboost Movement Mode: %s "), *MovementModeName);
   if (AxisValue != 0.f && Power > 0)
   {
-    Power = Power - (int)(10 * AxisValue);
+    Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue), 0);
     if (MovementComponent->IsWalking())
     {
 
@@ -172,8 +181,7 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
   }
   else if (AxisValue == 0.f)
   {
-    if (Power < 1000)
-//    if (Power < RobotStats->MaxPower)
+    if (Power < RobotStats->MaxPower)
     {
       Power = Power + 10;
     }

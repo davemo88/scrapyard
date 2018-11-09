@@ -7,6 +7,8 @@
 #include "RobotHUDWidget.generated.h"
 
 class ARobotCharacter;
+class UTextBlock;
+class UProgressBar;
 
 /**
  * 
@@ -14,17 +16,31 @@ class ARobotCharacter;
 UCLASS()
 class SCRAPYARD_API URobotHUDWidget : public UUserWidget
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	void SetRobotCharacter(ARobotCharacter* _RobotCharacter);
+  void SetRobotCharacter(ARobotCharacter* NewRobotCharacter);
 
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	float GetPowerPercent();
-	
 protected:
 
-	ARobotCharacter* RobotCharacter;
-	
+  void NativeTick(const FGeometry &MyGeometry, float InDeltaTime) override; 
+
+  void UpdatePowerBar();
+
+  UFUNCTION()
+  void SetHitPointsText(FText NewHitPointsText);
+
+  UPROPERTY()
+  ARobotCharacter* RobotCharacter;
+
+  UPROPERTY(meta=(BindWidget))
+  UTextBlock* HitPointsText;
+
+  UPROPERTY(meta=(BindWidget))
+  UTextBlock* PowerText;
+
+  UPROPERTY(meta=(BindWidget))
+  UProgressBar* PowerBar;
+
 };
