@@ -153,7 +153,7 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 //  UE_LOG(LogTemp, Warning, TEXT("Preboost Movement Mode: %s "), *MovementModeName);
   if (AxisValue != 0.f && Power > 0)
   {
-    Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue), 0);
+    Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue * 0.1), 0);
     if (MovementComponent->IsWalking())
     {
 

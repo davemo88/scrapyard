@@ -26,8 +26,8 @@ class SCRAPYARD_API AGarageLevelScriptActor : public AScrapyardLevelScriptActor
 
   USoloDraft* SoloDraft;
 
-  UFUNCTION()
-  void AssignPart(URobotPart* Part);
+//  UFUNCTION()
+//  void AssignPart(URobotPart* Part);
 
   TArray<ARobotPartActor*> DisplayedParts;
 
