@@ -12,9 +12,9 @@
 UCLASS()
 class SCRAPYARD_API ATestCameraActor : public ACameraActor
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	ATestCameraActor();
-	
+  ATestCameraActor();
+  
 };

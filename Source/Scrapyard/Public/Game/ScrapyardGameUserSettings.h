@@ -12,30 +12,30 @@
 UCLASS()
 class SCRAPYARD_API UScrapyardGameUserSettings : public UGameUserSettings
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	UScrapyardGameUserSettings();
-	
-	virtual void ApplySettings(bool bCheckForCommandLineOverrides) override;
+  UScrapyardGameUserSettings();
+  
+  virtual void ApplySettings(bool bCheckForCommandLineOverrides) override;
 
-	virtual void SetToDefaults() override;
+  virtual void SetToDefaults() override;
 
-	bool IsLanMatch() const { return bIsLANMatch; }
+  bool IsLanMatch() const { return bIsLANMatch; }
 
-	void SetLanMatch(bool InbIsLanMatch) { bIsLANMatch = InbIsLanMatch; }
-	
-	bool IsDedicatedServer() const { return bIsDedicatedServer; }
+  void SetLanMatch(bool InbIsLanMatch) { bIsLANMatch = InbIsLanMatch; }
+  
+  bool IsDedicatedServer() const { return bIsDedicatedServer; }
 
-	void SetDedicatedServer(bool InbIsDedicatedServer) { bIsDedicatedServer = InbIsDedicatedServer; }
+  void SetDedicatedServer(bool InbIsDedicatedServer) { bIsDedicatedServer = InbIsDedicatedServer; }
 
 private:
 
-	UPROPERTY(config)
-	bool bIsLANMatch;
+  UPROPERTY(config)
+  bool bIsLANMatch;
 
-	UPROPERTY(config)
-	bool bIsDedicatedServer;
-	
+  UPROPERTY(config)
+  bool bIsDedicatedServer;
+  
 };

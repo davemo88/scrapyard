@@ -14,14 +14,14 @@ class AGameSession;
 UCLASS()
 class SCRAPYARD_API ARobotGameMode : public AGameMode
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	ARobotGameMode();
+  ARobotGameMode();
 
-	void PostLogin(APlayerController* NewPlayer) override;
-	
-	virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;	
-	
+  void PostLogin(APlayerController* NewPlayer) override;
+  
+  virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;  
+  
 };

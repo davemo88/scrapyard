@@ -12,49 +12,49 @@
 UCLASS()
 class SCRAPYARD_API AScrapyardGameSession : public AGameSession
 {
-	GENERATED_BODY()
-	
+  GENERATED_BODY()
+  
 protected:
-	TSharedPtr<class FScrapyardOnlineSessionSettings> SessionSettings;
-	TSharedPtr<class FScrapyardOnlineSessionSearch> SessionSearch;
+  TSharedPtr<class FScrapyardOnlineSessionSettings> SessionSettings;
+  TSharedPtr<class FScrapyardOnlineSessionSearch> SessionSearch;
 
-	FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
-	FOnStartSessionCompleteDelegate OnStartSessionCompleteDelegate;
-	FOnDestroySessionCompleteDelegate OnDestroySessionCompleteDelegate;
-	FOnFindSessionsCompleteDelegate OnFindSessionsCompleteDelegate;
-	FOnJoinSessionCompleteDelegate OnJoinSessionCompleteDelegate;
+  FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
+  FOnStartSessionCompleteDelegate OnStartSessionCompleteDelegate;
+  FOnDestroySessionCompleteDelegate OnDestroySessionCompleteDelegate;
+  FOnFindSessionsCompleteDelegate OnFindSessionsCompleteDelegate;
+  FOnJoinSessionCompleteDelegate OnJoinSessionCompleteDelegate;
 
-	FDelegateHandle OnCreateSessionCompleteDelegateHandle;
-	FDelegateHandle OnStartSessionCompleteDelegateHandle;
-	FDelegateHandle OnDestroySessionCompleteDelegateHandle;
-	FDelegateHandle OnFindSessionsCompleteDelegateHandle;
-	FDelegateHandle OnJoinSessionCompleteDelegateHandle;
+  FDelegateHandle OnCreateSessionCompleteDelegateHandle;
+  FDelegateHandle OnStartSessionCompleteDelegateHandle;
+  FDelegateHandle OnDestroySessionCompleteDelegateHandle;
+  FDelegateHandle OnFindSessionsCompleteDelegateHandle;
+  FDelegateHandle OnJoinSessionCompleteDelegateHandle;
 
-	virtual void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
-	void OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful);
-	void OnFindSessionsComplete(bool bWasSuccessful);
-	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
-	virtual void OnDestroySessionComplete(FName SessionName, bool bWasSuccessful);	
+  virtual void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
+  void OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful);
+  void OnFindSessionsComplete(bool bWasSuccessful);
+  void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+  virtual void OnDestroySessionComplete(FName SessionName, bool bWasSuccessful);  
 
 public:
 
-	AScrapyardGameSession();
+  AScrapyardGameSession();
 
-	/** Default number of players allowed in a game */
-	static const int32 DEFAULT_MAX_PLAYERS = 8;
+  /** Default number of players allowed in a game */
+  static const int32 DEFAULT_MAX_PLAYERS = 8;
 
-//	bool HostSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName,  bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
-//	void FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
-//	bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult);
-//	bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, int32 SessionIndexInSearchResults);
-	bool HostSession(FUniqueNetIdRepl UserId, FName SessionName,  bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
-	void FindSessions(FUniqueNetIdRepl UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
-	bool JoinSession(FUniqueNetIdRepl UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult);
-	bool JoinSession(FUniqueNetIdRepl UserId, FName SessionName, int32 SessionIndexInSearchResults);
+//  bool HostSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName,  bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
+//  void FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
+//  bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult);
+//  bool JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, int32 SessionIndexInSearchResults);
+  bool HostSession(FUniqueNetIdRepl UserId, FName SessionName,  bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
+  void FindSessions(FUniqueNetIdRepl UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
+  bool JoinSession(FUniqueNetIdRepl UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult);
+  bool JoinSession(FUniqueNetIdRepl UserId, FName SessionName, int32 SessionIndexInSearchResults);
 
-	const TArray<FOnlineSessionSearchResult> & GetSearchResults() const;
+  const TArray<FOnlineSessionSearchResult> & GetSearchResults() const;
 
-	void RegisterServer() override;
+  void RegisterServer() override;
 
         int Lol;
 

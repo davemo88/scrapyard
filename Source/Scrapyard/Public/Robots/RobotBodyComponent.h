@@ -26,12 +26,13 @@ protected:
   // Called when the game starts
   virtual void BeginPlay() override;
 
-public:  
 // TODO: put these asset refs into a blueprint
 // default skeletal mesh
   FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
 // https://answers.unrealengine.com/questions/153496/how-to-set-animation-blueprint-in-c.html
   FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
+
+public:  
 
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartAssignment* PartAssignment;

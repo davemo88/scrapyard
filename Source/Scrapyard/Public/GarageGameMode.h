@@ -13,10 +13,10 @@
 UCLASS()
 class SCRAPYARD_API AGarageGameMode : public AGameModeBase
 {
-	GENERATED_BODY()
-	
-	
+  GENERATED_BODY()
+  
+  
 public:
-	AGarageGameMode();
+  AGarageGameMode();
 
 };

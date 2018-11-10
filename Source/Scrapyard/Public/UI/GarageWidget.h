@@ -24,7 +24,7 @@ class SCRAPYARD_API UGarageWidget : public UUserWidget
   AGarageLevelScriptActor* GarageLevelScriptActor;
 
 public:
-  
+//TODO: maybe proper methods to modify these?  
   UPROPERTY(meta=(BindWidget))
   URobotStatsWidget* RobotStatsWidget;
 

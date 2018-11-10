@@ -13,16 +13,16 @@
 UCLASS()
 class SCRAPYARD_API AMainMenuLevelScriptActor : public AScrapyardLevelScriptActor
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	void PreInitializeComponents() override;
+  void PreInitializeComponents() override;
 
 protected:
 
-	void BeginPlay() override;
-	
+  void BeginPlay() override;
+  
 private:
-	
+  
 };

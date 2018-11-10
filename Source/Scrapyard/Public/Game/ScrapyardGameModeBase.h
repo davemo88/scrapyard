@@ -12,9 +12,9 @@
 UCLASS()
 class SCRAPYARD_API AScrapyardGameModeBase : public AGameModeBase
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;	
-	
+  virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;  
+  
 };

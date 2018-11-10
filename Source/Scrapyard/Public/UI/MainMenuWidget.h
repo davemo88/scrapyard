@@ -15,22 +15,23 @@
 UCLASS()
 class SCRAPYARD_API UMainMenuWidget : public UUserWidget
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 private:
 
-	virtual void NativeConstruct() override;
+  virtual void NativeConstruct() override;
 
-public:	
+public:  
 
-	UFUNCTION(BlueprintCallable)
-	void OnDraftButtonClicked();
-	UFUNCTION(BlueprintCallable)
-	void OnGarageButtonClicked();
-	UFUNCTION(BlueprintCallable)
-	void OnHostButtonClicked();
-	UFUNCTION(BlueprintCallable)
-	void OnJoinButtonClicked();
-	UFUNCTION(BlueprintCallable)
-	void OnQuitButtonClicked();
+//TODO: get rid of blueprint logic
+  UFUNCTION(BlueprintCallable)
+  void OnDraftButtonClicked();
+  UFUNCTION(BlueprintCallable)
+  void OnGarageButtonClicked();
+  UFUNCTION(BlueprintCallable)
+  void OnHostButtonClicked();
+  UFUNCTION(BlueprintCallable)
+  void OnJoinButtonClicked();
+  UFUNCTION(BlueprintCallable)
+  void OnQuitButtonClicked();
 };

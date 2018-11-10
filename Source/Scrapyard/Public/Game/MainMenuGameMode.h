@@ -12,19 +12,19 @@
 UCLASS()
 class SCRAPYARD_API AMainMenuGameMode : public AGameModeBase
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
 
-	AMainMenuGameMode();
+  AMainMenuGameMode();
 
-	virtual void RestartPlayer(class AController* NewPlayer) override;
+  virtual void RestartPlayer(class AController* NewPlayer) override;
 
-	virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;
+  virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;
 
 protected:
 
-	void BeginSession();
+  void BeginSession();
 
-	void ShowLoadingScreen();
+  void ShowLoadingScreen();
 };
