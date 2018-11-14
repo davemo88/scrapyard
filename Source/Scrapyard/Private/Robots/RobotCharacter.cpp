@@ -123,6 +123,7 @@ void ARobotCharacter::OnStatsUpdated()
 
 void ARobotCharacter::Axis_MoveX(float AxisValue)
 {
+//TODO: remove this check
   if (Controller && AxisValue != 0.f)
   {
     // Limit pitch when walking or falling
@@ -183,7 +184,7 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
   {
     if (Power < RobotStats->MaxPower)
     {
-      Power = Power + 10;
+      Power = FMath::Min(RobotStats->MaxPower, Power + 10);
     }
 
     if (MovementComponent->IsFlying())

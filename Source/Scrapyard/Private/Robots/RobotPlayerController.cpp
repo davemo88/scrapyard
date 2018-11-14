@@ -28,7 +28,7 @@ void ARobotPlayerController::SetupInputComponent()
 
   if (RobotCharacter != NULL)
   {
-    /* Movement */
+// gamepad controls
     UE_LOG(LogTemp, Warning, TEXT("Binding Inputs"));
     InputComponent->BindAxis("MoveX", RobotCharacter, &ARobotCharacter::Axis_MoveX);
     InputComponent->BindAxis("MoveY", RobotCharacter, &ARobotCharacter::Axis_MoveY);
@@ -42,10 +42,11 @@ void ARobotPlayerController::SetupInputComponent()
   
     InputComponent->BindAction("PrimaryFire", IE_Pressed, this, &ARobotPlayerController::OnFire);
     InputComponent->BindAction("PrimaryFire", IE_Released, this, &ARobotPlayerController::OnStopFire);
+    
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("RobotCharacter is NULL :("));
+    UE_LOG(LogTemp, Warning, TEXT("Can't bind input: RobotCharacter is NULL :("));
   }
 
 }
