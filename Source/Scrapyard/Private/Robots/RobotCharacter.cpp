@@ -154,7 +154,6 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 //  UE_LOG(LogTemp, Warning, TEXT("Preboost Movement Mode: %s "), *MovementModeName);
   if (AxisValue != 0.f && Power > 0)
   {
-    Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue * 0.1), 0);
     if (MovementComponent->IsWalking())
     {
 
@@ -167,8 +166,10 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
     }
     else if (MovementComponent->IsFlying())
     {
+// TODO: set some scaling constants for booster thrust and powerdrain
       const FVector Up = FVector(0, 0, 1);
       AddMovementInput(Up, AxisValue);
+      Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue * 0.1), 0);
     }
   }
   else if (AxisValue != 0.f && Power <= 0)
