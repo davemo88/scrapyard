@@ -20,6 +20,23 @@ class SCRAPYARD_API UYourPartsWidget : public UUserWidget
 {
   GENERATED_BODY()
 
+public:
+
+  UPROPERTY()
+  USoloDraft* CurrentDraft;
+
+  void ClearDisplayedCards();
+
+  void AddDisplayedCard(UPartCardWidget* Card);
+
+  void AddDisplayedPart(URobotPart* RobotPart);
+
+  void DisplayParts(TArray<URobotPart*> RobotParts);
+
+  void DisplayAll();
+
+  FNewPartCardAdded NewPartCardAdded;
+
 protected:
   
   UPROPERTY(meta=(BindWidget))   
@@ -53,23 +70,5 @@ protected:
 
   UFUNCTION()
   void OnLegsFilterButtonClicked();
-
-public:
-
-  UPROPERTY()
-  USoloDraft* CurrentDraft;
-
-  void ClearDisplayedCards();
-
-  void AddDisplayedCard(UPartCardWidget* Card);
-
-  void AddDisplayedPart(URobotPart* RobotPart);
-
-  void DisplayParts(TArray<URobotPart*> RobotParts);
-
-  void DisplayAll();
-
-  FNewPartCardAdded NewPartCardAdded;
-
   
 };

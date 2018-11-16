@@ -18,20 +18,12 @@ class SCRAPYARD_API URobotStats : public UObject
 {
   GENERATED_BODY()
 
-protected:
-
-  URobotPartAssignment* PartAssignment;
-
 public:
 
   void SetPartAssignment(URobotPartAssignment* NewPartAssignment);
 
   UFUNCTION()
   void UpdateStats();
-
-  void ZeroStats();
-
-  TMap<FString, FText> GetRobotStatValues();
   
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int32 Mass = 0;
@@ -75,4 +67,11 @@ public:
   FStatText GetMovementSpeedStatText();
 
   FRobotStatsUpdatedDelegate RobotStatsUpdatedDelegate;
+
+protected:
+
+  URobotPartAssignment* PartAssignment;
+
+  void ZeroStats();
+
 };

@@ -26,6 +26,7 @@ protected:
 
 public:
 
+//TODO: clean up interface to this widget
   UPROPERTY(meta=(BindWidget))
   UUniformGridPanel* PackDisplayPanel;
 

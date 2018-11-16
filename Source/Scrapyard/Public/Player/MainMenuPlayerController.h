@@ -14,13 +14,14 @@ class UMainMenuWidget;
 UCLASS()
 class SCRAPYARD_API AMainMenuPlayerController : public AMenuPlayerController
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 protected:
-	virtual void BeginPlay() override;
 
-	void SetupMainMenuWidget();
+  virtual void BeginPlay() override;
 
-	UMainMenuWidget* MainMenuWidget;
-	
+  void SetupMainMenuWidget();
+
+  UMainMenuWidget* MainMenuWidget;
+  
 };

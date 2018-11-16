@@ -17,8 +17,4 @@ class SCRAPYARD_API AMouseController : public APlayerController
 public:
 	AMouseController();
 	
-private:
-
-public:
-
 };

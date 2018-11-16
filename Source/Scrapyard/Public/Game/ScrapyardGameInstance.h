@@ -30,9 +30,11 @@ public:
   UPROPERTY()
   URobotPartAssets* RobotPartAssetsBP;
 
+//TODO: shouldn't be stored here because game instance doesn't replicate
   UPROPERTY()
   USoloDraft* SoloDraft;
 
+//TODO: shouldn't be stored here because game instance doesn't replicate
   UPROPERTY()
   URobotPartAssignment* PartAssignment;
 
@@ -40,7 +42,6 @@ public:
 
   virtual void Init() override;
   virtual void Shutdown() override;
-//  FGameInstancePIEResult StartPlayInEditorGameInstance(ULocalPlayer* LocalPlayer, const FGameInstancePIEParameters& Params) override;
   virtual void StartGameInstance() override;
   
 };

@@ -12,10 +12,10 @@
 UCLASS()
 class SCRAPYARD_API ATestGameMode : public AGameModeBase
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 
-	ATestGameMode();
-	
-	
+  ATestGameMode();
+  
+  
 };

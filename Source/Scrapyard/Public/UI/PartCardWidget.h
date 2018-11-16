@@ -35,9 +35,6 @@ public:
   UPROPERTY(BlueprintReadOnly)
   TSubclassOf<URobotPart> RobotPartClass;
 
-  UFUNCTION(BlueprintCallable)
-  void OnPartCardClicked();
-
   FCardClickedDelegate CardClickedDelegate;
   FCardDoubleClickedDelegate CardDoubleClickedDelegate;
 
@@ -54,6 +51,9 @@ protected:
   void AddStatsText();
 
   void AddStatLine(FStatText StatText);
+
+  UFUNCTION()
+  void OnPartCardClicked();
 
   UPROPERTY(meta=(BindWidget))
   UBorder* CardBackground;

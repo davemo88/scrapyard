@@ -12,9 +12,9 @@
 UCLASS()
 class SCRAPYARD_API ATestPlayerCameraManager : public APlayerCameraManager
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+  
+  
+  
+  
 };

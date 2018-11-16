@@ -23,14 +23,16 @@ class SCRAPYARD_API URobotPartComponent : public USkeletalMeshComponent
 {
   GENERATED_BODY()
 
-  UPROPERTY(EditAnywhere)
-  URobotPart* RobotPart;
-
 public:
 
   virtual void BeginPlay() override;
 
   UFUNCTION()
   void SetRobotPart(URobotPart* NewRobotPart);
+
+protected:
+
+  UPROPERTY(EditAnywhere)
+  URobotPart* RobotPart;
 
 };

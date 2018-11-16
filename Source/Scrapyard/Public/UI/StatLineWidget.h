@@ -15,6 +15,11 @@ class SCRAPYARD_API UStatLineWidget : public UUserWidget
 {
   GENERATED_BODY()
 
+public:
+  
+  UFUNCTION()
+  void SetStatLine(FStatText StatText);
+
 protected:
 
   UPROPERTY(meta=(BindWidget))
@@ -22,9 +27,4 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UTextBlock* StatValue;
 
-public:
-  
-  UFUNCTION()
-  void SetStatLine(FStatText StatText);
-  
 };
