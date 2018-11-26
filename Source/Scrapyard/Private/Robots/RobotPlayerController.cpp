@@ -12,19 +12,22 @@ ARobotPlayerController::ARobotPlayerController()
 
 void ARobotPlayerController::Possess(APawn* InPawn)
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController::Possess"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::Possess"), *GetName());
 
   Super::Possess(InPawn);
-
-  RobotCharacter = Cast<ARobotCharacter>(GetPawn());
-  SetupInputComponent();
+//  RobotCharacter = Cast<ARobotCharacter>(GetPawn());
 }
 
 void ARobotPlayerController::SetupInputComponent()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupInputComponent"), *GetName());
   Super::SetupInputComponent();
 
   RobotCharacter = Cast<ARobotCharacter>(GetPawn());
+  if (GetPawn() == NULL)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupInputComponent, Pawn is null"), *GetName());
+  }
 
   if (RobotCharacter != NULL)
   {
@@ -48,7 +51,12 @@ void ARobotPlayerController::SetupInputComponent()
   {
     UE_LOG(LogTemp, Warning, TEXT("Can't bind input: RobotCharacter is NULL :("));
   }
+}
 
+void ARobotPlayerController::ClientSetupInputComponent_Implementation()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetupInputComponent"), *GetName());
+  SetupInputComponent();
 }
 
 void ARobotPlayerController::OnFire()

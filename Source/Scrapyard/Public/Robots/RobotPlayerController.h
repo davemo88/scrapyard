@@ -30,14 +30,6 @@ protected:
   virtual void OnFire();
   virtual void OnStopFire();
 
-//  void MoveX();
-//  void MoveY();
-//  void TurnZ();
-//  void TurnY();
-//  void Boost();
-//  void Jump();
-//  void PrimaryFire();
-
   TArray< FDeferredFireInput, TInlineAllocator<2> > DeferredFireInputs;
 
 public:
@@ -48,10 +40,12 @@ public:
 
   virtual void SetupInputComponent() override;
 
+  UFUNCTION(Client, Reliable)
+  void ClientSetupInputComponent();
+
   bool HasDeferredFireInputs();
 
   void ApplyDeferredFireInputs();
-
 
 private:
   UPROPERTY()

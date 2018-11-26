@@ -9,8 +9,8 @@
 ABattleGameMode::ABattleGameMode()
 {
   bDelayedStart = true;
-  DefaultPawnClass = ARobotCharacter::StaticClass();
-  PlayerControllerClass = AScrapyardPlayerController::StaticClass();
+//  DefaultPawnClass = ARobotCharacter::StaticClass();
+//  PlayerControllerClass = ARobotPlayerController::StaticClass();
   GameStateClass = ABattleGameState::StaticClass();
 }
 
@@ -23,7 +23,8 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 
   if (GetNumPlayers() > 1)
   {
-    StartMatch();
+    GetWorld()->GetTimerManager().SetTimer(StartMatchTimeHandle, this, &ABattleGameMode::StartMatch, 5.0f, false);
+//    StartMatch();
   }
   
 }
@@ -37,7 +38,17 @@ void ABattleGameMode::HandleMatchIsWaitingToStart()
 void ABattleGameMode::HandleMatchHasStarted()
 {
   Super::HandleMatchHasStarted();
-  UE_LOG(LogTemp, Warning, TEXT("HandleMatchHasStarted"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::HandleMatchHasStarted"), *GetName());
+  for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+  {
+    ARobotPlayerController* PlayerController = Cast<ARobotPlayerController>(*Iterator);
+    if (PlayerController)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("player controller ok"));
+      PlayerController->ClientSetupInputComponent();
+      PlayerController->ClientSetupRobotHUDWidget();
+    }
+  }
 }
 
 void ABattleGameMode::HandleMatchAborted()

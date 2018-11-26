@@ -2,11 +2,6 @@
 
 #include "RobotMovementComponent.h"
 #include "Robots/RobotPlayerController.h"
-
-URobotMovementComponent::URobotMovementComponent()
-{
-
-}
 	
 void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {

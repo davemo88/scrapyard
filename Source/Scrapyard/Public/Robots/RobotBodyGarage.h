@@ -31,4 +31,5 @@ public:
 
   UPROPERTY(BlueprintReadOnly)
   URobotStats* RobotStats;
+
 };

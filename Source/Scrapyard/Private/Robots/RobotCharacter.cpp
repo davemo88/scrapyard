@@ -13,6 +13,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 //  : Super(ObjectInitializer)
   : Super(ObjectInitializer.SetDefaultSubobjectClass<URobotMovementComponent>(ARobotCharacter::CharacterMovementComponentName))
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::ARobotCharacter"), *GetName());
    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   PrimaryActorTick.bCanEverTick = true;
 

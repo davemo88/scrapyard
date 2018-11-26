@@ -19,8 +19,10 @@ class SCRAPYARD_API AScrapyardPlayerController : public APlayerController
 protected:
   virtual void BeginPlay() override;
 
-  void SetupRobotHUDWidget();
-
   URobotHUDWidget* RobotHUDWidget;
+
+public:
+  UFUNCTION(Client, Reliable)
+  void ClientSetupRobotHUDWidget();
 
 };
