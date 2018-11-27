@@ -184,7 +184,6 @@ public:
   UPROPERTY()
   uint8 HitScanIndex;
 
-
   UPROPERTY()
   float HitScanTime;
 

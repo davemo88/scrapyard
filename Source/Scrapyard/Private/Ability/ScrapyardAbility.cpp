@@ -10,7 +10,7 @@
 
 AScrapyardAbility::AScrapyardAbility()
 {
-  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::AScrapyardAbility"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::AScrapyardAbility"), *GetName());
   InactiveState = CreateDefaultSubobject<UAbilityStateInactive>(TEXT("AbilityStateInactive"));
   ActiveState = CreateDefaultSubobject<UAbilityStateActive>(TEXT("AbilityStateActive"));
 
@@ -25,8 +25,7 @@ AScrapyardAbility::AScrapyardAbility()
 
 void AScrapyardAbility::StartFire(uint8 FireModeNum)
 {
-  
-  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::StartFire"));
+  UE_LOG(LogTemp,Warning,TEXT("%s::StartFire"), *GetName());
 
   bool bClientFired = BeginFiringSequence(FireModeNum, false);
 
@@ -41,13 +40,14 @@ void AScrapyardAbility::StartFire(uint8 FireModeNum)
         FireEventIndex = 0;
       }
     }
+    UE_LOG(LogTemp,Warning,TEXT("%s::StartFire - Calling ServerStartFire"), *GetName());
     ServerStartFire(FireModeNum, FireEventIndex, bClientFired);
   }
 }
 
 void AScrapyardAbility::StopFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::StopFire"));
+  UE_LOG(LogTemp,Warning,TEXT("%s::StopFire"), *GetName());
   EndFiringSequence(FireModeNum);
   if (Role < ROLE_Authority)
   {
@@ -90,7 +90,7 @@ void AScrapyardAbility::GotoActiveState()
 
 void AScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 {
- UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::GotoFireMode"));
+ UE_LOG(LogTemp,Warning,TEXT("%s::GotoFireMode"), *GetName());
  if (FiringState.IsValidIndex(NewFireMode))
  {
    CurrentFireMode = NewFireMode;
@@ -100,7 +100,7 @@ void AScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 
 bool AScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
-  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::BeginFiringSequence"));
+  UE_LOG(LogTemp,Warning,TEXT("%s::BeginFiringSequence"), *GetName());
   if (RobotOwner != NULL)
   {
     RobotOwner->SetPendingFire(FireModeNum, true);
@@ -116,7 +116,7 @@ bool AScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired
 
 void AScrapyardAbility::EndFiringSequence(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::EndFiringSequence"));
+  UE_LOG(LogTemp,Warning,TEXT("%s::EndFiringSequence"), *GetName());
   if (RobotOwner)
   {
     RobotOwner->SetPendingFire(FireModeNum, false);
@@ -169,7 +169,7 @@ void AScrapyardAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 
 FVector AScrapyardAbility::GetFireStartLoc(uint8 FireMode)
 {
-  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::GetFireStartLoc"));  
+  UE_LOG(LogTemp, Warning, TEXT("%s::GetFireStartLoc"), *GetName());
   if (FireMode == 255)
   {
     FireMode = CurrentFireMode;
@@ -199,7 +199,7 @@ FRotator AScrapyardAbility::GetBaseFireRotation()
 
 void AScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime)
 {
-  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::HitScanTrace"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::HitScanTrace"), *GetName());
   const FName TraceTag("MyTraceTag");
   GetWorld()->DebugDrawTraceTag = TraceTag;
 
@@ -236,14 +236,14 @@ void AScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector
 
 void AScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
-  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::ServerStartFire_Implementation"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::ServerStartFire_Implementation"), *GetName());
 
   BeginFiringSequence(FireModeNum, bClientFired);
 }
 
 bool AScrapyardAbility::ServerStartFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
-  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::ServerStartFire_Validate"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::ServerStartFire_Validate"), *GetName());
   return true;
 }
 
