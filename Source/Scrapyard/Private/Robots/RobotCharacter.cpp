@@ -49,19 +49,31 @@ void ARobotCharacter::Tick(float DeltaTime)
 // Called to bind functionality to input
 void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-  Super::SetupPlayerInputComponent(PlayerInputComponent);
-  /* Movement */
-//  PlayerInputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
-//  PlayerInputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
-//
-//  PlayerInputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
-//  PlayerInputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
-//
-//  PlayerInputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
-//
-//  PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ARobotCharacter::Jump);
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupPlayerInputComponent"), *GetName());
 
-//  PlayerInputComponent->BindAction("PrimaryFire", IE_Pressed, this, &ARobotCharacter::StartFire);
+  Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+  InputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
+  InputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
+
+  InputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
+  InputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
+
+  InputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
+
+  InputComponent->BindAction("Jump", IE_Pressed, this, &ARobotCharacter::Jump);
+
+  InputComponent->BindAction("PrimaryFire", IE_Pressed, GetController<ARobotPlayerController>(), &ARobotPlayerController::OnFire);
+  InputComponent->BindAction("PrimaryFire", IE_Released, GetController<ARobotPlayerController>(), &ARobotPlayerController::OnStopFire);
+}
+
+void ARobotCharacter::SetupRobotHUDWidget()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget"), *GetName());
+  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+  RobotHUDWidget = CreateWidget<URobotHUDWidget>(GetController(), GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
+  RobotHUDWidget->SetRobotCharacter(this);
+  RobotHUDWidget->AddToViewport();
 }
 
 void ARobotCharacter::SetupCamera()
