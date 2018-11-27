@@ -157,10 +157,10 @@ public:
   UFUNCTION()
   virtual void GotoFireMode(uint8 NewFireMode);
 
-  UFUNCTION(Server, unreliable, WithValidation)
+  UFUNCTION(Server, Reliable, WithValidation)
   virtual void ServerStartFire(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired);
 
-  UFUNCTION(Server, unreliable, WithValidation)
+  UFUNCTION(Server, Reliable, WithValidation)
   virtual void ServerStopFire(uint8 FireModeNum, uint8 InFireEventIndex);
 
   UPROPERTY()

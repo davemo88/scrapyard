@@ -7,6 +7,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
 #include "Ability/HitscanAbility.h"
+#include "UI/RobotHUDWidget.h"
+#include "Blueprint/UserWidget.h"
 
 // Sets default values
 ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializer)
@@ -37,13 +39,21 @@ void ARobotCharacter::BeginPlay()
 {
   Super::BeginPlay();
 
+  SetupRobotHUDWidget();
+
+// TODO: this seems wrong
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+  if (PC)
+  {
+    PC->SetRobotCharacter(this);
+  }
+
 }
 
 // Called every frame
 void ARobotCharacter::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
@@ -53,27 +63,45 @@ void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
   Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-  InputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
-  InputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
 
-  InputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
-  InputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
+  if (PC)
+  {
+    InputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
+    InputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
 
-  InputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
+    InputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
+    InputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
 
-  InputComponent->BindAction("Jump", IE_Pressed, this, &ARobotCharacter::Jump);
+    InputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
 
-  InputComponent->BindAction("PrimaryFire", IE_Pressed, GetController<ARobotPlayerController>(), &ARobotPlayerController::OnFire);
-  InputComponent->BindAction("PrimaryFire", IE_Released, GetController<ARobotPlayerController>(), &ARobotPlayerController::OnStopFire);
+    InputComponent->BindAction("Jump", IE_Pressed, this, &ARobotCharacter::Jump);
+
+    InputComponent->BindAction("PrimaryFire", IE_Pressed, PC, &ARobotPlayerController::OnFire);
+    InputComponent->BindAction("PrimaryFire", IE_Released,PC, &ARobotPlayerController::OnStopFire);
+  }
 }
 
 void ARobotCharacter::SetupRobotHUDWidget()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  RobotHUDWidget = CreateWidget<URobotHUDWidget>(GetController(), GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
-  RobotHUDWidget->SetRobotCharacter(this);
-  RobotHUDWidget->AddToViewport();
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+// TODO: can there be a locally controlled PC with ROLE_Authority? i guess if everything is local?
+//  if (Role < ROLE_Authority && PC && IsLocallyControlled())
+  if (PC && IsLocallyControlled())
+  {
+// TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
+// e.g. use friend class or write a function
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - PC ok"), *GetName());
+    PC->RobotHUDWidget = CreateWidget<URobotHUDWidget>(PC, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
+    PC->RobotHUDWidget->SetRobotCharacter(this);
+    PC->RobotHUDWidget->AddToViewport();
+  }
+  else
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - PC null"), *GetName());
+  }
 }
 
 void ARobotCharacter::SetupCamera()

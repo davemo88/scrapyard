@@ -24,21 +24,21 @@ void AScrapyardPlayerController::BeginPlay()
 //    RobotHUDWidget->AddToViewport();
 //  }
 //}
-
-void AScrapyardPlayerController::ClientSetupRobotHUDWidget_Implementation()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetupRobotHUDWidget_Implementation"), *GetName());
-  if (GetPawn())
-  {
-    UE_LOG(LogTemp, Warning, TEXT("pawn ok"));
-    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-    RobotHUDWidget = CreateWidget<URobotHUDWidget>(this, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
-    RobotHUDWidget->SetRobotCharacter(Cast<ARobotCharacter>(GetPawn()));
-    RobotHUDWidget->AddToViewport();
-  }
-  else
-  {
-    UE_LOG(LogTemp, Warning, TEXT("pawn null"));
-  }
-}
-
+//
+//void AScrapyardPlayerController::ClientSetupRobotHUDWidget_Implementation()
+//{
+//  UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetupRobotHUDWidget_Implementation"), *GetName());
+//  if (GetPawn())
+//  {
+//    UE_LOG(LogTemp, Warning, TEXT("pawn ok"));
+//    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+//    RobotHUDWidget = CreateWidget<URobotHUDWidget>(this, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
+//    RobotHUDWidget->SetRobotCharacter(Cast<ARobotCharacter>(GetPawn()));
+//    RobotHUDWidget->AddToViewport();
+//  }
+//  else
+//  {
+//    UE_LOG(LogTemp, Warning, TEXT("pawn null"));
+//  }
+//}
+//

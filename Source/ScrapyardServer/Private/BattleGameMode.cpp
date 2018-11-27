@@ -39,16 +39,6 @@ void ABattleGameMode::HandleMatchHasStarted()
 {
   Super::HandleMatchHasStarted();
   UE_LOG(LogTemp, Warning, TEXT("%s::HandleMatchHasStarted"), *GetName());
-  for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
-  {
-    ARobotPlayerController* PlayerController = Cast<ARobotPlayerController>(*Iterator);
-    if (PlayerController)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("player controller ok"));
-      PlayerController->ClientSetupInputComponent();
-      PlayerController->ClientSetupRobotHUDWidget();
-    }
-  }
 }
 
 void ABattleGameMode::HandleMatchAborted()

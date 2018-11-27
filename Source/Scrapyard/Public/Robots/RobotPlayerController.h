@@ -27,27 +27,27 @@ protected:
 
 // see UnrealTournament firing implementation
   bool bFirePressed;
-  virtual void OnFire();
-  virtual void OnStopFire();
 
   TArray< FDeferredFireInput, TInlineAllocator<2> > DeferredFireInputs;
 
 public:
 
+// TODO: refector these to be protected
+  virtual void OnFire();
+  virtual void OnStopFire();
+
   ARobotPlayerController();
 
   virtual void Possess(APawn* InPawn) override;
-
-  virtual void SetupInputComponent() override;
-
-  UFUNCTION(Client, Reliable)
-  void ClientSetupInputComponent();
 
   bool HasDeferredFireInputs();
 
   void ApplyDeferredFireInputs();
 
+  void SetRobotCharacter(ARobotCharacter* NewRobotCharacter);
+
 private:
+// want this property because otherwise we will end up casting GetPawn() to ARobotCharacter all the time
   UPROPERTY()
   ARobotCharacter* RobotCharacter;
 

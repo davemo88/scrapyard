@@ -15,48 +15,6 @@ void ARobotPlayerController::Possess(APawn* InPawn)
   UE_LOG(LogTemp, Warning, TEXT("%s::Possess"), *GetName());
 
   Super::Possess(InPawn);
-//  RobotCharacter = Cast<ARobotCharacter>(GetPawn());
-}
-
-void ARobotPlayerController::SetupInputComponent()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupInputComponent"), *GetName());
-  Super::SetupInputComponent();
-
-  RobotCharacter = Cast<ARobotCharacter>(GetPawn());
-  if (GetPawn() == NULL)
-  {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupInputComponent, Pawn is null"), *GetName());
-  }
-
-  if (RobotCharacter != NULL)
-  {
-// gamepad controls
-    UE_LOG(LogTemp, Warning, TEXT("Binding Inputs"));
-    InputComponent->BindAxis("MoveX", RobotCharacter, &ARobotCharacter::Axis_MoveX);
-    InputComponent->BindAxis("MoveY", RobotCharacter, &ARobotCharacter::Axis_MoveY);
-
-    InputComponent->BindAxis("TurnZ", RobotCharacter, &APawn::AddControllerYawInput);
-    InputComponent->BindAxis("TurnY", RobotCharacter, &APawn::AddControllerPitchInput);
-  
-    InputComponent->BindAxis("Boost", RobotCharacter, &ARobotCharacter::Axis_Boost);
-  
-    InputComponent->BindAction("Jump", IE_Pressed, RobotCharacter, &ARobotCharacter::Jump);
-  
-    InputComponent->BindAction("PrimaryFire", IE_Pressed, this, &ARobotPlayerController::OnFire);
-    InputComponent->BindAction("PrimaryFire", IE_Released, this, &ARobotPlayerController::OnStopFire);
-    
-  }
-  else
-  {
-    UE_LOG(LogTemp, Warning, TEXT("Can't bind input: RobotCharacter is NULL :("));
-  }
-}
-
-void ARobotPlayerController::ClientSetupInputComponent_Implementation()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetupInputComponent"), *GetName());
-  SetupInputComponent();
 }
 
 void ARobotPlayerController::OnFire()
@@ -113,4 +71,9 @@ void ARobotPlayerController::ApplyDeferredFireInputs()
     }
   }
   DeferredFireInputs.Empty();
+}
+
+void ARobotPlayerController::SetRobotCharacter(ARobotCharacter* NewRobotCharacter)
+{
+  RobotCharacter = NewRobotCharacter;
 }
