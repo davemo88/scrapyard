@@ -26,7 +26,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   SetupBody();
   SetupStats();
 
-  SetupAbilities();
+//  SetupAbilities();
 
 // allow flying movement
 // why is this here as well as the movement component in the initializer list
@@ -38,8 +38,12 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 void ARobotCharacter::BeginPlay()
 {
   Super::BeginPlay();
+  const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
 
   SetupRobotHUDWidget();
+  SetupAbilities();
 
 // TODO: this seems wrong
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
@@ -141,12 +145,15 @@ void ARobotCharacter::SetupStats()
 
 void ARobotCharacter::SetupAbilities()
 {
-//  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::SetupAbilities"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities"), *GetName());
 //  if (RobotBodyComponent && RobotBodyComponent->RightHandheld && RobotBodyComponent->RightHandheld->PartAbililty)
 //  {
 //    WeaponAbility = RobotBodyComponent->RightHandheld->PartAbililty;
 //  }
-  if (WeaponAbility == NULL)
+  const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
+  if (WeaponAbility == NULL && Role == ROLE_Authority)
   {
     UE_LOG(LogTemp, Warning, TEXT("Couldn't set up Weapon Ability from part, doing it directly :(" ));
     WeaponAbility = CreateDefaultSubobject<AHitscanAbility>(TEXT("WeaponAbility"));
@@ -274,7 +281,7 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
 
 void ARobotCharacter::StartFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("ARobotCharacter::StartFire"));
+  UE_LOG(LogTemp,Warning,TEXT("%s::StartFire"), *GetName());
 
   if (!IsLocallyControlled())
   {

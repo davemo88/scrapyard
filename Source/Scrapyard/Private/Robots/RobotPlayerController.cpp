@@ -19,7 +19,7 @@ void ARobotPlayerController::Possess(APawn* InPawn)
 
 void ARobotPlayerController::OnFire()
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController::OnFire"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnFire"), *GetName());
   bFirePressed = true;
   if (GetPawn() != NULL)
   {
@@ -29,7 +29,7 @@ void ARobotPlayerController::OnFire()
 
 void ARobotPlayerController::OnStopFire()
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController::StopFire"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::StopFire"), *GetName());
   bFirePressed = false;
   if (GetPawn() != NULL)
   {

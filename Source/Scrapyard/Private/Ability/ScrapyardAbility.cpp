@@ -10,6 +10,8 @@
 
 AScrapyardAbility::AScrapyardAbility()
 {
+  SetReplicates(true);
+
   UE_LOG(LogTemp, Warning, TEXT("%s::AScrapyardAbility"), *GetName());
   InactiveState = CreateDefaultSubobject<UAbilityStateInactive>(TEXT("AbilityStateInactive"));
   ActiveState = CreateDefaultSubobject<UAbilityStateActive>(TEXT("AbilityStateActive"));
@@ -25,12 +27,18 @@ AScrapyardAbility::AScrapyardAbility()
 
 void AScrapyardAbility::StartFire(uint8 FireModeNum)
 {
+  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::StartFire"));
   UE_LOG(LogTemp,Warning,TEXT("%s::StartFire"), *GetName());
+
+  const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
+  UE_LOG(LogTemp, Warning, TEXT("%s::StartFire - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
+  UE_LOG(LogTemp, Warning, TEXT("%s::StartFire - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(RobotOwner->GetRemoteRole()) : TEXT("oops")));
 
   bool bClientFired = BeginFiringSequence(FireModeNum, false);
 
   if (Role < ROLE_Authority)
   {
+    UE_LOG(LogTemp,Warning,TEXT("%s::StartFire - Role < ROLE_Authority"), *GetName());
     UAbilityStateFiring* CurrentFiringState = FiringState.IsValidIndex(FireModeNum) ? FiringState[FireModeNum] : nullptr;  
     if (CurrentFiringState)
     {
