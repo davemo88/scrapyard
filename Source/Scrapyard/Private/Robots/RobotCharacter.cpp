@@ -165,8 +165,8 @@ void ARobotCharacter::SetupAbilities()
   RobotBodyComponent->WeaponAbilityComponent->CreateChildActor();
   WeaponAbility = Cast<AScrapyardAbility>(RobotBodyComponent->WeaponAbilityComponent->GetChildActor());
 //  WeaponAbility = GetWorld()->SpawnActor<AHitscanAbility>(FActorSpawnParameters());
+// TODO: why do we have RobotOwner if we can just the real Owner?
   WeaponAbility->RobotOwner = this;
-  WeaponAbility->SetOwner(this);
   if (WeaponAbility->GetOwner())
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: %s"), *GetName(), *WeaponAbility->GetOwner()->GetName());
@@ -175,7 +175,7 @@ void ARobotCharacter::SetupAbilities()
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: NULL"), *GetName());
   }
-//  WeaponAbility->SetOwner(this);
+  WeaponAbility->SetOwner(this);
   UE_LOG(LogTemp ,Warning, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
 
 }
