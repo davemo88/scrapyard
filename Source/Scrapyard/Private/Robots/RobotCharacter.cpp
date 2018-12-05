@@ -9,6 +9,7 @@
 #include "Ability/HitscanAbility.h"
 #include "UI/RobotHUDWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "UnrealNetwork.h"
 
 // Sets default values
 ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializer)
@@ -26,8 +27,6 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   SetupBody();
   SetupStats();
 
-//  SetupAbilities();
-
 // allow flying movement
 // why is this here as well as the movement component in the initializer list
   UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
@@ -43,7 +42,6 @@ void ARobotCharacter::BeginPlay()
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
 
   SetupRobotHUDWidget();
-  SetupAbilities();
 
 // TODO: this seems wrong
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
@@ -52,6 +50,17 @@ void ARobotCharacter::BeginPlay()
     PC->SetRobotCharacter(this);
   }
 
+}
+
+void ARobotCharacter::PostInitializeComponents()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::PostInitializeComponents"), *GetName());
+  Super::PostInitializeComponents();
+
+  if (HasAuthority())
+  {
+    SetupAbilities();
+  }
 }
 
 // Called every frame
@@ -153,12 +162,22 @@ void ARobotCharacter::SetupAbilities()
   const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
-  if (WeaponAbility == NULL && Role == ROLE_Authority)
+  RobotBodyComponent->WeaponAbilityComponent->CreateChildActor();
+  WeaponAbility = Cast<AScrapyardAbility>(RobotBodyComponent->WeaponAbilityComponent->GetChildActor());
+//  WeaponAbility = GetWorld()->SpawnActor<AHitscanAbility>(FActorSpawnParameters());
+  WeaponAbility->RobotOwner = this;
+  WeaponAbility->SetOwner(this);
+  if (WeaponAbility->GetOwner())
   {
-    UE_LOG(LogTemp, Warning, TEXT("Couldn't set up Weapon Ability from part, doing it directly :(" ));
-    WeaponAbility = CreateDefaultSubobject<AHitscanAbility>(TEXT("WeaponAbility"));
-    WeaponAbility->RobotOwner = this;
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: %s"), *GetName(), *WeaponAbility->GetOwner()->GetName());
   }
+  else
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: NULL"), *GetName());
+  }
+//  WeaponAbility->SetOwner(this);
+  UE_LOG(LogTemp ,Warning, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
+
 }
 
 void ARobotCharacter::OnStatsUpdated()
@@ -247,12 +266,6 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 //  EMovementMode MovementMode = MovementComponent->MovementMode;
 }
 
-//void ARobotCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
-//{
-//    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-//}
-//
-
 float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::TakeDamage"));
@@ -322,4 +335,10 @@ void ARobotCharacter::StopFiring()
       StopFire(i);
     }
   }
+}
+
+void ARobotCharacter::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & OutLifetimeProps) const
+{
+  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+  DOREPLIFETIME(ARobotCharacter, WeaponAbility);
 }

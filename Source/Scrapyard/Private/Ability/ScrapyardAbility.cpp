@@ -7,10 +7,12 @@
 #include "Ability/AbilityStateInactive.h"
 #include "Ability/AbilityStateFiring.h"
 #include "DrawDebugHelpers.h"
+#include "UnrealNetwork.h"
 
 AScrapyardAbility::AScrapyardAbility()
 {
-  SetReplicates(true);
+  bReplicates = true;
+  bAlwaysRelevant = true;
 
   UE_LOG(LogTemp, Warning, TEXT("%s::AScrapyardAbility"), *GetName());
   InactiveState = CreateDefaultSubobject<UAbilityStateInactive>(TEXT("AbilityStateInactive"));
@@ -27,7 +29,6 @@ AScrapyardAbility::AScrapyardAbility()
 
 void AScrapyardAbility::StartFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("AScrapyardAbility::StartFire"));
   UE_LOG(LogTemp,Warning,TEXT("%s::StartFire"), *GetName());
 
   const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
@@ -286,4 +287,10 @@ void AScrapyardAbility::ClientMissedHitScan_Implementation(FVector_NetQuantize M
   {
 //    PC->ClientSay(PC->UTPlayerState, FString::Printf(TEXT("HIT MISMATCH LOCAL index %d time %f      SERVER index %d time %f error distance %f"), HitScanIndex, HitScanTime, MissedHitScanIndex, MissedHitScanTime, (HitScanCharLoc - MissedHitScanLoc).Size()), ChatDestinations::System);  
   }
+}
+
+void AScrapyardAbility::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & OutLifetimeProps) const
+{
+  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+  DOREPLIFETIME(AScrapyardAbility, RobotOwner);
 }

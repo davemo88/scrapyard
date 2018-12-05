@@ -25,6 +25,8 @@ protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
 
+  virtual void PostInitializeComponents() override;
+
   UPROPERTY()
   TArray<uint8> PendingFire;
 
@@ -78,7 +80,7 @@ public:
   virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 // abilities 
-  UPROPERTY()
+  UPROPERTY(Replicated)
   AScrapyardAbility* WeaponAbility;
 
   UFUNCTION()

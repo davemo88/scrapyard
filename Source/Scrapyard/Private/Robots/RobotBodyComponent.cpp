@@ -5,6 +5,7 @@
 #include "ConstructorHelpers.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
 #include "Robots/RobotPartComponent.h"
+#include "Ability/HitscanAbility.h"
 
 
 // Sets default values for this component's properties
@@ -49,6 +50,10 @@ URobotBodyComponent::URobotBodyComponent()
   PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
+
+  WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
+  WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
+  WeaponAbilityComponent->SetupAttachment(this);
 
 }
 

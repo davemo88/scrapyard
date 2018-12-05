@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/ChildActorComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "RobotBodyComponent.generated.h"
 
@@ -51,5 +52,9 @@ public:
 //  UPROPERTY(EditAnywhere, BlueprintReadWrite)
 //  UParticleSystemComponent* BoostingParticleComponent;
 //
+
+  UPROPERTY()
+  UChildActorComponent* WeaponAbilityComponent;
+
 
 };

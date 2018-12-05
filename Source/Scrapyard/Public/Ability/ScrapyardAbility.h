@@ -64,7 +64,7 @@ public:
 
   AScrapyardAbility();
 
-  UPROPERTY()
+  UPROPERTY(Replicated)
   ARobotCharacter* RobotOwner;
 
   friend class UAbilityState;
