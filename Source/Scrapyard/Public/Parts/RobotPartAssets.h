@@ -71,6 +71,11 @@ public:
 //  template<typename T>
   void LoadAsset(TSoftObjectPtr<UObject> SoftObjectPtr, FStreamableDelegate DelegateToCall);
 
+//  void LoadAsset(TSoftObjectPtr<UObject> SoftObjectPtr, FStreamableDelegate DelegateToCall);
+
+//  template<typename T>
+  TSharedPtr<FStreamableHandle> LoadAssetSynchronous(TSoftObjectPtr<UObject> SoftObjectPtr);
+
 // TODO: this is hack because getting gameinstance outside of actors is mysterious
   UScrapyardGameInstance* GameInstance;
 };

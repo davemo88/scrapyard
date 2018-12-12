@@ -12,6 +12,11 @@ class URobotPartAssignment;
 class URobotPartAssets;
 class AScrapyardAbility;
 
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSkeletalMeshLoadedDelegate);
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMajorMaterialLoadedDelegate);
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FManufacturerlLoadedDelegate);
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCardIconLoadedDelegate);
+
 USTRUCT()
 struct FStatText {
   GENERATED_BODY()
@@ -101,6 +106,11 @@ public:
   void OnCardIconLoaded();
 
   virtual TArray<FStatText> GetStatsText();
+
+//  FSkeletalMeshLoadedDelegate SkeletalMeshLoadedDelegate;
+//  FMajorMaterialLoadedDelegate MajorMaterialLoadedDelegate;
+//  FManufacturerLoadedDelegate ManufacturerLoadedDelegate;
+//  FCardIconLoadedDelegate CardIconLoadedDelegate;
 
 protected: 
 

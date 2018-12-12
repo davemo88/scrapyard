@@ -13,7 +13,7 @@ URobotPart::URobotPart()
 
 void URobotPart::PostInitProperties()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("%s::PostInitProperties"), *GetName());
   Super::PostInitProperties();
   SetupAssetAttributes();
 }
@@ -24,7 +24,8 @@ USkeletalMesh* URobotPart::GetSkeletalMesh()
 
   if (SkeletalMesh == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
-    URobotPart::RobotPartAssetsBP->LoadAsset(GetSkeletalMeshAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnSkeletalMeshLoaded));
+//    URobotPart::RobotPartAssetsBP->LoadAsset(GetSkeletalMeshAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnSkeletalMeshLoaded));
+    SkeletalMesh = Cast<USkeletalMesh>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetSkeletalMeshAssetPtr())->GetLoadedAsset());
   }
 
   return SkeletalMesh;
@@ -42,7 +43,8 @@ UMaterial* URobotPart::GetMajorMaterial()
 
   if (MajorMaterial == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
-    URobotPart::RobotPartAssetsBP->LoadAsset(GetMajorMaterialAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnMajorMaterialLoaded));
+//    URobotPart::RobotPartAssetsBP->LoadAsset(GetMajorMaterialAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnMajorMaterialLoaded));
+    MajorMaterial = Cast<UMaterial>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetMajorMaterialAssetPtr())->GetLoadedAsset());
   }
 
   return MajorMaterial;
@@ -60,7 +62,8 @@ UManufacturer* URobotPart::GetManufacturer()
 
   if (Manufacturer == NULL && URobotPart::RobotPartAssetsBP != NULL)// && GetManufacturerAssetPtr() != NULL)
   {
-    URobotPart::RobotPartAssetsBP->LoadAsset(GetManufacturerAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnManufacturerLoaded));
+//    URobotPart::RobotPartAssetsBP->LoadAsset(GetManufacturerAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnManufacturerLoaded));
+    Manufacturer = Cast<UManufacturer>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetManufacturerAssetPtr())->GetLoadedAsset());
   }
 
   return Manufacturer;
@@ -78,7 +81,8 @@ UTexture2D* URobotPart::GetCardIcon()
   UE_LOG(LogTemp, Warning, TEXT("%s::GetCardIcon"), *GetName());
   if (CardIcon == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
-    URobotPart::RobotPartAssetsBP->LoadAsset(GetCardIconAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnCardIconLoaded));
+//    URobotPart::RobotPartAssetsBP->LoadAsset(GetCardIconAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnCardIconLoaded));
+    CardIcon = Cast<UTexture2D>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetCardIconAssetPtr())->GetLoadedAsset());
   }
 
   return CardIcon;

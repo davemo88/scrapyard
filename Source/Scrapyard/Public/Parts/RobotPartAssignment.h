@@ -49,6 +49,8 @@ public:
   void SetArms(UArmsPart* NewArms);
   void SetLegs(ULegsPart* NewLegs);
 
+  void SetDefaultAssignment();
+
   void CopyAssignment(URobotPartAssignment* NewPartAssignment);
 
   UHeadPart* GetHead();
@@ -61,5 +63,6 @@ public:
   FCoreAssignmentChangedDelegate CoreAssignmentChangedDelegate;
   FArmsAssignmentChangedDelegate ArmsAssignmentChangedDelegate;
   FLegsAssignmentChangedDelegate LegsAssignmentChangedDelegate;
+
   
 };

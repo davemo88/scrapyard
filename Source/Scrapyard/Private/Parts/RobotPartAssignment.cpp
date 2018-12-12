@@ -2,6 +2,10 @@
 
 
 #include "RobotPartAssignment.h"
+#include "Parts/Head/HeadPart_Default.h"
+#include "Parts/Core/CorePart_Default.h"
+#include "Parts/Arms/ArmsPart_Default.h"
+#include "Parts/Legs/LegsPart_Default.h"
 
 bool URobotPartAssignment::IsComplete()
 {
@@ -34,6 +38,14 @@ void URobotPartAssignment::SetLegs(ULegsPart* NewLegs)
   Legs = NewLegs;
   PartAssignmentChangedDelegate.Broadcast();
   LegsAssignmentChangedDelegate.Broadcast(NewLegs);
+}
+
+void URobotPartAssignment::SetDefaultAssignment()
+{
+  SetHead(NewObject<UHeadPart_Default>());
+  SetCore(NewObject<UCorePart_Default>());
+  SetArms(NewObject<UArmsPart_Default>());
+  SetLegs(NewObject<ULegsPart_Default>());
 }
 
 void URobotPartAssignment::CopyAssignment(URobotPartAssignment* NewPartAssignment)
