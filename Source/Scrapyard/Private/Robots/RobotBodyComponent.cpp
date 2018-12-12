@@ -51,8 +51,6 @@ URobotBodyComponent::URobotBodyComponent()
   PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
 
-//  PartAssignment->SetDefaultAssignment();
-
   WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
   WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
   WeaponAbilityComponent->SetupAttachment(this);

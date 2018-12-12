@@ -15,15 +15,17 @@ ARobotBodyGarage::ARobotBodyGarage()
   RobotBodyComponent->SetEnableGravity(false);
 
   RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
+
+  RobotBodyComponent->PartAssignment->SetDefaultAssignment();
+
+  RobotStats->SetPartAssignment(RobotBodyComponent->PartAssignment);
+
 }
 
 // Called when the game starts or when spawned
 void ARobotBodyGarage::BeginPlay()
 {
   Super::BeginPlay();
-
-
-  
 }
 
 // Called every frame

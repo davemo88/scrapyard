@@ -18,18 +18,20 @@ void URobotPartAssets::LoadAsset(TSoftObjectPtr<UObject> AssetPtr, FStreamableDe
   }
 }
 
-//template<typename T>
-TSharedPtr<FStreamableHandle> URobotPartAssets::LoadAssetSynchronous(TSoftObjectPtr<UObject> SoftObjectPtr)
+//TODO: maybe can simplify this by just calling LoadSynchronous on the TSoftObjectPtr
+template<typename T>
+T* URobotPartAssets::LoadAssetSynchronous(TSoftObjectPtr<UObject> SoftObjectPtr)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::LoadAssetSynchronous"), *GetName());
 
-  TSharedPtr<FStreamableHandle> StreamableHandle;
+  T* Asset = nullptr;
 
-  if (GameInstance)
+  if (!SoftObjectPtr.IsNull() && GameInstance)
   {
     UE_LOG(LogTemp, Warning, TEXT("GameInstance For LoadAsset OK"));
-    StreamableHandle = GameInstance->AssetLoader.RequestSyncLoad(SoftObjectPtr.ToSoftObjectPath());
+    TSharedPtr<FStreamableHandle> StreamableHandle = GameInstance->AssetLoader.RequestSyncLoad(SoftObjectPtr.ToSoftObjectPath());
+    Asset = Cast<T>(StreamableHandle->GetLoadedAsset());
   }
 
-  return StreamableHandle;
+  return Asset;
 }

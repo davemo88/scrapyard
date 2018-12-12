@@ -25,7 +25,7 @@ USkeletalMesh* URobotPart::GetSkeletalMesh()
   if (SkeletalMesh == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
 //    URobotPart::RobotPartAssetsBP->LoadAsset(GetSkeletalMeshAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnSkeletalMeshLoaded));
-    SkeletalMesh = Cast<USkeletalMesh>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetSkeletalMeshAssetPtr())->GetLoadedAsset());
+    SkeletalMesh = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<USkeletalMesh>(GetSkeletalMeshAssetPtr());
   }
 
   return SkeletalMesh;
@@ -44,7 +44,7 @@ UMaterial* URobotPart::GetMajorMaterial()
   if (MajorMaterial == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
 //    URobotPart::RobotPartAssetsBP->LoadAsset(GetMajorMaterialAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnMajorMaterialLoaded));
-    MajorMaterial = Cast<UMaterial>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetMajorMaterialAssetPtr())->GetLoadedAsset());
+    MajorMaterial = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<UMaterial>(GetMajorMaterialAssetPtr());
   }
 
   return MajorMaterial;
@@ -63,7 +63,7 @@ UManufacturer* URobotPart::GetManufacturer()
   if (Manufacturer == NULL && URobotPart::RobotPartAssetsBP != NULL)// && GetManufacturerAssetPtr() != NULL)
   {
 //    URobotPart::RobotPartAssetsBP->LoadAsset(GetManufacturerAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnManufacturerLoaded));
-    Manufacturer = Cast<UManufacturer>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetManufacturerAssetPtr())->GetLoadedAsset());
+    Manufacturer = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<UManufacturer>(GetManufacturerAssetPtr());
   }
 
   return Manufacturer;
@@ -82,7 +82,7 @@ UTexture2D* URobotPart::GetCardIcon()
   if (CardIcon == NULL && URobotPart::RobotPartAssetsBP != NULL)
   {
 //    URobotPart::RobotPartAssetsBP->LoadAsset(GetCardIconAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnCardIconLoaded));
-    CardIcon = Cast<UTexture2D>(URobotPart::RobotPartAssetsBP->LoadAssetSynchronous(GetCardIconAssetPtr())->GetLoadedAsset());
+    CardIcon = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<UTexture2D>(GetCardIconAssetPtr());
   }
 
   return CardIcon;
@@ -97,6 +97,8 @@ void URobotPart::OnCardIconLoaded()
 void URobotPart::SetupAssetAttributes()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAssetAttributes"), *GetName());
+  GetSkeletalMesh();
+  GetMajorMaterial();
   GetManufacturer();
   GetCardIcon();
 }

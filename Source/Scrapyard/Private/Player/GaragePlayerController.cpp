@@ -29,7 +29,6 @@ void AGaragePlayerController::SetupWidget()
   AGarageLevelScriptActor* GarageActor = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor());
   ARobotBodyGarage* RobotBodyGarage = GarageActor->GetRobotBodyGarage();
   PartAssignment = RobotBodyGarage->RobotBodyComponent->PartAssignment;
-  RobotBodyGarage->RobotStats->SetPartAssignment(PartAssignment);
 
   GarageWidget->RobotStatsWidget->SetRobotStats(RobotBodyGarage->RobotStats);
 

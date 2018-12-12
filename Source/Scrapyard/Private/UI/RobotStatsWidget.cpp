@@ -24,6 +24,7 @@ void URobotStatsWidget::SetRobotStats(URobotStats* NewRobotStats)
 {
   RobotStats = NewRobotStats;
   RobotStats->RobotStatsUpdatedDelegate.AddDynamic(this, &URobotStatsWidget::UpdateStats);
+  UpdateStats();
 }
 
 void URobotStatsWidget::UpdateStats()
