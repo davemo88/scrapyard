@@ -29,7 +29,4 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotBodyComponent* RobotBodyComponent;
 
-  UPROPERTY(BlueprintReadOnly)
-  URobotStats* RobotStats;
-
 };

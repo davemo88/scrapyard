@@ -14,11 +14,7 @@ ARobotBodyGarage::ARobotBodyGarage()
 
   RobotBodyComponent->SetEnableGravity(false);
 
-  RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
-
   RobotBodyComponent->PartAssignment->SetDefaultAssignment();
-
-  RobotStats->SetPartAssignment(RobotBodyComponent->PartAssignment);
 
 }
 

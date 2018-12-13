@@ -43,17 +43,20 @@ URobotBodyComponent::URobotBodyComponent()
 //
   PartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("PartAssignment"));
   
-//  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
-//  BoostingParticleComponent->SetupAttachment(this);
-//
   PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(HeadComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
 
+  RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
+  RobotStats->SetPartAssignment(PartAssignment);
+
   WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
   WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
   WeaponAbilityComponent->SetupAttachment(this);
+
+//  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
+//  BoostingParticleComponent->SetupAttachment(this);
 
 }
 

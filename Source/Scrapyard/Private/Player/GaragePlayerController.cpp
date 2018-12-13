@@ -30,7 +30,7 @@ void AGaragePlayerController::SetupWidget()
   ARobotBodyGarage* RobotBodyGarage = GarageActor->GetRobotBodyGarage();
   PartAssignment = RobotBodyGarage->RobotBodyComponent->PartAssignment;
 
-  GarageWidget->RobotStatsWidget->SetRobotStats(RobotBodyGarage->RobotStats);
+  GarageWidget->RobotStatsWidget->SetRobotStats(RobotBodyGarage->RobotBodyComponent->RobotStats);
 
   GarageWidget->RobotStatsWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
 }
