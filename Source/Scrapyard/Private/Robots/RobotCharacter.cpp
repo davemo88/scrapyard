@@ -275,10 +275,6 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
   const UDamageType* const DamageTypeCDO = DamageEvent.DamageTypeClass ? DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>() : GetDefault<UDamageType>();
 
   const UScrapyardDamageType* const ScrapyardDamageTypeCDO = Cast<UScrapyardDamageType>(DamageTypeCDO);
-  
-  int32 IntDamage = FMath::TruncToInt(Damage);
-
-//  ARobotPlayerState* RobotPlayerState = Cast<ARobotPlayerState>(PlayerState);
 
   FHitResult HitInfo;
   {
@@ -286,11 +282,19 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
     DamageEvent.GetBestHitInfo(this, DamageCauser, HitInfo, SomeVector);
   }
 
-  ARobotGameMode* GameMode = GetWorld()->GetAuthGameMode<ARobotGameMode>();
+  if (HasAuthority())
+  {
+    MulticastShowDamage(Damage, DamageEvent, EventInstigator, DamageCauser, HitInfo);
+  }
 
-  DrawDebugString(GetWorld(), HitInfo.Location, FString::FromInt(IntDamage), nullptr, FColor::Red, 10.f, true);
-  
+
   return 0.0f;
+}
+
+void ARobotCharacter::MulticastShowDamage_Implementation(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser, FHitResult HitInfo)
+{
+  int32 IntDamage = FMath::TruncToInt(Damage);
+  DrawDebugString(GetWorld(), HitInfo.Location, FString::FromInt(IntDamage), nullptr, FColor::Red, 10.f, true);
 }
 
 void ARobotCharacter::StartFire(uint8 FireModeNum)
@@ -342,4 +346,6 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & O
 {
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
   DOREPLIFETIME(ARobotCharacter, WeaponAbility);
+  DOREPLIFETIME(ARobotCharacter, HitPoints);
+  DOREPLIFETIME(ARobotCharacter, Power);
 }

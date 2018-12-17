@@ -53,9 +53,9 @@ public:
   UPROPERTY()
   URobotStats* RobotStats;
 
-  UPROPERTY()
+  UPROPERTY(Replicated)
   int32 HitPoints = 0;
-  UPROPERTY()
+  UPROPERTY(Replicated)
   int32 Power = 0;
 
 // camera
@@ -78,6 +78,9 @@ public:
   uint8 FireMode;
 
   virtual float TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+  UFUNCTION(NetMulticast, Unreliable)
+  void MulticastShowDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser, FHitResult HitInfo);
 
 // abilities 
   UPROPERTY(Replicated)

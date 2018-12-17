@@ -97,9 +97,10 @@ void URobotPart::OnCardIconLoaded()
 void URobotPart::SetupAssetAttributes()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAssetAttributes"), *GetName());
+  GetManufacturer();
+// TODO: don't load visual assets on the server
   GetSkeletalMesh();
   GetMajorMaterial();
-  GetManufacturer();
   GetCardIcon();
 }
 
