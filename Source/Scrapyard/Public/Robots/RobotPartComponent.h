@@ -10,7 +10,6 @@
 class URobotPartAssets;
 class UMaterial;
 class USkeletalMesh;
-class UManufacturer;
 class URarity;
 class USoloDraft;
 class URobotBodyComponent;

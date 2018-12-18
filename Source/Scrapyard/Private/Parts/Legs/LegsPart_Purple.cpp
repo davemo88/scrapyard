@@ -7,6 +7,7 @@
 ULegsPart_Purple::ULegsPart_Purple()
 {
   PartName = NSLOCTEXT("SY", "PurpleLegsName", "Purple Legs");
+  Manufacturer = Manufacturers["Purple"];
   Mass = 68;
   HitPoints = 30;
   PowerDrain = 100;
@@ -24,11 +25,6 @@ TSoftObjectPtr<USkeletalMesh> ULegsPart_Purple::GetSkeletalMeshAssetPtr()
 TSoftObjectPtr<UMaterial> ULegsPart_Purple::GetMajorMaterialAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->PurpleMaterial : nullptr;
-} 
-
-TSoftObjectPtr<UManufacturer> ULegsPart_Purple::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->PurpleCorp : nullptr;
 } 
 
 

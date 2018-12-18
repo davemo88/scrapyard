@@ -6,6 +6,7 @@
 UCorePart_Orange::UCorePart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeCoreName", "Orange Core");
+  Manufacturer = Manufacturers["Orange"];
   Mass = 100;
   HitPoints = 121;
   PowerDrain = 100;
@@ -25,11 +26,6 @@ TSoftObjectPtr<USkeletalMesh> UCorePart_Orange::GetSkeletalMeshAssetPtr()
 TSoftObjectPtr<UMaterial> UCorePart_Orange::GetMajorMaterialAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->OrangeMaterial : nullptr;
-} 
-
-TSoftObjectPtr<UManufacturer> UCorePart_Orange::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->OrangeCorp : nullptr;
 } 
 
 

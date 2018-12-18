@@ -12,7 +12,6 @@ class UCorePart;
 class UArmsPart;
 class ULegsPart;
 class UHandheldPart;
-class UManufacturer;
 class UScrapyardGameInstance;
 
 /**
@@ -46,17 +45,6 @@ public:
   TSoftObjectPtr<UMaterial> PurpleMaterial;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UMaterial> OrangeMaterial;
-
-  UPROPERTY(EditDefaultsOnly)
-  TSoftObjectPtr<UManufacturer> RedCorp;
-  UPROPERTY(EditDefaultsOnly)
-  TSoftObjectPtr<UManufacturer> BlueCorp;
-  UPROPERTY(EditDefaultsOnly)
-  TSoftObjectPtr<UManufacturer> GreenCorp;
-  UPROPERTY(EditDefaultsOnly)
-  TSoftObjectPtr<UManufacturer> OrangeCorp;
-  UPROPERTY(EditDefaultsOnly)
-  TSoftObjectPtr<UManufacturer> PurpleCorp;
 
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> HeadCardIcon;

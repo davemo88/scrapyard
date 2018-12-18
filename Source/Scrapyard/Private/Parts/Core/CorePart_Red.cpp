@@ -7,6 +7,7 @@
 UCorePart_Red::UCorePart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedCoreName", "Red Core");
+  Manufacturer = Manufacturers["Red"];
   Mass = 100;
   HitPoints = 211;
   PowerDrain = 100;
@@ -26,10 +27,5 @@ TSoftObjectPtr<USkeletalMesh> UCorePart_Red::GetSkeletalMeshAssetPtr()
 TSoftObjectPtr<UMaterial> UCorePart_Red::GetMajorMaterialAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->RedMaterial : nullptr;
-} 
-
-TSoftObjectPtr<UManufacturer> UCorePart_Red::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->RedCorp : nullptr;
 } 
 

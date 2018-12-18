@@ -6,6 +6,7 @@
 UHeadPart_Blue::UHeadPart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueHeadName", "Blue Head");
+  Manufacturer = Manufacturers["Blue"];
   Mass = 100;
   HitPoints = 76;
   PowerDrain = 100;
@@ -24,11 +25,6 @@ TSoftObjectPtr<USkeletalMesh> UHeadPart_Blue::GetSkeletalMeshAssetPtr()
 TSoftObjectPtr<UMaterial> UHeadPart_Blue::GetMajorMaterialAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->BlueMaterial : nullptr;
-} 
-
-TSoftObjectPtr<UManufacturer> UHeadPart_Blue::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->BlueCorp : nullptr;
 } 
 
 

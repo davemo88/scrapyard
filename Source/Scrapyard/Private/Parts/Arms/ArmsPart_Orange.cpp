@@ -7,6 +7,7 @@
 UArmsPart_Orange::UArmsPart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeArmsName", "Orange Arms");
+  Manufacturer = Manufacturers["Orange"];
   Mass = 52;
   HitPoints = 42;
   PowerDrain = 12;
@@ -26,10 +27,6 @@ TSoftObjectPtr<UMaterial> UArmsPart_Orange::GetMajorMaterialAssetPtr()
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->OrangeMaterial : nullptr;
 } 
 
-TSoftObjectPtr<UManufacturer> UArmsPart_Orange::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->OrangeCorp : nullptr;
-} 
 
 
 

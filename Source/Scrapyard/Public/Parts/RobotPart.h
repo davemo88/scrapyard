@@ -101,10 +101,6 @@ public:
 
   virtual void Assign(URobotPartAssignment* RobotPartAssignment) {};
 
-  UManufacturer* GetManufacturer();
-
-  void OnManufacturerLoaded();
-
   UTexture2D* GetCardIcon();
 
   void OnCardIconLoaded();
@@ -124,8 +120,6 @@ protected:
   virtual TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() { return nullptr; };
 
   virtual TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() { return nullptr; };
-
-  virtual TSoftObjectPtr<UManufacturer> GetManufacturerAssetPtr() { return nullptr; };
 
   virtual TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr() { return nullptr; };
 

@@ -7,6 +7,7 @@
 ULegsPart_Blue::ULegsPart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueLegsName", "Blue Legs");
+  Manufacturer = Manufacturers["Blue"];
   Mass = 101;
   HitPoints = 50;
   PowerDrain = 99;
@@ -24,11 +25,6 @@ TSoftObjectPtr<USkeletalMesh> ULegsPart_Blue::GetSkeletalMeshAssetPtr()
 TSoftObjectPtr<UMaterial> ULegsPart_Blue::GetMajorMaterialAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->BlueMaterial : nullptr;
-} 
-
-TSoftObjectPtr<UManufacturer> ULegsPart_Blue::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->BlueCorp : nullptr;
 } 
 
 

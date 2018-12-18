@@ -2,6 +2,12 @@
 
 #include "RobotPart.h"
 #include "RobotPartAssets.h"
+#include "Parts/Manufacturer/Manufacturer_Default.h"
+#include "Parts/Manufacturer/Manufacturer_Red.h"
+#include "Parts/Manufacturer/Manufacturer_Blue.h"
+#include "Parts/Manufacturer/Manufacturer_Green.h"
+#include "Parts/Manufacturer/Manufacturer_Purple.h"
+#include "Parts/Manufacturer/Manufacturer_Orange.h"
 #include "Engine/SkeletalMesh.h"
 
 URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
@@ -57,26 +63,6 @@ void URobotPart::OnMajorMaterialLoaded()
   MajorMaterial = GetMajorMaterialAssetPtr().Get();
 }
 
-UManufacturer* URobotPart::GetManufacturer()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetManufacturer"), *GetName());
-
-  if (Manufacturer == NULL && URobotPart::RobotPartAssetsBP != NULL)// && GetManufacturerAssetPtr() != NULL)
-  {
-//    URobotPart::RobotPartAssetsBP->LoadAsset(GetManufacturerAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnManufacturerLoaded));
-    Manufacturer = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<UManufacturer>(GetManufacturerAssetPtr());
-  }
-
-  return Manufacturer;
-
-}
-
-void URobotPart::OnManufacturerLoaded()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnManufacturerLoaded"), *GetName());
-  Manufacturer = GetManufacturerAssetPtr().Get();
-}
-
 UTexture2D* URobotPart::GetCardIcon()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetCardIcon"), *GetName());
@@ -98,7 +84,6 @@ void URobotPart::OnCardIconLoaded()
 void URobotPart::SetupAssetAttributes()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAssetAttributes"), *GetName());
-//  GetManufacturer();
 // TODO: don't load visual assets on the server
   GetSkeletalMesh();
   GetMajorMaterial();
@@ -126,7 +111,7 @@ TMap<FString, UManufacturer*> URobotPart::InitManufacturers()
   Map.Add("Blue", NewObject<UManufacturer_Blue>());
   Map.Add("Green", NewObject<UManufacturer_Green>());
   Map.Add("Purple", NewObject<UManufacturer_Purple>());
-  Map.Add("Default", NewObject<UManufacturer_Default>());
+  Map.Add("Orange", NewObject<UManufacturer_Orange>());
 
   return Map;
 

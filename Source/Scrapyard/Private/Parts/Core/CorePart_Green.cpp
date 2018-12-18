@@ -6,6 +6,7 @@
 UCorePart_Green::UCorePart_Green()
 {
   PartName = NSLOCTEXT("SY", "GreenCoreName", "Green Core");
+  Manufacturer = Manufacturers["Green"];
   Mass = 100;
   HitPoints = 188;
   PowerDrain = 100;
@@ -26,12 +27,6 @@ TSoftObjectPtr<UMaterial> UCorePart_Green::GetMajorMaterialAssetPtr()
 {
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GreenMaterial : nullptr;
 } 
-
-TSoftObjectPtr<UManufacturer> UCorePart_Green::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GreenCorp : nullptr;
-} 
-
 
 
 

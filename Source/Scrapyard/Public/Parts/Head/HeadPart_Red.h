@@ -21,7 +21,6 @@ public:
 
   TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;
   TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() override;
-  TSoftObjectPtr<UManufacturer> GetManufacturerAssetPtr() override;
   
 	
 	

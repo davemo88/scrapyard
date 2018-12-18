@@ -7,6 +7,7 @@
 UArmsPart_Red::UArmsPart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedArmsName", "Red Arms");
+  Manufacturer = Manufacturers["Red"];
   Mass = 79;
   HitPoints = 75;
   PowerDrain = 12;
@@ -26,10 +27,6 @@ TSoftObjectPtr<UMaterial> UArmsPart_Red::GetMajorMaterialAssetPtr()
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->RedMaterial : nullptr;
 } 
 
-TSoftObjectPtr<UManufacturer> UArmsPart_Red::GetManufacturerAssetPtr()
-{
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->RedCorp : nullptr;
-} 
 
 
 
