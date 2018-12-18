@@ -19,14 +19,17 @@ void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart"), *GetName());
   RobotPart = NewRobotPart;
-  if (RobotPart->SkeletalMesh != NULL)
+  if (GetOwner() != NULL && !GetOwner()->HasAuthority())
   {
-    SetSkeletalMesh(RobotPart->SkeletalMesh);
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
+    if (USkeletalMesh* Mesh = RobotPart->GetSkeletalMesh())
+    {
+      SetSkeletalMesh(Mesh);
+    }
+  
+    if (UMaterial* MajorMaterial = RobotPart->GetMajorMaterial())
+    {
+      SetMaterial(0, MajorMaterial);
+    }
   }
-
-  if (RobotPart->MajorMaterial != NULL)
-  {
-    SetMaterial(0, RobotPart->MajorMaterial);
-  }
-
 }

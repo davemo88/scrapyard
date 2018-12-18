@@ -22,7 +22,6 @@ void URobotPart::PostInitProperties()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::PostInitProperties"), *GetName());
   Super::PostInitProperties();
-  SetupAssetAttributes();
 }
 
 USkeletalMesh* URobotPart::GetSkeletalMesh()
@@ -81,15 +80,6 @@ void URobotPart::OnCardIconLoaded()
   CardIcon = GetCardIconAssetPtr().Get(); 
 }
 
-void URobotPart::SetupAssetAttributes()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAssetAttributes"), *GetName());
-// TODO: don't load visual assets on the server
-  GetSkeletalMesh();
-  GetMajorMaterial();
-  GetCardIcon();
-}
-
 TArray<FStatText> URobotPart::GetStatsText()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetStatsText"), *GetName());
@@ -106,6 +96,7 @@ TArray<FStatText> URobotPart::GetStatsText()
 TMap<FString, UManufacturer*> URobotPart::InitManufacturers()
 {
   TMap<FString, UManufacturer*> Map;
+
   Map.Add("Default", NewObject<UManufacturer_Default>());
   Map.Add("Red", NewObject<UManufacturer_Red>());
   Map.Add("Blue", NewObject<UManufacturer_Blue>());

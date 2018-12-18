@@ -114,9 +114,6 @@ public:
 
 protected: 
 
-  UFUNCTION()
-  void SetupAssetAttributes();
-
   virtual TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() { return nullptr; };
 
   virtual TSoftObjectPtr<UMaterial> GetMajorMaterialAssetPtr() { return nullptr; };

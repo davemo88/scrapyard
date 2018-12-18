@@ -14,9 +14,9 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
   {
     CardBackground->SetBrushColor(RobotPart->Manufacturer->CardBackgroundColor);
   }
-  if (RobotPart->CardIcon)
+  if (UTexture2D* CardIcon = RobotPart->GetCardIcon())
   {
-    PartTypeIcon->SetBrushFromTexture(RobotPart->CardIcon); 
+    PartTypeIcon->SetBrushFromTexture(CardIcon); 
   }
   AddStatsText();
 }

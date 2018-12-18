@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
 #include "Engine/Texture2D.h"
 #include "Manufacturer.generated.h"
 
@@ -11,7 +10,7 @@
  * 
  */
 UCLASS()
-class SCRAPYARD_API UManufacturer : public UDataAsset
+class SCRAPYARD_API UManufacturer : public UObject
 {
   GENERATED_BODY()
 
