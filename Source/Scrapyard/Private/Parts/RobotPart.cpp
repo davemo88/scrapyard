@@ -5,6 +5,7 @@
 #include "Engine/SkeletalMesh.h"
 
 URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
+TMap<FString, UManufacturer*> URobotPart::Manufacturers = URobotPart::InitManufacturers();
 
 URobotPart::URobotPart()
 {
@@ -97,7 +98,7 @@ void URobotPart::OnCardIconLoaded()
 void URobotPart::SetupAssetAttributes()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAssetAttributes"), *GetName());
-  GetManufacturer();
+//  GetManufacturer();
 // TODO: don't load visual assets on the server
   GetSkeletalMesh();
   GetMajorMaterial();
@@ -115,4 +116,18 @@ TArray<FStatText> URobotPart::GetStatsText()
   StatsText.Add(FStatText(NSLOCTEXT("SY", "PhysicalDefenseStatText", "Physical Defense"),FText::AsNumber(PhysicalDefense)));
   StatsText.Add(FStatText(NSLOCTEXT("SY", "EnergyDefenseStatText", "Energy Defense"),FText::AsNumber(EnergyDefense)));
   return StatsText;
+}
+
+TMap<FString, UManufacturer*> URobotPart::InitManufacturers()
+{
+  TMap<FString, UManufacturer*> Map;
+  Map.Add("Default", NewObject<UManufacturer_Default>());
+  Map.Add("Red", NewObject<UManufacturer_Red>());
+  Map.Add("Blue", NewObject<UManufacturer_Blue>());
+  Map.Add("Green", NewObject<UManufacturer_Green>());
+  Map.Add("Purple", NewObject<UManufacturer_Purple>());
+  Map.Add("Default", NewObject<UManufacturer_Default>());
+
+  return Map;
+
 }

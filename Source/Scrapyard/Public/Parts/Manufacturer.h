@@ -18,11 +18,14 @@ class SCRAPYARD_API UManufacturer : public UDataAsset
 public:
 
   UPROPERTY(EditDefaultsOnly)
-  FString ManufacturerName;
+  FText ManufacturerName;
+
+  UPROPERTY(EditDefaultsOnly)
+  FLinearColor CardBackgroundColor;
   
   UPROPERTY(EditDefaultsOnly)
   UTexture2D* Logo;
 
   UPROPERTY(EditDefaultsOnly)
-  FLinearColor CardBackgroundColor;
+  UMaterial* MajorMaterial;
 };

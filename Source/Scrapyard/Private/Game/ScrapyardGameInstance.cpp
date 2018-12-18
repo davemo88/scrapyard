@@ -5,10 +5,16 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 #include "Game/ScrapyardDefaultAssets.h"
+#include "Components/Button.h"
 #include "Parts/RobotPartAssets.h"
 #include "Parts/RobotPart.h"
 #include "SoloDraft.h"
-#include "Components/Button.h"
+#include "Parts/Manufacturer/Manufacturer_Default.h"
+#include "Parts/Manufacturer/Manufacturer_Red.h"
+#include "Parts/Manufacturer/Manufacturer_Blue.h"
+#include "Parts/Manufacturer/Manufacturer_Green.h"
+#include "Parts/Manufacturer/Manufacturer_Purple.h"
+#include "Parts/Manufacturer/Manufacturer_Orange.h"
 
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
@@ -44,6 +50,15 @@ UScrapyardGameInstance::UScrapyardGameInstance()
     }
   }
   URobotPart::RobotPartAssetsBP = RobotPartAssetsBP;
+
+//  Manufacturers.Add("Default", CreateDefaultSubobject<UManufacturer_Default>(TEXT("Default Manufacturer")));
+//  Manufacturers.Add("Red", CreateDefaultSubobject<UManufacturer_Red>(TEXT("Red Manufacturer")));
+//  Manufacturers.Add("Blue", CreateDefaultSubobject<UManufacturer_Blue>(TEXT("Blue Manufacturer")));
+//  Manufacturers.Add("Green", CreateDefaultSubobject<UManufacturer_Green>(TEXT("Green Manufacturer")));
+//  Manufacturers.Add("Purple", CreateDefaultSubobject<UManufacturer_Purple>(TEXT("Purple Manufacturer")));
+//  Manufacturers.Add("Default", CreateDefaultSubobject<UManufacturer_Default>(TEXT("Default Manufacturer")));
+//
+//  URobotPart::Manufacturers = Manufacturers;
 };
 
 void UScrapyardGameInstance::Init()

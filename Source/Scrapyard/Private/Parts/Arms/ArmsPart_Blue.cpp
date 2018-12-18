@@ -6,6 +6,7 @@
 UArmsPart_Blue::UArmsPart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueArmsName", "Blue Arms");
+  Manufacturer = Manufacturers["Blue"];
   Mass = 56;
   HitPoints = 44;
   PowerDrain = 18;

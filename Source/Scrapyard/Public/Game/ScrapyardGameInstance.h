@@ -30,6 +30,9 @@ public:
   UPROPERTY()
   URobotPartAssets* RobotPartAssetsBP;
 
+//  UPROPERTY()
+//  TMap<FString, UManufacturer*> Manufacturers;
+
 //TODO: shouldn't be stored here because game instance doesn't replicate
   UPROPERTY()
   USoloDraft* SoloDraft;

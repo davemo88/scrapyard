@@ -12,9 +12,13 @@
 UCLASS()
 class SCRAPYARD_API UManufacturer_Red : public UManufacturer
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+
+public:
+
+  UManufacturer_Red();
+  
+  
+  
+  
 };

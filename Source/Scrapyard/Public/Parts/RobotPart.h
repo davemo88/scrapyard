@@ -39,6 +39,12 @@ public:
 // stats
 //
 
+  static URobotPartAssets* RobotPartAssetsBP;
+
+  static TMap<FString, UManufacturer*> Manufacturers;
+
+  static TMap<FString, UManufacturer*> InitManufacturers();
+
   URobotPart();
 
   virtual void PostInitProperties() override;
@@ -94,8 +100,6 @@ public:
   virtual void Draft(USoloDraft* SoloDraft) {};
 
   virtual void Assign(URobotPartAssignment* RobotPartAssignment) {};
-
-  static URobotPartAssets* RobotPartAssetsBP;
 
   UManufacturer* GetManufacturer();
 
