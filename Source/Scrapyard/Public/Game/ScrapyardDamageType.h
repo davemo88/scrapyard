@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/DamageType.h"
+#include "Engine/EngineTypes.h"
 #include "ScrapyardDamageType.generated.h"
 
 USTRUCT()

@@ -1,14 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GaragePlayerController.h"
+#include "Engine/SkeletalMesh.h"
 #include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObjectGlobals.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Levels/GarageLevelScriptActor.h"
+#include "Parts/RobotPart.h"
 #include "Robots/RobotBodyGarage.h"
+#include "Robots/RobotBodyComponent.h"
 #include "UI/GarageWidget.h"
 #include "UI/YourPartsWidget.h"
 #include "UI/PartCardWidget.h"

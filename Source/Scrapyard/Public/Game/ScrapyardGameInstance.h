@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Online.h"
+#include "Engine/GameInstance.h"
 #include "Engine/StreamableManager.h"
 #include "ScrapyardGameInstance.generated.h"
 

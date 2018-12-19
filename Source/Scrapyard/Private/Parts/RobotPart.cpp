@@ -1,16 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotPart.h"
-#include "RobotPartAssets.h"
+#include "Parts/RobotPartAssets.h"
 #include "Parts/Manufacturer/Manufacturer_Default.h"
 #include "Parts/Manufacturer/Manufacturer_Red.h"
 #include "Parts/Manufacturer/Manufacturer_Blue.h"
 #include "Parts/Manufacturer/Manufacturer_Green.h"
 #include "Parts/Manufacturer/Manufacturer_Purple.h"
 #include "Parts/Manufacturer/Manufacturer_Orange.h"
+#include "Materials/Material.h"
+#include "Engine/Texture2D.h"
 #include "Engine/SkeletalMesh.h"
 
 URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
+//TMap<FString, UManufacturer*> URobotPart::Manufacturers; 
 TMap<FString, UManufacturer*> URobotPart::Manufacturers = URobotPart::InitManufacturers();
 
 URobotPart::URobotPart()

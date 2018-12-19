@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/SkeletalMesh.h"
+#include "Ability/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
 class UManufacturer;
@@ -10,7 +12,9 @@ class URarity;
 class USoloDraft;
 class URobotPartAssignment;
 class URobotPartAssets;
-class AScrapyardAbility;
+//class AScrapyardAbility;
+class UTexture2D;
+class UMaterial;
 
 // DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSkeletalMeshLoadedDelegate);
 // DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMajorMaterialLoadedDelegate);

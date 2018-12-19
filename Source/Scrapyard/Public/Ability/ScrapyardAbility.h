@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
 #include "UObject/NoExportTypes.h"
 #include "Game/ScrapyardDamageType.h"
 #include "ScrapyardAbility.generated.h"

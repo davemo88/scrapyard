@@ -4,6 +4,9 @@
 #include "RobotPartAssets.h"
 #include "Engine.h"
 #include "Kismet/GameplayStatics.h"
+#include "Materials/Material.h"
+#include "Engine/Texture2D.h"
+#include "Engine/SkeletalMesh.h"
 #include "Game/ScrapyardGameInstance.h"
 
 //template <typename T>

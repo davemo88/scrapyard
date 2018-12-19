@@ -3,8 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/SkeletalMesh.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/StreamableManager.h"
+#include "Materials/Material.h"
+#include "Engine/Texture2D.h"
+#include "Engine/SkeletalMesh.h"
 #include "RobotPartAssets.generated.h"
 
 class UHeadPart;

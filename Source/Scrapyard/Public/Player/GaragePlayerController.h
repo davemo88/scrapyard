@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Parts/RobotPartAssignment.h"
 #include "Player/MenuPlayerController.h"
 #include "GaragePlayerController.generated.h"
 

@@ -4,6 +4,7 @@
 #include "Engine/Engine.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
+#include "Online/ScrapyardGameSession.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Components/Button.h"
 #include "Parts/RobotPartAssets.h"
@@ -44,6 +45,7 @@ UScrapyardGameInstance::UScrapyardGameInstance()
     }
   }
   URobotPart::RobotPartAssetsBP = RobotPartAssetsBP;
+//  URobotPart::Manufacturers = URobotPart::InitManufacturers();
 };
 
 void UScrapyardGameInstance::Init()

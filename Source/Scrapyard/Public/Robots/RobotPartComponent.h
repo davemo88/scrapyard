@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Ability/ScrapyardAbility.h"
 #include "RobotPartComponent.generated.h"
 
