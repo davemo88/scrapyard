@@ -7,9 +7,7 @@
 #include "Materials/Material.h"
 #include "Engine/Texture2D.h"
 #include "Engine/SkeletalMesh.h"
-#include "Game/ScrapyardGameInstance.h"
 
-//template <typename T>
 void URobotPartAssets::LoadAsset(TSoftObjectPtr<UObject> AssetPtr, FStreamableDelegate DelegateToCall)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::LoadAsset"), *GetName());
@@ -21,20 +19,3 @@ void URobotPartAssets::LoadAsset(TSoftObjectPtr<UObject> AssetPtr, FStreamableDe
   }
 }
 
-//TODO: maybe can simplify this by just calling LoadSynchronous on the TSoftObjectPtr
-template<typename T>
-T* URobotPartAssets::LoadAssetSynchronous(TSoftObjectPtr<UObject> SoftObjectPtr)
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::LoadAssetSynchronous"), *GetName());
-
-  T* Asset = nullptr;
-
-  if (!SoftObjectPtr.IsNull() && GameInstance)
-  {
-    UE_LOG(LogTemp, Warning, TEXT("GameInstance For LoadAsset OK"));
-    TSharedPtr<FStreamableHandle> StreamableHandle = GameInstance->AssetLoader.RequestSyncLoad(SoftObjectPtr.ToSoftObjectPath());
-    Asset = Cast<T>(StreamableHandle->GetLoadedAsset());
-  }
-
-  return Asset;
-}
