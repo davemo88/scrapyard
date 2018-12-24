@@ -2,11 +2,12 @@
 
 
 #include "HeadPart_Green.h"
+#include "RobotPartAssets.h"
 
 UHeadPart_Green::UHeadPart_Green()
 {
   PartName = NSLOCTEXT("SY", "GreenHeadName", "Green Head");
-  Manufacturer = Manufacturers["Green"];
+  Manufacturer = GetManufacturer("Green");
   Mass = 100;
   HitPoints = 69;
   PowerDrain = 50;

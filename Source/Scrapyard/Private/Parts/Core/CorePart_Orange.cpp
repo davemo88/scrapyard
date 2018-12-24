@@ -2,11 +2,12 @@
 
 
 #include "CorePart_Orange.h"
+#include "RobotPartAssets.h"
 
 UCorePart_Orange::UCorePart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeCoreName", "Orange Core");
-  Manufacturer = Manufacturers["Orange"];
+  Manufacturer = GetManufacturer("Orange");
   Mass = 100;
   HitPoints = 121;
   PowerDrain = 100;

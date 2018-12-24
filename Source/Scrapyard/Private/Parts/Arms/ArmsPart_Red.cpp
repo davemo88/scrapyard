@@ -7,7 +7,7 @@
 UArmsPart_Red::UArmsPart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedArmsName", "Red Arms");
-  Manufacturer = Manufacturers["Red"];
+  Manufacturer = GetManufacturer("Red");
   Mass = 79;
   HitPoints = 75;
   PowerDrain = 12;

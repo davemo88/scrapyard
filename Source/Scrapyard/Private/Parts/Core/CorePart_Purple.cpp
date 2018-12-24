@@ -2,12 +2,13 @@
 
 
 #include "CorePart_Purple.h"
+#include "RobotPartAssets.h"
 
 
 UCorePart_Purple::UCorePart_Purple()
 {
   PartName = NSLOCTEXT("SY", "PurpleCoreName", "Purple Core");
-  Manufacturer = Manufacturers["Purple"];
+  Manufacturer = GetManufacturer("Purple");
   Mass = 100;
   HitPoints = 97;
   PowerDrain = 100;

@@ -13,8 +13,6 @@
 #include "Engine/SkeletalMesh.h"
 
 URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
-//TMap<FString, UManufacturer*> URobotPart::Manufacturers; 
-TMap<FString, UManufacturer*> URobotPart::Manufacturers = URobotPart::InitManufacturers();
 
 URobotPart::URobotPart()
 {
@@ -96,8 +94,17 @@ TArray<FStatText> URobotPart::GetStatsText()
   return StatsText;
 }
 
+UManufacturer* URobotPart::GetManufacturer(FString ManufacturerNick)
+{
+  UE_LOG(LogTemp, Warning, TEXT("URobotPart::GetManufacturer"));
+  static TMap<FString, UManufacturer*> it = InitManufacturers();
+  return it[ManufacturerNick];
+//  return it;
+}
+
 TMap<FString, UManufacturer*> URobotPart::InitManufacturers()
 {
+  UE_LOG(LogTemp, Warning, TEXT("URobotPart::InitManufacturers"));
   TMap<FString, UManufacturer*> Map;
 
   Map.Add("Default", NewObject<UManufacturer_Default>());
@@ -108,5 +115,4 @@ TMap<FString, UManufacturer*> URobotPart::InitManufacturers()
   Map.Add("Orange", NewObject<UManufacturer_Orange>());
 
   return Map;
-
 }

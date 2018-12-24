@@ -7,7 +7,7 @@
 UArmsPart_Orange::UArmsPart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeArmsName", "Orange Arms");
-  Manufacturer = Manufacturers["Orange"];
+  Manufacturer = GetManufacturer("Orange");
   Mass = 52;
   HitPoints = 42;
   PowerDrain = 12;

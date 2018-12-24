@@ -45,7 +45,9 @@ public:
 
   static URobotPartAssets* RobotPartAssetsBP;
 
-  static TMap<FString, UManufacturer*> Manufacturers;
+//  static TMap<FString, UManufacturer*> Manufacturers;
+
+  static UManufacturer* GetManufacturer(FString ManufacturerNick);
 
   static TMap<FString, UManufacturer*> InitManufacturers();
 

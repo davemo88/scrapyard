@@ -4,10 +4,11 @@
 #include "ArmsPart_Blue.h"
 #include "Parts/RobotPartAssets.h"
 
+
 UArmsPart_Blue::UArmsPart_Blue()
 {
   PartName = NSLOCTEXT("SY", "BlueArmsName", "Blue Arms");
-  Manufacturer = Manufacturers["Blue"];
+  Manufacturer = GetManufacturer("Blue");
   Mass = 56;
   HitPoints = 44;
   PowerDrain = 18;

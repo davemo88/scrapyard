@@ -2,12 +2,13 @@
 
 
 #include "CorePart_Red.h"
+#include "RobotPartAssets.h"
 
 
 UCorePart_Red::UCorePart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedCoreName", "Red Core");
-  Manufacturer = Manufacturers["Red"];
+  Manufacturer = GetManufacturer("Red");
   Mass = 100;
   HitPoints = 211;
   PowerDrain = 100;

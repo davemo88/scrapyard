@@ -8,7 +8,7 @@
 UArmsPart_Green::UArmsPart_Green()
 {
   PartName = NSLOCTEXT("SY", "GreenArmsName", "Green Arms");
-  Manufacturer = Manufacturers["Green"];
+  Manufacturer = GetManufacturer("Green");
   Mass = 61;
   HitPoints = 58;
   PowerDrain = 7;

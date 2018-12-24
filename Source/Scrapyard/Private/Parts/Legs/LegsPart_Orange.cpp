@@ -2,13 +2,14 @@
 
 
 #include "LegsPart_Orange.h"
+#include "RobotPartAssets.h"
 
 
 
 ULegsPart_Orange::ULegsPart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeLegsName", "Orange Legs");
-  Manufacturer = Manufacturers["Orange"];
+  Manufacturer = GetManufacturer("Orange");
   Mass = 77;
   HitPoints = 33;
   PowerDrain = 81;
