@@ -7,7 +7,6 @@
 #include "Kismet/GameplayStatics.h"
 #include "Robots/RobotCharacter.h"
 #include "Online/ScrapyardGameSession.h"
-//#include "Player/ScrapyardPlayerController.h"
 #include "Robots/RobotPlayerController.h"
 
 ARobotGameMode::ARobotGameMode()

@@ -4,7 +4,7 @@
 
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "Player/ScrapyardPlayerController.h"
 #include "MenuPlayerController.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWidgetReadyDelegate);
@@ -13,7 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWidgetReadyDelegate);
  * 
  */
 UCLASS()
-class SCRAPYARD_API AMenuPlayerController : public APlayerController
+class SCRAPYARD_API AMenuPlayerController : public AScrapyardPlayerController
 {
   GENERATED_BODY()
 

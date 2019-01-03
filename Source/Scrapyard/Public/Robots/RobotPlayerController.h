@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Player/ScrapyardPlayerController.h"
+#include "UI/RobotHUDWidget.h"
 #include "RobotPlayerController.generated.h"
 
 class ARobotCharacter;
@@ -30,7 +31,10 @@ protected:
 
   TArray< FDeferredFireInput, TInlineAllocator<2> > DeferredFireInputs;
 
+  virtual void BeginPlay() override;
+
 public:
+  URobotHUDWidget* RobotHUDWidget;
 
 // TODO: refector these to be protected
   virtual void OnFire();

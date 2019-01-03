@@ -4,7 +4,6 @@
 #include "BattleGameState.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerController.h"
-#include "Player/ScrapyardPlayerController.h"
 
 ABattleGameMode::ABattleGameMode()
 {

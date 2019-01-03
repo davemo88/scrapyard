@@ -3,16 +3,52 @@
 #include "ScrapyardPlayerController.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardDefaultAssets.h"
+#include "UI/EscapeMenuWidget.h"
 #include "Robots/RobotCharacter.h"
 #include "UI/RobotHUDWidget.h"
+#include "GameFramework/PlayerController.h"
 
 void AScrapyardPlayerController::BeginPlay()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
-//  SetupRobotHUDWidget();
+  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+  EscapeMenuWidget = CreateWidget<UEscapeMenuWidget>(this, GameInstance->DefaultAssetsBP->EscapeMenuWidgetBP);
+
 }
+
+void AScrapyardPlayerController::SetupInputComponent()
+{
+  Super::SetupInputComponent();
+  InputComponent->BindAction("Escape",IE_Pressed, this, &AScrapyardPlayerController::ToggleEscapeMenu);
+
+}
+
+void AScrapyardPlayerController::ToggleEscapeMenu()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ToggleEscapeMenu"), *GetName());
+  if (EscapeMenuWidget->IsInViewport())
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::ToggleEscapeMenu - Toggle Off"), *GetName());
+    EscapeMenuWidget->RemoveFromViewport();
+    ClientIgnoreLookInput(false);
+    const FInputModeGameOnly InputMode = FInputModeGameOnly();
+    SetInputMode(InputMode);
+    bShowMouseCursor = false;
+  }
+  else
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::ToggleEscapeMenu - Toggle On"), *GetName());
+    EscapeMenuWidget->AddToViewport();
+    ClientIgnoreLookInput(true);
+    const FInputModeGameAndUI InputMode = FInputModeGameAndUI();
+    SetInputMode(InputMode);
+    bShowMouseCursor = true;
+    
+  }
+}
+
 
 //void AScrapyardPlayerController::SetupRobotHUDWidget()
 //{

@@ -3,11 +3,24 @@
 #include "RobotPlayerController.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerCameraManager.h"
+#include "GameFramework/PlayerController.h"
 
 ARobotPlayerController::ARobotPlayerController()
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController Constructor"));
   PlayerCameraManagerClass = ARobotPlayerCameraManager::StaticClass();
+}
+
+void ARobotPlayerController::BeginPlay()
+{
+  Super::BeginPlay();
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
+//  UGameViewportClient* ViewportClient = GetWorld()->GetGameInstance()->GetGameViewportClient();
+//  ViewportClient->Viewport->CaptureMouse(true);
+//  ViewportClient->Viewport->SetUserFocus(true);
+  const FInputModeGameOnly InputMode = FInputModeGameOnly();
+  SetInputMode(InputMode);
+
 }
 
 void ARobotPlayerController::Possess(APawn* InPawn)

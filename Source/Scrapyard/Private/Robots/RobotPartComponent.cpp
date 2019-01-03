@@ -10,12 +10,6 @@ void URobotPartComponent::BeginPlay()
 {
   Super::BeginPlay();
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
-
-//  USkeletalMesh* Mesh = GetSkeletalMesh();
-//  if (Mesh != NULL)
-//  {
-//    SetSkeletalMesh(Mesh);
-//  }
 }
 
 void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)

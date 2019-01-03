@@ -4,9 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "UI/EscapeMenuWidget.h"
 #include "ScrapyardPlayerController.generated.h"
-
-class URobotHUDWidget;
 
 /**
  * 
@@ -19,7 +18,12 @@ class SCRAPYARD_API AScrapyardPlayerController : public APlayerController
 protected:
   virtual void BeginPlay() override;
 
-public:
-  URobotHUDWidget* RobotHUDWidget;
+  virtual void SetupInputComponent() override;
+
+  UPROPERTY()
+  UEscapeMenuWidget* EscapeMenuWidget;
+
+  void ToggleEscapeMenu();
+  
 
 };

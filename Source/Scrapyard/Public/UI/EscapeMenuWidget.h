@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "EscapeMenuWidget.generated.h"
 
 /**
@@ -12,13 +13,20 @@
 UCLASS()
 class SCRAPYARD_API UEscapeMenuWidget : public UUserWidget
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
 public:
-	UFUNCTION(BlueprintCallable)
-	void Options();
-	UFUNCTION(BlueprintCallable)
-	void QuitToMainMenu();
-	UFUNCTION(BlueprintCallable)
-	void QuitToDesktop();
+  UPROPERTY(meta=(BindWidget))
+  UButton* OptionsButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* QuitToMainButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* QuitToDesktopButton;
+
+  UFUNCTION()
+  void Options();
+  UFUNCTION()
+  void QuitToMainMenu();
+  UFUNCTION()
+  void QuitToDesktop();
 };
