@@ -8,7 +8,8 @@
 
 AMenuPlayerController::AMenuPlayerController()
 {
-  bShowMouseCursor = true;
+  bDefaultShowMouseCursor = true;
+  bShowMouseCursor = bDefaultShowMouseCursor;
   bEnableClickEvents = true;
   bEnableMouseOverEvents = true;
 
@@ -27,4 +28,14 @@ void AMenuPlayerController::BeginPlay()
   SetupWidget();
 
   OnWidgetReadyDelegate.Broadcast();
+}
+
+void AMenuPlayerController::ShowEscapeMenu()
+{
+  Super::ShowEscapeMenu();
+}
+
+void AMenuPlayerController::HideEscapeMenu()
+{
+  Super::HideEscapeMenu();
 }

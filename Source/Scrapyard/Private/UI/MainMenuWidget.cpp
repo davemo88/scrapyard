@@ -8,6 +8,13 @@
 void UMainMenuWidget::NativeConstruct()
 {
   Super::NativeConstruct();
+
+  DraftButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnDraftButtonClicked);
+  GarageButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnGarageButtonClicked);
+  HostButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnHostButtonClicked);
+  JoinButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnJoinButtonClicked);
+  QuitButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnQuitButtonClicked);
+
 }
 
 void UMainMenuWidget::OnDraftButtonClicked()
@@ -41,5 +48,7 @@ void UMainMenuWidget::OnJoinButtonClicked()
 
 void UMainMenuWidget::OnQuitButtonClicked()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnQuitButtonClicked"), *GetName());
+  FGenericPlatformMisc::RequestExit(false);
   
 }

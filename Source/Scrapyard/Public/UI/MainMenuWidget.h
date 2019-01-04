@@ -17,21 +17,30 @@ class SCRAPYARD_API UMainMenuWidget : public UUserWidget
 {
   GENERATED_BODY()
 
-private:
+protected:
 
   virtual void NativeConstruct() override;
 
-public:  
+  UPROPERTY(meta=(BindWidget))
+  UButton* DraftButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* GarageButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* JoinButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* HostButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* QuitButton;
 
 //TODO: get rid of blueprint logic
-  UFUNCTION(BlueprintCallable)
+  UFUNCTION()
   void OnDraftButtonClicked();
-  UFUNCTION(BlueprintCallable)
+  UFUNCTION()
   void OnGarageButtonClicked();
-  UFUNCTION(BlueprintCallable)
+  UFUNCTION()
   void OnHostButtonClicked();
-  UFUNCTION(BlueprintCallable)
+  UFUNCTION()
   void OnJoinButtonClicked();
-  UFUNCTION(BlueprintCallable)
+  UFUNCTION()
   void OnQuitButtonClicked();
 };

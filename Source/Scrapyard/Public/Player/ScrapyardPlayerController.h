@@ -15,6 +15,10 @@ class SCRAPYARD_API AScrapyardPlayerController : public APlayerController
 {
   GENERATED_BODY()
 
+public:
+
+  AScrapyardPlayerController();
+
 protected:
   virtual void BeginPlay() override;
 
@@ -23,7 +27,13 @@ protected:
   UPROPERTY()
   UEscapeMenuWidget* EscapeMenuWidget;
 
+//TODO: keep track of default in case it changes, e.g. for ESC menu. maybe a better way?
+  bool bDefaultShowMouseCursor;
+
+//  void SetDefaultMouseBehavior();
+
   void ToggleEscapeMenu();
-  
+  virtual void ShowEscapeMenu();
+  virtual void HideEscapeMenu();
 
 };

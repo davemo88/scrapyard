@@ -23,5 +23,8 @@ protected:
   void SetupMainMenuWidget();
 
   UMainMenuWidget* MainMenuWidget;
+
+  virtual void ShowEscapeMenu() override;
+  virtual void HideEscapeMenu() override;
   
 };

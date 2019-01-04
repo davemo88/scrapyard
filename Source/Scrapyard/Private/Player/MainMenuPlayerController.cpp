@@ -7,14 +7,28 @@
 
 void AMainMenuPlayerController::BeginPlay()
 {
-	Super::BeginPlay();
-
-	SetupMainMenuWidget();
+  Super::BeginPlay();
+  SetupMainMenuWidget();
 }
 
 void AMainMenuPlayerController::SetupMainMenuWidget()
 {
-	UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-	MainMenuWidget = CreateWidget<UMainMenuWidget>(this, GameInstance->DefaultAssetsBP->MainMenuWidgetBP);
-	MainMenuWidget->AddToViewport();
+  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+  MainMenuWidget = CreateWidget<UMainMenuWidget>(this, GameInstance->DefaultAssetsBP->MainMenuWidgetBP);
+  MainMenuWidget->AddToViewport();
+}
+
+void AMainMenuPlayerController::ShowEscapeMenu()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ShowEscapeMenu"), *StaticClass()->GetFName().ToString());
+  Super::ShowEscapeMenu();
+//  bEnableClickEvents = true;
+//  bEnableMouseOverEvents = true;
+}
+
+void AMainMenuPlayerController::HideEscapeMenu()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::HideEscapeMenu"), *StaticClass()->GetFName().ToString());
+  Super::HideEscapeMenu();
+  MainMenuWidget->SetUserFocus(this);
 }

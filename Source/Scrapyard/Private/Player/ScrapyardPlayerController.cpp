@@ -8,6 +8,13 @@
 #include "UI/RobotHUDWidget.h"
 #include "GameFramework/PlayerController.h"
 
+AScrapyardPlayerController::AScrapyardPlayerController()
+{
+  UE_LOG(LogTemp,Warning,TEXT("scrapyard constructor- bDefaultShowMouseCursor is %s"), (bDefaultShowMouseCursor ? TEXT("True") : TEXT("False")));
+  bDefaultShowMouseCursor = false;
+  bShowMouseCursor = bDefaultShowMouseCursor;
+}
+
 void AScrapyardPlayerController::BeginPlay()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
@@ -15,7 +22,6 @@ void AScrapyardPlayerController::BeginPlay()
 
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   EscapeMenuWidget = CreateWidget<UEscapeMenuWidget>(this, GameInstance->DefaultAssetsBP->EscapeMenuWidgetBP);
-
 }
 
 void AScrapyardPlayerController::SetupInputComponent()
@@ -30,23 +36,36 @@ void AScrapyardPlayerController::ToggleEscapeMenu()
   UE_LOG(LogTemp, Warning, TEXT("%s::ToggleEscapeMenu"), *GetName());
   if (EscapeMenuWidget->IsInViewport())
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::ToggleEscapeMenu - Toggle Off"), *GetName());
-    EscapeMenuWidget->RemoveFromViewport();
-    ClientIgnoreLookInput(false);
-    const FInputModeGameOnly InputMode = FInputModeGameOnly();
-    SetInputMode(InputMode);
-    bShowMouseCursor = false;
+    HideEscapeMenu();
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::ToggleEscapeMenu - Toggle On"), *GetName());
-    EscapeMenuWidget->AddToViewport();
-    ClientIgnoreLookInput(true);
-    const FInputModeGameAndUI InputMode = FInputModeGameAndUI();
-    SetInputMode(InputMode);
-    bShowMouseCursor = true;
-    
+    ShowEscapeMenu();
   }
+}
+
+void AScrapyardPlayerController::ShowEscapeMenu()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ShowEscapeMenu"), *StaticClass()->GetFName().ToString());
+  EscapeMenuWidget->AddToViewport();
+  ClientIgnoreLookInput(true);
+  const FInputModeGameAndUI InputMode = FInputModeGameAndUI();
+  SetInputMode(InputMode);
+  bShowMouseCursor = true;
+  EscapeMenuWidget->SetUserFocus(this);
+}
+
+
+void AScrapyardPlayerController::HideEscapeMenu()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::HideEscapeMenu"), *StaticClass()->GetFName().ToString());
+  EscapeMenuWidget->RemoveFromViewport();
+  ClientIgnoreLookInput(false);
+  const FInputModeGameOnly InputMode = FInputModeGameOnly();
+  SetInputMode(InputMode);
+  UE_LOG(LogTemp,Warning,TEXT("toggle - bDefaultShowMouseCursor is %s"), (bDefaultShowMouseCursor ? TEXT("True") : TEXT("False")));
+  bShowMouseCursor = bDefaultShowMouseCursor;
+
 }
 
 

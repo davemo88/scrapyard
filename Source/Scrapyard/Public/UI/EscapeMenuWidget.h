@@ -15,13 +15,10 @@ class SCRAPYARD_API UEscapeMenuWidget : public UUserWidget
 {
   GENERATED_BODY()
 
-public:
-  UPROPERTY(meta=(BindWidget))
-  UButton* OptionsButton;
-  UPROPERTY(meta=(BindWidget))
-  UButton* QuitToMainButton;
-  UPROPERTY(meta=(BindWidget))
-  UButton* QuitToDesktopButton;
+protected:
+
+  virtual void NativeConstruct() override; 
+  virtual void NativeOnInitialized() override; 
 
   UFUNCTION()
   void Options();
@@ -29,4 +26,13 @@ public:
   void QuitToMainMenu();
   UFUNCTION()
   void QuitToDesktop();
+
+//public:
+
+  UPROPERTY(meta=(BindWidget))
+  UButton* OptionsButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* QuitToMainMenuButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* QuitToDesktopButton;
 };
