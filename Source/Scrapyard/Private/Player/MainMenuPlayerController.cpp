@@ -29,6 +29,6 @@ void AMainMenuPlayerController::ShowEscapeMenu()
 void AMainMenuPlayerController::HideEscapeMenu()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::HideEscapeMenu"), *StaticClass()->GetFName().ToString());
-  Super::HideEscapeMenu();
   MainMenuWidget->SetUserFocus(this);
+  Super::HideEscapeMenu();
 }

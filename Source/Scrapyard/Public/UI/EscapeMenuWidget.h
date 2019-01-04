@@ -27,8 +27,6 @@ protected:
   UFUNCTION()
   void QuitToDesktop();
 
-//public:
-
   UPROPERTY(meta=(BindWidget))
   UButton* OptionsButton;
   UPROPERTY(meta=(BindWidget))

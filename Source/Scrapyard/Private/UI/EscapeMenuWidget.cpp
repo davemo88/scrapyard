@@ -2,15 +2,13 @@
 //
 
 #include "EscapeMenuWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 void UEscapeMenuWidget::NativeConstruct()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 
-//  if (OptionsButton != NULL) {
-//    OptionsButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::Options);
-//  }
   OptionsButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::Options);
   QuitToMainMenuButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::QuitToMainMenu);
   QuitToDesktopButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::QuitToDesktop);
@@ -31,6 +29,8 @@ void UEscapeMenuWidget::Options()
 void UEscapeMenuWidget::QuitToMainMenu()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::QuitToMainMenu"), *GetName());
+  UWorld* World = GetWorld();
+  UGameplayStatics::OpenLevel(World, "/Game/Levels/MainLevel");
   
 }
 
