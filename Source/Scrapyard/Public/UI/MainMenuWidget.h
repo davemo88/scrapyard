@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Button.h"
+#include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
 #include "Online/ScrapyardGameSession.h"
+#include "UI/HostEntryWidget.h"
 #include "MainMenuWidget.generated.h"
 
 /**
@@ -31,6 +32,9 @@ protected:
   UButton* HostButton;
   UPROPERTY(meta=(BindWidget))
   UButton* QuitButton;
+
+  UPROPERTY(meta=(BindWidget))
+  UHostEntryWidget* HostEntryWidget;
 
 //TODO: get rid of blueprint logic
   UFUNCTION()

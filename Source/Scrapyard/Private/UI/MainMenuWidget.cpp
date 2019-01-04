@@ -15,6 +15,8 @@ void UMainMenuWidget::NativeConstruct()
   JoinButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnJoinButtonClicked);
   QuitButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnQuitButtonClicked);
 
+  HostEntryWidget->SetVisibility(ESlateVisibility::Hidden);
+
 }
 
 void UMainMenuWidget::OnDraftButtonClicked()
@@ -38,12 +40,7 @@ void UMainMenuWidget::OnHostButtonClicked()
 
 void UMainMenuWidget::OnJoinButtonClicked()
 {
-//  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningPlayer()->GetGameInstance());
-//  AScrapyardGameSession* GameSession = GameInstance->GetGameSession();
-//  GameSession->FindSessions(GetOwningLocalPlayer()->GetPreferredUniqueNetId(), FName(TEXT("DedicatedSession")), true, false);
-  APlayerController* Player = GetOwningPlayer();
-//  Player->ClientTravel("3.83.44.150//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
-  Player->ClientTravel("127.0.0.1//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+  HostEntryWidget->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UMainMenuWidget::OnQuitButtonClicked()
