@@ -22,7 +22,7 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 
   if (GetNumPlayers() > 1)
   {
-    GetWorld()->GetTimerManager().SetTimer(StartMatchTimeHandle, this, &ABattleGameMode::StartMatch, 5.0f, false);
+    GetWorld()->GetTimerManager().SetTimer(StartMatchTimerHandle, this, &ABattleGameMode::StartMatch, 5.0f, false);
 //    StartMatch();
   }
   

@@ -37,7 +37,6 @@ void AScrapyardPlayerController::SetupInputComponent()
   {
     InputComponent->BindAction("Escape",IE_Pressed, this, &AScrapyardPlayerController::ToggleEscapeMenu);
   }
-
 }
 
 void AScrapyardPlayerController::ToggleEscapeMenu()

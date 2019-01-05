@@ -18,4 +18,10 @@ public:
 
   ABattleGameState();
 
+protected:
+  UFUNCTION(NetMulticast, Reliable)
+  void MulticastShowTimer(float TimerLength);
+
+  FTimerHandle StartMatchTimerHandle;
+
 };

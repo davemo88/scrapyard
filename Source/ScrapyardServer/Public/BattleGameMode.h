@@ -19,6 +19,8 @@ public:
   ABattleGameMode();
 
   void PostLogin(APlayerController* NewPlayer) override;
+  
+//  virtual bool ReadyToStartMatch() override;
 
 protected:
     
@@ -29,6 +31,6 @@ protected:
   void HandleLeavingMap() override;
   void HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer) override;
 
-  FTimerHandle StartMatchTimeHandle;
+  FTimerHandle StartMatchTimerHandle;
 
 };
