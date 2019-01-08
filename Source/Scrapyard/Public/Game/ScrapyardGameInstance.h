@@ -9,6 +9,7 @@
 #include "ScrapyardGameInstance.generated.h"
 
 class UScrapyardDefaultAssets;
+class URobotPart;
 class URobotPartAssets;
 class URobotBodyComponent;
 class USoloDraft;
@@ -47,5 +48,6 @@ public:
   virtual void Init() override;
   virtual void Shutdown() override;
   virtual void StartGameInstance() override;
+
   
 };

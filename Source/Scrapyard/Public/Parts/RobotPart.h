@@ -40,8 +40,8 @@ class SCRAPYARD_API URobotPart : public UObject
   GENERATED_BODY()
 
 public:
-// stats
-//
+
+  static const uint32 PartID = 0;
 
   static URobotPartAssets* RobotPartAssetsBP;
 
@@ -117,6 +117,8 @@ public:
 //  FMajorMaterialLoadedDelegate MajorMaterialLoadedDelegate;
 //  FManufacturerLoadedDelegate ManufacturerLoadedDelegate;
 //  FCardIconLoadedDelegate CardIconLoadedDelegate;
+
+  static TMap<uint32, TSubclassOf<URobotPart>> GetPartDatabase();
 
 protected: 
 

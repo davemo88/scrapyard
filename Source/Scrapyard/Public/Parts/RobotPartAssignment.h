@@ -11,6 +11,21 @@ class UCorePart;
 class UArmsPart;
 class ULegsPart;
 
+USTRUCT()
+struct FPartAssignmentIDs
+{
+  GENERATED_BODY()
+
+  UPROPERTY()
+  uint32 HeadID;
+  UPROPERTY()
+  uint32 CoreID;
+  UPROPERTY()
+  uint32 ArmsID;
+  UPROPERTY()
+  uint32 LegsID;
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPartAssignmentChangedDelegate);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeadAssignmentChangedDelegate, UHeadPart*, NewHead);
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAssignmentChangedDelegate, UCorePart*, NewCore);
@@ -64,5 +79,4 @@ public:
   FArmsAssignmentChangedDelegate ArmsAssignmentChangedDelegate;
   FLegsAssignmentChangedDelegate LegsAssignmentChangedDelegate;
 
-  
 };
