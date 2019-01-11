@@ -16,6 +16,7 @@ class SCRAPYARD_API UCorePart_Orange : public UCorePart
   
   
 public:
+  static const uint32 PartID; 
 
   UCorePart_Orange();
 

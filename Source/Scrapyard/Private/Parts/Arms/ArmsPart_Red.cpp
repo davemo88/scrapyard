@@ -4,6 +4,8 @@
 #include "ArmsPart_Red.h"
 #include "Parts/RobotPartAssets.h"
 
+const uint32 UArmsPart_Red::PartID = 1001;
+
 UArmsPart_Red::UArmsPart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedArmsName", "Red Arms");

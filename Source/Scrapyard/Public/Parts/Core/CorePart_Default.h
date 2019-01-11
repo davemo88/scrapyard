@@ -15,6 +15,7 @@ class SCRAPYARD_API UCorePart_Default : public UCorePart
   GENERATED_BODY()
 
 public:
+  static const uint32 PartID; 
 
   UCorePart_Default();
 

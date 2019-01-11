@@ -4,6 +4,8 @@
 #include "HeadPart_Red.h"
 #include "RobotPartAssets.h"
 
+const uint32 UHeadPart_Red::PartID = 3001;
+
 UHeadPart_Red::UHeadPart_Red()
 {
   PartName = NSLOCTEXT("SY", "RedHeadName", "Red Head");

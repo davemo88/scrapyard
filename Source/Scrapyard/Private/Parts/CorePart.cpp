@@ -2,6 +2,7 @@
 
 #include "CorePart.h"
 #include "RobotPartAssignment.h"
+#include "Parts/RobotPartAssets.h"
 #include "SoloDraft.h"
 
 void UCorePart::Draft(USoloDraft* SoloDraft)

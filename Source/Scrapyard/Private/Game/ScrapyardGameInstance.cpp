@@ -83,12 +83,3 @@ AScrapyardGameSession* UScrapyardGameInstance::GetGameSession() const
 
   return nullptr;
 }
-
-
-TMap<uint32, TSubclassOf<URobotPart>> URobotPart::GetPartDatabase()
-{
-  TMap<uint32, TSubclassOf<URobotPart>> PartDB;
-
-//  PartDB.Add()
-  return PartDB;
-}

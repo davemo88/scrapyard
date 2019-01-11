@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/World.h"
 #include "UObject/NoExportTypes.h"
+#include "Parts/RobotPartActor.h"
 #include "RobotPartHelper.generated.h"
 
 /**
@@ -24,5 +26,7 @@ public:
   );
 
   static URobotPartAssets* GetRobotPartAssets(UWorld* World);
+
+  static TMap<uint32, TSubclassOf<URobotPart>> GetPartDatabase();
 
 };

@@ -16,6 +16,8 @@ class SCRAPYARD_API UArmsPart_Blue : public UArmsPart
 
 public:
 
+  static const uint32 PartID; 
+
   UArmsPart_Blue();
 
   TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;

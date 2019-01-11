@@ -4,6 +4,9 @@
 #include "CorePart_Green.h"
 #include "RobotPartAssets.h"
 
+
+const uint32 UCorePart_Green::PartID = 2003;
+
 UCorePart_Green::UCorePart_Green()
 {
   PartName = NSLOCTEXT("SY", "GreenCoreName", "Green Core");

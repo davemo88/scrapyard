@@ -4,6 +4,8 @@
 #include "CorePart_Orange.h"
 #include "RobotPartAssets.h"
 
+const uint32 UCorePart_Orange::PartID = 2004;
+
 UCorePart_Orange::UCorePart_Orange()
 {
   PartName = NSLOCTEXT("SY", "OrangeCoreName", "Orange Core");

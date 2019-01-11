@@ -15,6 +15,7 @@ class SCRAPYARD_API UHeadPart_Blue : public UHeadPart
   GENERATED_BODY()
   
 public:
+  static const uint32 PartID; 
 
   UHeadPart_Blue();
 

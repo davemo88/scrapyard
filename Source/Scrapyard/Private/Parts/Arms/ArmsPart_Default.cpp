@@ -4,6 +4,8 @@
 #include "ArmsPart_Default.h"
 #include "Parts/RobotPartAssets.h"
 
+const uint32 UArmsPart_Default::PartID = 1000;
+
 UArmsPart_Default::UArmsPart_Default()
 {
   PartName = NSLOCTEXT("SY", "DefaultArmsName", "Default Arms");

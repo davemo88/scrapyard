@@ -16,6 +16,8 @@ class SCRAPYARD_API ULegsPart_Orange : public ULegsPart
 	
 public:
 
+  static const uint32 PartID; 
+
   ULegsPart_Orange();
 
   TSoftObjectPtr<USkeletalMesh> GetSkeletalMeshAssetPtr() override;

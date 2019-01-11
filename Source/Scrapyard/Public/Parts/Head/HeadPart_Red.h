@@ -16,6 +16,7 @@ class SCRAPYARD_API UHeadPart_Red : public UHeadPart
 	
 	
 public:
+  static const uint32 PartID; 
 
   UHeadPart_Red();
 

@@ -4,6 +4,7 @@
 #include "LegsPart_Green.h"
 #include "RobotPartAssets.h"
 
+const uint32 ULegsPart_Green::PartID = 4003;
 
 ULegsPart_Green::ULegsPart_Green()
 {

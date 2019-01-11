@@ -4,6 +4,7 @@
 #include "CorePart_Blue.h"
 #include "RobotPartAssets.h"
 
+const uint32 UCorePart_Blue::PartID = 2002;
 
 UCorePart_Blue::UCorePart_Blue()
 {

@@ -15,6 +15,7 @@ class SCRAPYARD_API ULegsPart_Green : public ULegsPart
 	GENERATED_BODY()
 	
 public:
+  static const uint32 PartID; 
 
   ULegsPart_Green();
 

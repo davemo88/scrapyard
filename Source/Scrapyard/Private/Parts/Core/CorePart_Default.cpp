@@ -4,6 +4,8 @@
 #include "CorePart_Default.h"
 #include "Parts/RobotPartAssets.h"
 
+const uint32 UCorePart_Default::PartID = 2000;
+
 UCorePart_Default::UCorePart_Default()
 {
   PartName = NSLOCTEXT("SY", "DefaultCoreName", "Default Core");

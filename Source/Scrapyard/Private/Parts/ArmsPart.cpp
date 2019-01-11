@@ -2,6 +2,7 @@
 
 #include "ArmsPart.h"
 #include "RobotPartAssignment.h"
+#include "Parts/RobotPartAssets.h"
 #include "SoloDraft.h"
 
 void UArmsPart::Draft(USoloDraft* SoloDraft)

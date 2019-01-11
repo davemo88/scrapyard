@@ -4,6 +4,7 @@
 #include "ArmsPart_Green.h"
 #include "Parts/RobotPartAssets.h"
 
+const uint32 UArmsPart_Green::PartID = 1003;
 
 UArmsPart_Green::UArmsPart_Green()
 {

@@ -4,6 +4,8 @@
 #include "LegsPart_Default.h"
 #include "Parts/RobotPartAssets.h"
 
+const uint32 ULegsPart_Default::PartID = 4000;
+
 ULegsPart_Default::ULegsPart_Default()
 {
   PartName = NSLOCTEXT("SY", "DefaultLegsName", "Default Legs");

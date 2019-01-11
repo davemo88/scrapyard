@@ -15,6 +15,7 @@ class SCRAPYARD_API UArmsPart_Green : public UArmsPart
   GENERATED_BODY()
   
 public:
+  static const uint32 PartID; 
 
   UArmsPart_Green();
 
