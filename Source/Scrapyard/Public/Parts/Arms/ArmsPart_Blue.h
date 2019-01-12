@@ -17,6 +17,11 @@ class SCRAPYARD_API UArmsPart_Blue : public UArmsPart
 public:
 
   static const uint32 PartID; 
+  
+  virtual uint32 GetPartID()
+  {
+    return PartID;
+  };
 
   UArmsPart_Blue();
 

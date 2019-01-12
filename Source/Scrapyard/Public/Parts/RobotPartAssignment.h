@@ -44,17 +44,6 @@ class SCRAPYARD_API URobotPartAssignment : public UObject
 {
   GENERATED_BODY()
 
-protected:
-  
-  UPROPERTY(BlueprintReadOnly)
-  UHeadPart* Head;
-  UPROPERTY(BlueprintReadOnly)
-  UCorePart* Core;
-  UPROPERTY(BlueprintReadOnly)
-  UArmsPart* Arms;
-  UPROPERTY(BlueprintReadOnly)
-  ULegsPart* Legs;
-
 public:
 
   bool IsComplete();
@@ -68,6 +57,8 @@ public:
 
   void CopyAssignment(URobotPartAssignment* NewPartAssignment);
 
+  FPartAssignmentIDs GetPartAssignmentIDs();
+
   UHeadPart* GetHead();
   UCorePart* GetCore();
   UArmsPart* GetArms();
@@ -78,5 +69,16 @@ public:
   FCoreAssignmentChangedDelegate CoreAssignmentChangedDelegate;
   FArmsAssignmentChangedDelegate ArmsAssignmentChangedDelegate;
   FLegsAssignmentChangedDelegate LegsAssignmentChangedDelegate;
+
+protected:
+  
+  UPROPERTY(BlueprintReadOnly)
+  UHeadPart* Head;
+  UPROPERTY(BlueprintReadOnly)
+  UCorePart* Core;
+  UPROPERTY(BlueprintReadOnly)
+  UArmsPart* Arms;
+  UPROPERTY(BlueprintReadOnly)
+  ULegsPart* Legs;
 
 };

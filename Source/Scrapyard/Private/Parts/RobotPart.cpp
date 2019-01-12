@@ -14,6 +14,8 @@
 
 URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
 
+const uint32 URobotPart::PartID = 0;
+
 URobotPart::URobotPart()
 {
 

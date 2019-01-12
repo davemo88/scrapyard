@@ -66,6 +66,25 @@ void URobotPartAssignment::CopyAssignment(URobotPartAssignment* NewPartAssignmen
   }
 }
 
+FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs()
+{
+  FPartAssignmentIDs PartAssignmentIDs;
+
+  if (IsComplete())
+  {
+    PartAssignmentIDs.HeadID = Head->GetPartID();
+    UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
+    PartAssignmentIDs.CoreID = Core->GetPartID();
+    UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
+    PartAssignmentIDs.ArmsID = Arms->GetPartID();
+    UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
+    PartAssignmentIDs.LegsID = Legs->GetPartID();
+    UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+  }
+
+  return PartAssignmentIDs;
+}
+
 UHeadPart* URobotPartAssignment::GetHead()
 {
   return Head;

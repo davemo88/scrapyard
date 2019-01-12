@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "GarageWidget.generated.h"
 
 class USoloDraft;
@@ -21,14 +22,19 @@ class SCRAPYARD_API UGarageWidget : public UUserWidget
 {
   GENERATED_BODY()
 
-  AGarageLevelScriptActor* GarageLevelScriptActor;
+//  AGarageLevelScriptActor* GarageLevelScriptActor;
 
 public:
+  virtual void NativeConstruct() override;
+
 //TODO: maybe proper methods to modify these?  
   UPROPERTY(meta=(BindWidget))
   URobotStatsWidget* RobotStatsWidget;
 
   UPROPERTY(meta=(BindWidget))
   UYourPartsWidget* YourPartsWidget;
+
+  UPROPERTY(meta=(BindWidget))
+  UButton* RobotTestButton;
 
 };

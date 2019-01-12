@@ -33,6 +33,8 @@ protected:
   UFUNCTION()
   void OnCardDoubleClicked(URobotPart* RobotPart);
 
+public:
+
   UFUNCTION()
   void GotoGarageTestLevel();
 };

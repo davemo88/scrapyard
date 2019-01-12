@@ -43,6 +43,11 @@ public:
 
   static const uint32 PartID;
 
+  virtual uint32 GetPartID()
+  {
+    return PartID;
+  };
+
   static URobotPartAssets* RobotPartAssetsBP;
 
 //  static TMap<FString, UManufacturer*> Manufacturers;

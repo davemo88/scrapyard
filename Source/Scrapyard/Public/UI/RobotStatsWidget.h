@@ -22,9 +22,6 @@ class SCRAPYARD_API URobotStatsWidget : public UUserWidget
 public:
 
   void SetRobotStats(URobotStats* NewRobotStats); 
-
-  UPROPERTY(meta=(BindWidget))
-  UButton* RobotTestButton;
   
 protected:
 

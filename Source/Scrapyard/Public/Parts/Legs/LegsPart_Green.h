@@ -16,6 +16,11 @@ class SCRAPYARD_API ULegsPart_Green : public ULegsPart
 	
 public:
   static const uint32 PartID; 
+  
+  virtual uint32 GetPartID()
+  {
+    return PartID;
+  };
 
   ULegsPart_Green();
 
