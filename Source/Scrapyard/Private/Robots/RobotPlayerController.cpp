@@ -90,3 +90,29 @@ void ARobotPlayerController::SetRobotCharacter(ARobotCharacter* NewRobotCharacte
 {
   RobotCharacter = NewRobotCharacter;
 }
+
+bool ARobotPlayerController::ServerSetPartAssignment_Validate(FPartAssignmentIDs NewPartAssignmentIDs)
+{
+  return true;
+}
+
+void ARobotPlayerController::ServerSetPartAssignment_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ServerSetPartAssignment_Implementation"), *GetName());
+  PartAssignmentIDs = NewPartAssignmentIDs;
+  UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
+  UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
+  UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
+  UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+
+}
+
+void ARobotPlayerController::ClientGetPartAssignment_Implementation()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ClientGetPartAssignment_Implementation"), *GetName());
+  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+  if (GameInstance->PartAssignment != NULL)
+  {
+    ServerSetPartAssignment(GameInstance->PartAssignment->GetPartAssignmentIDs());
+  }
+}

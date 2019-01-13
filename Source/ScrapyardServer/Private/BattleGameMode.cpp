@@ -20,6 +20,9 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
   UE_LOG(LogTemp, Warning, TEXT("bDelayedStart: %s"), (this->bDelayedStart ? TEXT("True") : TEXT("False")));
   UE_LOG(LogTemp, Warning, TEXT("Num Players: %d"), GetNumPlayers());
 
+  ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(NewPlayer);
+  RobotPC->ClientGetPartAssignment();
+
   if (GetNumPlayers() > 1)
   {
     GetWorld()->GetTimerManager().SetTimer(StartMatchTimerHandle, this, &ABattleGameMode::StartMatch, 5.0f, false);

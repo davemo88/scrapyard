@@ -3,8 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Game/ScrapyardGameInstance.h"
 #include "Player/ScrapyardPlayerController.h"
 #include "UI/RobotHUDWidget.h"
+#include "Parts/RobotPartAssignment.h"
 #include "RobotPlayerController.generated.h"
 
 class ARobotCharacter;
@@ -50,9 +52,18 @@ public:
 
   void SetRobotCharacter(ARobotCharacter* NewRobotCharacter);
 
+  UFUNCTION(Client, Reliable)
+  void ClientGetPartAssignment();
+
 private:
 // want this property because otherwise we will end up casting GetPawn() to ARobotCharacter all the time
   UPROPERTY()
   ARobotCharacter* RobotCharacter;
+
+  UPROPERTY()
+  FPartAssignmentIDs PartAssignmentIDs;
+
+  UFUNCTION(Server, Reliable, WithValidation)
+  void ServerSetPartAssignment(FPartAssignmentIDs NewPartAssignmentIDs);
 
 };
