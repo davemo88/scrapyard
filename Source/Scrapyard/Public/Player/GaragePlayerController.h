@@ -35,6 +35,8 @@ protected:
 
 public:
 
+  void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
   UFUNCTION()
   void GotoGarageTestLevel();
 };

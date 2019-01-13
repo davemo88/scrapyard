@@ -18,6 +18,16 @@
 #include "UI/PartCardWidget.h"
 #include "UI/RobotStatsWidget.h"
 
+void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::EndPlay"), *GetName());
+  Super::EndPlay(EndPlayReason);
+  PartAssignment->GetPartAssignmentIDs();
+  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
+  GameInstance->PartAssignment = DuplicateObject<URobotPartAssignment>(PartAssignment, NULL);
+}
+
+
 void AGaragePlayerController::SetupWidget()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
@@ -32,11 +42,14 @@ void AGaragePlayerController::SetupWidget()
 
   AGarageLevelScriptActor* GarageActor = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor());
   ARobotBodyGarage* RobotBodyGarage = GarageActor->GetRobotBodyGarage();
+//TODO: need to keep track of part assignment after leaving garage, e.g. if you go to testing or battling
+//then the existing part assignment / draft should be loaded when the garage loads
   PartAssignment = RobotBodyGarage->RobotBodyComponent->PartAssignment;
 
   GarageWidget->RobotStatsWidget->SetRobotStats(RobotBodyGarage->RobotBodyComponent->RobotStats);
 
   GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
+
 }
 
 void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
@@ -56,10 +69,6 @@ void AGaragePlayerController::OnCardDoubleClicked(URobotPart* RobotPart)
 
 void AGaragePlayerController::GotoGarageTestLevel()
 {
-  PartAssignment->GetPartAssignmentIDs();
-  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  GameInstance->PartAssignment = DuplicateObject<URobotPartAssignment>(PartAssignment, NULL);
   UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageTestLevel");
 }
-
 

@@ -81,4 +81,6 @@ protected:
   UPROPERTY(BlueprintReadOnly)
   ULegsPart* Legs;
 
+  void SavePartAssignment();
+
 };
