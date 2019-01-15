@@ -4,11 +4,14 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
+#include "Robots/RobotPlayerController.h"
+#include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
 #include "Ability/HitscanAbility.h"
 #include "UI/RobotHUDWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
 
 // Sets default values
@@ -41,15 +44,15 @@ void ARobotCharacter::BeginPlay()
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
 
-  SetupRobotHUDWidget();
-
-// TODO: this seems wrong
-  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-  if (PC)
+  if (ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController()))
   {
+    UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - PC ok"), *GetName());
     PC->SetRobotCharacter(this);
+    if (IsLocallyControlled())
+    {
+      SetupRobotHUDWidget();
+    }
   }
-
 }
 
 void ARobotCharacter::PostInitializeComponents()
@@ -113,7 +116,7 @@ void ARobotCharacter::SetupRobotHUDWidget()
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - PC null"), *GetName());
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - PC null or nonlocal"), *GetName());
   }
 }
 
@@ -287,8 +290,9 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
     MulticastShowDamage(Damage, DamageEvent, EventInstigator, DamageCauser, HitInfo);
   }
 
+  HitPoints = FMath::Max(0,HitPoints-(int)Damage);
 
-  return 0.0f;
+  return Damage;
 }
 
 void ARobotCharacter::MulticastShowDamage_Implementation(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser, FHitResult HitInfo)

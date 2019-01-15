@@ -18,7 +18,7 @@ void AGarageTestLevelScriptActor::BeginPlay()
     ARobotCharacter* Char = Cast<ARobotCharacter>(PlayerController->GetPawn());
     if (Char != NULL)
     {
-      Char->RobotBodyComponent->PartAssignment->CopyAssignment(GameInstance->PartAssignment);
+      Char->RobotBodyComponent->PartAssignment->SetAssignment(GameInstance->PartAssignment);
     }
   }
 }

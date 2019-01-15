@@ -24,6 +24,11 @@ struct FPartAssignmentIDs
   uint32 ArmsID;
   UPROPERTY()
   uint32 LegsID;
+
+//  bool IsComplete()
+//  {
+//    return HeadID != 0 && CoreID != 0 && ArmsID != 0 && LegsID != 0;
+//  }
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPartAssignmentChangedDelegate);
@@ -55,7 +60,8 @@ public:
 
   void SetDefaultAssignment();
 
-  void CopyAssignment(URobotPartAssignment* NewPartAssignment);
+  void SetAssignment(URobotPartAssignment* NewPartAssignment);
+  void SetAssignment(FPartAssignmentIDs PartAssignmentIDs);
 
   FPartAssignmentIDs GetPartAssignmentIDs();
 

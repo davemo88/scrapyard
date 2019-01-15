@@ -6,6 +6,7 @@
 #include "Parts/Core/CorePart_Default.h"
 #include "Parts/Arms/ArmsPart_Default.h"
 #include "Parts/Legs/LegsPart_Default.h"
+#include "Parts/RobotPartHelper.h"
 
 bool URobotPartAssignment::IsComplete()
 {
@@ -48,9 +49,9 @@ void URobotPartAssignment::SetDefaultAssignment()
   SetLegs(NewObject<ULegsPart_Default>());
 }
 
-void URobotPartAssignment::CopyAssignment(URobotPartAssignment* NewPartAssignment)
+void URobotPartAssignment::SetAssignment(URobotPartAssignment* NewPartAssignment)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::CopyAssignment"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetAssignment"), *GetName());
   if (NewPartAssignment->IsComplete())
   {
 // TODO: unsafe with incomplete assignments but should be possible
@@ -64,6 +65,39 @@ void URobotPartAssignment::CopyAssignment(URobotPartAssignment* NewPartAssignmen
     LegsAssignmentChangedDelegate.Broadcast(Legs);
     PartAssignmentChangedDelegate.Broadcast();
   }
+}
+
+void URobotPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
+  TMap<uint32, TSubclassOf<URobotPart>> PartDB = URobotPartHelper::GetPartDatabase();
+  UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
+  UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
+  UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
+  UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+  
+  if (TSubclassOf<URobotPart>* NewHeadUClass = PartDB.Find(PartAssignmentIDs.HeadID))
+  {
+    Head = NewObject<UHeadPart>(this, *NewHeadUClass);
+    HeadAssignmentChangedDelegate.Broadcast(Head);
+  }
+  if (TSubclassOf<URobotPart>* NewCoreUClass = PartDB.Find(PartAssignmentIDs.CoreID))
+  {
+    Core = NewObject<UCorePart>(this, *NewCoreUClass);
+    CoreAssignmentChangedDelegate.Broadcast(Core);
+  }
+  if (TSubclassOf<URobotPart>* NewArmsUClass = PartDB.Find(PartAssignmentIDs.ArmsID))
+  {
+    Arms = NewObject<UArmsPart>(this, *NewArmsUClass);
+    ArmsAssignmentChangedDelegate.Broadcast(Arms);
+  }
+  if (TSubclassOf<URobotPart>* NewLegsUClass = PartDB.Find(PartAssignmentIDs.LegsID))
+  {
+    Legs = NewObject<ULegsPart>(this, *NewLegsUClass);
+    LegsAssignmentChangedDelegate.Broadcast(Legs);
+  }
+
+  PartAssignmentChangedDelegate.Broadcast();
 }
 
 FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs()

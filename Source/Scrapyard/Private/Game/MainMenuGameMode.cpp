@@ -7,7 +7,7 @@
 
 AMainMenuGameMode::AMainMenuGameMode()
 {
-	PlayerControllerClass = AMainMenuPlayerController::StaticClass();
+  PlayerControllerClass = AMainMenuPlayerController::StaticClass();
 }
 
 void AMainMenuGameMode::RestartPlayer(class AController* NewPlayer)
@@ -17,6 +17,6 @@ void AMainMenuGameMode::RestartPlayer(class AController* NewPlayer)
 
 TSubclassOf<AGameSession> AMainMenuGameMode::GetGameSessionClass() const
 {
-	return AScrapyardGameSession::StaticClass();
+  return AScrapyardGameSession::StaticClass();
 }
 

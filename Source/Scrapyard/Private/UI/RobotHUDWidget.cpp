@@ -3,6 +3,7 @@
 #include "RobotHUDWidget.h"
 #include "Components/ProgressBar.h"
 #include "Robots/RobotCharacter.h"
+#include "Components/TextBlock.h"
 
 void URobotHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
 {
@@ -12,6 +13,7 @@ void URobotHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
 // maybe override its add to viewport method to check first?
   if (RobotCharacter != NULL)
   {
+// TODO: can do this manually whenever actually using power
     UpdatePowerBar(); 
   }
 }

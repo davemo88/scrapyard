@@ -53,17 +53,21 @@ public:
   void SetRobotCharacter(ARobotCharacter* NewRobotCharacter);
 
   UFUNCTION(Client, Reliable)
-  void ClientGetPartAssignment();
+  void ClientGetPartAssignmentIDs();
+
+//  UPROPERTY(Replicated)
+  UPROPERTY()
+  FPartAssignmentIDs PartAssignmentIDs;
 
 private:
 // want this property because otherwise we will end up casting GetPawn() to ARobotCharacter all the time
   UPROPERTY()
   ARobotCharacter* RobotCharacter;
 
-  UPROPERTY()
-  FPartAssignmentIDs PartAssignmentIDs;
-
   UFUNCTION(Server, Reliable, WithValidation)
-  void ServerSetPartAssignment(FPartAssignmentIDs NewPartAssignmentIDs);
+  void ServerSetPartAssignmentIDs(FPartAssignmentIDs NewPartAssignmentIDs);
+
+  UFUNCTION(Client, Reliable)
+  void ClientSetRobotPartAssignmentFromIDs(FPartAssignmentIDs NewPartAssignmentIDs);
 
 };

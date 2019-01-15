@@ -7,7 +7,7 @@
 
 AMouseController::AMouseController()
 {
-	bShowMouseCursor = true;
-	bEnableClickEvents = true;
-	bEnableMouseOverEvents = true;
+  bShowMouseCursor = true;
+  bEnableClickEvents = true;
+  bEnableMouseOverEvents = true;
 }

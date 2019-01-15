@@ -21,7 +21,7 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
   UE_LOG(LogTemp, Warning, TEXT("Num Players: %d"), GetNumPlayers());
 
   ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(NewPlayer);
-  RobotPC->ClientGetPartAssignment();
+  RobotPC->ClientGetPartAssignmentIDs();
 
   if (GetNumPlayers() > 1)
   {

@@ -7,6 +7,8 @@ void UHostEntryWidget::NativeConstruct()
 {
   JoinButton->OnClicked.AddDynamic(this, &UHostEntryWidget::Join);
   CancelButton->OnClicked.AddDynamic(this, &UHostEntryWidget::Cancel);
+//  HostEntryBox->SetText(FText::FromString("127.0.0.1"));
+  HostEntryBox->SetHintText(FText::FromString("127.0.0.1"));
 }
 
 void UHostEntryWidget::Join()
@@ -28,6 +30,7 @@ void UHostEntryWidget::Join()
     TravelString = FString::Printf(TEXT("%s//Game/Levels/BattleLevel"), *HostEntryBox->GetText().ToString());
   }
   Player->ClientTravel(TravelString, ETravelType::TRAVEL_Absolute);
+  UE_LOG(LogTemp, Warning, TEXT("%s::Join - After Client Travel"), *GetName());
 }
 
 void UHostEntryWidget::Cancel()

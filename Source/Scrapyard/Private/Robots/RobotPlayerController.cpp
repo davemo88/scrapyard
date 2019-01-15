@@ -26,8 +26,14 @@ void ARobotPlayerController::BeginPlay()
 void ARobotPlayerController::Possess(APawn* InPawn)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::Possess"), *GetName());
-
   Super::Possess(InPawn);
+
+  if (ARobotCharacter* RoboChar = Cast<ARobotCharacter>(InPawn))
+  {
+    SetRobotCharacter(RoboChar);
+    RoboChar->RobotBodyComponent->PartAssignment->SetAssignment(PartAssignmentIDs);
+//    ClientSetRobotPartAssignmentFromIDs(PartAssignmentIDs);
+  }
 }
 
 void ARobotPlayerController::OnFire()
@@ -91,12 +97,12 @@ void ARobotPlayerController::SetRobotCharacter(ARobotCharacter* NewRobotCharacte
   RobotCharacter = NewRobotCharacter;
 }
 
-bool ARobotPlayerController::ServerSetPartAssignment_Validate(FPartAssignmentIDs NewPartAssignmentIDs)
+bool ARobotPlayerController::ServerSetPartAssignmentIDs_Validate(FPartAssignmentIDs NewPartAssignmentIDs)
 {
   return true;
 }
 
-void ARobotPlayerController::ServerSetPartAssignment_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
+void ARobotPlayerController::ServerSetPartAssignmentIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::ServerSetPartAssignment_Implementation"), *GetName());
   PartAssignmentIDs = NewPartAssignmentIDs;
@@ -107,12 +113,30 @@ void ARobotPlayerController::ServerSetPartAssignment_Implementation(FPartAssignm
 
 }
 
-void ARobotPlayerController::ClientGetPartAssignment_Implementation()
+void ARobotPlayerController::ClientGetPartAssignmentIDs_Implementation()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::ClientGetPartAssignment_Implementation"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   if (GameInstance->PartAssignment != NULL)
   {
-    ServerSetPartAssignment(GameInstance->PartAssignment->GetPartAssignmentIDs());
+//TODO: replication or no?
+    PartAssignmentIDs = GameInstance->PartAssignment->GetPartAssignmentIDs();
+    ServerSetPartAssignmentIDs(PartAssignmentIDs);
   }
 }
+
+void ARobotPlayerController::ClientSetRobotPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetRobotPartAssignmentFromIDs_Implementation"), *GetName());
+  if (RobotCharacter != NULL)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetRobotPartAssignmentFromIDs_Implementation - RobotCharacter OK"), *GetName());
+    RobotCharacter->RobotBodyComponent->PartAssignment->SetAssignment(PartAssignmentIDs);
+  }
+}
+
+//void ARobotPlayerController::GetLifetimeReplicatedProps(TArray <FLifetimeProperty> & OutLifetimeProps) const
+//{
+//  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+//  DOREPLIFETIME(ARobotPlayerController, PartAssignmentIDs);
+//}

@@ -12,6 +12,7 @@ void UMainMenuWidget::NativeConstruct()
   DraftButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnDraftButtonClicked);
   GarageButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnGarageButtonClicked);
   HostButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnHostButtonClicked);
+
   JoinButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnJoinButtonClicked);
   QuitButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnQuitButtonClicked);
 

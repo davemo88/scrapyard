@@ -39,6 +39,7 @@
 #include "Player/SoloDraftPlayerController.h"
 #include "Game/SoloDraftGameState.h"
 
+// maybe make this a gamestate?
 
 // Sets default values
 ASoloDraftActor::ASoloDraftActor()
