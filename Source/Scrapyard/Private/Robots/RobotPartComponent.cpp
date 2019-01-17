@@ -16,8 +16,7 @@ void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart"), *GetName());
   RobotPart = NewRobotPart;
-//  if (GetOwner() != NULL && !GetOwner()->HasAuthority())
-  if (GetOwner() != NULL)
+  if (GetOwner() != NULL && GetWorld() != NULL && !(GetWorld()->GetNetMode() == NM_DedicatedServer))
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
     if (USkeletalMesh* Mesh = RobotPart->GetSkeletalMesh())

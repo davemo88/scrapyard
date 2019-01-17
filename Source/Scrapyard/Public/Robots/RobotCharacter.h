@@ -9,8 +9,12 @@
 #include "Camera/CameraComponent.h"
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotStats.h"
+#include "Parts/RobotPartAssignment.h"
 #include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHitPointsChangedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPowerChangedDelegate);
 
 UCLASS()
 class SCRAPYARD_API ARobotCharacter : public ACharacter
@@ -53,10 +57,17 @@ public:
   UPROPERTY()
   URobotStats* RobotStats;
 
-  UPROPERTY(Replicated)
+//  UPROPERTY(Replicated)
+  UPROPERTY(ReplicatedUsing=OnRep_HitPoints)
   int32 HitPoints = 0;
-  UPROPERTY(Replicated)
+  UPROPERTY(ReplicatedUsing=OnRep_Power)
   int32 Power = 0;
+
+  UFUNCTION()
+  virtual void OnRep_HitPoints();
+
+  UFUNCTION()
+  virtual void OnRep_Power();
 
 // camera
   UPROPERTY(BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -122,5 +133,11 @@ public:
   {
     return (InFireMode < PendingFire.Num() && PendingFire[InFireMode] != 0);
   }
+
+  UFUNCTION(NetMulticast, Reliable)
+  void MulticastSetRobotPartAssignmentFromIDs(FPartAssignmentIDs NewPartAssignmentIDs);
+
+  FHitPointsChangedDelegate HitPointsChangedDelegate;
+  FPowerChangedDelegate PowerChangedDelegate;
   
 };

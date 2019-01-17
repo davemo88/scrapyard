@@ -67,7 +67,4 @@ private:
   UFUNCTION(Server, Reliable, WithValidation)
   void ServerSetPartAssignmentIDs(FPartAssignmentIDs NewPartAssignmentIDs);
 
-  UFUNCTION(Client, Reliable)
-  void ClientSetRobotPartAssignmentFromIDs(FPartAssignmentIDs NewPartAssignmentIDs);
-
 };

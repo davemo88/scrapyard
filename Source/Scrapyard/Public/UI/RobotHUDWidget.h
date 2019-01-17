@@ -26,10 +26,13 @@ protected:
 
   void NativeTick(const FGeometry &MyGeometry, float InDeltaTime) override; 
 
-  void UpdatePowerBar();
-
   UFUNCTION()
-  void SetHitPointsText(FText NewHitPointsText);
+  void UpdatePowerBar();
+  UFUNCTION()
+  void UpdateHitPoints();
+
+//  UFUNCTION()
+//  void SetHitPointsText(FText NewHitPointsText);
 
   UPROPERTY()
   ARobotCharacter* RobotCharacter;

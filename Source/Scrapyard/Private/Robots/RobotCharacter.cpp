@@ -109,14 +109,14 @@ void ARobotCharacter::SetupRobotHUDWidget()
   {
 // TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
 // e.g. use friend class or write a function
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - PC ok"), *GetName());
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - local PC"), *GetName());
     PC->RobotHUDWidget = CreateWidget<URobotHUDWidget>(PC, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
     PC->RobotHUDWidget->SetRobotCharacter(this);
     PC->RobotHUDWidget->AddToViewport();
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - PC null or nonlocal"), *GetName());
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - nonlocal or null PC"), *GetName());
   }
 }
 
@@ -187,9 +187,14 @@ void ARobotCharacter::SetupAbilities()
 void ARobotCharacter::OnStatsUpdated()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnStatsUpdated"), *GetName());
-  HitPoints = RobotStats->HitPoints;
+  UE_LOG(LogTemp, Warning, TEXT("HitPoints: %i"), RobotStats->HitPoints);
   UE_LOG(LogTemp, Warning, TEXT("Power: %i"), RobotStats->MaxPower);
+
+//TODO: functions to do these
+  HitPoints = RobotStats->HitPoints;
+  HitPointsChangedDelegate.Broadcast();
   Power = RobotStats->MaxPower;
+  PowerChangedDelegate.Broadcast();
 }
 
 void ARobotCharacter::Axis_MoveX(float AxisValue)
@@ -288,9 +293,9 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
   if (HasAuthority())
   {
     MulticastShowDamage(Damage, DamageEvent, EventInstigator, DamageCauser, HitInfo);
+    HitPoints = FMath::Max(0,HitPoints-(int)Damage);
+    UE_LOG(LogTemp, Warning, TEXT("%s::TakeDamage - HitPoints set to %d"), *GetName(), HitPoints);
   }
-
-  HitPoints = FMath::Max(0,HitPoints-(int)Damage);
 
   return Damage;
 }
@@ -349,7 +354,21 @@ void ARobotCharacter::StopFiring()
 void ARobotCharacter::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & OutLifetimeProps) const
 {
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
   DOREPLIFETIME(ARobotCharacter, WeaponAbility);
   DOREPLIFETIME(ARobotCharacter, HitPoints);
   DOREPLIFETIME(ARobotCharacter, Power);
+
+}
+
+void ARobotCharacter::OnRep_HitPoints()
+{
+  UE_LOG(LogTemp,Warning,TEXT("%s::OnRep_HitPoints"), *GetName());
+  HitPointsChangedDelegate.Broadcast();
+}
+
+void ARobotCharacter::OnRep_Power()
+{
+  UE_LOG(LogTemp,Warning,TEXT("%s::OnRep_Power"), *GetName());
+  PowerChangedDelegate.Broadcast();
 }

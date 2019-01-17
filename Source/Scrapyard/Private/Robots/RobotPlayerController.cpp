@@ -31,8 +31,8 @@ void ARobotPlayerController::Possess(APawn* InPawn)
   if (ARobotCharacter* RoboChar = Cast<ARobotCharacter>(InPawn))
   {
     SetRobotCharacter(RoboChar);
-    RoboChar->RobotBodyComponent->PartAssignment->SetAssignment(PartAssignmentIDs);
-//    ClientSetRobotPartAssignmentFromIDs(PartAssignmentIDs);
+//    RoboChar->RobotBodyComponent->PartAssignment->SetAssignment(PartAssignmentIDs);
+    RoboChar->MulticastSetRobotPartAssignmentFromIDs(PartAssignmentIDs);
   }
 }
 
@@ -125,14 +125,10 @@ void ARobotPlayerController::ClientGetPartAssignmentIDs_Implementation()
   }
 }
 
-void ARobotPlayerController::ClientSetRobotPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
+void ARobotCharacter::MulticastSetRobotPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetRobotPartAssignmentFromIDs_Implementation"), *GetName());
-  if (RobotCharacter != NULL)
-  {
-    UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetRobotPartAssignmentFromIDs_Implementation - RobotCharacter OK"), *GetName());
-    RobotCharacter->RobotBodyComponent->PartAssignment->SetAssignment(PartAssignmentIDs);
-  }
+  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastSetRobotPartAssignmentFromIDs_Implementation"), *GetName());
+  RobotBodyComponent->PartAssignment->SetAssignment(NewPartAssignmentIDs);
 }
 
 //void ARobotPlayerController::GetLifetimeReplicatedProps(TArray <FLifetimeProperty> & OutLifetimeProps) const

@@ -11,17 +11,20 @@ void URobotHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
 // widgets don't tick when they aren't shown
 // so can avoid this null check if this widget can't be shown without RobotCharacter being set
 // maybe override its add to viewport method to check first?
-  if (RobotCharacter != NULL)
-  {
-// TODO: can do this manually whenever actually using power
-    UpdatePowerBar(); 
-  }
+//  if (RobotCharacter != NULL)
+//  {
+//// TODO: can do this manually whenever actually using power
+//    UpdatePowerBar(); 
+//  }
 }
 
 void URobotHUDWidget::SetRobotCharacter(ARobotCharacter* NewRobotCharacter)
 {
   RobotCharacter = NewRobotCharacter;
-  SetHitPointsText(FText::AsNumber(RobotCharacter->HitPoints));
+  UpdateHitPoints();
+  UpdatePowerBar();
+  RobotCharacter->HitPointsChangedDelegate.AddDynamic(this, &URobotHUDWidget::UpdateHitPoints);
+  RobotCharacter->PowerChangedDelegate.AddDynamic(this, &URobotHUDWidget::UpdatePowerBar);
 }
 
 void URobotHUDWidget::UpdatePowerBar()
@@ -31,8 +34,14 @@ void URobotHUDWidget::UpdatePowerBar()
   PowerBar->SetPercent((float)RobotCharacter->Power / (float)RobotCharacter->RobotStats->MaxPower);
 }
 
-void URobotHUDWidget::SetHitPointsText(FText NewHitPointsText)
+void URobotHUDWidget::UpdateHitPoints()
 {
-  HitPointsText->SetText(NewHitPointsText);
+  HitPointsText->SetText(FText::AsNumber(RobotCharacter->HitPoints));
 }
+
+//
+//void URobotHUDWidget::SetHitPointsText(FText NewHitPointsText)
+//{
+//  HitPointsText->SetText(NewHitPointsText);
+//}
 
