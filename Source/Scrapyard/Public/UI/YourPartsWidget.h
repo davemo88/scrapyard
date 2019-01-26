@@ -4,11 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "SoloDraft.h"
+#include "Parts/RobotPart.h"
+#include "UI/PartCardWidget.h"
+#include "Components/Button.h"
+#include "Components/ScrollBox.h"
 #include "YourPartsWidget.generated.h"
-
-class UButton;
-class UScrollBox;
-class UPartCardWidget;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewPartCardAdded, UPartCardWidget*, PartCard);
 

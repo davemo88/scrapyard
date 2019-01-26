@@ -3,6 +3,8 @@
 #include "RobotPlayerController.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerCameraManager.h"
+#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/RobotGameState.h"
 #include "GameFramework/PlayerController.h"
 
 ARobotPlayerController::ARobotPlayerController()
@@ -18,8 +20,11 @@ void ARobotPlayerController::BeginPlay()
 //  UGameViewportClient* ViewportClient = GetWorld()->GetGameInstance()->GetGameViewportClient();
 //  ViewportClient->Viewport->CaptureMouse(true);
 //  ViewportClient->Viewport->SetUserFocus(true);
+//TODO: why is this here?
   const FInputModeGameOnly InputMode = FInputModeGameOnly();
   SetInputMode(InputMode);
+
+  SetupMatchTimerWidget();
 
 }
 
@@ -95,6 +100,24 @@ void ARobotPlayerController::ApplyDeferredFireInputs()
 void ARobotPlayerController::SetRobotCharacter(ARobotCharacter* NewRobotCharacter)
 {
   RobotCharacter = NewRobotCharacter;
+}
+
+void ARobotPlayerController::SetupMatchTimerWidget()
+{
+  if (IsLocalController())
+  {
+    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+    MatchTimerWidget = CreateWidget<UMatchTimerWidget>(this, GameInstance->DefaultAssetsBP->MatchTimerWidgetBP);
+  //TODO: save pointer to gamestate?
+    if (ARobotGameState* RobotGS = (Cast<ARobotGameState>(GetWorld()->GetGameState())))
+    {
+      RobotGS->OnMatchTimerStartedDelegate.AddDynamic(MatchTimerWidget, &UMatchTimerWidget::StartMatchTimer);
+      RobotGS->OnMatchTimerUpdatedDelegate.AddDynamic(MatchTimerWidget, &UMatchTimerWidget::UpdateMatchTimer);
+      RobotGS->OnMatchTimerStoppedDelegate.AddDynamic(MatchTimerWidget, &UMatchTimerWidget::StopMatchTimer);
+    }
+    MatchTimerWidget->SetVisibility(ESlateVisibility::Hidden);
+    MatchTimerWidget->AddToViewport();
+  }
 }
 
 bool ARobotPlayerController::ServerSetPartAssignmentIDs_Validate(FPartAssignmentIDs NewPartAssignmentIDs)

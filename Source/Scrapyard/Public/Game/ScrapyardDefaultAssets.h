@@ -13,6 +13,7 @@ class USoloDraftWidget;
 class UPartCardWidget;
 class URobotHUDWidget;
 class UStatLineWidget;
+class UMatchTimerWidget;
 
 /**
  * 
@@ -45,5 +46,8 @@ public:
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class UStatLineWidget> StatLineWidgetBP;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<class UMatchTimerWidget> MatchTimerWidgetBP;
 
 };

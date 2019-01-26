@@ -6,6 +6,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Player/ScrapyardPlayerController.h"
 #include "UI/RobotHUDWidget.h"
+#include "UI/MatchTimerWidget.h"
 #include "Parts/RobotPartAssignment.h"
 #include "RobotPlayerController.generated.h"
 
@@ -37,6 +38,9 @@ protected:
 
 public:
   URobotHUDWidget* RobotHUDWidget;
+
+  UMatchTimerWidget* MatchTimerWidget;
+  void SetupMatchTimerWidget();
 
 // TODO: refector these to be protected
   virtual void OnFire();

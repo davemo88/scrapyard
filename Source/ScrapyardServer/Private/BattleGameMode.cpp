@@ -25,7 +25,10 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 
   if (GetNumPlayers() > 1)
   {
-    GetWorld()->GetTimerManager().SetTimer(StartMatchTimerHandle, this, &ABattleGameMode::StartMatch, 5.0f, false);
+    ARobotGameState* RobotGS = GetGameState<ARobotGameState>();
+    RobotGS->OnMatchTimerExpiredDelegate.AddDynamic(this, &ABattleGameMode::StartMatch);
+    RobotGS->MulticastStartMatchTimer(5);
+//    GetWorld()->GetTimerManager().SetTimer(StartMatchTimerHandle, this, &ABattleGameMode::StartMatch, 5.0f, false);
 //    StartMatch();
   }
   

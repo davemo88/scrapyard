@@ -3,10 +3,9 @@
 
 #include "YourPartsWidget.h"
 #include "UI/PartCardWidget.h"
-#include "SoloDraft.h"
+#include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
-#include "Parts/RobotPart.h"
-#include "Parts/HeadPart.h"
+#include "Game/ScrapyardDefaultAssets.h"
 
 void UYourPartsWidget::NativeConstruct()
 {

@@ -191,6 +191,7 @@ void ARobotCharacter::OnStatsUpdated()
   UE_LOG(LogTemp, Warning, TEXT("Power: %i"), RobotStats->MaxPower);
 
 //TODO: functions to do these
+//TODO: why aren't these updated on replication?
   HitPoints = RobotStats->HitPoints;
   HitPointsChangedDelegate.Broadcast();
   Power = RobotStats->MaxPower;
@@ -269,10 +270,24 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
       MovementComponent->SetMovementMode(MOVE_Falling, 3);
     }
   };
+  if (!HasAuthority())
+  {
+    ServerBoost(AxisValue);
+  }
 //  UE_LOG(LogTemp, Warning, TEXT("Postboost Movement Mode: %s "), *MovementModeName);
 
 // better to switch on this enum type later
 //  EMovementMode MovementMode = MovementComponent->MovementMode;
+}
+
+bool ARobotCharacter::ServerBoost_Validate(float AxisValue)
+{
+  return true;
+}
+
+void ARobotCharacter::ServerBoost_Implementation(float AxisValue)
+{
+  Axis_Boost(AxisValue);
 }
 
 float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)

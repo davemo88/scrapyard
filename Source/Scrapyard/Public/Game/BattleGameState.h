@@ -3,25 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameState.h"
+#include "Game/RobotGameState.h"
 #include "BattleGameState.generated.h"
+
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARD_API ABattleGameState : public AGameState
+class SCRAPYARD_API ABattleGameState : public ARobotGameState
 {
   GENERATED_BODY()
       
 public:
 
   ABattleGameState();
-
-protected:
-  UFUNCTION(NetMulticast, Reliable)
-  void MulticastShowTimer(float TimerLength);
-
-  FTimerHandle StartMatchTimerHandle;
 
 };

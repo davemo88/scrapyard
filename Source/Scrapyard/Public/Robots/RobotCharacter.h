@@ -85,6 +85,9 @@ public:
   UFUNCTION()
   virtual void Axis_Boost(float AxisValue);
 
+  UFUNCTION(Server, Unreliable, WithValidation)
+  virtual void ServerBoost(float AxisValue);
+
   UPROPERTY()//Replicated
   uint8 FireMode;
 

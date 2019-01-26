@@ -30,7 +30,7 @@ protected:
   virtual void BeginPlay() override;
 
   UPROPERTY()
-  int32 NumChoices = 3;
+  uint32 NumChoices = 3;
 
   UPROPERTY()
   TArray<URobotPart*> RobotPartPool;
