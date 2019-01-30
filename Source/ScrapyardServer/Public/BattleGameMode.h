@@ -18,11 +18,22 @@ public:
 
   ABattleGameMode();
 
-  void PostLogin(APlayerController* NewPlayer) override;
+  virtual void BeginPlay() override;
+
+  virtual void PostLogin(APlayerController* NewPlayer) override;
   
-//  virtual bool ReadyToStartMatch() override;
+  virtual void StartMatch() override;
 
 protected:
+
+  bool IsGameStateReplicatedToAllClients();
+
+  virtual bool ReadyToStartMatch_Implementation() override;
+
+  UFUNCTION()
+  void OnMatchTimerExpired();
+
+  bool bMatchTimerExpired;
     
   void HandleMatchIsWaitingToStart() override;
   void HandleMatchHasStarted() override;

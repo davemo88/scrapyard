@@ -1,0 +1,51 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "RobotGameState.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
+
+void ARobotGameState::MulticastStartMatchTimer_Implementation(uint32 Seconds)
+{
+  MatchTimerExpired = false;
+  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStartMatchTimer"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStartMatchTimer - %d Seconds"), *GetName(), Seconds);
+  MatchTimerSecondsRemaining = Seconds;
+  GetWorld()->GetTimerManager().SetTimer(MatchTimerHandle, this, &ARobotGameState::MatchTimer, 1.0f, true);
+  OnMatchTimerStartedDelegate.Broadcast();
+}
+
+void ARobotGameState::MulticastStopMatchTimer_Implementation()
+{
+//TODO: clear delegates and stop the timer
+  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStopMatchTimer"), *GetName());
+  GetWorld()->GetTimerManager().ClearTimer(MatchTimerHandle);
+  OnMatchTimerStoppedDelegate.Broadcast();
+}
+
+void ARobotGameState::MatchTimer()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::MatchTimer"), *GetName());
+//TODO: heh heh this looks bad
+  if (MatchTimerSecondsRemaining > 0)
+  {
+    MatchTimerSecondsRemaining--;
+    OnMatchTimerUpdatedDelegate.Broadcast();
+    if (MatchTimerSecondsRemaining == 0)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("%s::MatchTimer - Timer Expired"), *GetName());
+      GetWorld()->GetTimerManager().ClearTimer(MatchTimerHandle);
+      OnMatchTimerExpiredDelegate.Broadcast();      
+    }
+  }
+}
+
+uint32 ARobotGameState::GetMatchTimerSecondsRemaining()
+{
+  return MatchTimerSecondsRemaining;
+}
+
+bool ARobotGameState::IsMatchTimerActive()
+{
+  return GetWorld()->GetTimerManager().IsTimerActive(MatchTimerHandle);
+}

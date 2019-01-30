@@ -63,6 +63,12 @@ public:
   UPROPERTY()
   FPartAssignmentIDs PartAssignmentIDs;
 
+  UFUNCTION(Server, Reliable, WithValidation)
+  void ServerNotifyGameStateReplicated();
+
+//TODO: accessor
+  bool GameStateReplicated;
+
 private:
 // want this property because otherwise we will end up casting GetPawn() to ARobotCharacter all the time
   UPROPERTY()
@@ -70,5 +76,6 @@ private:
 
   UFUNCTION(Server, Reliable, WithValidation)
   void ServerSetPartAssignmentIDs(FPartAssignmentIDs NewPartAssignmentIDs);
+
 
 };
