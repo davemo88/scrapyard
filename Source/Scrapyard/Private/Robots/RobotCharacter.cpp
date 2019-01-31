@@ -310,6 +310,11 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
     MulticastShowDamage(Damage, DamageEvent, EventInstigator, DamageCauser, HitInfo);
     HitPoints = FMath::Max(0,HitPoints-(int)Damage);
     UE_LOG(LogTemp, Warning, TEXT("%s::TakeDamage - HitPoints set to %d"), *GetName(), HitPoints);
+
+    if (HitPoints == 0)
+    {
+      ZeroHitPointsDelegate.Broadcast();
+    }
   }
 
   return Damage;

@@ -24,11 +24,20 @@ public:
   
   virtual void StartMatch() override;
 
+  virtual void RestartPlayer(AController* NewPlayer) override;
+
 protected:
+
+  UFUNCTION()
+  virtual void OnZeroHitPoints();
+
+  bool bReadyToEndMatch;
 
   bool IsGameStateReplicatedToAllClients();
 
   virtual bool ReadyToStartMatch_Implementation() override;
+
+  virtual bool ReadyToEndMatch_Implementation() override;
 
   UFUNCTION()
   void OnMatchTimerExpired();

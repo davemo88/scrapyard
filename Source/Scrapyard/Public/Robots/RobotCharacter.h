@@ -15,6 +15,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHitPointsChangedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPowerChangedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FZeroHitPointsDelegate);
 
 UCLASS()
 class SCRAPYARD_API ARobotCharacter : public ACharacter
@@ -142,5 +143,6 @@ public:
 
   FHitPointsChangedDelegate HitPointsChangedDelegate;
   FPowerChangedDelegate PowerChangedDelegate;
+  FZeroHitPointsDelegate ZeroHitPointsDelegate;
   
 };

@@ -13,6 +13,7 @@ ABattleGameMode::ABattleGameMode()
   GameStateClass = ABattleGameState::StaticClass();
 
   bMatchTimerExpired = false;
+  bReadyToEndMatch = false;
 }
 
 void ABattleGameMode::BeginPlay()
@@ -90,10 +91,32 @@ bool ABattleGameMode::ReadyToStartMatch_Implementation()
   return Ready;
 }
 
+bool ABattleGameMode::ReadyToEndMatch_Implementation()
+{
+  return bReadyToEndMatch;
+}
+
 void ABattleGameMode::StartMatch()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::StartMatch"), *GetName());
   Super::StartMatch();
+}
+
+void ABattleGameMode::RestartPlayer(AController* NewPlayer)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::RestartPlayer"), *GetName());
+  Super::RestartPlayer(NewPlayer);
+  if (ARobotCharacter* RobotChar = Cast<ARobotCharacter>(NewPlayer->GetPawn()))
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::RestartPlayer - RobotChar OK"), *GetName());
+    RobotChar->ZeroHitPointsDelegate.AddDynamic(this, &ABattleGameMode::OnZeroHitPoints);
+  }
+}
+
+
+void ABattleGameMode::OnZeroHitPoints()
+{
+  bReadyToEndMatch = true;
 }
 
 void ABattleGameMode::OnMatchTimerExpired()
@@ -122,6 +145,8 @@ void ABattleGameMode::HandleMatchAborted()
 void ABattleGameMode::HandleMatchHasEnded()
 {
   UE_LOG(LogTemp, Warning, TEXT("HandleMatchHasEnded"));
+//TODO: timer
+  RestartGame();
 }
 
 void ABattleGameMode::HandleLeavingMap()
