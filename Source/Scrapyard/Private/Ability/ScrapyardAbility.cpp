@@ -2,10 +2,12 @@
 
 
 #include "ScrapyardAbility.h"
+#include "Robots/RobotCharacter.h"
 #include "Ability/AbilityState.h"
 #include "Ability/AbilityStateActive.h"
 #include "Ability/AbilityStateInactive.h"
 #include "Ability/AbilityStateFiring.h"
+#include "Player/RobotPlayerController.h"
 #include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
 

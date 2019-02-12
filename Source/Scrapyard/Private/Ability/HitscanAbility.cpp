@@ -2,6 +2,7 @@
 
 
 #include "HitscanAbility.h"
+#include "Robots/RobotCharacter.h"
 
 AHitscanAbility::AHitscanAbility()
 {

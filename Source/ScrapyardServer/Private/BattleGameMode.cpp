@@ -3,7 +3,7 @@
 #include "BattleGameMode.h"
 #include "BattleGameState.h"
 #include "Robots/RobotCharacter.h"
-#include "Robots/RobotPlayerController.h"
+#include "Player/RobotPlayerController.h"
 
 ABattleGameMode::ABattleGameMode()
 {
@@ -26,21 +26,17 @@ void ABattleGameMode::BeginPlay()
 
 void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::PostLogin"), *GetName());
   Super::PostLogin(NewPlayer);
-  UE_LOG(LogTemp, Warning, TEXT("Battle Game Mode Post Login"));
-  UE_LOG(LogTemp, Warning, TEXT("bDelayedStart: %s"), (this->bDelayedStart ? TEXT("True") : TEXT("False")));
-  UE_LOG(LogTemp, Warning, TEXT("Num Players: %d"), GetNumPlayers());
 
   ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(NewPlayer);
   RobotPC->ClientGetPartAssignmentIDs();
+}
 
-//  if (GetNumPlayers() > 1)
-//  {
-//    ARobotGameState* RobotGS = GetGameState<ARobotGameState>();
-//    RobotGS->OnMatchTimerExpiredDelegate.AddDynamic(this, &ABattleGameMode::StartMatch);
-//    RobotGS->MulticastStartMatchTimer(5);
-//  }
-  
+void ABattleGameMode::Logout(AController* Exiting)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::Logout"), *GetName());
+  Super::Logout(Exiting);
 }
 
 bool ABattleGameMode::IsGameStateReplicatedToAllClients()
@@ -77,7 +73,6 @@ bool ABattleGameMode::ReadyToStartMatch_Implementation()
 // if a client's gamestate hasn't finished replicating yet, then this rpc won't be executed on that client
       RobotGS->MulticastStartMatchTimer(5);
     }
-//    else if (RobotGS->IsMatchTimerActive() && RobotGS->GetMatchTimerSecondsRemaining() == 0)
     else if (bMatchTimerExpired)
     {
       Ready = true;

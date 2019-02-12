@@ -6,7 +6,7 @@
 #include "Ability/AbilityStateFiring.h"
 #include "Ability/ScrapyardAbility.h"
 #include "Robots/RobotCharacter.h"
-#include "Robots/RobotPlayerController.h"
+#include "Player/RobotPlayerController.h"
 
 void UAbilityStateActive::BeginState(const UAbilityState* PrevState)
 {

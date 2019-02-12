@@ -4,7 +4,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
-#include "Robots/RobotPlayerController.h"
+#include "Player/RobotPlayerController.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
@@ -80,7 +80,7 @@ void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
   Super::SetupPlayerInputComponent(PlayerInputComponent);
 
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-
+//TODO: why this check?
   if (PC)
   {
     InputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
