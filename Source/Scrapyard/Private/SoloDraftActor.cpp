@@ -123,7 +123,7 @@ void ASoloDraftActor::SamplePack()
 
   CurrentDraft->CurrentPack.Empty();
 
-  for (int32 i = 0; i < NumChoices; ++i)
+  for (uint32 i = 0; i < NumChoices; ++i)
   {
     CurrentDraft->CurrentPack.Add(SamplePart());
   }
