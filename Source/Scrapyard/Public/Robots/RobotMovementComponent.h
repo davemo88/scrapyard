@@ -16,13 +16,35 @@ class SCRAPYARD_API URobotMovementComponent : public UCharacterMovementComponent
   
 public:
 
+  URobotMovementComponent();
+
   virtual void UpdateFromCompressedFlags(uint8 Flags) override;
 
   virtual class FNetworkPredictionData_Client* GetPredictionData_Client() const override;
   
   virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
+  virtual void SetBoosting(uint8 bBoosting);
+
+//TODO: why not bool
+  uint8 bWantsToBoost : 1;
+
+  float BoostSpeedMultiplier;
+  float BoostAccelerationMultiplier;
+  
+  float BoostHoldThresholdTime;
+
+  virtual float GetMaxSpeed() const override;
+  virtual float GetMaxAcceleration() const override;
+
+  FTimerHandle BoostHoldTimerHandle;
+
+  UFUNCTION()
+  void BoostHoldTimerExpired();
+
+
 };
+
 
 class FSavedMove_Robot : public FSavedMove_Character
 {
@@ -38,6 +60,8 @@ class FSavedMove_Robot : public FSavedMove_Character
     virtual void SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const& NewAccel, class FNetworkPredictionData_Client_Character& ClientData) override;
 
     virtual void PrepMoveFor(class ACharacter* Character) override;
+
+    uint8 bSavedWantsToBoost : 1; 
 
 };
 

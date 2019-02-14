@@ -86,6 +86,9 @@ public:
   UFUNCTION()
   virtual void Axis_Boost(float AxisValue);
 
+  virtual void StartBoosting();
+  virtual void StopBoosting();
+
   UFUNCTION(Server, Unreliable, WithValidation)
   virtual void ServerBoost(float AxisValue);
 

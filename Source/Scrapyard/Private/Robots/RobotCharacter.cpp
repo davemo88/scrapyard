@@ -89,9 +89,9 @@ void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
     InputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
     InputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
 
-    InputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
-
-    InputComponent->BindAction("Jump", IE_Pressed, this, &ARobotCharacter::Jump);
+//    InputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
+    InputComponent->BindAction("Boost", IE_Pressed, this, &ARobotCharacter::StartBoosting);
+    InputComponent->BindAction("Boost", IE_Released, this, &ARobotCharacter::StopBoosting);
 
     InputComponent->BindAction("PrimaryFire", IE_Pressed, PC, &ARobotPlayerController::OnFire);
     InputComponent->BindAction("PrimaryFire", IE_Released,PC, &ARobotPlayerController::OnStopFire);
@@ -278,6 +278,26 @@ void ARobotCharacter::Axis_Boost(float AxisValue)
 
 // better to switch on this enum type later
 //  EMovementMode MovementMode = MovementComponent->MovementMode;
+}
+
+void ARobotCharacter::StartBoosting()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::StartBoosting"), *GetName());
+  URobotMovementComponent* MoveComp = Cast<URobotMovementComponent>(GetCharacterMovement());
+  if (MoveComp)
+  {
+    MoveComp->SetBoosting(1);
+  }
+}
+
+void ARobotCharacter::StopBoosting()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::StopBoosting"), *GetName());
+  URobotMovementComponent* MoveComp = Cast<URobotMovementComponent>(GetCharacterMovement());
+  if (MoveComp)
+  {
+    MoveComp->SetBoosting(0);  
+  }
 }
 
 bool ARobotCharacter::ServerBoost_Validate(float AxisValue)
