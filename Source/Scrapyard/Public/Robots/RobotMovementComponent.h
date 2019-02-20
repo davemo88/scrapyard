@@ -24,10 +24,14 @@ public:
   
   virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
-  virtual void SetBoosting(uint8 bBoosting);
-
-//TODO: why not bool
+// for compressed flags
   uint8 bWantsToBoost : 1;
+
+  bool bWasBoosting;
+
+  virtual void SetBoosting(uint8 bBoosting);
+  virtual void CheckBoostingInput();
+  virtual void ClearBoostingInput();
 
   float BoostSpeedMultiplier;
   float BoostAccelerationMultiplier;

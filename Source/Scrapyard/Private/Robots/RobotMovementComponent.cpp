@@ -18,6 +18,8 @@ URobotMovementComponent::URobotMovementComponent()
   BoostAccelerationMultiplier = 2.0f;
 
   BoostHoldThresholdTime = 0.2f;
+
+  bWasBoosting = false;
 }
 
 void URobotMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
@@ -31,9 +33,9 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-  if (CharacterOwner != NULL)
+  if (ACharacter* Char = GetCharacterOwner())
   {
-    ARobotPlayerController* PC = Cast<ARobotPlayerController>(CharacterOwner->Controller);
+    ARobotPlayerController* PC = Cast<ARobotPlayerController>(Char->Controller);
     if (PC != NULL && PC->PlayerInput != NULL)
     {
 //      this is from Unreal Tournament
@@ -43,6 +45,8 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
         PC->ApplyDeferredFireInputs();
 //      }
     }
+    
+    CheckBoostingInput();
   }
 }
 
@@ -50,22 +54,34 @@ void URobotMovementComponent::SetBoosting(uint8 bBoosting)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting"), *GetName());
   bWantsToBoost = bBoosting; 
+}
+
+void URobotMovementComponent::CheckBoostingInput()
+{
   if (ACharacter* Char = GetCharacterOwner())
   {
-    if (bBoosting && !BoostHoldTimerHandle.IsValid())
+    if (bWantsToBoost && !bWasBoosting && !BoostHoldTimerHandle.IsValid())
     {
       UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting - Set Timer"), *GetName());
       Char->GetWorld()->GetTimerManager().SetTimer(BoostHoldTimerHandle, this, &URobotMovementComponent::BoostHoldTimerExpired, BoostHoldThresholdTime, false);
     }
-    else if (!bBoosting && BoostHoldTimerHandle.IsValid() && (Char->GetWorld()->GetTimerManager().GetTimerElapsed(BoostHoldTimerHandle) < BoostHoldThresholdTime))
+    else if (!bWantsToBoost && BoostHoldTimerHandle.IsValid() && (Char->GetWorld()->GetTimerManager().GetTimerElapsed(BoostHoldTimerHandle) < BoostHoldThresholdTime))
     {
       UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting - Jump"), *GetName());
   UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting"), *GetName());
       Char->GetWorld()->GetTimerManager().ClearTimer(BoostHoldTimerHandle);
       DoJump(true);
     }
+
+    bWasBoosting = bWantsToBoost;
   }
 }
+
+void URobotMovementComponent::ClearBoostingInput()
+{
+
+}
+
 
 void URobotMovementComponent::BoostHoldTimerExpired()
 { 
