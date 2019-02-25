@@ -42,6 +42,8 @@ protected:
   UFUNCTION()
   void OnStatsUpdated();
 
+  friend class URobotTunerWidget;
+
 public:  
   // Called every frame
   virtual void Tick(float DeltaTime) override;
@@ -83,14 +85,14 @@ public:
   virtual void Axis_MoveX(float AxisValue);
   UFUNCTION()
   virtual void Axis_MoveY(float AxisValue);
-  UFUNCTION()
-  virtual void Axis_Boost(float AxisValue);
+//  UFUNCTION()
+//  virtual void Axis_Boost(float AxisValue);
 
   virtual void StartBoosting();
   virtual void StopBoosting();
 
-  UFUNCTION(Server, Unreliable, WithValidation)
-  virtual void ServerBoost(float AxisValue);
+//  UFUNCTION(Server, Unreliable, WithValidation)
+//  virtual void ServerBoost(float AxisValue);
 
   UPROPERTY()//Replicated
   uint8 FireMode;

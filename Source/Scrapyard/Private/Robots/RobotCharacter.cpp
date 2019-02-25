@@ -89,7 +89,6 @@ void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
     InputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
     InputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
 
-//    InputComponent->BindAxis("Boost", this, &ARobotCharacter::Axis_Boost);
     InputComponent->BindAction("Boost", IE_Pressed, this, &ARobotCharacter::StartBoosting);
     InputComponent->BindAction("Boost", IE_Released, this, &ARobotCharacter::StopBoosting);
 
@@ -224,61 +223,61 @@ void ARobotCharacter::Axis_MoveY(float AxisValue)
   }
 }
 
-void ARobotCharacter::Axis_Boost(float AxisValue)
-{
-  URobotMovementComponent* MovementComponent = Cast<URobotMovementComponent>(GetMovementComponent());
-  FString MovementModeName = MovementComponent->GetMovementName();
-//  UE_LOG(LogTemp, Warning, TEXT("Preboost Movement Mode: %s "), *MovementModeName);
-  if (AxisValue != 0.f && Power > 0)
-  {
-    if (MovementComponent->IsWalking())
-    {
-
-    }
-    else if (MovementComponent->IsFalling())
-    {
-      {
-        MovementComponent->SetMovementMode(MOVE_Flying, 5);
-      }
-    }
-    else if (MovementComponent->IsFlying())
-    {
-// TODO: set some scaling constants for booster thrust and powerdrain
-      const FVector Up = FVector(0, 0, 1);
-      AddMovementInput(Up, AxisValue);
-      Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue * 0.1), 0);
-    }
-  }
-  else if (AxisValue != 0.f && Power <= 0)
-  {
-    if (MovementComponent->IsFlying())
-    {
-      {
-        MovementComponent->SetMovementMode(MOVE_Falling, 5);
-      }
-    }
-  }
-  else if (AxisValue == 0.f)
-  {
-    if (Power < RobotStats->MaxPower)
-    {
-      Power = FMath::Min(RobotStats->MaxPower, Power + 10);
-    }
-
-    if (MovementComponent->IsFlying())
-    {
-      MovementComponent->SetMovementMode(MOVE_Falling, 3);
-    }
-  };
-  if (!HasAuthority())
-  {
-    ServerBoost(AxisValue);
-  }
-//  UE_LOG(LogTemp, Warning, TEXT("Postboost Movement Mode: %s "), *MovementModeName);
-
-// better to switch on this enum type later
-//  EMovementMode MovementMode = MovementComponent->MovementMode;
-}
+//void ARobotCharacter::Axis_Boost(float AxisValue)
+//{
+//  URobotMovementComponent* MovementComponent = Cast<URobotMovementComponent>(GetMovementComponent());
+//  FString MovementModeName = MovementComponent->GetMovementName();
+////  UE_LOG(LogTemp, Warning, TEXT("Preboost Movement Mode: %s "), *MovementModeName);
+//  if (AxisValue != 0.f && Power > 0)
+//  {
+//    if (MovementComponent->IsWalking())
+//    {
+//
+//    }
+//    else if (MovementComponent->IsFalling())
+//    {
+//      {
+//        MovementComponent->SetMovementMode(MOVE_Flying, 5);
+//      }
+//    }
+//    else if (MovementComponent->IsFlying())
+//    {
+//// TODO: set some scaling constants for booster thrust and powerdrain
+//      const FVector Up = FVector(0, 0, 1);
+//      AddMovementInput(Up, AxisValue);
+//      Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue * 0.1), 0);
+//    }
+//  }
+//  else if (AxisValue != 0.f && Power <= 0)
+//  {
+//    if (MovementComponent->IsFlying())
+//    {
+//      {
+//        MovementComponent->SetMovementMode(MOVE_Falling, 5);
+//      }
+//    }
+//  }
+//  else if (AxisValue == 0.f)
+//  {
+//    if (Power < RobotStats->MaxPower)
+//    {
+//      Power = FMath::Min(RobotStats->MaxPower, Power + 10);
+//    }
+//
+//    if (MovementComponent->IsFlying())
+//    {
+//      MovementComponent->SetMovementMode(MOVE_Falling, 3);
+//    }
+//  };
+//  if (!HasAuthority())
+//  {
+//    ServerBoost(AxisValue);
+//  }
+////  UE_LOG(LogTemp, Warning, TEXT("Postboost Movement Mode: %s "), *MovementModeName);
+//
+//// better to switch on this enum type later
+////  EMovementMode MovementMode = MovementComponent->MovementMode;
+//}
 
 void ARobotCharacter::StartBoosting()
 {
@@ -286,7 +285,7 @@ void ARobotCharacter::StartBoosting()
   URobotMovementComponent* MoveComp = Cast<URobotMovementComponent>(GetCharacterMovement());
   if (MoveComp)
   {
-    MoveComp->SetBoosting(1);
+    MoveComp->SetBoostInput(1);
   }
 }
 
@@ -296,19 +295,19 @@ void ARobotCharacter::StopBoosting()
   URobotMovementComponent* MoveComp = Cast<URobotMovementComponent>(GetCharacterMovement());
   if (MoveComp)
   {
-    MoveComp->SetBoosting(0);  
+    MoveComp->SetBoostInput(0);  
   }
 }
 
-bool ARobotCharacter::ServerBoost_Validate(float AxisValue)
-{
-  return true;
-}
-
-void ARobotCharacter::ServerBoost_Implementation(float AxisValue)
-{
-  Axis_Boost(AxisValue);
-}
+//bool ARobotCharacter::ServerBoost_Validate(float AxisValue)
+//{
+//  return true;
+//}
+//
+//void ARobotCharacter::ServerBoost_Implementation(float AxisValue)
+//{
+//  Axis_Boost(AxisValue);
+//}
 
 float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {

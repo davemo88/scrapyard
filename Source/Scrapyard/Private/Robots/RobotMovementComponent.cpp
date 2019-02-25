@@ -19,14 +19,15 @@ URobotMovementComponent::URobotMovementComponent()
 
   BoostHoldThresholdTime = 0.2f;
 
-  bWasBoosting = false;
+  bPrevBoostInput = false;
+  bBoosting = false;
 }
 
 void URobotMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
 {
   Super::UpdateFromCompressedFlags(Flags);  
 
-  bWantsToBoost = (Flags&FSavedMove_Character::FLAG_Custom_0) != 0;
+  bBoostInput = (Flags&FSavedMove_Character::FLAG_Custom_0) != 0;
 }
 
 void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
@@ -46,38 +47,44 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 //      }
     }
     
-    CheckBoostingInput();
+    CheckBoostInput();
   }
 }
 
-void URobotMovementComponent::SetBoosting(uint8 bBoosting)
+void URobotMovementComponent::SetBoostInput(uint8 bNewBoostInput)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting"), *GetName());
-  bWantsToBoost = bBoosting; 
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetBoostInput"), *GetName());
+  bBoostInput = bNewBoostInput; 
 }
 
-void URobotMovementComponent::CheckBoostingInput()
+void URobotMovementComponent::CheckBoostInput()
 {
   if (ACharacter* Char = GetCharacterOwner())
   {
-    if (bWantsToBoost && !bWasBoosting && !BoostHoldTimerHandle.IsValid())
+    if (bBoostInput && !bPrevBoostInput && !BoostHoldTimerHandle.IsValid())
     {
       UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting - Set Timer"), *GetName());
       Char->GetWorld()->GetTimerManager().SetTimer(BoostHoldTimerHandle, this, &URobotMovementComponent::BoostHoldTimerExpired, BoostHoldThresholdTime, false);
     }
-    else if (!bWantsToBoost && BoostHoldTimerHandle.IsValid() && (Char->GetWorld()->GetTimerManager().GetTimerElapsed(BoostHoldTimerHandle) < BoostHoldThresholdTime))
+    else if (!bBoostInput)
     {
-      UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting - Jump"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting"), *GetName());
-      Char->GetWorld()->GetTimerManager().ClearTimer(BoostHoldTimerHandle);
-      DoJump(true);
+      if (BoostHoldTimerHandle.IsValid() && (Char->GetWorld()->GetTimerManager().GetTimerElapsed(BoostHoldTimerHandle) < BoostHoldThresholdTime))
+      {
+        UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting - Jump"), *GetName());
+        Char->GetWorld()->GetTimerManager().ClearTimer(BoostHoldTimerHandle);
+        DoJump(true);
+      }
+      else 
+      {
+        StopBoosting();
+      }
     }
 
-    bWasBoosting = bWantsToBoost;
+    bPrevBoostInput = bBoostInput;
   }
 }
 
-void URobotMovementComponent::ClearBoostingInput()
+void URobotMovementComponent::ClearBoostInput()
 {
 
 }
@@ -89,14 +96,25 @@ void URobotMovementComponent::BoostHoldTimerExpired()
   if (ACharacter* Char = GetCharacterOwner())
   {
     Char->GetWorld()->GetTimerManager().ClearTimer(BoostHoldTimerHandle);
+    StartBoosting();
   }
+}
+
+void URobotMovementComponent::StartBoosting()
+{
+  bBoosting = true;
+}
+
+void URobotMovementComponent::StopBoosting()
+{
+  bBoosting = false;
 }
 
 float URobotMovementComponent::GetMaxSpeed() const
 {
   float MaxSpeed = Super::GetMaxSpeed();
 
-  if (bWantsToBoost)
+  if (bBoosting)
   {
 //    UE_LOG(LogTemp, Warning, TEXT("%s::GetMaxSpeed - Boost"), *GetName());
     MaxSpeed *= BoostSpeedMultiplier;
@@ -109,7 +127,7 @@ float URobotMovementComponent::GetMaxAcceleration() const
 {
   float MaxAcceleration = Super::GetMaxAcceleration();
 
-  if (bWantsToBoost)
+  if (bBoosting)
   {
 //    UE_LOG(LogTemp, Warning, TEXT("%s::GetMaxAcceleration - Boost"), *GetName());
     MaxAcceleration *= BoostAccelerationMultiplier;
@@ -139,7 +157,7 @@ void FSavedMove_Robot::Clear()
 {
   Super::Clear();
 
-  bSavedWantsToBoost = 0;
+  bSavedBoostInput = 0;
 }
 
 uint8 FSavedMove_Robot::GetCompressedFlags() const
@@ -147,7 +165,7 @@ uint8 FSavedMove_Robot::GetCompressedFlags() const
   uint8 Result = Super::GetCompressedFlags();
 
 //TODO: what's the deal with FLAG_Custom_0
-  if (bSavedWantsToBoost)
+  if (bSavedBoostInput)
   {
     Result |= FLAG_Custom_0;
   }
@@ -157,7 +175,7 @@ uint8 FSavedMove_Robot::GetCompressedFlags() const
 
 bool FSavedMove_Robot::CanCombineWith( const FSavedMovePtr& NewMove, ACharacter* Character, float MaxDelta) const
 {
-  if (bSavedWantsToBoost != ((FSavedMove_Robot*)&NewMove)->bSavedWantsToBoost)
+  if (bSavedBoostInput != ((FSavedMove_Robot*)&NewMove)->bSavedBoostInput)
   {
     return false;
   }
@@ -172,7 +190,7 @@ void FSavedMove_Robot::SetMoveFor(ACharacter* Character, float InDeltaTime, FVec
   URobotMovementComponent* CharMov = Cast<URobotMovementComponent>(Character->GetCharacterMovement());
   if (CharMov)
   {
-    bSavedWantsToBoost = CharMov->bWantsToBoost;
+    bSavedBoostInput = CharMov->bBoostInput;
   }
 }
 

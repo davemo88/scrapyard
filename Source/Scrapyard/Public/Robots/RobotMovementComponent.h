@@ -6,6 +6,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "RobotMovementComponent.generated.h"
 
+USTRUCT()
+struct FNewTuneParams
+{
+  GENERATED_BODY()
+
+  float GroundFriction;
+  float BoostHoldThresholdTime;
+};
 /**
  * 
  */
@@ -25,13 +33,18 @@ public:
   virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 // for compressed flags
-  uint8 bWantsToBoost : 1;
+  uint8 bBoostInput : 1;
+  uint8 bPrevBoostInput : 1;
 
+  bool bBoosting;
   bool bWasBoosting;
 
-  virtual void SetBoosting(uint8 bBoosting);
-  virtual void CheckBoostingInput();
-  virtual void ClearBoostingInput();
+  virtual void SetBoostInput(uint8 bNewBoostInput);
+  virtual void CheckBoostInput();
+  virtual void ClearBoostInput();
+
+  virtual void StartBoosting();
+  virtual void StopBoosting();
 
   float BoostSpeedMultiplier;
   float BoostAccelerationMultiplier;
@@ -45,7 +58,18 @@ public:
 
   UFUNCTION()
   void BoostHoldTimerExpired();
+  
+  enum ScrapyardMovementModes
+  {
+    MOVE_GroundBoost   = 0x01,
+    MOVE_AirBoost      = 0x02,
+    MOVE_GroundDash    = 0x04,
+    MOVE_AirDash       = 0x08,
+  };
 
+protected:
+
+  friend class URobotTunerWidget;
 
 };
 
@@ -65,7 +89,7 @@ class FSavedMove_Robot : public FSavedMove_Character
 
     virtual void PrepMoveFor(class ACharacter* Character) override;
 
-    uint8 bSavedWantsToBoost : 1; 
+    uint8 bSavedBoostInput : 1; 
 
 };
 
