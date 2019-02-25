@@ -6,6 +6,7 @@
 #include "Components/EditableTextBox.h"
 #include "Blueprint/UserWidget.h"
 #include "Robots/RobotCharacter.h"
+#include "Robots/RobotMovementComponent.h"
 #include "RobotTunerWidget.generated.h"
 
 /**
@@ -34,7 +35,7 @@ protected:
 
   void SetNewTune();
 
-  UFUNCTION(Server, reliable)
+  UFUNCTION(Server, WithValidation, Reliable)
   void ServerSetNewTune();
   
 };

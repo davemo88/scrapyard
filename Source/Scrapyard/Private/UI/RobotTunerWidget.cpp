@@ -25,8 +25,7 @@ void URobotTunerWidget::SetRobotChar(ARobotCharacter* NewRobotChar)
 
 void URobotTunerWidget::SetNewTune()
 {
-  RobotMovementComp->BoostHoldThresholdTime = NewValue; 
-//  ServerSetNewTune(NewValue);
+//  ServerSetNewTune();
 }
 
 void URobotTunerWidget::ServerSetNewTune_Implementation()
