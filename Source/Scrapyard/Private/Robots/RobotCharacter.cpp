@@ -112,6 +112,8 @@ void ARobotCharacter::SetupRobotHUDWidget()
     PC->RobotHUDWidget = CreateWidget<URobotHUDWidget>(PC, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
     PC->RobotHUDWidget->SetRobotCharacter(this);
     PC->RobotHUDWidget->AddToViewport();
+
+    PC->EscapeMenuWidget->TunerWidget->SetRobotChar(this);
   }
   else
   {

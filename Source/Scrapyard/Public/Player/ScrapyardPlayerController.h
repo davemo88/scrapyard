@@ -19,13 +19,13 @@ public:
 
   AScrapyardPlayerController();
 
+  UPROPERTY()
+  UEscapeMenuWidget* EscapeMenuWidget;
+
 protected:
   virtual void BeginPlay() override;
 
   virtual void SetupInputComponent() override;
-
-  UPROPERTY()
-  UEscapeMenuWidget* EscapeMenuWidget;
 
 //TODO: keep track of default in case it changes, e.g. for ESC menu. maybe a better way?
   bool bDefaultShowMouseCursor;

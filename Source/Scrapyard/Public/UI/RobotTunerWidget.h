@@ -4,10 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "Components/EditableTextBox.h"
+#include "Components/Button.h"
 #include "Blueprint/UserWidget.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotMovementComponent.h"
 #include "RobotTunerWidget.generated.h"
+
+USTRUCT()
+struct FRobotTuneParams
+{
+  GENERATED_BODY()
+
+  float GroundFriction;
+  float BoostHoldThresholdTime;
+};
 
 /**
  * 
@@ -20,11 +30,11 @@ class SCRAPYARD_API URobotTunerWidget : public UUserWidget
 public:
 
   void SetRobotChar(ARobotCharacter* NewRobotChar);
-  
-protected:
 
   ARobotCharacter* RobotChar;
   URobotMovementComponent* RobotMovementComp;
+  
+protected:
 
   void NativeConstruct();
 
@@ -33,9 +43,12 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UEditableTextBox* BoostHoldThresholdTimeTextBox;
 
+  UPROPERTY(meta=(BindWidget))
+  UButton* SetNewTuneButton;
+
+  UFUNCTION()
   void SetNewTune();
 
-  UFUNCTION(Server, WithValidation, Reliable)
-  void ServerSetNewTune();
+  FRobotTuneParams GetTuneParams();
   
 };

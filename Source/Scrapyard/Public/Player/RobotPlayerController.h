@@ -7,6 +7,7 @@
 #include "Player/ScrapyardPlayerController.h"
 #include "UI/RobotHUDWidget.h"
 #include "UI/MatchTimerWidget.h"
+#include "UI/RobotTunerWidget.h"
 #include "Parts/RobotPartAssignment.h"
 #include "RobotPlayerController.generated.h"
 
@@ -26,15 +27,6 @@ UCLASS(config=Game)
 class SCRAPYARD_API ARobotPlayerController : public AScrapyardPlayerController
 {
   GENERATED_BODY()
-
-protected:
-
-// see UnrealTournament firing implementation
-  bool bFirePressed;
-
-  TArray< FDeferredFireInput, TInlineAllocator<2> > DeferredFireInputs;
-
-  virtual void BeginPlay() override;
 
 public:
   URobotHUDWidget* RobotHUDWidget;
@@ -69,6 +61,11 @@ public:
 //TODO: accessor
   bool GameStateReplicated;
 
+  UFUNCTION(Server, WithValidation, Reliable)
+  void ServerSetNewTune(FRobotTuneParams TuneParams);
+
+  void ApplyTuneParams(FRobotTuneParams TuneParams);
+
 private:
 // want this property because otherwise we will end up casting GetPawn() to ARobotCharacter all the time
   UPROPERTY()
@@ -76,6 +73,15 @@ private:
 
   UFUNCTION(Server, Reliable, WithValidation)
   void ServerSetPartAssignmentIDs(FPartAssignmentIDs NewPartAssignmentIDs);
+
+protected:
+
+// see UnrealTournament firing implementation
+  bool bFirePressed;
+
+  TArray< FDeferredFireInput, TInlineAllocator<2> > DeferredFireInputs;
+
+  virtual void BeginPlay() override;
 
 
 };

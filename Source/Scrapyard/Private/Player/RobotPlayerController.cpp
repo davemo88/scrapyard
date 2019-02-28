@@ -172,3 +172,29 @@ void ARobotCharacter::MulticastSetRobotPartAssignmentFromIDs_Implementation(FPar
 //  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 //  DOREPLIFETIME(ARobotPlayerController, PartAssignmentIDs);
 //}
+//
+void ARobotPlayerController::ServerSetNewTune_Implementation(FRobotTuneParams TuneParams)
+{
+  if (HasAuthority())
+  {
+    ApplyTuneParams(TuneParams);    
+  }
+}
+
+bool ARobotPlayerController::ServerSetNewTune_Validate(FRobotTuneParams TuneParams)
+{
+  return true; 
+}
+
+void ARobotPlayerController::ApplyTuneParams(FRobotTuneParams TuneParams)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ApplyTuneParams"), *GetName());
+  if (RobotCharacter)
+  {
+    if (URobotMovementComponent* RobotMovementComp = Cast<URobotMovementComponent>(RobotCharacter->GetMovementComponent()))
+    {
+      RobotMovementComp->GroundFriction = TuneParams.GroundFriction;   
+      RobotMovementComp->BoostHoldThresholdTime = TuneParams.BoostHoldThresholdTime;
+    }
+  }
+}

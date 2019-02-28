@@ -2,18 +2,31 @@
 
 
 #include "RobotTunerWidget.h"
+#include "Player/RobotPlayerController.h"
 
 
 
 void URobotTunerWidget::NativeConstruct()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
+  
+  SetNewTuneButton->OnClicked.AddDynamic(this, &URobotTunerWidget::SetNewTune);
+
+  if (APlayerController* PC = GetOwningPlayer())
+  {
+    SetRobotChar(Cast<ARobotCharacter>(PC->GetPawn()));
+  }
 }
 
 void URobotTunerWidget::SetRobotChar(ARobotCharacter* NewRobotChar)
 {
-  RobotChar = NewRobotChar;
-  RobotMovementComp = Cast<URobotMovementComponent>(RobotChar->GetMovementComponent());
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotChar"), *GetName());
+  if (NewRobotChar)
+  {
+    RobotChar = NewRobotChar;
+    RobotMovementComp = Cast<URobotMovementComponent>(RobotChar->GetMovementComponent());
+  }
 
   if (RobotMovementComp)
   {
@@ -25,15 +38,23 @@ void URobotTunerWidget::SetRobotChar(ARobotCharacter* NewRobotChar)
 
 void URobotTunerWidget::SetNewTune()
 {
-//  ServerSetNewTune();
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetNewTune"), *GetName());
+  FRobotTuneParams TuneParams = GetTuneParams();
+  if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(GetOwningPlayer()))
+  {
+    RobotPC->ApplyTuneParams(TuneParams);
+    RobotPC->ServerSetNewTune(TuneParams);
+  }
+
+  SetVisibility(ESlateVisibility::Hidden);
 }
 
-void URobotTunerWidget::ServerSetNewTune_Implementation()
+FRobotTuneParams URobotTunerWidget::GetTuneParams()
 {
-//  RobotMovementComp->BoostHoldThresholdTime = NewValue; 
-}
+  FRobotTuneParams TuneParams;
 
-bool URobotTunerWidget::ServerSetNewTune_Validate()
-{
-  return true; 
+  TuneParams.GroundFriction = FCString::Atof(*GroundFrictionTextBox->GetText().ToString());
+  TuneParams.BoostHoldThresholdTime = FCString::Atof(*BoostHoldThresholdTimeTextBox->GetText().ToString());;
+
+  return TuneParams;
 }

@@ -2,6 +2,9 @@
 //
 
 #include "EscapeMenuWidget.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardDefaultAssets.h"
+#include "UI/RobotTunerWidget.h"
 #include "Kismet/GameplayStatics.h"
 
 void UEscapeMenuWidget::NativeConstruct()
@@ -12,6 +15,14 @@ void UEscapeMenuWidget::NativeConstruct()
   OptionsButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::Options);
   QuitToMainMenuButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::QuitToMainMenu);
   QuitToDesktopButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::QuitToDesktop);
+  TunerWidgetButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::ShowTunerWidget);
+
+//  if (UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningLocalPlayer()->GetGameInstance()))
+//  {
+//    TunerWidget = CreateWidget<URobotTunerWidget>(this, GameInstance->DefaultAssetsBP->RobotTunerWidgetBP);
+  TunerWidget->SetVisibility(ESlateVisibility::Hidden);
+//  }
+
 }
 
 void UEscapeMenuWidget::NativeOnInitialized()
@@ -40,3 +51,12 @@ void UEscapeMenuWidget::QuitToDesktop()
   FGenericPlatformMisc::RequestExit(false);
 }
 
+void UEscapeMenuWidget::ShowTunerWidget()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::ShowTunerWidget"), *GetName());
+  ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetOwningPlayer()->GetPawn());
+  if (TunerWidget->RobotChar != nullptr && TunerWidget->RobotChar->IsLocallyControlled())
+  {
+    TunerWidget->SetVisibility(ESlateVisibility::Visible);
+  }
+}

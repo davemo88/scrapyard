@@ -14,6 +14,7 @@ class UPartCardWidget;
 class URobotHUDWidget;
 class UStatLineWidget;
 class UMatchTimerWidget;
+class URobotTunerWidget;
 
 /**
  * 
@@ -49,5 +50,9 @@ public:
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class UMatchTimerWidget> MatchTimerWidgetBP;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<class URobotTunerWidget> RobotTunerWidgetBP;
+
 
 };

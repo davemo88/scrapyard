@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Parts/RobotPart.h"
 #include "StatLineWidget.generated.h"
 
+class UTextBlock;
 class UHorizontalBox;
 /**
  * 
