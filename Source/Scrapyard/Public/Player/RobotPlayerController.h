@@ -61,6 +61,8 @@ public:
 //TODO: accessor
   bool GameStateReplicated;
 
+  void SetNewTune(FRobotTuneParams TuneParams);
+
   UFUNCTION(Server, WithValidation, Reliable)
   void ServerSetNewTune(FRobotTuneParams TuneParams);
 

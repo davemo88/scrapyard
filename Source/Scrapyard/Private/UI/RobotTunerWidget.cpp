@@ -42,8 +42,7 @@ void URobotTunerWidget::SetNewTune()
   FRobotTuneParams TuneParams = GetTuneParams();
   if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(GetOwningPlayer()))
   {
-    RobotPC->ApplyTuneParams(TuneParams);
-    RobotPC->ServerSetNewTune(TuneParams);
+    RobotPC->SetNewTune(TuneParams);
   }
 
   SetVisibility(ESlateVisibility::Hidden);
@@ -53,8 +52,10 @@ FRobotTuneParams URobotTunerWidget::GetTuneParams()
 {
   FRobotTuneParams TuneParams;
 
-  TuneParams.GroundFriction = FCString::Atof(*GroundFrictionTextBox->GetText().ToString());
-  TuneParams.BoostHoldThresholdTime = FCString::Atof(*BoostHoldThresholdTimeTextBox->GetText().ToString());;
+  TuneParams.GroundFriction = GroundFrictionTextBox->GetText().ToString();
+  UE_LOG(LogTemp, Warning, TEXT("GetTuneParams GroundFriction: %s"), *TuneParams.GroundFriction);
+  TuneParams.BoostHoldThresholdTime = BoostHoldThresholdTimeTextBox->GetText().ToString();
+  UE_LOG(LogTemp, Warning, TEXT("GetTuneParams BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
 
   return TuneParams;
 }

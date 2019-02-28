@@ -15,8 +15,11 @@ struct FRobotTuneParams
 {
   GENERATED_BODY()
 
-  float GroundFriction;
-  float BoostHoldThresholdTime;
+  UPROPERTY()
+  FString GroundFriction;
+
+  UPROPERTY()
+  FString BoostHoldThresholdTime;
 };
 
 /**

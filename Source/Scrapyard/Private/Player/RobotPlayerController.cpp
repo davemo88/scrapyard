@@ -173,6 +173,17 @@ void ARobotCharacter::MulticastSetRobotPartAssignmentFromIDs_Implementation(FPar
 //  DOREPLIFETIME(ARobotPlayerController, PartAssignmentIDs);
 //}
 //
+
+void ARobotPlayerController::SetNewTune(FRobotTuneParams TuneParams)
+{
+  ApplyTuneParams(TuneParams);
+
+  if (!HasAuthority())
+  {
+    ServerSetNewTune(TuneParams);
+  }
+}
+
 void ARobotPlayerController::ServerSetNewTune_Implementation(FRobotTuneParams TuneParams)
 {
   if (HasAuthority())
@@ -193,8 +204,10 @@ void ARobotPlayerController::ApplyTuneParams(FRobotTuneParams TuneParams)
   {
     if (URobotMovementComponent* RobotMovementComp = Cast<URobotMovementComponent>(RobotCharacter->GetMovementComponent()))
     {
-      RobotMovementComp->GroundFriction = TuneParams.GroundFriction;   
-      RobotMovementComp->BoostHoldThresholdTime = TuneParams.BoostHoldThresholdTime;
+      UE_LOG(LogTemp, Warning, TEXT("New GroundFriction: %s"), *TuneParams.GroundFriction);
+      RobotMovementComp->GroundFriction = FCString::Atof(*TuneParams.GroundFriction);
+      UE_LOG(LogTemp, Warning, TEXT("New BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
+      RobotMovementComp->BoostHoldThresholdTime= FCString::Atof(*TuneParams.BoostHoldThresholdTime);
     }
   }
 }
