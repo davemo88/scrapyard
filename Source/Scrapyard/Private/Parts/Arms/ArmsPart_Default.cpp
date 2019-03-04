@@ -10,6 +10,7 @@ UArmsPart_Default::UArmsPart_Default()
 {
   PartName = NSLOCTEXT("SY", "DefaultArmsName", "Default Arms");
   Mass = 100;
+  HitPoints = 50;
   PowerDrain = 100;
   PhysicalDefense = 10;
   EnergyDefense = 10;

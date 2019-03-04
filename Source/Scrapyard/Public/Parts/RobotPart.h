@@ -72,12 +72,13 @@ public:
 // this integer type because only uint8 and int32 are supported by blueprints
   UPROPERTY(BlueprintReadOnly)
   int32 Mass;
+// TODO: cores don't have power drain :(
   UPROPERTY(BlueprintReadOnly)
   int32 PowerDrain;
   UPROPERTY(BlueprintReadOnly)
   int32 HitPoints;
-  UPROPERTY(BlueprintReadOnly)
-  int32 Durability;
+//  UPROPERTY(BlueprintReadOnly)
+//  int32 Durability;
   UPROPERTY(BlueprintReadOnly)
   int32 PhysicalDefense;
   UPROPERTY(BlueprintReadOnly)

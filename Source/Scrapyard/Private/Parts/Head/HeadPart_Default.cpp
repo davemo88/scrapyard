@@ -10,6 +10,7 @@ UHeadPart_Default::UHeadPart_Default()
 {
   PartName = NSLOCTEXT("SY", "DefaultHeadName", "Default Head");
   Mass = 100;
+  HitPoints = 50;
   PowerDrain = 100;
   PhysicalDefense = 10;
   EnergyDefense = 10;
