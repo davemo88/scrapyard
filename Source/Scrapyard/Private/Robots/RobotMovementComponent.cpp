@@ -21,6 +21,14 @@ URobotMovementComponent::URobotMovementComponent()
 
   bPrevBoostInput = false;
   bBoosting = false;
+
+}
+
+void URobotMovementComponent::BeginPlay()
+{
+  Super::BeginPlay();
+
+  RobotChar = Cast<ARobotCharacter>(GetCharacterOwner());
 }
 
 void URobotMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
@@ -34,46 +42,20 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-  if (ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetCharacterOwner()))
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(RobotChar->Controller);
+  if (PC != NULL && PC->PlayerInput != NULL)
   {
-    ARobotPlayerController* PC = Cast<ARobotPlayerController>(RobotChar->Controller);
-    if (PC != NULL && PC->PlayerInput != NULL)
-    {
-//      this is from Unreal Tournament
-//      UE_LOG(LogTemp, Warning, TEXT("ApplyDeferred"));
-//      if (PC->HasDeferredFireInputs())
-//      {
-        PC->ApplyDeferredFireInputs();
-//      }
-    }
-    
-    CheckBoostInput();
-
-    if (bBoosting)
-    {
-// TODO: clean up management of Power variable
-      if (RobotChar->HasAuthority())
-      {
-        RobotChar->Power = FMath::Max(0, RobotChar->Power - RobotChar->RobotStats->BoosterPowerDrain);
-      }
-
-      if (RobotChar->Power > 0)
-      {
-// handle boosting cases
-      }
-      else
-      {
-        StopBoosting();
-      }
-    }
-    else
-    {
-      if (RobotChar->HasAuthority())
-      {
-        RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 5);
-      }
-    }
+//    this is from Unreal Tournament
+//    UE_LOG(LogTemp, Warning, TEXT("ApplyDeferred"));
+//    if (PC->HasDeferredFireInputs())
+//    {
+      PC->ApplyDeferredFireInputs();
+//    }
   }
+  
+  CheckBoostInput();
+
+  HandleBoosting();
 }
 
 void URobotMovementComponent::SetBoostInput(uint8 bNewBoostInput)
@@ -86,10 +68,18 @@ void URobotMovementComponent::CheckBoostInput()
 {
   if (ACharacter* Char = GetCharacterOwner())
   {
-    if (bBoostInput && !bPrevBoostInput && !BoostHoldTimerHandle.IsValid())
+    if (!bBoosting && bBoostInput && !bPrevBoostInput && !BoostHoldTimerHandle.IsValid())
     {
-      UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting - Set Timer"), *GetName());
-      Char->GetWorld()->GetTimerManager().SetTimer(BoostHoldTimerHandle, this, &URobotMovementComponent::BoostHoldTimerExpired, BoostHoldThresholdTime, false);
+      if (IsWalking())
+      {
+        UE_LOG(LogTemp, Warning, TEXT("%s::CheckBoostInput- Set Timer"), *GetName());
+        Char->GetWorld()->GetTimerManager().SetTimer(BoostHoldTimerHandle, this, &URobotMovementComponent::BoostHoldTimerExpired, BoostHoldThresholdTime, false);
+
+      }
+      else if (IsFalling())
+      {
+        StartBoosting();
+      }
     }
     else if (!bBoostInput)
     {
@@ -133,6 +123,47 @@ void URobotMovementComponent::StartBoosting()
 void URobotMovementComponent::StopBoosting()
 {
   bBoosting = false;
+  if (IsFlying())
+  {
+    SetMovementMode(MOVE_Falling);
+  }
+}
+
+void URobotMovementComponent::HandleBoosting()
+{
+  if (bBoosting)
+  {
+// TODO: clean up management of replicated Power variable. should this be in the movement component at all?
+
+    if (RobotChar->Power > 0)
+    {
+// handle boosting cases
+      if (IsFlying() || IsFalling())
+      {
+// TODO: boost velocity should depend on robot stats
+        Velocity.Z = JumpZVelocity;
+        SetMovementMode(MOVE_Flying); 
+      }
+
+      if (RobotChar->HasAuthority())
+      {
+        RobotChar->Power = FMath::Max(0, RobotChar->Power - RobotChar->RobotStats->BoosterPowerDrain);
+      }
+
+    }
+    else
+    {
+      StopBoosting();
+    }
+  }
+  else
+  {
+    if (RobotChar->HasAuthority())
+    {
+      RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 5);
+    }
+  }
+
 }
 
 float URobotMovementComponent::GetMaxSpeed() const

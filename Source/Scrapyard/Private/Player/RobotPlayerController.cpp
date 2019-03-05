@@ -157,7 +157,7 @@ void ARobotPlayerController::ServerNotifyGameStateReplicated_Implementation()
 {
   if (HasAuthority())
   {
-    GameStateReplicated = true;      
+    bGameStateReplicated = true;
   }
 }
 

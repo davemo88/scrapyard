@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Robots/RobotCharacter.h"
 #include "RobotMovementComponent.generated.h"
 
 USTRUCT()
@@ -23,6 +24,8 @@ class SCRAPYARD_API URobotMovementComponent : public UCharacterMovementComponent
   GENERATED_BODY()
   
 public:
+
+  virtual void BeginPlay() override;
 
   URobotMovementComponent();
 
@@ -45,6 +48,8 @@ public:
 
   virtual void StartBoosting();
   virtual void StopBoosting();
+
+  virtual void HandleBoosting();
 
   float BoostSpeedMultiplier;
   float BoostAccelerationMultiplier;
@@ -70,6 +75,8 @@ public:
 protected:
 
   friend class URobotTunerWidget;
+  
+  ARobotCharacter* RobotChar;
 
 };
 

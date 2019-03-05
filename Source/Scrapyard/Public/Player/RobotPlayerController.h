@@ -59,7 +59,7 @@ public:
   void ServerNotifyGameStateReplicated();
 
 //TODO: accessor
-  bool GameStateReplicated;
+  bool bGameStateReplicated;
 
   void SetNewTune(FRobotTuneParams TuneParams);
 

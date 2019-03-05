@@ -29,6 +29,8 @@ public:
 
 protected:
 
+  uint32 MinPlayers;
+
   UFUNCTION()
   virtual void OnZeroHitPoints();
 

@@ -12,6 +12,8 @@ ABattleGameMode::ABattleGameMode()
 //  PlayerControllerClass = ARobotPlayerController::StaticClass();
   GameStateClass = ABattleGameState::StaticClass();
 
+  MinPlayers = 2;
+
   bMatchTimerExpired = false;
   bReadyToEndMatch = false;
 }
@@ -48,7 +50,7 @@ bool ABattleGameMode::IsGameStateReplicatedToAllClients()
     ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(*Iterator);
     if (RobotPC)
     {
-      if (RobotPC->GameStateReplicated)
+      if (RobotPC->bGameStateReplicated)
       {
         NumReplicatedGameStates++;
       }
@@ -63,7 +65,7 @@ bool ABattleGameMode::ReadyToStartMatch_Implementation()
 //  UE_LOG(LogTemp, Warning, TEXT("%s::ReadyToStartMatch_Implementation"), *GetName());
   ARobotGameState* RobotGS = GetGameState<ARobotGameState>();
   bool Ready = false;
-  if (GetNumPlayers() > 1)
+  if (GetNumPlayers() >= MinPlayers)
   {
     if (!RobotGS->IsMatchTimerActive() && IsGameStateReplicatedToAllClients() && !bMatchTimerExpired)
     {
