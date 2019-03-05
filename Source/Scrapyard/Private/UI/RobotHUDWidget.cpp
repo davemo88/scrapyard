@@ -11,11 +11,11 @@ void URobotHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
 // widgets don't tick when they aren't shown
 // so can avoid this null check if this widget can't be shown without RobotCharacter being set
 // maybe override its add to viewport method to check first?
-//  if (RobotCharacter != NULL)
-//  {
-//// TODO: can do this manually whenever actually using power
-//    UpdatePowerBar(); 
-//  }
+  if (RobotCharacter != NULL)
+  {
+// TODO: can do this manually whenever actually using power
+    UpdatePowerBar(); 
+  }
 }
 
 void URobotHUDWidget::SetRobotCharacter(ARobotCharacter* NewRobotCharacter)

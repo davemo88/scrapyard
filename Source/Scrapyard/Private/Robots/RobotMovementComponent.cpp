@@ -34,9 +34,9 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-  if (ACharacter* Char = GetCharacterOwner())
+  if (ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetCharacterOwner()))
   {
-    ARobotPlayerController* PC = Cast<ARobotPlayerController>(Char->Controller);
+    ARobotPlayerController* PC = Cast<ARobotPlayerController>(RobotChar->Controller);
     if (PC != NULL && PC->PlayerInput != NULL)
     {
 //      this is from Unreal Tournament
@@ -48,6 +48,31 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
     }
     
     CheckBoostInput();
+
+    if (bBoosting)
+    {
+// TODO: clean up management of Power variable
+      if (RobotChar->HasAuthority())
+      {
+        RobotChar->Power = FMath::Max(0, RobotChar->Power - RobotChar->RobotStats->BoosterPowerDrain);
+      }
+
+      if (RobotChar->Power > 0)
+      {
+// handle boosting cases
+      }
+      else
+      {
+        StopBoosting();
+      }
+    }
+    else
+    {
+      if (RobotChar->HasAuthority())
+      {
+        RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 5);
+      }
+    }
   }
 }
 
