@@ -11,6 +11,8 @@ ARobotPlayerController::ARobotPlayerController()
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController Constructor"));
   PlayerCameraManagerClass = ARobotPlayerCameraManager::StaticClass();
+
+  bShowMouseCursor = true;
 }
 
 void ARobotPlayerController::BeginPlay()
@@ -21,6 +23,7 @@ void ARobotPlayerController::BeginPlay()
 //  ViewportClient->Viewport->CaptureMouse(true);
 //  ViewportClient->Viewport->SetUserFocus(true);
 //TODO: why is this here?
+//TODO: think it's because of the pause menu
   const FInputModeGameOnly InputMode = FInputModeGameOnly();
   SetInputMode(InputMode);
 

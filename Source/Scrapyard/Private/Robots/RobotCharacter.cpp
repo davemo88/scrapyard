@@ -86,14 +86,14 @@ void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
     InputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
     InputComponent->BindAxis("MoveY", this, &ARobotCharacter::Axis_MoveY);
 
-    InputComponent->BindAxis("TurnZ", this, &APawn::AddControllerYawInput);
-    InputComponent->BindAxis("TurnY", this, &APawn::AddControllerPitchInput);
+    InputComponent->BindAxis("TurnZ", this, &ARobotCharacter::Axis_TurnZ); //&APawn::AddControllerYawInput);
+    InputComponent->BindAxis("TurnY", this, &ARobotCharacter::Axis_TurnY); //&APawn::AddControllerPitchInput);
 
     InputComponent->BindAction("Boost", IE_Pressed, this, &ARobotCharacter::StartBoosting);
     InputComponent->BindAction("Boost", IE_Released, this, &ARobotCharacter::StopBoosting);
 
     InputComponent->BindAction("PrimaryFire", IE_Pressed, PC, &ARobotPlayerController::OnFire);
-    InputComponent->BindAction("PrimaryFire", IE_Released,PC, &ARobotPlayerController::OnStopFire);
+    InputComponent->BindAction("PrimaryFire", IE_Released, PC, &ARobotPlayerController::OnStopFire);
   }
 }
 
@@ -223,6 +223,17 @@ void ARobotCharacter::Axis_MoveY(float AxisValue)
     const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::Y);
     AddMovementInput(Direction, AxisValue);
   }
+}
+
+void ARobotCharacter::Axis_TurnZ(float AxisValue)
+{
+  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnZ - value: %f"), AxisValue);
+  AddControllerYawInput(AxisValue);
+}
+
+void ARobotCharacter::Axis_TurnY(float AxisValue)
+{
+  AddControllerPitchInput(AxisValue);
 }
 
 //void ARobotCharacter::Axis_Boost(float AxisValue)

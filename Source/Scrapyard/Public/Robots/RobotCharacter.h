@@ -85,8 +85,10 @@ public:
   virtual void Axis_MoveX(float AxisValue);
   UFUNCTION()
   virtual void Axis_MoveY(float AxisValue);
-//  UFUNCTION()
-//  virtual void Axis_Boost(float AxisValue);
+  UFUNCTION()
+  virtual void Axis_TurnZ(float AxisValue);
+  UFUNCTION()
+  virtual void Axis_TurnY(float AxisValue);
 
   virtual void StartBoosting();
   virtual void StopBoosting();

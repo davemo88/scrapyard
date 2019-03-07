@@ -9,6 +9,7 @@
 AMenuPlayerController::AMenuPlayerController()
 {
   bDefaultShowMouseCursor = true;
+
   bShowMouseCursor = bDefaultShowMouseCursor;
   bEnableClickEvents = true;
   bEnableMouseOverEvents = true;
