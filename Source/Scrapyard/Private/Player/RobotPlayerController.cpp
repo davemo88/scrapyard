@@ -12,7 +12,7 @@ ARobotPlayerController::ARobotPlayerController()
   UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController Constructor"));
   PlayerCameraManagerClass = ARobotPlayerCameraManager::StaticClass();
 
-  bShowMouseCursor = true;
+//  bShowMouseCursor = true;
 }
 
 void ARobotPlayerController::BeginPlay()
@@ -25,6 +25,8 @@ void ARobotPlayerController::BeginPlay()
 //TODO: why is this here?
 //TODO: think it's because of the pause menu
   const FInputModeGameOnly InputMode = FInputModeGameOnly();
+//  FInputModeGameAndUI InputMode = FInputModeGameAndUI();
+//  InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
   SetInputMode(InputMode);
 
   SetupMatchTimerWidget();

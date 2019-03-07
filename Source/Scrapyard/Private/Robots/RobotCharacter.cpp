@@ -13,6 +13,7 @@
 #include "Blueprint/UserWidget.h"
 #include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
+#include "Engine.h"
 
 // Sets default values
 ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializer)
@@ -70,6 +71,7 @@ void ARobotCharacter::PostInitializeComponents()
 void ARobotCharacter::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
+
 }
 
 // Called to bind functionality to input
@@ -227,13 +229,59 @@ void ARobotCharacter::Axis_MoveY(float AxisValue)
 
 void ARobotCharacter::Axis_TurnZ(float AxisValue)
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnZ - value: %f"), AxisValue);
-  AddControllerYawInput(AxisValue);
+  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
+
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+  if (PC)
+  {
+    float MouseX;
+    float MouseY;
+    PC->GetMousePosition(MouseX, MouseY);
+    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+
+//    uint32 MaxX = GSystemResolution.ResX;
+    uint32 CenterX = GSystemResolution.ResX / 2;
+
+    UE_LOG(LogTemp, Warning, TEXT("Center X: %i"), CenterX);
+
+    float TurnRate = float(MouseX - CenterX) / float(CenterX);
+
+    float MaxTurnRate = 1.0f;
+
+    UE_LOG(LogTemp, Warning, TEXT("TurnZ Rate: %f"), TurnRate);
+
+    AddControllerYawInput(TurnRate * MaxTurnRate);
+  }
+
 }
 
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
-  AddControllerPitchInput(AxisValue);
+  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+  if (PC)
+  {
+    float MouseX;
+    float MouseY;
+    PC->GetMousePosition(MouseX, MouseY);
+    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+
+    uint32 CenterY = GSystemResolution.ResY / 2;
+
+    UE_LOG(LogTemp, Warning, TEXT("Center Y: %i"), CenterY);
+
+    float TurnRate = float(MouseY - CenterY) / float(CenterY);
+
+    float MaxTurnRate = 1.0f;
+
+    UE_LOG(LogTemp, Warning, TEXT("TurnY rate: %f"), TurnRate);
+
+    AddControllerPitchInput(TurnRate * MaxTurnRate);
+  }
+
+//  AddControllerPitchInput(AxisValue);
 }
 
 //void ARobotCharacter::Axis_Boost(float AxisValue)
