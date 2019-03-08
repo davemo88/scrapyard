@@ -54,5 +54,8 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class URobotTunerWidget> RobotTunerWidgetBP;
 
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<class UTargetingWidget> TargetingWidgetBP;
+
 
 };

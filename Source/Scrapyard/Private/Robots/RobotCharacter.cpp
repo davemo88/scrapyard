@@ -4,6 +4,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
+#include "Robots/RobotTargetingComponent.h"
 #include "Player/RobotPlayerController.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
@@ -35,6 +36,9 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 // why is this here as well as the movement component in the initializer list
   UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
 
+  RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
+  RobotTargetingComponent->SetupAttachment(RobotBodyComponent);
+
 }
 
 // Called when the game starts or when spawned
@@ -52,6 +56,8 @@ void ARobotCharacter::BeginPlay()
     if (IsLocallyControlled())
     {
       SetupRobotHUDWidget();
+      SetupTargetingWidget();
+
     }
   }
 }
@@ -71,6 +77,29 @@ void ARobotCharacter::PostInitializeComponents()
 void ARobotCharacter::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
+
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+  if (PC)
+  {
+    float MouseX;
+    float MouseY;
+    PC->GetMousePosition(MouseX, MouseY);
+    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+
+    uint32 CenterX = GSystemResolution.ResX / 2;
+    uint32 CenterY = GSystemResolution.ResY / 2;
+
+    float TurnRateZ = float(MouseX - CenterX) / float(CenterX);
+    float TurnRateY = float(MouseY - CenterY) / float(CenterY);
+
+    float MaxTargetingAngleZ = 45.0f;
+    float MaxTargetingAngleY = 35.0f;
+
+    FRotator TargetingRotation = FRotator(0.0f, TurnRateZ * MaxTargetingAngleZ, TurnRateY * MaxTargetingAngleY);
+
+    RobotTargetingComponent->SetRelativeRotation(TargetingRotation);
+  }
 
 }
 
@@ -123,6 +152,28 @@ void ARobotCharacter::SetupRobotHUDWidget()
   }
 }
 
+void ARobotCharacter::SetupTargetingWidget()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget"), *GetName());
+  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+// TODO: can there be a locally controlled PC with ROLE_Authority? i guess if everything is local?
+//  if (Role < ROLE_Authority && PC && IsLocallyControlled())
+  if (PC && IsLocallyControlled())
+  {
+// TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
+// e.g. use friend class or write a function
+    PC->TargetingWidget = CreateWidget<UTargetingWidget>(PC, GameInstance->DefaultAssetsBP->TargetingWidgetBP);
+    PC->TargetingWidget->AddToViewport();
+
+  }
+  else
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - nonlocal or null PC"), *GetName());
+  }
+
+}
+
 void ARobotCharacter::SetupCamera()
 {
   RootComponent = GetRootComponent();
@@ -170,9 +221,11 @@ void ARobotCharacter::SetupAbilities()
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
   RobotBodyComponent->WeaponAbilityComponent->CreateChildActor();
+
   WeaponAbility = Cast<AScrapyardAbility>(RobotBodyComponent->WeaponAbilityComponent->GetChildActor());
-//  WeaponAbility = GetWorld()->SpawnActor<AHitscanAbility>(FActorSpawnParameters());
+
 // TODO: why do we have RobotOwner if we can just the real Owner?
+// TODO: why setting owner in two different ways here? seems just wrong
   WeaponAbility->RobotOwner = this;
   if (WeaponAbility->GetOwner())
   {
@@ -230,7 +283,7 @@ void ARobotCharacter::Axis_MoveY(float AxisValue)
 void ARobotCharacter::Axis_TurnZ(float AxisValue)
 {
   float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
-  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
+//  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
 
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
   if (PC)
@@ -238,20 +291,29 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
     float MouseX;
     float MouseY;
     PC->GetMousePosition(MouseX, MouseY);
-    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+
+    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+
+//    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
 
 //    uint32 MaxX = GSystemResolution.ResX;
     uint32 CenterX = GSystemResolution.ResX / 2;
 
-    UE_LOG(LogTemp, Warning, TEXT("Center X: %i"), CenterX);
+//    UE_LOG(LogTemp, Warning, TEXT("Center X: %i"), CenterX);
 
     float TurnRate = float(MouseX - CenterX) / float(CenterX);
 
     float MaxTurnRate = 1.0f;
 
-    UE_LOG(LogTemp, Warning, TEXT("TurnZ Rate: %f"), TurnRate);
+//    UE_LOG(LogTemp, Warning, TEXT("TurnZ Rate: %f"), TurnRate);
 
     AddControllerYawInput(TurnRate * MaxTurnRate);
+
+//    float MaxTargetingAngle = 45.0f;
+//
+//    RobotTargetingComponent->SetRelativeRotation(FRotator(0.0f,TurnRate * MaxTargetingAngle,0.0f));
+
   }
 
 }
@@ -259,24 +321,27 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
   float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
-  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
+//  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
   if (PC)
   {
     float MouseX;
     float MouseY;
     PC->GetMousePosition(MouseX, MouseY);
-    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+
+    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+//    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
 
     uint32 CenterY = GSystemResolution.ResY / 2;
 
-    UE_LOG(LogTemp, Warning, TEXT("Center Y: %i"), CenterY);
+//    UE_LOG(LogTemp, Warning, TEXT("Center Y: %i"), CenterY);
 
     float TurnRate = float(MouseY - CenterY) / float(CenterY);
 
     float MaxTurnRate = 1.0f;
 
-    UE_LOG(LogTemp, Warning, TEXT("TurnY rate: %f"), TurnRate);
+//    UE_LOG(LogTemp, Warning, TEXT("TurnY rate: %f"), TurnRate);
 
     AddControllerPitchInput(TurnRate * MaxTurnRate);
   }

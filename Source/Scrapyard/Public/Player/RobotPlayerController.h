@@ -6,6 +6,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Player/ScrapyardPlayerController.h"
 #include "UI/RobotHUDWidget.h"
+#include "UI/TargetingWidget.h"
 #include "UI/MatchTimerWidget.h"
 #include "UI/RobotTunerWidget.h"
 #include "Parts/RobotPartAssignment.h"
@@ -29,7 +30,11 @@ class SCRAPYARD_API ARobotPlayerController : public AScrapyardPlayerController
   GENERATED_BODY()
 
 public:
+
+  virtual void Tick(float DeltaTime) override;
+
   URobotHUDWidget* RobotHUDWidget;
+  UTargetingWidget* TargetingWidget;
 
   UMatchTimerWidget* MatchTimerWidget;
   void SetupMatchTimerWidget();

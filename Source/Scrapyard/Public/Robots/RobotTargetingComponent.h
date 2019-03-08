@@ -3,27 +3,30 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "Components/SceneComponent.h"
+#include "Components/BoxComponent.h"
 #include "RobotTargetingComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class SCRAPYARD_API URobotTargetingComponent : public UActorComponent
+class SCRAPYARD_API URobotTargetingComponent : public USceneComponent
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	URobotTargetingComponent();
+public:  
+  // Sets default values for this component's properties
+  URobotTargetingComponent();
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+  // Called when the game starts
+  virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+public:  
+  // Called every frame
+  virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
-	
+  UPROPERTY(EditAnywhere)
+  UBoxComponent* TargetingBoxComponent;
+    
+  
 };

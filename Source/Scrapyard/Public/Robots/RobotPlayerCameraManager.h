@@ -12,9 +12,12 @@
 UCLASS()
 class SCRAPYARD_API ARobotPlayerCameraManager : public APlayerCameraManager
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+
+public:
+
+  ARobotPlayerCameraManager();
+  
+  
+  
 };

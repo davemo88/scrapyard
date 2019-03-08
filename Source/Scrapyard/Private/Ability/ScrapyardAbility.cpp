@@ -204,6 +204,7 @@ FRotator AScrapyardAbility::GetBaseFireRotation()
   }
   else 
   {
+//TODO: fire towards cursor
     return RobotOwner->GetViewRotation();
   }
 }

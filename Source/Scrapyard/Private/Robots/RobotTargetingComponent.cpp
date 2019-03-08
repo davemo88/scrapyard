@@ -7,29 +7,36 @@
 // Sets default values for this component's properties
 URobotTargetingComponent::URobotTargetingComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+  // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+  // off to improve performance if you don't need them.
+  PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+  // ...
+  TargetingBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("TargetingBoxComponent"));
+  TargetingBoxComponent->SetupAttachment(this);
+  TargetingBoxComponent->SetBoxExtent(FVector(100.0f,1000.0f,100.0f));
+  TargetingBoxComponent->SetRelativeLocation(FVector(0.0f,1000.0f,100.0f));
+  TargetingBoxComponent->SetHiddenInGame(false);
+
+
 }
 
 
 // Called when the game starts
 void URobotTargetingComponent::BeginPlay()
 {
-	Super::BeginPlay();
+  Super::BeginPlay();
 
-	// ...
-	
+  // ...
+  
 }
 
 
 // Called every frame
 void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+  Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+  // ...
 }
 

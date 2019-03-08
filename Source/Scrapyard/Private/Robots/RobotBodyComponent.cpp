@@ -5,6 +5,8 @@
 #include "ConstructorHelpers.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
 #include "Robots/RobotPartComponent.h"
+#include "Robots/RobotStats.h"
+#include "Parts/RobotPartAssignment.h"
 #include "Ability/HitscanAbility.h"
 
 
@@ -52,8 +54,8 @@ URobotBodyComponent::URobotBodyComponent()
   RobotStats->SetPartAssignment(PartAssignment);
 
   WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
-  WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
   WeaponAbilityComponent->SetupAttachment(this);
+  WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
 
 //  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
 //  BoostingParticleComponent->SetupAttachment(this);

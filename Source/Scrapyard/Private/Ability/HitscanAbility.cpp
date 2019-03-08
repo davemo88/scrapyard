@@ -7,8 +7,20 @@
 AHitscanAbility::AHitscanAbility()
 {
   AbilityName = TEXT("HitscanAbility");
+  AbilityRange = 1000;
 
   InstantHitInfo.Add(FInstantHitDamageInfo());
+}
+
+void AHitscanAbility::Tick(float DeltaTime)
+{
+  Super::Tick(DeltaTime);
+}
+
+void AHitscanAbility::BeginPlay()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Location:"), *GetName(), *GetActorLocation().ToString());
 }
 
 void AHitscanAbility::FireShot()
@@ -26,7 +38,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
   const FVector SpawnLoc = GetFireStartLoc();
   const FRotator SpawnRot = GetBaseFireRotation();
   const FVector FireDirection = SpawnRot.Vector();
-  const FVector EndTrace = SpawnLoc + FireDirection * 1000;
+  const FVector EndTrace = SpawnLoc + FireDirection * AbilityRange;
 
   FHitResult Hit;
   HitScanTrace(SpawnLoc, EndTrace, 0.0f, Hit, 0.0f);

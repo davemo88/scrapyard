@@ -9,6 +9,7 @@
 #include "Camera/CameraComponent.h"
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotStats.h"
+#include "Robots/RobotTargetingComponent.h"
 #include "Parts/RobotPartAssignment.h"
 #include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
@@ -52,10 +53,14 @@ public:
   virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
   void SetupRobotHUDWidget();
+  void SetupTargetingWidget();
 
 // body
   UPROPERTY(EditAnywhere)
   URobotBodyComponent* RobotBodyComponent;
+
+  UPROPERTY(EditAnywhere)
+  URobotTargetingComponent* RobotTargetingComponent;
 // stats
   UPROPERTY()
   URobotStats* RobotStats;

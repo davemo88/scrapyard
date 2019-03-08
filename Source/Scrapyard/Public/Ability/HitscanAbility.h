@@ -14,7 +14,14 @@ class SCRAPYARD_API AHitscanAbility : public AScrapyardAbility
 {
   GENERATED_BODY()
 
+public:
+
   AHitscanAbility();
+
+  uint32 AbilityRange;
+
+  virtual void BeginPlay() override;
+  virtual void Tick(float DeltaTime) override;
 
   void FireShot() override;
 
