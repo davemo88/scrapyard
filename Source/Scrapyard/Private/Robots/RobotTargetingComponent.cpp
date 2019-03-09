@@ -2,6 +2,8 @@
 
 
 #include "RobotTargetingComponent.h"
+#include "Player/RobotPlayerController.h"
+#include "Engine.h"
 
 
 // Sets default values for this component's properties
@@ -37,5 +39,28 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
   // ...
+  ARobotCharacter* RobotOwner = Cast<ARobotCharacter>(GetOwner());
+  
+  if (ARobotPlayerController* PC = Cast<ARobotPlayerController>(RobotOwner->GetController()))
+  {
+    float MouseX;
+    float MouseY;
+    PC->GetMousePosition(MouseX, MouseY);
+    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+
+    uint32 CenterX = GSystemResolution.ResX / 2;
+    uint32 CenterY = GSystemResolution.ResY / 2;
+
+    float TurnRateZ = float(MouseX - CenterX) / float(CenterX);
+    float TurnRateY = float(MouseY - CenterY) / float(CenterY);
+
+    float MaxTargetingAngleZ = 45.0f;
+    float MaxTargetingAngleY = 35.0f;
+
+    FRotator TargetingRotation = FRotator(0.0f, TurnRateZ * MaxTargetingAngleZ, TurnRateY * MaxTargetingAngleY);
+
+    SetRelativeRotation(TargetingRotation);
+  }
 }
 

@@ -78,29 +78,6 @@ void ARobotCharacter::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
 
-  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-  if (PC)
-  {
-    float MouseX;
-    float MouseY;
-    PC->GetMousePosition(MouseX, MouseY);
-    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-
-    uint32 CenterX = GSystemResolution.ResX / 2;
-    uint32 CenterY = GSystemResolution.ResY / 2;
-
-    float TurnRateZ = float(MouseX - CenterX) / float(CenterX);
-    float TurnRateY = float(MouseY - CenterY) / float(CenterY);
-
-    float MaxTargetingAngleZ = 45.0f;
-    float MaxTargetingAngleY = 35.0f;
-
-    FRotator TargetingRotation = FRotator(0.0f, TurnRateZ * MaxTargetingAngleZ, TurnRateY * MaxTargetingAngleY);
-
-    RobotTargetingComponent->SetRelativeRotation(TargetingRotation);
-  }
-
 }
 
 // Called to bind functionality to input
