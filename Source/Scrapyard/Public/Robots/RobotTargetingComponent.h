@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
-#include "Components/BoxComponent.h"
+#include "Targeting/TargetingBoxComponent.h"
 #include "RobotTargetingComponent.generated.h"
 
 
@@ -26,7 +26,7 @@ public:
   virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
   UPROPERTY(EditAnywhere)
-  UBoxComponent* TargetingBoxComponent;
+  UTargetingBoxComponent* TargetingBoxComponent;
     
   
 };

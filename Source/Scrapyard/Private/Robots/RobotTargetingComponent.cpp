@@ -12,12 +12,11 @@ URobotTargetingComponent::URobotTargetingComponent()
   PrimaryComponentTick.bCanEverTick = true;
 
   // ...
-  TargetingBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("TargetingBoxComponent"));
+  TargetingBoxComponent = CreateDefaultSubobject<UTargetingBoxComponent>(TEXT("TargetingBoxComponent"));
   TargetingBoxComponent->SetupAttachment(this);
   TargetingBoxComponent->SetBoxExtent(FVector(100.0f,1000.0f,100.0f));
   TargetingBoxComponent->SetRelativeLocation(FVector(0.0f,1000.0f,100.0f));
   TargetingBoxComponent->SetHiddenInGame(false);
-
 
 }
 
