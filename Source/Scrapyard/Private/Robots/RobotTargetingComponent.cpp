@@ -19,7 +19,6 @@ URobotTargetingComponent::URobotTargetingComponent()
   TargetingBoxComponent->SetBoxExtent(FVector(100.0f,1000.0f,100.0f));
   TargetingBoxComponent->SetRelativeLocation(FVector(0.0f,1000.0f,100.0f));
   TargetingBoxComponent->SetHiddenInGame(false);
-
 }
 
 
@@ -57,6 +56,7 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 
     float MaxTargetingAngleZ = 45.0f;
     float MaxTargetingAngleY = 35.0f;
+//    float MaxTargetingAngleY = 45.0f;
 
     FRotator TargetingRotation = FRotator(0.0f, TurnRateZ * MaxTargetingAngleZ, TurnRateY * MaxTargetingAngleY);
 
@@ -64,3 +64,25 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
   }
 }
 
+TArray<FVector> URobotTargetingComponent::GetBoxFaceVertices()
+{
+  TArray<FVector> Vertices;
+
+  FVector Extent = TargetingBoxComponent->GetScaledBoxExtent();
+
+  Vertices.Add(RelativeRotation.RotateVector(FVector(Extent.X * 0.5f, Extent.Y, Extent.Z * 0.5)));
+  Vertices.Add(RelativeRotation.RotateVector(FVector(Extent.X * -0.5f, Extent.Y, Extent.Z * 0.5)));
+  Vertices.Add(RelativeRotation.RotateVector(FVector(Extent.X * 0.5f, Extent.Y, Extent.Z * -0.5)));
+  Vertices.Add(RelativeRotation.RotateVector(FVector(Extent.X * -0.5f, Extent.Y, Extent.Z * -0.5)));
+
+  return Vertices;
+}
+
+FVector URobotTargetingComponent::GetBoxFaceCenter()
+{
+  FVector Extent = TargetingBoxComponent->GetScaledBoxExtent();
+
+//  UE_LOG(LogTemp, Warning, TEXT("%s"), *Extent.ToString());
+
+  return RelativeRotation.RotateVector(FVector(Extent.X * 0.5f, Extent.Y, Extent.Z * 0.5));
+}

@@ -12,9 +12,6 @@
 UCLASS()
 class SCRAPYARD_API UTargetingWidget : public UUserWidget
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+  
 };

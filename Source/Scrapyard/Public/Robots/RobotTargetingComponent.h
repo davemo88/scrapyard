@@ -27,6 +27,9 @@ public:
 
   UPROPERTY(EditAnywhere)
   UTargetingBoxComponent* TargetingBoxComponent;
-    
+
+  FVector GetBoxFaceCenter();
+
+  TArray<FVector> GetBoxFaceVertices();
   
 };

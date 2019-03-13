@@ -8,4 +8,3 @@ UTargetingBoxComponent::UTargetingBoxComponent()
   LineThickness = 5.0f;
 }
 
-
