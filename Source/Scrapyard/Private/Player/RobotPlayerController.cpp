@@ -40,26 +40,31 @@ void ARobotPlayerController::Tick(float DeltaTime)
 
   if (IsLocalController() && TargetingWidget != NULL)
   {
-//    UE_LOG(LogTemp, Warning, TEXT("%s::Updating Targeting Widget Position"), *GetName());
-//    float MouseX;
-//    float MouseY;
-//    GetMousePosition(MouseX, MouseY);
-//    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-//    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-//    FVector2D MousePosition = FVector2D(MouseX-25.0f, MouseY-25.0f);
-    if (RobotCharacter)
-    {
-      FVector TargetingBoxFaceCenter = RobotCharacter->RobotTargetingComponent->GetBoxFaceCenter();
-      UE_LOG(LogTemp, Warning, TEXT("%s"), *TargetingBoxFaceCenter.ToString());
-      FVector WorldTargetingBoxFaceCenter = TargetingBoxFaceCenter + RobotCharacter->GetActorLocation();
-      FVector2D ScreenLoc;
-      bool Projection = ProjectWorldLocationToScreen(WorldTargetingBoxFaceCenter, ScreenLoc, false); 
-//      bool Projection = ProjectWorldLocationToScreen(TargetingBoxFaceCenter, ScreenLoc, true); 
-      if (Projection)
-      {
-        TargetingWidget->SetPositionInViewport(ScreenLoc);
+    FVector TargetingBoxFaceCenter = RobotCharacter->RobotTargetingComponent->GetBoxFaceCenter();
+//      UE_LOG(LogTemp, Warning, TEXT("Targeting Comp Relative Rotation: %s"), *RobotCharacter->RobotTargetingComponent->RelativeRotation.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("Targeting Box Face Center: %s"), *TargetingBoxFaceCenter.ToString());
+    FRotator ViewRotation = RobotCharacter->GetViewRotation();
+    FVector CharLoc = RobotCharacter->GetActorLocation();
+    FVector WorldTargetingBoxFaceCenter =  CharLoc + ViewRotation.RotateVector(TargetingBoxFaceCenter);
+//    UE_LOG(LogTemp, Warning, TEXT("Char Loc: %s"), *CharLoc.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("Targeting Box Face Center: %s"), *TargetingBoxFaceCenter.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("World Targeting Box Face Center: %s"), *WorldTargetingBoxFaceCenter.ToString());
+    DrawDebugSphere(GetWorld(),WorldTargetingBoxFaceCenter,24,32,FColor(255,0,0));
+    FVector2D ScreenLoc;
 
-      }
+    TArray<FVector> FaceVerts = RobotCharacter->RobotTargetingComponent->GetBoxFaceVertices();
+
+    for (FVector Vec : FaceVerts)
+    {
+      FVector WorldVec = CharLoc + ViewRotation.RotateVector(Vec);
+      DrawDebugSphere(GetWorld(),WorldVec,12,16,FColor(0,255,0));
+    }
+
+    bool Projection = ProjectWorldLocationToScreen(WorldTargetingBoxFaceCenter, ScreenLoc, false); 
+//    bool Projection = ProjectWorldLocationToScreen(TargetingBoxFaceCenter, ScreenLoc, true); 
+    if (Projection)
+    {
+//      TargetingWidget->SetPositionInViewport(ScreenLoc);
     }
 //    TargetingWidget->SetPositionInViewport(MousePosition);
   }

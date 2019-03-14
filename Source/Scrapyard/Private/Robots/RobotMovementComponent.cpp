@@ -56,6 +56,17 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
   CheckBoostInput();
 
   HandleBoosting();
+
+  if (RobotChar)
+  {
+    float Pitch = RobotChar->GetViewRotation().Pitch;
+//    UE_LOG(LogTemp, Warning, TEXT("%s View Rotation %s"), *GetName(), *RobotChar->GetViewRotation().ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("%s Rotation %s"), *GetName(), *RobotChar->GetActorRotation(.ToString());
+    RobotChar->RobotTargetingComponent->SetRelativeRotation(FRotator(Pitch,0.0f,0.0f));
+//    UE_LOG(LogTemp, Warning, TEXT("OurCamera Rel Rot: %s"), *RobotChar->OurCamera->RelativeRotation.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("Camera Boom Rel Rot: %s"), *RobotChar->CameraBoom->RelativeRotation.ToString());
+  }
+
 }
 
 void URobotMovementComponent::SetBoostInput(uint8 bNewBoostInput)

@@ -9,7 +9,7 @@
 #include "Camera/CameraComponent.h"
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotStats.h"
-#include "Robots/RobotTargetingComponent.h"
+#include "RobotTargetingComponent.h"
 #include "Parts/RobotPartAssignment.h"
 #include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
@@ -78,9 +78,9 @@ public:
   virtual void OnRep_Power();
 
 // camera
-  UPROPERTY(BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+  UPROPERTY(EditAnywhere, Category = Camera, meta = (AllowPrivateAccess = "true"))
   class UCameraComponent* OurCamera;
-  UPROPERTY(BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+  UPROPERTY(EditAnywhere, Category = Camera, meta = (AllowPrivateAccess = "true"))
   class USpringArmComponent* CameraBoom;
 
   void SetupCamera();

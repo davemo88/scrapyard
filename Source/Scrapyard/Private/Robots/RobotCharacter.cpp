@@ -4,7 +4,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
-#include "Robots/RobotTargetingComponent.h"
+#include "RobotTargetingComponent.h"
 #include "Player/RobotPlayerController.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
@@ -12,6 +12,7 @@
 #include "Ability/HitscanAbility.h"
 #include "UI/RobotHUDWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/CapsuleComponent.h"
 #include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
 #include "Engine.h"
@@ -27,7 +28,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 
   bReplicates = true;
   bAlwaysRelevant = true;
-// maybe we need to put the default subobjects in the constructor?
+
   SetupCamera();
   SetupBody();
   SetupStats();
@@ -37,7 +38,11 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
 
   RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
-  RobotTargetingComponent->SetupAttachment(RobotBodyComponent);
+  RobotTargetingComponent->SetupAttachment(RootComponent);
+//  RobotTargetingComponent->SetNetAddressable();
+//  RobotTargetingComponent->SetIsReplicated(true);
+//  RobotTargetingComponent->SetupAttachment(CameraBoom);
+
 
 }
 
@@ -141,7 +146,7 @@ void ARobotCharacter::SetupTargetingWidget()
 // TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
 // e.g. use friend class or write a function
     PC->TargetingWidget = CreateWidget<UTargetingWidget>(PC, GameInstance->DefaultAssetsBP->TargetingWidgetBP);
-    PC->TargetingWidget->AddToViewport();
+//    PC->TargetingWidget->AddToViewport();
 
   }
   else
@@ -159,8 +164,8 @@ void ARobotCharacter::SetupCamera()
   CameraBoom->SetupAttachment(RootComponent);
 
   CameraBoom->bAbsoluteRotation = false;
-  CameraBoom->TargetArmLength = 300.f;
-  CameraBoom->SocketOffset = FVector(0.f, 0.f, 50.f);
+  CameraBoom->TargetArmLength = 350.f;
+  CameraBoom->SocketOffset = FVector(0.f, 0.f, 130.f);
   CameraBoom->bUsePawnControlRotation = true;
   
   OurCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("OurCamera"));
@@ -170,8 +175,10 @@ void ARobotCharacter::SetupCamera()
 
 void ARobotCharacter::SetupBody()
 {
-  RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
+  UCapsuleComponent* Capsule = GetCapsuleComponent();
+//  Capsule->SetRelativeRotation(FRotator::ZeroRotator);
 
+  RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
 // TODO: why do i have to make these weird adjustments?
@@ -259,72 +266,72 @@ void ARobotCharacter::Axis_MoveY(float AxisValue)
 
 void ARobotCharacter::Axis_TurnZ(float AxisValue)
 {
-  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+//  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 //  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
 
-  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-  if (PC)
-  {
-    float MouseX;
-    float MouseY;
-    PC->GetMousePosition(MouseX, MouseY);
-
-    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-
-//    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
-
-//    uint32 MaxX = GSystemResolution.ResX;
-    uint32 CenterX = GSystemResolution.ResX / 2;
-
-//    UE_LOG(LogTemp, Warning, TEXT("Center X: %i"), CenterX);
-
-    float TurnRate = float(MouseX - CenterX) / float(CenterX);
-
-    float MaxTurnRate = 1.0f;
-
-//    UE_LOG(LogTemp, Warning, TEXT("TurnZ Rate: %f"), TurnRate);
-
-    AddControllerYawInput(TurnRate * MaxTurnRate);
-
-//    float MaxTargetingAngle = 45.0f;
+//  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+//  if (PC)
+//  {
+//    float MouseX;
+//    float MouseY;
+//    PC->GetMousePosition(MouseX, MouseY);
 //
-//    RobotTargetingComponent->SetRelativeRotation(FRotator(0.0f,TurnRate * MaxTargetingAngle,0.0f));
+//    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+//    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+//
+////    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+//
+////    uint32 MaxX = GSystemResolution.ResX;
+//    uint32 CenterX = GSystemResolution.ResX / 2;
+//
+////    UE_LOG(LogTemp, Warning, TEXT("Center X: %i"), CenterX);
+//
+//    float TurnRate = float(MouseX - CenterX) / float(CenterX);
+//
+//    float MaxTurnRate = 1.0f;
+//
+////    UE_LOG(LogTemp, Warning, TEXT("TurnZ Rate: %f"), TurnRate);
+//
+//    AddControllerYawInput(TurnRate * MaxTurnRate);
+//
+////    float MaxTargetingAngle = 45.0f;
+////
+////    RobotTargetingComponent->SetRelativeRotation(FRotator(0.0f,TurnRate * MaxTargetingAngle,0.0f));
+//
+//  }
 
-  }
-
-//  AddControllerYawInput(AxisValue);
+  AddControllerYawInput(AxisValue);
 }
 
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
-  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
-//  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
-  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-  if (PC)
-  {
-    float MouseX;
-    float MouseY;
-    PC->GetMousePosition(MouseX, MouseY);
+//  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+////  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
+//  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+//  if (PC)
+//  {
+//    float MouseX;
+//    float MouseY;
+//    PC->GetMousePosition(MouseX, MouseY);
+//
+//    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+//    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+////    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+//
+//    uint32 CenterY = GSystemResolution.ResY / 2;
+//
+////    UE_LOG(LogTemp, Warning, TEXT("Center Y: %i"), CenterY);
+//
+//    float TurnRate = float(MouseY - CenterY) / float(CenterY);
+//
+//    float MaxTurnRate = 1.0f;
+//
+////    UE_LOG(LogTemp, Warning, TEXT("TurnY rate: %f"), TurnRate);
+//
+//    AddControllerPitchInput(TurnRate * MaxTurnRate);
+//  }
 
-    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-//    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
-
-    uint32 CenterY = GSystemResolution.ResY / 2;
-
-//    UE_LOG(LogTemp, Warning, TEXT("Center Y: %i"), CenterY);
-
-    float TurnRate = float(MouseY - CenterY) / float(CenterY);
-
-    float MaxTurnRate = 1.0f;
-
-//    UE_LOG(LogTemp, Warning, TEXT("TurnY rate: %f"), TurnRate);
-
-    AddControllerPitchInput(TurnRate * MaxTurnRate);
-  }
-
-//  AddControllerPitchInput(AxisValue);
+  AddControllerPitchInput(AxisValue);
 }
 
 //void ARobotCharacter::Axis_Boost(float AxisValue)
