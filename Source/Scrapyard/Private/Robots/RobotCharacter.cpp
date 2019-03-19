@@ -9,6 +9,7 @@
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
+#include "GameFramework/HUD.h"
 #include "Ability/HitscanAbility.h"
 #include "UI/RobotHUDWidget.h"
 #include "Blueprint/UserWidget.h"
@@ -39,9 +40,6 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 
   RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
   RobotTargetingComponent->SetupAttachment(RootComponent);
-//  RobotTargetingComponent->SetNetAddressable();
-//  RobotTargetingComponent->SetIsReplicated(true);
-//  RobotTargetingComponent->SetupAttachment(CameraBoom);
 
 
 }
@@ -61,7 +59,6 @@ void ARobotCharacter::BeginPlay()
     if (IsLocallyControlled())
     {
       SetupRobotHUDWidget();
-      SetupTargetingWidget();
 
     }
   }
@@ -127,6 +124,8 @@ void ARobotCharacter::SetupRobotHUDWidget()
     PC->RobotHUDWidget->AddToViewport();
 
     PC->EscapeMenuWidget->TunerWidget->SetRobotChar(this);
+
+    SetupTargetingWidget();
   }
   else
   {
@@ -145,9 +144,26 @@ void ARobotCharacter::SetupTargetingWidget()
   {
 // TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
 // e.g. use friend class or write a function
-    PC->TargetingWidget = CreateWidget<UTargetingWidget>(PC, GameInstance->DefaultAssetsBP->TargetingWidgetBP);
-//    PC->TargetingWidget->AddToViewport();
 
+    TArray<FVector> FaceVerts = RobotTargetingComponent->GetBoxFaceVertices();
+    FVector TopLeftVert = FaceVerts[1];
+    FVector TopLeftVertWorld = GetActorLocation() + TopLeftVert;
+//    DrawDebugSphere()
+//    FVector RotatedTopLeftVertWorld = GetViewRotation().RotateVector(TopLeftVertWorld);
+//    DrawDebugSphere(GetWorld(),TopLeftVert,12,16,FColor(0,255,0),true,5);
+//    DrawDebugSphere(GetWorld(),TopLeftVertWorld,12,16,FColor(0,255,0),true,5);
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget - TopLeftVertWorld%s"), *GetName(), *TopLeftVertWorld.ToString());
+    
+    FVector2D ScreenLoc;
+    bool Projection = PC->ProjectWorldLocationToScreen(TopLeftVertWorld, ScreenLoc, false);
+    if (Projection)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget - ScreenLoc %s"), *GetName(), *ScreenLoc.ToString());
+//      PC->RobotHUDWidget->TargetingWidget->SetPositionInViewport(ScreenLoc);
+//      PC->RobotHUDWidget->TargetingWidget->RemoveFromViewport();
+    }
+    
+//    PC->TargetingWidget->SetPositionInViewport()
   }
   else
   {
@@ -165,7 +181,7 @@ void ARobotCharacter::SetupCamera()
 
   CameraBoom->bAbsoluteRotation = false;
   CameraBoom->TargetArmLength = 350.f;
-  CameraBoom->SocketOffset = FVector(0.f, 0.f, 130.f);
+  CameraBoom->SocketOffset = FVector(0.f, 0.f, 130.f);//130.f);
   CameraBoom->bUsePawnControlRotation = true;
   
   OurCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("OurCamera"));

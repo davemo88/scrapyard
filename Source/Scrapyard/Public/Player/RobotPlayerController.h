@@ -6,7 +6,6 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Player/ScrapyardPlayerController.h"
 #include "UI/RobotHUDWidget.h"
-#include "UI/TargetingWidget.h"
 #include "UI/MatchTimerWidget.h"
 #include "UI/RobotTunerWidget.h"
 #include "Parts/RobotPartAssignment.h"
@@ -34,7 +33,6 @@ public:
   virtual void Tick(float DeltaTime) override;
 
   URobotHUDWidget* RobotHUDWidget;
-  UTargetingWidget* TargetingWidget;
 
   UMatchTimerWidget* MatchTimerWidget;
   void SetupMatchTimerWidget();
@@ -52,6 +50,8 @@ public:
   void ApplyDeferredFireInputs();
 
   void SetRobotCharacter(ARobotCharacter* NewRobotCharacter);
+
+  ARobotCharacter* GetRobotCharacter();
 
   UFUNCTION(Client, Reliable)
   void ClientGetPartAssignmentIDs();

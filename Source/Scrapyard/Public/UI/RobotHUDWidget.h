@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/TargetingWidget.h"
 #include "RobotHUDWidget.generated.h"
 
 class ARobotCharacter;
@@ -45,5 +46,10 @@ protected:
 
   UPROPERTY(meta=(BindWidget))
   UProgressBar* PowerBar;
+
+public:
+  
+  UPROPERTY(meta=(BindWidget))
+  UTargetingWidget* TargetingWidget;
 
 };

@@ -39,20 +39,30 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 }
 
+//TODO: add flag for relative / world location
 TArray<FVector> URobotTargetingComponent::GetBoxFaceVertices()
 {
   TArray<FVector> Vertices;
 
   FVector Extent = TargetingBoxComponent->GetScaledBoxExtent();
+//  FVector Extent = RelativeRotation.RotateVector(TargetingBoxComponent->GetScaledBoxExtent());
+//  FVector Extent = TargetingBoxComponent->GetUnscaledBoxExtent();
+//  UE_LOG(LogTemp, Warning, TEXT("Box Extent: %s"), *Extent.ToString());
 
-  Vertices.Add(FVector(Extent.X, Extent.Y * 0.5f, Extent.Z));
   Vertices.Add(FVector(Extent.X, Extent.Y * -0.5f, Extent.Z));
+  Vertices.Add(FVector(Extent.X, Extent.Y * 0.5f, Extent.Z));
   Vertices.Add(FVector(Extent.X, Extent.Y * 0.5f, 0.0f));
   Vertices.Add(FVector(Extent.X, Extent.Y * -0.5f, 0.0f));
+
+//  Vertices.Add(FVector(Extent.X, -Extent.Y, Extent.Z));
+//  Vertices.Add(FVector(Extent.X, Extent.Y, Extent.Z));
+//  Vertices.Add(FVector(Extent.X, Extent.Y, 0.0f));
+//  Vertices.Add(FVector(Extent.X, -Extent.Y, 0.0f));
 
   return Vertices;
 }
 
+//TODO: add flag for relative / world location
 FVector URobotTargetingComponent::GetBoxFaceCenter()
 {
   FVector Extent = TargetingBoxComponent->GetScaledBoxExtent();
