@@ -489,7 +489,8 @@ def GetCompilationInfoForFile( filename ):
   if IsHeaderFile( filename ):
     basename = os.path.splitext( filename )[ 0 ]
     for extension in SOURCE_EXTENSIONS:
-      replacement_file = basename + extension
+## need to replace "Public" with "Private"
+      replacement_file = basename.replace("Public", "Private") + extension
       if os.path.exists( replacement_file ):
         compilation_info = database.GetCompilationInfoForFile(
           replacement_file )
