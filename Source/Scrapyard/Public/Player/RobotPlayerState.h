@@ -12,9 +12,18 @@
 UCLASS()
 class SCRAPYARD_API ARobotPlayerState : public APlayerState
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+  
+public:
+  
+  void AddOpponent(APlayerState* PlayerState);
+
+  UPROPERTY()
+  TArray<APlayerState*> Opponents;
+
+protected:
+
+  UFUNCTION(Client, Reliable)
+  void ClientAddOpponent(APlayerState* PlayerState);
+  
 };

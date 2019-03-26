@@ -3,6 +3,8 @@
 
 #include "RobotTargetingComponent.h"
 #include "Player/RobotPlayerController.h"
+#include "Player/RobotPlayerState.h"
+#include "Robots/RobotCharacter.h"
 #include "Engine.h"
 
 
@@ -13,12 +15,8 @@ URobotTargetingComponent::URobotTargetingComponent()
   // off to improve performance if you don't need them.
   PrimaryComponentTick.bCanEverTick = true;
 
-  // ...
-  TargetingBoxComponent = CreateDefaultSubobject<UTargetingBoxComponent>(TEXT("TargetingBoxComponent"));
-  TargetingBoxComponent->SetupAttachment(this);
-  TargetingBoxComponent->SetBoxExtent(FVector(1000.0f,100.0f,100.0f));
-  TargetingBoxComponent->SetRelativeLocation(FVector(1000.0f,0.0f,0.0f));
-  TargetingBoxComponent->SetHiddenInGame(false);
+  bTargetAcquired = false;
+
 }
 
 
@@ -37,41 +35,31 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+  ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetOwner());
+
+  if (RobotChar->HasAuthority() && (RobotChar->GetController() != nullptr))
+  {
+    ARobotPlayerState* RobotPlayerState = RobotChar->GetController()->GetPlayerState<ARobotPlayerState>();
+    if (RobotPlayerState)
+    {
+      bTargetAcquired = false;
+      for (APlayerState* PlayerState : RobotPlayerState->Opponents)  
+      {
+        ARobotCharacter* OpponentRobotChar = PlayerState->GetPawn<ARobotCharacter>();
+        bTargetAcquired = bTargetAcquired || IsTargetable(OpponentRobotChar);
+//        UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *PlayerState->GetPawn()->GetActorLocation().ToString());
+      }
+    }
+  }
+
 }
 
-//TODO: add flag for relative / world location
-TArray<FVector> URobotTargetingComponent::GetBoxFaceVertices()
+bool URobotTargetingComponent::IsTargetAcquired()
 {
-  TArray<FVector> Vertices;
-
-  FVector Extent = TargetingBoxComponent->GetScaledBoxExtent();
-//  FVector Extent = RelativeRotation.RotateVector(TargetingBoxComponent->GetScaledBoxExtent());
-//  FVector Extent = TargetingBoxComponent->GetUnscaledBoxExtent();
-//  UE_LOG(LogTemp, Warning, TEXT("Box Extent: %s"), *Extent.ToString());
-
-  Vertices.Add(FVector(Extent.X, Extent.Y * -0.5f, Extent.Z));
-  Vertices.Add(FVector(Extent.X, Extent.Y * 0.5f, Extent.Z));
-  Vertices.Add(FVector(Extent.X, Extent.Y * 0.5f, 0.0f));
-  Vertices.Add(FVector(Extent.X, Extent.Y * -0.5f, 0.0f));
-
-//  Vertices.Add(FVector(Extent.X, -Extent.Y, Extent.Z));
-//  Vertices.Add(FVector(Extent.X, Extent.Y, Extent.Z));
-//  Vertices.Add(FVector(Extent.X, Extent.Y, 0.0f));
-//  Vertices.Add(FVector(Extent.X, -Extent.Y, 0.0f));
-
-  return Vertices;
+  return bTargetAcquired;
 }
 
-//TODO: add flag for relative / world location
-FVector URobotTargetingComponent::GetBoxFaceCenter()
+bool URobotTargetingComponent::IsTargetable(AActor* OtherActor)
 {
-  FVector Extent = TargetingBoxComponent->GetScaledBoxExtent();
-
-//  UE_LOG(LogTemp, Warning, TEXT("%s"), *Extent.ToString());
-//
-  FVector FaceCenter = FVector(Extent.X, 0.0f, Extent.Z * 0.5f);
-
-  return FaceCenter;
-
-//  return RelativeRotation.RotateVector(FVector(Extent.X * 0.5f, Extent.Y, Extent.Z * 0.5));
+  return false;
 }

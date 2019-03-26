@@ -20,4 +20,6 @@ public:
   
   virtual void DrawHUD() override;
   
+  virtual FLinearColor GetTargetingColor();
+  
 };

@@ -4,6 +4,7 @@
 #include "BattleGameState.h"
 #include "Robots/RobotCharacter.h"
 #include "Player/RobotPlayerController.h"
+#include "Player/RobotPlayerState.h"
 
 ABattleGameMode::ABattleGameMode()
 {
@@ -132,6 +133,23 @@ void ABattleGameMode::HandleMatchHasStarted()
   Super::HandleMatchHasStarted();
   UE_LOG(LogTemp, Warning, TEXT("%s::HandleMatchHasStarted"), *GetName());
   bMatchTimerExpired = false;
+  
+// free for all. add all other players to each player's opponent list
+  if (ABattleGameState* GameState = GetGameState<ABattleGameState>())
+  {
+    for (uint8 i = 0; i < GameState->PlayerArray.Num(); i++)
+    {
+      if (ARobotPlayerState* RobotPlayerState = Cast<ARobotPlayerState>(GameState->PlayerArray[i])) 
+      {
+        for (uint8 j = 0; j < GameState->PlayerArray.Num(); j++)  
+          if (i != j)
+          {
+            RobotPlayerState->AddOpponent(GameState->PlayerArray[j]);
+          }
+      }
+    }
+  }
+
 }
 
 void ABattleGameMode::HandleMatchAborted()

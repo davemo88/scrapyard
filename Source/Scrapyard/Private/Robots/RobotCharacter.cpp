@@ -16,6 +16,7 @@
 #include "Components/CapsuleComponent.h"
 #include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
+#include "Math/UnrealMathVectorConstants.h"
 #include "Engine.h"
 
 // Sets default values
@@ -80,6 +81,29 @@ void ARobotCharacter::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
 
+//  DrawDebugCone(GetWorld(), GetActorLocation(), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 4, FColor::Blue);//, false, 0.01f, 2, 2);
+  DrawDebugCone(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(FVector(-350,0,130)), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 4, FColor::Blue, false, -1.f, 0, 5);
+
+//  FVector TargetingBoxFaceCenter = RobotTargetingComponent->GetBoxFaceCenter();
+////      UE_LOG(LogTemp, Warning, TEXT("Targeting Comp Relative Rotation: %s"), *RobotCharacter->RobotTargetingComponent->RelativeRotation.ToString());
+////    UE_LOG(LogTemp, Warning, TEXT("Targeting Box Face Center: %s"), *TargetingBoxFaceCenter.ToString());
+//  FRotator ViewRotation = GetViewRotation();
+//  FVector CharLoc = GetActorLocation();
+//  FVector WorldTargetingBoxFaceCenter =  CharLoc + ViewRotation.RotateVector(TargetingBoxFaceCenter);
+//  UE_LOG(LogTemp, Warning, TEXT("%s - Char Loc: %s"), *GetName(), *CharLoc.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("Targeting Box Face Center: %s"), *TargetingBoxFaceCenter.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("World Targeting Box Face Center: %s"), *WorldTargetingBoxFaceCenter.ToString());
+//  DrawDebugSphere(GetWorld(),WorldTargetingBoxFaceCenter,8,24,FColor(255,0,0));
+//  FVector2D ScreenLoc;
+
+//  TArray<FVector> FaceVerts = RobotTargetingComponent->GetBoxFaceVertices();
+
+//  for (FVector Vec : FaceVerts)
+//  {
+//    FVector WorldVec = CharLoc + ViewRotation.RotateVector(Vec);
+//    DrawDebugSphere(GetWorld(),WorldVec,8,24,FColor(0,255,0));
+//  }
+
 }
 
 // Called to bind functionality to input
@@ -142,32 +166,11 @@ void ARobotCharacter::SetupTargetingWidget()
 //  if (Role < ROLE_Authority && PC && IsLocallyControlled())
   if (PC && IsLocallyControlled())
   {
-// TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
-// e.g. use friend class or write a function
 
-    TArray<FVector> FaceVerts = RobotTargetingComponent->GetBoxFaceVertices();
-    FVector TopLeftVert = FaceVerts[1];
-    FVector TopLeftVertWorld = GetActorLocation() + TopLeftVert;
-//    DrawDebugSphere()
-//    FVector RotatedTopLeftVertWorld = GetViewRotation().RotateVector(TopLeftVertWorld);
-//    DrawDebugSphere(GetWorld(),TopLeftVert,12,16,FColor(0,255,0),true,5);
-//    DrawDebugSphere(GetWorld(),TopLeftVertWorld,12,16,FColor(0,255,0),true,5);
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget - TopLeftVertWorld%s"), *GetName(), *TopLeftVertWorld.ToString());
-    
-    FVector2D ScreenLoc;
-    bool Projection = PC->ProjectWorldLocationToScreen(TopLeftVertWorld, ScreenLoc, false);
-    if (Projection)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget - ScreenLoc %s"), *GetName(), *ScreenLoc.ToString());
-//      PC->RobotHUDWidget->TargetingWidget->SetPositionInViewport(ScreenLoc);
-//      PC->RobotHUDWidget->TargetingWidget->RemoveFromViewport();
-    }
-    
-//    PC->TargetingWidget->SetPositionInViewport()
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - nonlocal or null PC"), *GetName());
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget - nonlocal or null PC"), *GetName());
   }
 
 }

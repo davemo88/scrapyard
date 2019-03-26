@@ -9,11 +9,13 @@
 #include "UI/RobotHUD.h"
 #include "Online/ScrapyardGameSession.h"
 #include "Player/RobotPlayerController.h"
+#include "Player/RobotPlayerState.h"
 
 ARobotGameMode::ARobotGameMode()
 {
   DefaultPawnClass = ARobotCharacter::StaticClass();
   PlayerControllerClass = ARobotPlayerController::StaticClass();
+  PlayerStateClass = ARobotPlayerState::StaticClass();
   HUDClass = ARobotHUD::StaticClass();
 }
 

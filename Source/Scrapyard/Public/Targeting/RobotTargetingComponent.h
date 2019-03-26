@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
-#include "Targeting/TargetingBoxComponent.h"
 #include "RobotTargetingComponent.generated.h"
 
 
@@ -16,20 +15,20 @@ class SCRAPYARD_API URobotTargetingComponent : public USceneComponent
 public:  
   // Sets default values for this component's properties
   URobotTargetingComponent();
-
-protected:
-  // Called when the game starts
-  virtual void BeginPlay() override;
-
-public:  
   // Called every frame
   virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-  UPROPERTY(EditAnywhere)
-  UTargetingBoxComponent* TargetingBoxComponent;
+  bool IsTargetAcquired();
 
-  FVector GetBoxFaceCenter();
+protected:
 
-  TArray<FVector> GetBoxFaceVertices();
-  
+  // Called when the game starts
+  virtual void BeginPlay() override;
+
+  bool bTargetAcquired;
+
+//  ARobotCharacter* TargetCharacter;
+
+  virtual bool IsTargetable(AActor* OtherActor);
+
 };
