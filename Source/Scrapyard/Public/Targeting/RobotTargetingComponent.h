@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
+#include "UI/TargetingWidget.h"
 #include "RobotTargetingComponent.generated.h"
 
 
@@ -20,6 +21,12 @@ public:
 
   bool IsTargetAcquired();
 
+  TSubclassOf<UTargetingWidget> TargetingWidget;
+
+  virtual float GetRange();
+
+  virtual TArray<FVector> GetFaceVerts();
+
 protected:
 
   // Called when the game starts
@@ -30,5 +37,9 @@ protected:
 //  ARobotCharacter* TargetCharacter;
 
   virtual bool IsTargetable(AActor* OtherActor);
+
+  float Range;
+
+  TArray<FVector> FaceVerts;
 
 };

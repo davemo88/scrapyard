@@ -2,6 +2,7 @@
 
 
 #include "RobotHUD.h"
+#include "Engine/Canvas.h"
 #include "Player/RobotPlayerController.h"
 
 ARobotHUD::ARobotHUD()
@@ -17,8 +18,23 @@ void ARobotHUD::DrawHUD()
 //  DrawRect(FLinearColor(FColor::Blue),70,60,50,50); 
   if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(GetOwningPlayerController()))
   {
-    if (ARobotCharacter* RoboChar = RobotPC->GetRobotCharacter())
+    if (ARobotCharacter* RoboCharacter = RobotPC->GetRobotCharacter())
     {
+      FVector RelativeCenter = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
+      FVector WorldCenter = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
+      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD RelativeCenter - %s"), *GetName(), *RelativeCenter.ToString());
+      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD WorldCenter - %s"), *GetName(), *WorldCenter.ToString());
+
+      FVector RelativeEdge = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,);
+      FVector WorldEdge = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
+      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD RelativeCenter - %s"), *GetName(), *RelativeCenter.ToString());
+      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD WorldCenter - %s"), *GetName(), *WorldCenter.ToString());
+
+      FVector2D CenterScreenLoc = Project(WorldCenter);
+      FVector2D EdgeScreenLoc ;
+      Canvas->K2_DrawPolygon
+
+
 //      TArray<FVector> FaceVerts = RoboChar->RobotTargetingComponent->GetBoxFaceVertices();
 ////      FRotator TargetingRotation = RoboChar->RobotTargetingComponent->RelativeRotation;
 //      FRotator ViewRotation = RoboChar->GetViewRotation();

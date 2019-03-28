@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "UI/TargetingWidget.h"
+#include "Components/CanvasPanel.h"
 #include "RobotHUDWidget.generated.h"
 
 class ARobotCharacter;
@@ -32,6 +33,9 @@ protected:
   UFUNCTION()
   void UpdateHitPoints();
 
+  UFUNCTION()
+  void UpdateTargetingWidget();
+
 //  UFUNCTION()
 //  void SetHitPointsText(FText NewHitPointsText);
 
@@ -46,10 +50,15 @@ protected:
 
   UPROPERTY(meta=(BindWidget))
   UProgressBar* PowerBar;
+  
+  UPROPERTY()
+  UTargetingWidget* TargetingWidget;
+
+  UPROPERTY(meta=(BindWidget))
+  UCanvasPanel* HUDPanel;
 
 public:
-  
-  UPROPERTY(meta=(BindWidget))
-  UTargetingWidget* TargetingWidget;
+
+  virtual void SetTargetingWidget(UTargetingWidget* NewTargetingWidget);
 
 };

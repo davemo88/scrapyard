@@ -17,12 +17,20 @@ class SCRAPYARD_API UConeTargetingComponent : public URobotTargetingComponent
 public:
 
   UConeTargetingComponent();
+
+  virtual float GetRange() override;
+
+float URobotTargetingComponent::GetRange()
+{
+  return Range;
+}
   
 protected:
 
-  uint32 ConeHeight;
+  uint32 ConeLength;
 
-  float ConeAngle;
+// radians
+  float ConeAngle; 
 
   virtual bool IsTargetable(AActor* OtherActor) override;
   

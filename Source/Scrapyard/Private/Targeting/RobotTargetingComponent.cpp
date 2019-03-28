@@ -17,6 +17,7 @@ URobotTargetingComponent::URobotTargetingComponent()
 
   bTargetAcquired = false;
 
+  Range = 0.f;
 }
 
 
@@ -63,3 +64,9 @@ bool URobotTargetingComponent::IsTargetable(AActor* OtherActor)
 {
   return false;
 }
+
+float URobotTargetingComponent::GetRange()
+{
+  return Range;
+}
+

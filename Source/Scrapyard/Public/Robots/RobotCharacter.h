@@ -53,7 +53,6 @@ public:
   virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
   void SetupRobotHUDWidget();
-  void SetupTargetingWidget();
 
 // body
   UPROPERTY(EditAnywhere)

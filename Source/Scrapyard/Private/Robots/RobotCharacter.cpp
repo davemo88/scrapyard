@@ -4,7 +4,8 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
-#include "RobotTargetingComponent.h"
+#include "Targeting/ConeTargetingComponent.h"
+#include "Targeting/RobotTargetingComponent.h"
 #include "Player/RobotPlayerController.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
@@ -39,7 +40,8 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 // why is this here as well as the movement component in the initializer list
   UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
 
-  RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
+  RobotTargetingComponent = CreateDefaultSubobject<UConeTargetingComponent>(TEXT("RobotTargetingComponent")); 
+//  RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
   RobotTargetingComponent->SetupAttachment(RootComponent);
 
 
@@ -82,7 +84,9 @@ void ARobotCharacter::Tick(float DeltaTime)
   Super::Tick(DeltaTime);
 
 //  DrawDebugCone(GetWorld(), GetActorLocation(), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 4, FColor::Blue);//, false, 0.01f, 2, 2);
-  DrawDebugCone(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(FVector(-350,0,130)), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 4, FColor::Blue, false, -1.f, 0, 5);
+  FVector CameraOffset = CameraBoom->SocketOffset + FVector(-CameraBoom->TargetArmLength,0,0);
+  DrawDebugCone(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 16, FColor::Blue, false, -1.f, 0, 5);
+  DrawDebugSphere(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset + FVector(2000,0,0)),12,12,FColor::Red);
 
 //  FVector TargetingBoxFaceCenter = RobotTargetingComponent->GetBoxFaceCenter();
 ////      UE_LOG(LogTemp, Warning, TEXT("Targeting Comp Relative Rotation: %s"), *RobotCharacter->RobotTargetingComponent->RelativeRotation.ToString());
@@ -149,30 +153,13 @@ void ARobotCharacter::SetupRobotHUDWidget()
 
     PC->EscapeMenuWidget->TunerWidget->SetRobotChar(this);
 
-    SetupTargetingWidget();
+//    PC->RobotHUDWidget->SetTargetingWidget(CreateWidget<UTargetingWidget>(PC, GameInstance->DefaultAssetsBP->TargetingWidgetBP));
+
   }
   else
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - nonlocal or null PC"), *GetName());
   }
-}
-
-void ARobotCharacter::SetupTargetingWidget()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget"), *GetName());
-  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-// TODO: can there be a locally controlled PC with ROLE_Authority? i guess if everything is local?
-//  if (Role < ROLE_Authority && PC && IsLocallyControlled())
-  if (PC && IsLocallyControlled())
-  {
-
-  }
-  else
-  {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupTargetingWidget - nonlocal or null PC"), *GetName());
-  }
-
 }
 
 void ARobotCharacter::SetupCamera()
