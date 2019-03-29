@@ -19,11 +19,6 @@ public:
   UConeTargetingComponent();
 
   virtual float GetRange() override;
-
-float URobotTargetingComponent::GetRange()
-{
-  return Range;
-}
   
 protected:
 
@@ -33,5 +28,9 @@ protected:
   float ConeAngle; 
 
   virtual bool IsTargetable(AActor* OtherActor) override;
+
+  virtual TArray<FVector> InitFaceVerts() override;
+
+  virtual float GetConeRadius(float Distance);
   
 };

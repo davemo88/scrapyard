@@ -18,6 +18,7 @@ URobotTargetingComponent::URobotTargetingComponent()
   bTargetAcquired = false;
 
   Range = 0.f;
+
 }
 
 
@@ -44,11 +45,17 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
     if (RobotPlayerState)
     {
       bTargetAcquired = false;
-      for (APlayerState* PlayerState : RobotPlayerState->Opponents)  
+//      for (APlayerState* PlayerState : RobotPlayerState->Opponents)  
+      for (TActorIterator<ARobotCharacter> ActorItr(RobotChar->GetWorld()); ActorItr; ++ActorItr)
       {
-        ARobotCharacter* OpponentRobotChar = PlayerState->GetPawn<ARobotCharacter>();
-        bTargetAcquired = bTargetAcquired || IsTargetable(OpponentRobotChar);
-//        UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *PlayerState->GetPawn()->GetActorLocation().ToString());
+        ARobotCharacter* OtherChar = *ActorItr;
+        if (OtherChar != RobotChar)
+        {
+//          ARobotCharacter* OpponentRobotChar = PlayerState->GetPawn<ARobotCharacter>();
+          bTargetAcquired = bTargetAcquired || IsTargetable(OtherChar);
+//          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *PlayerState->GetPawn()->GetActorLocation().ToString());
+          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *OtherChar->GetActorLocation().ToString());
+        }
       }
     }
   }
@@ -70,3 +77,17 @@ float URobotTargetingComponent::GetRange()
   return Range;
 }
 
+TArray<FVector> URobotTargetingComponent::InitFaceVerts()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::InitFaceVerts"), *GetName());
+  TArray<FVector> FaceVerts;
+  FaceVerts.Add(FVector(GetRange(),0,0));
+  return FaceVerts;
+}
+
+TArray<FVector> URobotTargetingComponent::GetFaceVerts()
+{
+//  UE_LOG(LogTemp, Warning, TEXT("%s::GetFaceVerts"), *GetName());
+  static TArray<FVector> FaceVerts = InitFaceVerts();
+  return FaceVerts;
+}

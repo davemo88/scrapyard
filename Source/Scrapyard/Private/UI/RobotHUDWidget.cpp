@@ -18,7 +18,7 @@ void URobotHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
   {
 // TODO: can do this manually whenever actually using power
     UpdatePowerBar(); 
-    UpdateTargetingWidget();
+//    UpdateTargetingWidget();
   }
 
 }

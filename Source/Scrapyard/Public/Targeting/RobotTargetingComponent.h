@@ -25,7 +25,9 @@ public:
 
   virtual float GetRange();
 
-  virtual TArray<FVector> GetFaceVerts();
+//  virtual FVector GetTargetingOffset();
+
+  TArray<FVector> GetFaceVerts();
 
 protected:
 
@@ -40,6 +42,11 @@ protected:
 
   float Range;
 
-  TArray<FVector> FaceVerts;
+  virtual TArray<FVector> InitFaceVerts();
+
+//  FVector TargetingOffset;
+
+  TArray<AActor*> PotentialTargets;
+//  TArray<AActor*> Targets;
 
 };
