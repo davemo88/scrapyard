@@ -26,8 +26,14 @@ public:
   virtual float GetRange();
 
 //  virtual FVector GetTargetingOffset();
+//
 
   TArray<FVector> GetFaceVerts();
+
+  void AddTargetable(AActor* Targetable);
+  void RemoveTargetable(AActor* Targetable);
+
+  bool IsTargetable(AActor* Actor);
 
 protected:
 
@@ -38,7 +44,7 @@ protected:
 
 //  ARobotCharacter* TargetCharacter;
 
-  virtual bool IsTargetable(AActor* OtherActor);
+  virtual bool IsTargeted(AActor* OtherActor);
 
   float Range;
 
@@ -46,7 +52,7 @@ protected:
 
 //  FVector TargetingOffset;
 
-  TArray<AActor*> PotentialTargets;
+  TArray<AActor*> Targetables;
 //  TArray<AActor*> Targets;
 
 };

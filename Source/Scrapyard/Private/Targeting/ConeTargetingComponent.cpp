@@ -2,6 +2,7 @@
 
 
 #include "ConeTargetingComponent.h"
+#include "Robots/RobotCharacter.h"
 #include "Math/UnrealMathVectorConstants.h"
 
 UConeTargetingComponent::UConeTargetingComponent()
@@ -15,21 +16,28 @@ UConeTargetingComponent::UConeTargetingComponent()
   TargetingWidget = UTargetingWidget::StaticClass();
 }
 
-bool UConeTargetingComponent::IsTargetable(AActor* OtherActor)
+bool UConeTargetingComponent::IsTargeted(AActor* OtherActor)
 {
 //TODO: should be relative to camera
-  FVector OtherRelativeLocation = OtherActor->GetActorLocation()-(GetOwner()->GetActorLocation() + FVector(-350,0,130));
+  ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
+  FVector OwnerLocation = OwnerChar->GetActorLocation();
+  FVector TargetingOffset = FVector(-350, 0, 130);
+  FRotator ViewRotation = OwnerChar->GetViewRotation();
+  FVector OtherRelativeLocation = OtherActor->GetActorLocation()-(OwnerLocation + TargetingOffset);
 
   if (OtherRelativeLocation.X > ConeLength || OtherRelativeLocation.X < 0)
   {
-    UE_LOG(LogTemp, Warning, TEXT("Out of Range - X = %f"), OtherRelativeLocation.X);
+//    UE_LOG(LogTemp, Warning, TEXT("Out of Range - X = %f"), OtherRelativeLocation.X);
     return false;
   }
 
   float ConeRadius = GetConeRadius(OtherRelativeLocation.X);
   float OtherRadius = FVector::Dist(FVector(OtherRelativeLocation.X,0,0), OtherRelativeLocation); 
 
-  UE_LOG(LogTemp, Warning, TEXT("X = %f, ConeRadius = %f, OtherRadius = %f"), OtherRelativeLocation.X, ConeRadius, OtherRadius);
+  if (OwnerChar->IsLocallyControlled())
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s: X = %f, ConeRadius = %f, OtherRadius = %f"), *OwnerChar->GetName(), OtherRelativeLocation.X, ConeRadius, OtherRadius);
+  }
 
   return OtherRadius < ConeRadius;
 
@@ -58,7 +66,7 @@ TArray<FVector> UConeTargetingComponent::InitFaceVerts()
   for (uint i = 0; i < NumPoints; i++)
   {
     NextVert = FRotator(0, 0, i*RotationIncrement).RotateVector(FVector(GetRange(),0,FaceRadius));
-    UE_LOG(LogTemp, Warning, TEXT("Next Vert %f - %s"), i*RotationIncrement, *NextVert.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("Next Vert %f - %s"), i*RotationIncrement, *NextVert.ToString());
     FaceVerts.Add(NextVert);
   }
   return FaceVerts;

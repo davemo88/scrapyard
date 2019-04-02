@@ -16,14 +16,14 @@ class SCRAPYARD_API ARobotPlayerState : public APlayerState
   
 public:
   
-  void AddOpponent(APlayerState* PlayerState);
+//  void AddOpponent(APlayerState* PlayerState);
 
-  UPROPERTY()
-  TArray<APlayerState*> Opponents;
+//  UPROPERTY()
+//  TArray<APlayerState*> Opponents;
 
 protected:
 
-  UFUNCTION(Client, Reliable)
-  void ClientAddOpponent(APlayerState* PlayerState);
+//  UFUNCTION(Client, Reliable)
+//  void ClientAddOpponent(APlayerState* PlayerState);
   
 };

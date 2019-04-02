@@ -5,6 +5,7 @@
 #include "UObjectGlobals.h"
 #include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
+#include "Game/RobotGameState.h"
 #include "Robots/RobotCharacter.h"
 #include "UI/RobotHUD.h"
 #include "Online/ScrapyardGameSession.h"
@@ -13,6 +14,7 @@
 
 ARobotGameMode::ARobotGameMode()
 {
+  GameStateClass = ARobotGameState::StaticClass();
   DefaultPawnClass = ARobotCharacter::StaticClass();
   PlayerControllerClass = ARobotPlayerController::StaticClass();
   PlayerStateClass = ARobotPlayerState::StaticClass();

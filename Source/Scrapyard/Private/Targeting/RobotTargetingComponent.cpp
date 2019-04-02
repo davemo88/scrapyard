@@ -37,29 +37,35 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-  ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetOwner());
-
-  if (RobotChar->HasAuthority() && (RobotChar->GetController() != nullptr))
+//  ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetOwner());
+//
+//  if (RobotChar->HasAuthority() && (RobotChar->GetController() != nullptr))
+//  {
+//    ARobotPlayerState* RobotPlayerState = RobotChar->GetController()->GetPlayerState<ARobotPlayerState>();
+//    if (RobotPlayerState)
+//    {
+//      bTargetAcquired = false;
+////      for (APlayerState* PlayerState : RobotPlayerState->Opponents)  
+////      for (TActorIterator<ARobotCharacter> ActorItr(RobotChar->GetWorld()); ActorItr; ++ActorItr)
+//      for (AActor Targetable : Targetables)
+//      {
+//        ARobotCharacter* OtherChar = *ActorItr;
+//        if (OtherChar != RobotChar)
+//        {
+////          ARobotCharacter* OpponentRobotChar = PlayerState->GetPawn<ARobotCharacter>();
+//          bTargetAcquired = bTargetAcquired || IsTargetable(OtherChar);
+////          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *PlayerState->GetPawn()->GetActorLocation().ToString());
+////          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *OtherChar->GetActorLocation().ToString());
+//        }
+//      }
+//    }
+//  }
+  
+  bTargetAcquired = false;
+  for (AActor* Targetable : Targetables)
   {
-    ARobotPlayerState* RobotPlayerState = RobotChar->GetController()->GetPlayerState<ARobotPlayerState>();
-    if (RobotPlayerState)
-    {
-      bTargetAcquired = false;
-//      for (APlayerState* PlayerState : RobotPlayerState->Opponents)  
-      for (TActorIterator<ARobotCharacter> ActorItr(RobotChar->GetWorld()); ActorItr; ++ActorItr)
-      {
-        ARobotCharacter* OtherChar = *ActorItr;
-        if (OtherChar != RobotChar)
-        {
-//          ARobotCharacter* OpponentRobotChar = PlayerState->GetPawn<ARobotCharacter>();
-          bTargetAcquired = bTargetAcquired || IsTargetable(OtherChar);
-//          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *PlayerState->GetPawn()->GetActorLocation().ToString());
-          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *OtherChar->GetActorLocation().ToString());
-        }
-      }
-    }
+    bTargetAcquired = bTargetAcquired || IsTargeted(Targetable);
   }
-
 }
 
 bool URobotTargetingComponent::IsTargetAcquired()
@@ -67,7 +73,7 @@ bool URobotTargetingComponent::IsTargetAcquired()
   return bTargetAcquired;
 }
 
-bool URobotTargetingComponent::IsTargetable(AActor* OtherActor)
+bool URobotTargetingComponent::IsTargeted(AActor* OtherActor)
 {
   return false;
 }
@@ -91,3 +97,31 @@ TArray<FVector> URobotTargetingComponent::GetFaceVerts()
   static TArray<FVector> FaceVerts = InitFaceVerts();
   return FaceVerts;
 }
+
+void URobotTargetingComponent::AddTargetable(AActor* Targetable)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable - %s"), *GetName(), *Targetable->GetName());
+  Targetables.Add(Targetable);
+}
+
+void URobotTargetingComponent::RemoveTargetable(AActor* Targetable)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::RemoveTargetable"), *GetName());
+  Targetables.Remove(Targetable);
+}
+
+bool URobotTargetingComponent::IsTargetable(AActor* Actor)
+{
+  ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
+  if (ARobotCharacter* OtherChar = Cast<ARobotCharacter>(Actor))
+  {
+    if (OwnerChar->Team != OtherChar->Team)
+    {
+      return true; 
+    }
+  }
+
+  return false;
+}
+

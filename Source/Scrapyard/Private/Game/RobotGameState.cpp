@@ -49,3 +49,15 @@ bool ARobotGameState::IsMatchTimerActive()
 {
   return GetWorld()->GetTimerManager().IsTimerActive(MatchTimerHandle);
 }
+
+void ARobotGameState::MulticastAddTargetable_Implementation(AActor* Targetable)
+{
+  TargetableActors.AddUnique(Targetable);
+  OnTargetableAddedDelegate.Broadcast(Targetable);
+}
+
+void ARobotGameState::MulticastRemoveTargetable_Implementation(AActor* Targetable)
+{
+  TargetableActors.Remove(Targetable);
+  OnTargetableRemovedDelegate.Broadcast(Targetable);
+}

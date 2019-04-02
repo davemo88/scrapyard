@@ -4,6 +4,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
+#include "Game/RobotGameState.h"
 #include "Targeting/ConeTargetingComponent.h"
 #include "Targeting/RobotTargetingComponent.h"
 #include "Player/RobotPlayerController.h"
@@ -64,6 +65,26 @@ void ARobotCharacter::BeginPlay()
       SetupRobotHUDWidget();
 
     }
+  }
+
+  if (ARobotGameState* RobotGameState = GetWorld()->GetGameState<ARobotGameState>())
+  {
+
+    for (AActor* Actor: RobotGameState->TargetableActors)
+    {
+      if (RobotTargetingComponent->IsTargetable(Actor))
+      {
+        RobotTargetingComponent->AddTargetable(Actor);
+      }
+    }
+
+    if (HasAuthority())
+    {
+      RobotGameState->MulticastAddTargetable(this); 
+    }
+
+    RobotGameState->OnTargetableAddedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableAdded);
+    RobotGameState->OnTargetableRemovedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableRemoved);
   }
 }
 
@@ -528,3 +549,28 @@ void ARobotCharacter::OnRep_Power()
   UE_LOG(LogTemp,Warning,TEXT("%s::OnRep_Power"), *GetName());
   PowerChangedDelegate.Broadcast();
 }
+
+void ARobotCharacter::OnTargetableAdded(AActor* Actor)
+{
+  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableAdded"), *GetName());
+  if (RobotTargetingComponent->IsTargetable(Actor))
+  {
+    RobotTargetingComponent->AddTargetable(Actor);
+  }
+}
+
+void ARobotCharacter::OnTargetableRemoved(AActor* Actor)
+{
+  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableRemoved"), *GetName());
+}
+
+// Targetable Interface
+//bool ARobotCharacter::IsTargetableBy(AActor* OtherActor)
+//{
+//  if (ARobotCharacter* OtherRobotCharacter = Cast<ARobotCharacter>(OtherActor))
+//  {
+//    return Team != OtherRobotCharacter->Team;
+//  }
+//
+//  return false;
+//}

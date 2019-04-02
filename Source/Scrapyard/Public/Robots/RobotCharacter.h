@@ -9,7 +9,7 @@
 #include "Camera/CameraComponent.h"
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotStats.h"
-#include "RobotTargetingComponent.h"
+#include "Targeting/RobotTargetingComponent.h"
 #include "Parts/RobotPartAssignment.h"
 #include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
@@ -19,7 +19,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPowerChangedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FZeroHitPointsDelegate);
 
 UCLASS()
-class SCRAPYARD_API ARobotCharacter : public ACharacter
+class SCRAPYARD_API ARobotCharacter : public ACharacter//, public ITargetableInterface
 {
   GENERATED_BODY()
 
@@ -44,6 +44,12 @@ protected:
   void OnStatsUpdated();
 
   friend class URobotTunerWidget;
+
+  UFUNCTION()
+  void OnTargetableAdded(AActor* Actor);
+
+  UFUNCTION()
+  void OnTargetableRemoved(AActor* Actor);
 
 public:  
   // Called every frame
@@ -96,9 +102,6 @@ public:
 
   virtual void StartBoosting();
   virtual void StopBoosting();
-
-//  UFUNCTION(Server, Unreliable, WithValidation)
-//  virtual void ServerBoost(float AxisValue);
 
   UPROPERTY()//Replicated
   uint8 FireMode;
@@ -155,5 +158,11 @@ public:
   FHitPointsChangedDelegate HitPointsChangedDelegate;
   FPowerChangedDelegate PowerChangedDelegate;
   FZeroHitPointsDelegate ZeroHitPointsDelegate;
+
+// Targetable Interface
+//  UFUNCTION()
+//  virtual bool IsTargetableBy(AActor* OtherActor) override;
   
+  UPROPERTY(EditAnywhere)
+  uint32 Team;
 };

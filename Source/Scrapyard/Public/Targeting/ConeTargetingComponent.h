@@ -27,7 +27,7 @@ protected:
 // radians
   float ConeAngle; 
 
-  virtual bool IsTargetable(AActor* OtherActor) override;
+  virtual bool IsTargeted(AActor* OtherActor) override;
 
   virtual TArray<FVector> InitFaceVerts() override;
 
