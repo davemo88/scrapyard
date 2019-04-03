@@ -3,6 +3,7 @@
 
 #include "ConeTargetingComponent.h"
 #include "Robots/RobotCharacter.h"
+#include "Player/RobotPlayerController.h"
 #include "Math/UnrealMathVectorConstants.h"
 
 UConeTargetingComponent::UConeTargetingComponent()
@@ -21,20 +22,30 @@ bool UConeTargetingComponent::IsTargeted(AActor* OtherActor)
 //TODO: should be relative to camera
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   FVector OwnerLocation = OwnerChar->GetActorLocation();
-  FVector TargetingOffset = FVector(-350, 0, 130);
   FRotator ViewRotation = OwnerChar->GetViewRotation();
-  FVector OtherRelativeLocation = OtherActor->GetActorLocation()-(OwnerLocation + TargetingOffset);
+  FVector TargetingOffset = FVector(-350, 0, 130);
+  FVector RotatedTargetingOffset = ViewRotation.RotateVector(TargetingOffset);
+  FRotator InverseViewRotation = ViewRotation.GetInverse();
+  FVector OtherRelativeLocation = InverseViewRotation.RotateVector(OtherActor->GetActorLocation()-(OwnerLocation + RotatedTargetingOffset));
 
-  if (OtherRelativeLocation.X > ConeLength || OtherRelativeLocation.X < 0)
+
+  if (Cast<ARobotPlayerController>(OwnerChar->GetController()))
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s"), *OtherRelativeLocation.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("%s: View Rotation - %s"), *OwnerChar->GetName(), *ViewRotation.ToString());
+  }
+
+//  if (OtherRelativeLocation.X > ConeLength || OtherRelativeLocation.X < 0)
+  if (OtherRelativeLocation.X > ConeLength || OtherRelativeLocation.X < -TargetingOffset.X)
   {
 //    UE_LOG(LogTemp, Warning, TEXT("Out of Range - X = %f"), OtherRelativeLocation.X);
     return false;
   }
 
-  float ConeRadius = GetConeRadius(OtherRelativeLocation.X);
+  float ConeRadius = GetConeRadius(FMath::Abs(OtherRelativeLocation.X));
   float OtherRadius = FVector::Dist(FVector(OtherRelativeLocation.X,0,0), OtherRelativeLocation); 
 
-  if (OwnerChar->IsLocallyControlled())
+  if (Cast<ARobotPlayerController>(OwnerChar->GetController()))
   {
     UE_LOG(LogTemp, Warning, TEXT("%s: X = %f, ConeRadius = %f, OtherRadius = %f"), *OwnerChar->GetName(), OtherRelativeLocation.X, ConeRadius, OtherRadius);
   }
