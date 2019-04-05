@@ -4,6 +4,8 @@
 #include "RobotTargetingComponent.h"
 #include "Player/RobotPlayerController.h"
 #include "Player/RobotPlayerState.h"
+#include "Targeting/RectangularTargetingProfile.h"
+#include "Targeting/ConeTargetingProfile.h"
 #include "Robots/RobotCharacter.h"
 #include "Engine.h"
 
@@ -17,7 +19,8 @@ URobotTargetingComponent::URobotTargetingComponent()
 
   bTargetAcquired = false;
 
-  Range = 0.f;
+//  TargetingProfile = CreateDefaultSubobject<URectangularTargetingProfile>(TEXT("TargetingProfile"));
+  TargetingProfile = CreateDefaultSubobject<UConeTargetingProfile>(TEXT("TargetingProfile"));
 
 }
 
@@ -37,34 +40,10 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-//  ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetOwner());
-//
-//  if (RobotChar->HasAuthority() && (RobotChar->GetController() != nullptr))
-//  {
-//    ARobotPlayerState* RobotPlayerState = RobotChar->GetController()->GetPlayerState<ARobotPlayerState>();
-//    if (RobotPlayerState)
-//    {
-//      bTargetAcquired = false;
-////      for (APlayerState* PlayerState : RobotPlayerState->Opponents)  
-////      for (TActorIterator<ARobotCharacter> ActorItr(RobotChar->GetWorld()); ActorItr; ++ActorItr)
-//      for (AActor Targetable : Targetables)
-//      {
-//        ARobotCharacter* OtherChar = *ActorItr;
-//        if (OtherChar != RobotChar)
-//        {
-////          ARobotCharacter* OpponentRobotChar = PlayerState->GetPawn<ARobotCharacter>();
-//          bTargetAcquired = bTargetAcquired || IsTargetable(OtherChar);
-////          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *PlayerState->GetPawn()->GetActorLocation().ToString());
-////          UE_LOG(LogTemp, Warning, TEXT("Opponent Location: %s"), *OtherChar->GetActorLocation().ToString());
-//        }
-//      }
-//    }
-//  }
-  
   bTargetAcquired = false;
-  for (AActor* Targetable : Targetables)
+  for (AActor* Actor: Targetables)
   {
-    bTargetAcquired = bTargetAcquired || IsTargeted(Targetable);
+    bTargetAcquired = bTargetAcquired || IsTargeted(Actor);
   }
 }
 
@@ -73,28 +52,22 @@ bool URobotTargetingComponent::IsTargetAcquired()
   return bTargetAcquired;
 }
 
-bool URobotTargetingComponent::IsTargeted(AActor* OtherActor)
+bool URobotTargetingComponent::IsTargeted(AActor* Actor)
 {
+  if (TargetingProfile != nullptr)
+  {
+    FVector OtherRelativeLocation = GetLocationRelativeToView(Actor);
+    return TargetingProfile->IsTargeted(OtherRelativeLocation);
+  }
+
   return false;
-}
-
-float URobotTargetingComponent::GetRange()
-{
-  return Range;
-}
-
-TArray<FVector> URobotTargetingComponent::InitFaceVerts()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::InitFaceVerts"), *GetName());
-  TArray<FVector> FaceVerts;
-  FaceVerts.Add(FVector(GetRange(),0,0));
-  return FaceVerts;
 }
 
 TArray<FVector> URobotTargetingComponent::GetFaceVerts()
 {
 //  UE_LOG(LogTemp, Warning, TEXT("%s::GetFaceVerts"), *GetName());
-  static TArray<FVector> FaceVerts = InitFaceVerts();
+  static TArray<FVector> FaceVerts = TargetingProfile->InitFaceVerts();
+
   return FaceVerts;
 }
 
@@ -125,3 +98,22 @@ bool URobotTargetingComponent::IsTargetable(AActor* Actor)
   return false;
 }
 
+//float URobotTargetingComponent::GetRange()
+//{
+//  return TargetingProfile->GetRange();
+//}
+
+FVector URobotTargetingComponent::GetLocationRelativeToView(AActor* OtherActor)
+{
+  ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
+  FVector OwnerLocation = OwnerChar->GetActorLocation();
+  FRotator ViewRotation = OwnerChar->GetViewRotation();
+//TODO: Set this somewhere, e.g. on the character (it's the position of the camera relative to the char)
+  FVector TargetingOffset = TargetingProfile->TargetingOffset;//FVector(-350, 0, 130);
+  FVector RotatedTargetingOffset = ViewRotation.RotateVector(TargetingOffset);
+  FRotator InverseViewRotation = ViewRotation.GetInverse();
+  FVector TargetingOrigin = OwnerLocation + RotatedTargetingOffset;
+  FVector OtherRelativeLocation = InverseViewRotation.RotateVector(OtherActor->GetActorLocation()-TargetingOrigin);
+
+  return OtherRelativeLocation;
+}

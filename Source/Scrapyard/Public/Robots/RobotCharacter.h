@@ -19,7 +19,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPowerChangedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FZeroHitPointsDelegate);
 
 UCLASS()
-class SCRAPYARD_API ARobotCharacter : public ACharacter//, public ITargetableInterface
+class SCRAPYARD_API ARobotCharacter : public ACharacter
 {
   GENERATED_BODY()
 
@@ -27,31 +27,6 @@ public:
   // Sets default values for this character's properties
   ARobotCharacter(const class FObjectInitializer& ObjectInitializer);
 
-protected:
-  // Called when the game starts or when spawned
-  virtual void BeginPlay() override;
-
-  virtual void PostInitializeComponents() override;
-
-  UPROPERTY()
-  TArray<uint8> PendingFire;
-
-  void SetupBody();
-  void SetupStats();
-  void SetupAbilities();
-
-  UFUNCTION()
-  void OnStatsUpdated();
-
-  friend class URobotTunerWidget;
-
-  UFUNCTION()
-  void OnTargetableAdded(AActor* Actor);
-
-  UFUNCTION()
-  void OnTargetableRemoved(AActor* Actor);
-
-public:  
   // Called every frame
   virtual void Tick(float DeltaTime) override;
 
@@ -87,6 +62,9 @@ public:
   class UCameraComponent* OurCamera;
   UPROPERTY(EditAnywhere, Category = Camera, meta = (AllowPrivateAccess = "true"))
   class USpringArmComponent* CameraBoom;
+
+  UPROPERTY()
+  FVector CameraOffset;
 
   void SetupCamera();
 
@@ -165,4 +143,29 @@ public:
   
   UPROPERTY(EditAnywhere)
   uint32 Team;
+
+protected:
+  // Called when the game starts or when spawned
+  virtual void BeginPlay() override;
+
+  virtual void PostInitializeComponents() override;
+
+  UPROPERTY()
+  TArray<uint8> PendingFire;
+
+  void SetupBody();
+  void SetupStats();
+  void SetupAbilities();
+
+  UFUNCTION()
+  void OnStatsUpdated();
+
+  friend class URobotTunerWidget;
+
+  UFUNCTION()
+  void OnTargetableAdded(AActor* Actor);
+
+  UFUNCTION()
+  void OnTargetableRemoved(AActor* Actor);
+
 };

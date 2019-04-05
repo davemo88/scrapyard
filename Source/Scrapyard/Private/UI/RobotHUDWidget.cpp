@@ -46,35 +46,35 @@ void URobotHUDWidget::UpdateHitPoints()
 
 void URobotHUDWidget::UpdateTargetingWidget()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::UpdateTargetingWidget"), *GetName());
-  if (TargetingWidget != nullptr)
-  {
-    FVector RelativeCenter = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
-    FVector WorldCenter = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
-    UE_LOG(LogTemp, Warning, TEXT("%s::UpdateTargetingWidget RelativeCenter - %s"), *GetName(), *RelativeCenter.ToString());
-    UE_LOG(LogTemp, Warning, TEXT("%s::UpdateTargetingWidget WorldCenter - %s"), *GetName(), *WorldCenter.ToString());
-
-    FVector2D CenterScreenLoc;
-    FVector2D EdgeScreenLoc;
-
-//    FVector RelativeEdge = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,);
-
-    APlayerController* PC = GetOwningPlayer();
-//    bool Projection = PC->ProjectWorldLocationToScreen(WorldCenter, ScreenLoc);
-    bool CenterProjection = UWidgetLayoutLibrary::ProjectWorldLocationToWidgetPosition(PC, WorldCenter, CenterScreenLoc);
-    bool EdgeProjection = UWidgetLayoutLibrary::ProjectWorldLocationToWidgetPosition(PC, WorldCenter, EdgeScreenLoc);
-    if (CenterProjection)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("Set Targeting Widget Position - %s"), *CenterScreenLoc.ToString());
-//      TargetingWidget->SetPositionInViewport(ScreenLoc);
-      UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(TargetingWidget->Slot);
-      if (CanvasSlot)
-      {
-        CanvasSlot->SetPosition(CenterScreenLoc);
-//        CanvasSlot->SetAutoSize(true);
-      }
-    }
-  }
+//  UE_LOG(LogTemp, Warning, TEXT("%s::UpdateTargetingWidget"), *GetName());
+//  if (TargetingWidget != nullptr)
+//  {
+//    FVector RelativeCenter = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
+//    FVector WorldCenter = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
+//    UE_LOG(LogTemp, Warning, TEXT("%s::UpdateTargetingWidget RelativeCenter - %s"), *GetName(), *RelativeCenter.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("%s::UpdateTargetingWidget WorldCenter - %s"), *GetName(), *WorldCenter.ToString());
+//
+//    FVector2D CenterScreenLoc;
+//    FVector2D EdgeScreenLoc;
+//
+////    FVector RelativeEdge = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,);
+//
+//    APlayerController* PC = GetOwningPlayer();
+////    bool Projection = PC->ProjectWorldLocationToScreen(WorldCenter, ScreenLoc);
+//    bool CenterProjection = UWidgetLayoutLibrary::ProjectWorldLocationToWidgetPosition(PC, WorldCenter, CenterScreenLoc);
+//    bool EdgeProjection = UWidgetLayoutLibrary::ProjectWorldLocationToWidgetPosition(PC, WorldCenter, EdgeScreenLoc);
+//    if (CenterProjection)
+//    {
+//      UE_LOG(LogTemp, Warning, TEXT("Set Targeting Widget Position - %s"), *CenterScreenLoc.ToString());
+////      TargetingWidget->SetPositionInViewport(ScreenLoc);
+//      UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(TargetingWidget->Slot);
+//      if (CanvasSlot)
+//      {
+//        CanvasSlot->SetPosition(CenterScreenLoc);
+////        CanvasSlot->SetAutoSize(true);
+//      }
+//    }
+//  }
 }
 
 //

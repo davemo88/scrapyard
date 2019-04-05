@@ -5,8 +5,8 @@
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
 #include "Game/RobotGameState.h"
-#include "Targeting/ConeTargetingComponent.h"
 #include "Targeting/RobotTargetingComponent.h"
+#include "Targeting/RectangularTargetingProfile.h"
 #include "Player/RobotPlayerController.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
@@ -41,10 +41,8 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 // why is this here as well as the movement component in the initializer list
   UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
 
-  RobotTargetingComponent = CreateDefaultSubobject<UConeTargetingComponent>(TEXT("RobotTargetingComponent")); 
-//  RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
+  RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
   RobotTargetingComponent->SetupAttachment(RootComponent);
-
 
 }
 
@@ -105,10 +103,10 @@ void ARobotCharacter::Tick(float DeltaTime)
   Super::Tick(DeltaTime);
 
 //  DrawDebugCone(GetWorld(), GetActorLocation(), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 4, FColor::Blue);//, false, 0.01f, 2, 2);
-  FVector CameraOffset = CameraBoom->SocketOffset + FVector(-CameraBoom->TargetArmLength,0,0);
-  DrawDebugCone(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 16, FColor::Blue, false, -1.f, 0, 5);
-  DrawDebugSphere(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset + FVector(2000,0,0)),12,12,FColor::Red);
-
+//  FVector CameraOffset = CameraBoom->SocketOffset + FVector(-CameraBoom->TargetArmLength,0,0);
+//  DrawDebugCone(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 16, FColor::Blue, false, -1.f, 0, 5);
+//  DrawDebugSphere(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset + FVector(2000,0,0)),12,12,FColor::Red);
+//
 //  FVector TargetingBoxFaceCenter = RobotTargetingComponent->GetBoxFaceCenter();
 ////      UE_LOG(LogTemp, Warning, TEXT("Targeting Comp Relative Rotation: %s"), *RobotCharacter->RobotTargetingComponent->RelativeRotation.ToString());
 ////    UE_LOG(LogTemp, Warning, TEXT("Targeting Box Face Center: %s"), *TargetingBoxFaceCenter.ToString());
@@ -192,7 +190,7 @@ void ARobotCharacter::SetupCamera()
 
   CameraBoom->bAbsoluteRotation = false;
   CameraBoom->TargetArmLength = 350.f;
-  CameraBoom->SocketOffset = FVector(0.f, 0.f, 130.f);//130.f);
+  CameraBoom->SocketOffset = FVector(0.f, 0.f, 130.f);
   CameraBoom->bUsePawnControlRotation = true;
   
   OurCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("OurCamera"));
@@ -209,6 +207,7 @@ void ARobotCharacter::SetupBody()
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
 // TODO: why do i have to make these weird adjustments?
+// seems like the sketetal mesh is not setup correctly
   RobotBodyComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -88.f));
   RobotBodyComponent->SetRelativeRotation(FRotator(0.0f,-90.0f,0.f));
   RobotBodyComponent->PartAssignment->SetDefaultAssignment();

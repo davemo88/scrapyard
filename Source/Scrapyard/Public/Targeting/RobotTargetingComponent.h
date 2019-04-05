@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
 #include "UI/TargetingWidget.h"
+#include "Targeting/TargetingProfile.h"
 #include "RobotTargetingComponent.generated.h"
 
 
@@ -19,11 +20,12 @@ public:
   // Called every frame
   virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+  UPROPERTY()
+  UTargetingProfile* TargetingProfile;
+
   bool IsTargetAcquired();
 
   TSubclassOf<UTargetingWidget> TargetingWidget;
-
-  virtual float GetRange();
 
 //  virtual FVector GetTargetingOffset();
 //
@@ -35,6 +37,10 @@ public:
 
   bool IsTargetable(AActor* Actor);
 
+  bool IsTargeted(AActor* Actor);
+
+//  float GetRange();
+
 protected:
 
   // Called when the game starts
@@ -42,17 +48,9 @@ protected:
 
   bool bTargetAcquired;
 
-//  ARobotCharacter* TargetCharacter;
-
-  virtual bool IsTargeted(AActor* OtherActor);
-
-  float Range;
-
-  virtual TArray<FVector> InitFaceVerts();
-
-//  FVector TargetingOffset;
-
   TArray<AActor*> Targetables;
 //  TArray<AActor*> Targets;
+//
+  FVector GetLocationRelativeToView(AActor* OtherActor);
 
 };
