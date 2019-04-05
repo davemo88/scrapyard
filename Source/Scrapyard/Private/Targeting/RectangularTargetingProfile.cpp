@@ -5,9 +5,11 @@
 
 URectangularTargetingProfile::URectangularTargetingProfile()
 {
-  Range = 2000.0f;
+  Range = 3000.0f;
   VerticalAngle = 3.1415f/16.0f;
   HorizontalAngle = 3.1415f/12.0f;
+
+  TargetingOffset = FVector(-350,0,130);
 
 }
 

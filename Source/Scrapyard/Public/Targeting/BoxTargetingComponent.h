@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Targeting/RobotTargetingComponent.h"
+#include "Robots/RobotTargetingComponent.h"
 #include "Components/BoxComponent.h"
 #include "BoxTargetingComponent.generated.h"
 

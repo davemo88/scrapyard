@@ -9,7 +9,7 @@
 #include "Camera/CameraComponent.h"
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotStats.h"
-#include "Targeting/RobotTargetingComponent.h"
+#include "Robots/RobotTargetingComponent.h"
 #include "Parts/RobotPartAssignment.h"
 #include "Ability/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"

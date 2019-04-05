@@ -14,12 +14,14 @@ class SCRAPYARD_API UConeTargetingProfile : public UTargetingProfile
 {
   GENERATED_BODY()
 
+public:
+
   UConeTargetingProfile();
 
-protected:
-
-// radians
+  UPROPERTY(EditAnywhere)
   float ConeAngle; 
+
+protected:
 
   virtual bool IsTargeted(FVector OtherRelativeLocation) override;
 

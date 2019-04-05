@@ -5,8 +5,6 @@
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
 #include "Game/RobotGameState.h"
-#include "Targeting/RobotTargetingComponent.h"
-#include "Targeting/RectangularTargetingProfile.h"
 #include "Player/RobotPlayerController.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
