@@ -11,7 +11,7 @@
 #include "Robots/RobotStats.h"
 #include "Robots/RobotTargetingComponent.h"
 #include "Parts/RobotPartAssignment.h"
-#include "Ability/ScrapyardAbility.h"
+#include "Abilities/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHitPointsChangedDelegate);
@@ -62,9 +62,6 @@ public:
   class UCameraComponent* OurCamera;
   UPROPERTY(EditAnywhere, Category = Camera, meta = (AllowPrivateAccess = "true"))
   class USpringArmComponent* CameraBoom;
-
-  UPROPERTY()
-  FVector CameraOffset;
 
   void SetupCamera();
 
@@ -137,7 +134,6 @@ public:
   FPowerChangedDelegate PowerChangedDelegate;
   FZeroHitPointsDelegate ZeroHitPointsDelegate;
 
-// Targetable Interface
 //  UFUNCTION()
 //  virtual bool IsTargetableBy(AActor* OtherActor) override;
   

@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "HandheldPart.h"
-#include "Ability/ScrapyardAbility.h"
-#include "Ability/HitscanAbility.h"
+#include "Abilities/ScrapyardAbility.h"
+#include "Abilities/HitscanAbility.h"
 #include "SoloDraft.h"
 
 UHandheldPart::UHandheldPart()

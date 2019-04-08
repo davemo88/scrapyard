@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/SkeletalMesh.h"
-#include "Ability/ScrapyardAbility.h"
+#include "Abilities/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
 class UManufacturer;

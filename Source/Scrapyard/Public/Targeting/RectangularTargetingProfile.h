@@ -18,13 +18,10 @@ public:
 
   URectangularTargetingProfile();
 
-  UPROPERTY(EditAnywhere)
-  float VerticalAngle;
-
-  UPROPERTY(EditAnywhere)
-  float HorizontalAngle;
-
 protected:
+
+  float VerticalAngle;
+  float HorizontalAngle;
 
   virtual bool IsTargeted(FVector OtherRelativeLocation);
 

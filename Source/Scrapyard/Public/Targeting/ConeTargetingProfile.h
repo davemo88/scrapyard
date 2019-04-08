@@ -18,10 +18,9 @@ public:
 
   UConeTargetingProfile();
 
-  UPROPERTY(EditAnywhere)
-  float ConeAngle; 
-
 protected:
+
+  float ConeAngle; 
 
   virtual bool IsTargeted(FVector OtherRelativeLocation) override;
 

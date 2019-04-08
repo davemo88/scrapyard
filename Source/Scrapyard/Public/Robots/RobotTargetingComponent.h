@@ -20,7 +20,7 @@ public:
   // Called every frame
   virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-  UPROPERTY(EditAnywhere)
+  UPROPERTY()
   UTargetingProfile* TargetingProfile;
 
   bool IsTargetAcquired();
@@ -32,8 +32,9 @@ public:
 
   TArray<FVector> GetFaceVerts();
 
-  void AddTargetable(AActor* Targetable);
-  void RemoveTargetable(AActor* Targetable);
+//TODO: clean up these functions
+  void AddTargetable(AActor* Actor);
+  void RemoveTargetable(AActor* Actor);
 
   bool IsTargetable(AActor* Actor);
 
@@ -47,10 +48,11 @@ protected:
   virtual void BeginPlay() override;
 
   bool bTargetAcquired;
+//  TArray<AActor*> Targets;
 
   TArray<AActor*> Targetables;
-//  TArray<AActor*> Targets;
-//
+
+// get the other actor's location relative to the owner's view rotation vector
   FVector GetLocationRelativeToView(AActor* OtherActor);
 
 };

@@ -71,17 +71,17 @@ TArray<FVector> URobotTargetingComponent::GetFaceVerts()
   return FaceVerts;
 }
 
-void URobotTargetingComponent::AddTargetable(AActor* Targetable)
+void URobotTargetingComponent::AddTargetable(AActor* Actor)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable - %s"), *GetName(), *Targetable->GetName());
-  Targetables.Add(Targetable);
+  UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable - %s"), *GetName(), *Actor->GetName());
+  Targetables.Add(Actor);
 }
 
-void URobotTargetingComponent::RemoveTargetable(AActor* Targetable)
+void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::RemoveTargetable"), *GetName());
-  Targetables.Remove(Targetable);
+  Targetables.Remove(Actor);
 }
 
 bool URobotTargetingComponent::IsTargetable(AActor* Actor)
@@ -109,6 +109,7 @@ FVector URobotTargetingComponent::GetLocationRelativeToView(AActor* OtherActor)
   FVector OwnerLocation = OwnerChar->GetActorLocation();
   FRotator ViewRotation = OwnerChar->GetViewRotation();
 //TODO: Set this somewhere, e.g. on the character (it's the position of the camera relative to the char)
+// this should be camera offset i think
   FVector TargetingOffset = TargetingProfile->TargetingOffset;//FVector(-350, 0, 130);
   FVector RotatedTargetingOffset = ViewRotation.RotateVector(TargetingOffset);
   FRotator InverseViewRotation = ViewRotation.GetInverse();

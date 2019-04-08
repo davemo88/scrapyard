@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Ability/AbilityState.h"
-#include "Ability/ScrapyardAbility.h"
+#include "Abilities/AbilityState.h"
+#include "Abilities/ScrapyardAbility.h"
 #include "Robots/RobotCharacter.h"
 #include "Runtime/Engine/Classes/Engine/EngineTypes.h"
 #include "AbilityStateFiring.generated.h"

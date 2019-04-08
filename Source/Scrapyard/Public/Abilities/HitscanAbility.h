@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Ability/ScrapyardAbility.h"
+#include "Abilities/ScrapyardAbility.h"
 #include "HitscanAbility.generated.h"
 
 /**

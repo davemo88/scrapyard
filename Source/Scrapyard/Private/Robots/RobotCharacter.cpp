@@ -10,7 +10,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
 #include "GameFramework/HUD.h"
-#include "Ability/HitscanAbility.h"
+#include "Abilities/HitscanAbility.h"
 #include "UI/RobotHUDWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/CapsuleComponent.h"

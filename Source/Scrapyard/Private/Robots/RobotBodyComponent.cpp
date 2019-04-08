@@ -7,7 +7,7 @@
 #include "Robots/RobotPartComponent.h"
 #include "Robots/RobotStats.h"
 #include "Parts/RobotPartAssignment.h"
-#include "Ability/HitscanAbility.h"
+#include "Abilities/HitscanAbility.h"
 
 
 // Sets default values for this component's properties

@@ -2,7 +2,7 @@
 
 #include "AbilityState.h"
 #include "Robots/RobotCharacter.h"
-#include "Ability/ScrapyardAbility.h"
+#include "Abilities/ScrapyardAbility.h"
 
 ARobotCharacter* UAbilityState::GetRobotOwner()
 {

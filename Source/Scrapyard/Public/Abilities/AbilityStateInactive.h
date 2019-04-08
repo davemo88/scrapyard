@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Ability/AbilityState.h"
+#include "Abilities/AbilityState.h"
 #include "AbilityStateInactive.generated.h"
 
 /**

@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Ability/AbilityStateActive.h"
-#include "Ability/AbilityState.h"
-#include "Ability/AbilityStateFiring.h"
-#include "Ability/ScrapyardAbility.h"
+#include "Abilities/AbilityStateActive.h"
+#include "Abilities/AbilityState.h"
+#include "Abilities/AbilityStateFiring.h"
+#include "Abilities/ScrapyardAbility.h"
 #include "Robots/RobotCharacter.h"
 #include "Player/RobotPlayerController.h"
 
