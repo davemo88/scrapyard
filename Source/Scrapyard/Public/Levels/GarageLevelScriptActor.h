@@ -18,9 +18,11 @@ class SCRAPYARD_API AGarageLevelScriptActor : public AScrapyardLevelScriptActor
 {
   GENERATED_BODY()
 
+public:
+
   void BeginPlay() override;
 
-  USoloDraft* GetCurrentSoloDraft();
+  USoloDraft* GetCurrentSoloDraft() const;
 
   void SpawnRobotBodyGarage();
 
@@ -33,8 +35,6 @@ class SCRAPYARD_API AGarageLevelScriptActor : public AScrapyardLevelScriptActor
 
   ARobotBodyGarage* RobotBodyGarage;
 
-public:
-
-  ARobotBodyGarage* GetRobotBodyGarage();
+  ARobotBodyGarage* GetRobotBodyGarage() const;
 
 };

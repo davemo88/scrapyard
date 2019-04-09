@@ -51,7 +51,7 @@ class SCRAPYARD_API URobotPartAssignment : public UObject
 
 public:
 
-  bool IsComplete();
+  bool IsComplete() const;
 
   void SetHead(UHeadPart* NewHead);
   void SetCore(UCorePart* NewCore);
@@ -63,12 +63,12 @@ public:
   void SetAssignment(URobotPartAssignment* NewPartAssignment);
   void SetAssignment(FPartAssignmentIDs PartAssignmentIDs);
 
-  FPartAssignmentIDs GetPartAssignmentIDs();
+  FPartAssignmentIDs GetPartAssignmentIDs() const;
 
-  UHeadPart* GetHead();
-  UCorePart* GetCore();
-  UArmsPart* GetArms();
-  ULegsPart* GetLegs();
+  UHeadPart* GetHead() const;
+  UCorePart* GetCore() const;
+  UArmsPart* GetArms() const;
+  ULegsPart* GetLegs() const;
   
   FPartAssignmentChangedDelegate PartAssignmentChangedDelegate;
   FHeadAssignmentChangedDelegate HeadAssignmentChangedDelegate;

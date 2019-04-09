@@ -14,7 +14,7 @@ void URobotPartAssets::LoadAsset(TSoftObjectPtr<UObject> AssetPtr, FStreamableDe
 
   if (GameInstance)
   {
-    UE_LOG(LogTemp, Warning, TEXT("GameInstance For LoadAsset OK"));
+    UE_LOG(LogTemp, Warning, TEXT("%s::LoadAsset - GameInstance OK"), *GetName());
     GameInstance->AssetLoader.RequestAsyncLoad(AssetPtr.ToSoftObjectPath(), DelegateToCall);
   }
 }

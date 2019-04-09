@@ -30,9 +30,9 @@ public:
   UFUNCTION(NetMulticast, Reliable)
   void MulticastStopMatchTimer();
 
-  uint32 GetMatchTimerSecondsRemaining();
+  uint32 GetMatchTimerSecondsRemaining() const;
 
-  bool IsMatchTimerActive();
+  bool IsMatchTimerActive() const;
 
   FOnMatchTimerStartedDelegate OnMatchTimerStartedDelegate;
   FOnMatchTimerUpdatedDelegate OnMatchTimerUpdatedDelegate;

@@ -41,9 +41,13 @@ class SCRAPYARD_API URobotPart : public UObject
 
 public:
 
+  URobotPart();
+
+  virtual void PostInitProperties() override;
+
   static const uint32 PartID;
 
-  virtual uint32 GetPartID()
+  virtual uint32 GetPartID() const
   {
     return PartID;
   };
@@ -55,10 +59,6 @@ public:
   static UManufacturer* GetManufacturer(FString ManufacturerNick);
 
   static TMap<FString, UManufacturer*> InitManufacturers();
-
-  URobotPart();
-
-  virtual void PostInitProperties() override;
   
   UPROPERTY(BlueprintReadOnly)
   FText PartName;
@@ -69,7 +69,7 @@ public:
   UPROPERTY(BlueprintReadOnly)
   UTexture2D* CardIcon;
 
-// this integer type because only uint8 and int32 are supported by blueprints
+// this integer type because only
   UPROPERTY(BlueprintReadOnly)
   int32 Mass;
 // TODO: cores don't have power drain :(
@@ -117,7 +117,7 @@ public:
 
   void OnCardIconLoaded();
 
-  virtual TArray<FStatText> GetStatsText();
+  virtual TArray<FStatText> GetStatsText() const;
 
 //  FSkeletalMeshLoadedDelegate SkeletalMeshLoadedDelegate;
 //  FMajorMaterialLoadedDelegate MajorMaterialLoadedDelegate;

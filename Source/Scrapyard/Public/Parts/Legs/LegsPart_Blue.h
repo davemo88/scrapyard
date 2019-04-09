@@ -12,7 +12,7 @@
 UCLASS()
 class SCRAPYARD_API ULegsPart_Blue : public ULegsPart
 {
-	GENERATED_BODY()
+  GENERATED_BODY()
 	
 public:
   static const uint32 PartID; 

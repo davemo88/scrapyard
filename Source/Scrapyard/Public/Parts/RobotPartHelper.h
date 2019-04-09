@@ -25,8 +25,8 @@ public:
     FActorSpawnParameters SpawnParams = FActorSpawnParameters()
   );
 
-  static URobotPartAssets* GetRobotPartAssets(UWorld* World);
+  static URobotPartAssets* GetRobotPartAssets(UWorld* World) ;
 
-  static TMap<uint32, TSubclassOf<URobotPart>> GetPartDatabase();
+  static TMap<uint32, TSubclassOf<URobotPart>> GetPartDatabase() const;
 
 };

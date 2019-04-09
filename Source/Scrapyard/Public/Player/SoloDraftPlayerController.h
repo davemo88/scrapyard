@@ -26,6 +26,7 @@ public:
 
   FPartDraftedDelegate PartDraftedDelegate;
 
+//TODO: move to gamestate
   UFUNCTION()
   void OnPartCardHovered(URobotPart* RobotPart);
 

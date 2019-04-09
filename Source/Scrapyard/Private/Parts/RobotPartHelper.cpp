@@ -59,6 +59,8 @@ TMap<uint32, TSubclassOf<URobotPart>> URobotPartHelper::GetPartDatabase()
 {
   TMap<uint32, TSubclassOf<URobotPart>> PartDB;
 
+// TODO: build this database once initially and save as file
+// only need to update when new parts are released
   PartDB.Add(UArmsPart_Default::PartID, UArmsPart_Default::StaticClass());
   PartDB.Add(UArmsPart_Red::PartID, UArmsPart_Red::StaticClass());
   PartDB.Add(UArmsPart_Blue::PartID, UArmsPart_Blue::StaticClass());
