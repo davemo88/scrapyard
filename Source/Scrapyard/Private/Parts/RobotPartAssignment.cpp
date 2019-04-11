@@ -8,7 +8,7 @@
 #include "Parts/Legs/LegsPart_Default.h"
 #include "Parts/RobotPartHelper.h"
 
-bool URobotPartAssignment::IsComplete()
+bool URobotPartAssignment::IsComplete() const
 {
   return (Head != NULL) && (Core != NULL) && (Arms != NULL) && (Legs != NULL);
 }
@@ -100,7 +100,7 @@ void URobotPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
   PartAssignmentChangedDelegate.Broadcast();
 }
 
-FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs()
+FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs() const
 {
   FPartAssignmentIDs PartAssignmentIDs;
 
@@ -119,22 +119,22 @@ FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs()
   return PartAssignmentIDs;
 }
 
-UHeadPart* URobotPartAssignment::GetHead()
+UHeadPart* URobotPartAssignment::GetHead() const
 {
   return Head;
 }
 
-UCorePart* URobotPartAssignment::GetCore()
+UCorePart* URobotPartAssignment::GetCore() const
 {
   return Core;
 }
 
-UArmsPart* URobotPartAssignment::GetArms()
+UArmsPart* URobotPartAssignment::GetArms() const
 {
   return Arms;
 }
 
-ULegsPart* URobotPartAssignment::GetLegs()
+ULegsPart* URobotPartAssignment::GetLegs() const
 {
   return Legs;
 }

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/SkeletalMesh.h"
 #include "Abilities/ScrapyardAbility.h"
+#include "Parts/RobotPartAssets.h"
 #include "RobotPart.generated.h"
 
 class UManufacturer;
@@ -47,7 +48,7 @@ public:
 
   static const uint32 PartID;
 
-  virtual uint32 GetPartID() const
+  virtual uint32 GetPartID()
   {
     return PartID;
   };

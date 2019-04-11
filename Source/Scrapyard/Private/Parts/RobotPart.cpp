@@ -83,7 +83,7 @@ void URobotPart::OnCardIconLoaded()
   CardIcon = GetCardIconAssetPtr().Get(); 
 }
 
-TArray<FStatText> URobotPart::GetStatsText()
+TArray<FStatText> URobotPart::GetStatsText() const
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::GetStatsText"), *GetName());
 

@@ -40,12 +40,12 @@ void ARobotGameState::MatchTimer()
   }
 }
 
-uint32 ARobotGameState::GetMatchTimerSecondsRemaining()
+uint32 ARobotGameState::GetMatchTimerSecondsRemaining() const
 {
   return MatchTimerSecondsRemaining;
 }
 
-bool ARobotGameState::IsMatchTimerActive()
+bool ARobotGameState::IsMatchTimerActive() const
 {
   return GetWorld()->GetTimerManager().IsTimerActive(MatchTimerHandle);
 }

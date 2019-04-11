@@ -23,7 +23,7 @@ TSoftObjectPtr<UTexture2D> UArmsPart::GetCardIconAssetPtr()
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->ArmsCardIcon: nullptr;
 }
 
-TArray<FStatText> UArmsPart::GetStatsText()
+TArray<FStatText> UArmsPart::GetStatsText() const
 {
   TArray<FStatText> StatsText = Super::GetStatsText();
   StatsText.Add(FStatText(NSLOCTEXT("SY", "WeaponDexterityStatText","Weapon Dexterity"),FText::AsNumber(WeaponDexterity)));

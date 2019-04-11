@@ -20,7 +20,7 @@ TSoftObjectPtr<UTexture2D> UHeadPart::GetCardIconAssetPtr()
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->HeadCardIcon: nullptr;
 }
 
-TArray<FStatText> UHeadPart::GetStatsText()
+TArray<FStatText> UHeadPart::GetStatsText() const
 {
   TArray<FStatText> StatsText = Super::GetStatsText();
   StatsText.Add(FStatText(NSLOCTEXT("SY", "TargetingAbilityStatText","Targeting Ability"),FText::AsNumber(TargetingAbility)));

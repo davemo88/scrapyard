@@ -29,7 +29,7 @@ public:
 
   void Assign(URobotPartAssignment* PartAssignment) override;
 
-  virtual TArray<FStatText> GetStatsText();
+  virtual TArray<FStatText> GetStatsText() const override;
 
 protected:
 

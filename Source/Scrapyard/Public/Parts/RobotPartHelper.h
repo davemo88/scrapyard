@@ -27,6 +27,6 @@ public:
 
   static URobotPartAssets* GetRobotPartAssets(UWorld* World) ;
 
-  static TMap<uint32, TSubclassOf<URobotPart>> GetPartDatabase() const;
+  static TMap<uint32, TSubclassOf<URobotPart>> GetPartDatabase();
 
 };

@@ -21,7 +21,7 @@ TSoftObjectPtr<UTexture2D> UCorePart::GetCardIconAssetPtr()
   return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->CoreCardIcon: nullptr;
 }
 
-TArray<FStatText> UCorePart::GetStatsText()
+TArray<FStatText> UCorePart::GetStatsText() const
 {
   TArray<FStatText> StatsText = Super::GetStatsText();
   StatsText.Add(FStatText(NSLOCTEXT("SY", "PowerSupplyStatText","Power Supply"),FText::AsNumber(PowerSupply)));

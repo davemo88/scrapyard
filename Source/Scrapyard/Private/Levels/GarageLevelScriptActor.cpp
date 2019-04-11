@@ -19,7 +19,7 @@ void AGarageLevelScriptActor::BeginPlay()
   SpawnRobotBodyGarage();
 }
 
-USoloDraft* AGarageLevelScriptActor::GetCurrentSoloDraft()
+USoloDraft* AGarageLevelScriptActor::GetCurrentSoloDraft() const
 {
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   return GameInstance->SoloDraft;
@@ -37,7 +37,7 @@ void AGarageLevelScriptActor::SpawnRobotBodyGarage()
   }
 }
 
-ARobotBodyGarage* AGarageLevelScriptActor::GetRobotBodyGarage()
+ARobotBodyGarage* AGarageLevelScriptActor::GetRobotBodyGarage() const
 {
   return RobotBodyGarage;
 }
