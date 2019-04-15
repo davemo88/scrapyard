@@ -234,6 +234,7 @@ void ARobotCharacter::SetupAbilities()
 
 // TODO: why do we have RobotOwner if we can just the real Owner?
 // TODO: why setting owner in two different ways here? seems just wrong
+// BUG: should only set owner on the server
   WeaponAbility->RobotOwner = this;
   if (WeaponAbility->GetOwner())
   {

@@ -181,6 +181,8 @@ float URobotMovementComponent::GetMaxSpeed() const
 {
   float MaxSpeed = Super::GetMaxSpeed();
 
+//  MaxSpeed *= 100.0f/float(RobotChar->RobotStats->Mass);
+
   if (bBoosting)
   {
 //    UE_LOG(LogTemp, Warning, TEXT("%s::GetMaxSpeed - Boost"), *GetName());
