@@ -43,8 +43,6 @@ public:
 
   ARobotPlayerController();
 
-  virtual void Possess(APawn* InPawn) override;
-
   bool HasDeferredFireInputs();
 
   void ApplyDeferredFireInputs();
@@ -82,6 +80,8 @@ private:
   void ServerSetPartAssignmentIDs(FPartAssignmentIDs NewPartAssignmentIDs);
 
 protected:
+
+  virtual void OnPossess(APawn* InPawn) override;
 
 // see UnrealTournament firing implementation
   bool bFirePressed;

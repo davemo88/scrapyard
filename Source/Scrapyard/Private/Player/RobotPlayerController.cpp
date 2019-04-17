@@ -50,11 +50,12 @@ void ARobotPlayerController::Tick(float DeltaTime)
 //  }
 }
 
-void ARobotPlayerController::Possess(APawn* InPawn)
+void ARobotPlayerController::OnPossess(APawn* InPawn)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::Possess"), *GetName());
-  Super::Possess(InPawn);
+  Super::OnPossess(InPawn);
+//  UE_LOG(LogTemp, Warning, TEXT("%s::Possess"), *GetName());
 
+//TODO: should only branch on server i think
   if (ARobotCharacter* RoboChar = Cast<ARobotCharacter>(InPawn))
   {
     SetRobotCharacter(RoboChar);

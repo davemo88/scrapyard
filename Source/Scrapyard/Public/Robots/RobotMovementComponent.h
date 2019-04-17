@@ -72,6 +72,10 @@ public:
     MOVE_AirDash       = 0x08,
   };
 
+//NOTE: want this to be const
+  UPROPERTY(EditAnywhere)
+  float MassNormalizer;
+
 protected:
 
   friend class URobotTunerWidget;

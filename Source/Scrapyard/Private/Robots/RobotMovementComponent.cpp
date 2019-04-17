@@ -22,6 +22,8 @@ URobotMovementComponent::URobotMovementComponent()
   bPrevBoostInput = false;
   bBoosting = false;
 
+  MassNormalizer = 500.0f;
+
 }
 
 void URobotMovementComponent::BeginPlay()
@@ -29,6 +31,8 @@ void URobotMovementComponent::BeginPlay()
   Super::BeginPlay();
 
   RobotChar = Cast<ARobotCharacter>(GetCharacterOwner());
+
+  GravityScale = MassNormalizer / float(RobotChar->RobotStats->Mass);
 }
 
 void URobotMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
@@ -180,6 +184,8 @@ void URobotMovementComponent::HandleBoosting()
 float URobotMovementComponent::GetMaxSpeed() const
 {
   float MaxSpeed = Super::GetMaxSpeed();
+
+  MaxSpeed *=  MassNormalizer / float(RobotChar->RobotStats->Mass);
 
   if (bBoosting)
   {
