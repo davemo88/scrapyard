@@ -23,22 +23,22 @@ public:
   UPROPERTY()
   UTargetingProfile* TargetingProfile;
 
-  bool IsTargetAcquired();
+  bool IsTargetAcquired() const;
 
   TSubclassOf<UTargetingWidget> TargetingWidget;
 
 //  virtual FVector GetTargetingOffset();
 //
 
-  TArray<FVector> GetFaceVerts();
+  TArray<FVector> GetFaceVerts() const;
 
 //TODO: clean up these functions
   void AddTargetable(AActor* Actor);
   void RemoveTargetable(AActor* Actor);
 
-  bool IsTargetable(AActor* Actor);
+  bool IsTargetable(AActor* Actor) const;
 
-  bool IsTargeted(AActor* Actor);
+  bool IsTargeted(AActor* Actor) const;
 
 //  float GetRange();
 
@@ -53,6 +53,6 @@ protected:
   TArray<AActor*> Targetables;
 
 // get the other actor's location relative to the owner's view rotation vector
-  FVector GetLocationRelativeToView(AActor* OtherActor);
+  FVector GetLocationRelativeToView(AActor* OtherActor) const;
 
 };

@@ -139,7 +139,7 @@ public:
     return RobotOwner;
   }
 
-  inline uint8 GetCurrentFireMode()
+  inline uint8 GetCurrentFireMode() const
   {
     return CurrentFireMode;
   }

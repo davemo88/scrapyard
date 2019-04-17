@@ -18,7 +18,7 @@ class SCRAPYARD_API UAbilityState : public UObject
 
 public:
 
-  ARobotCharacter* GetRobotOwner();
+  ARobotCharacter* GetRobotOwner() const;
 
   UWorld* GetWorld() const override;
   

@@ -4,7 +4,7 @@
 #include "Robots/RobotCharacter.h"
 #include "Abilities/ScrapyardAbility.h"
 
-ARobotCharacter* UAbilityState::GetRobotOwner()
+ARobotCharacter* UAbilityState::GetRobotOwner() const
 {
   return GetOuterAScrapyardAbility()->GetRobotOwner();
 }

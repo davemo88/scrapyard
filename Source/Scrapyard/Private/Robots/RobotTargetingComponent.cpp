@@ -47,12 +47,12 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
   }
 }
 
-bool URobotTargetingComponent::IsTargetAcquired()
+bool URobotTargetingComponent::IsTargetAcquired() const
 {
   return bTargetAcquired;
 }
 
-bool URobotTargetingComponent::IsTargeted(AActor* Actor)
+bool URobotTargetingComponent::IsTargeted(AActor* Actor) const
 {
   if (TargetingProfile != nullptr)
   {
@@ -63,7 +63,7 @@ bool URobotTargetingComponent::IsTargeted(AActor* Actor)
   return false;
 }
 
-TArray<FVector> URobotTargetingComponent::GetFaceVerts()
+TArray<FVector> URobotTargetingComponent::GetFaceVerts() const
 {
 //  UE_LOG(LogTemp, Warning, TEXT("%s::GetFaceVerts"), *GetName());
   static TArray<FVector> FaceVerts = TargetingProfile->InitFaceVerts();
@@ -75,7 +75,7 @@ void URobotTargetingComponent::AddTargetable(AActor* Actor)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable"), *GetName());
   UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable - %s"), *GetName(), *Actor->GetName());
-  Targetables.Add(Actor);
+  Targetables.AddUnique(Actor);
 }
 
 void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
@@ -84,7 +84,7 @@ void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
   Targetables.Remove(Actor);
 }
 
-bool URobotTargetingComponent::IsTargetable(AActor* Actor)
+bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
 {
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   if (ARobotCharacter* OtherChar = Cast<ARobotCharacter>(Actor))
@@ -103,7 +103,7 @@ bool URobotTargetingComponent::IsTargetable(AActor* Actor)
 //  return TargetingProfile->GetRange();
 //}
 
-FVector URobotTargetingComponent::GetLocationRelativeToView(AActor* OtherActor)
+FVector URobotTargetingComponent::GetLocationRelativeToView(AActor* OtherActor) const
 {
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   FVector OwnerLocation = OwnerChar->GetActorLocation();
