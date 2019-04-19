@@ -3,6 +3,7 @@
 #include "RobotPlayerController.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerCameraManager.h"
+#include "Player/RobotPlayerState.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Game/RobotGameState.h"
 #include "GameFramework/PlayerController.h"
@@ -53,7 +54,7 @@ void ARobotPlayerController::Tick(float DeltaTime)
 void ARobotPlayerController::OnPossess(APawn* InPawn)
 {
   Super::OnPossess(InPawn);
-//  UE_LOG(LogTemp, Warning, TEXT("%s::Possess"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnPossess - %s"), *GetName(), *InPawn->GetName());
 
 //TODO: should only branch on server i think
   if (ARobotCharacter* RoboChar = Cast<ARobotCharacter>(InPawn))
@@ -61,6 +62,12 @@ void ARobotPlayerController::OnPossess(APawn* InPawn)
     SetRobotCharacter(RoboChar);
 //    RoboChar->RobotBodyComponent->PartAssignment->SetAssignment(PartAssignmentIDs);
     RoboChar->MulticastSetRobotPartAssignmentFromIDs(PartAssignmentIDs);
+
+    if (ARobotPlayerState* RobotPlayerState = GetPlayerState<ARobotPlayerState>())
+    {
+      RoboChar->Team = RobotPlayerState->GetTeam();
+      UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Team %i"), *RoboChar->GetName(), RoboChar->Team);
+    }
   }
 }
 

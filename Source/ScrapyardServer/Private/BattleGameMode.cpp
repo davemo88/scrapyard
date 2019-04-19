@@ -8,9 +8,6 @@
 
 ABattleGameMode::ABattleGameMode()
 {
-//  bDelayedStart = true;
-//  DefaultPawnClass = ARobotCharacter::StaticClass();
-//  PlayerControllerClass = ARobotPlayerController::StaticClass();
   GameStateClass = ABattleGameState::StaticClass();
 
   MinPlayers = 2;
@@ -34,6 +31,9 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 
   ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(NewPlayer);
   RobotPC->ClientGetPartAssignmentIDs();
+
+  ARobotPlayerState* PlayerState = RobotPC->GetPlayerState<ARobotPlayerState>(); 
+  PlayerState->SetTeam(GetNumPlayers());
 }
 
 void ABattleGameMode::Logout(AController* Exiting)

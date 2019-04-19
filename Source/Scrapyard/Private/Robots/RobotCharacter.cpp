@@ -6,6 +6,7 @@
 #include "Robots/RobotMovementComponent.h"
 #include "Game/RobotGameState.h"
 #include "Player/RobotPlayerController.h"
+#include "Player/RobotPlayerState.h"
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
@@ -59,28 +60,28 @@ void ARobotCharacter::BeginPlay()
     if (IsLocallyControlled())
     {
       SetupRobotHUDWidget();
-
     }
   }
 
   if (ARobotGameState* RobotGameState = GetWorld()->GetGameState<ARobotGameState>())
   {
 
-    for (AActor* Actor: RobotGameState->TargetableActors)
-    {
-      if (RobotTargetingComponent->IsTargetable(Actor))
-      {
-        RobotTargetingComponent->AddTargetable(Actor);
-      }
-    }
-
     if (HasAuthority())
     {
-      RobotGameState->MulticastAddTargetable(this); 
-    }
 
-    RobotGameState->OnTargetableAddedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableAdded);
-    RobotGameState->OnTargetableRemovedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableRemoved);
+      for (AActor* Actor: RobotGameState->TargetableActors)
+      {
+        if (RobotTargetingComponent->IsTargetable(Actor))
+        {
+          RobotTargetingComponent->AddTargetable(Actor);
+        }
+      }
+
+      RobotGameState->AddTargetable(this);
+
+      RobotGameState->OnTargetableAddedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableAdded);
+      RobotGameState->OnTargetableRemovedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableRemoved);
+    }
   }
 }
 
@@ -100,30 +101,11 @@ void ARobotCharacter::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
 
-//  DrawDebugCone(GetWorld(), GetActorLocation(), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 4, FColor::Blue);//, false, 0.01f, 2, 2);
-//  FVector CameraOffset = CameraBoom->SocketOffset + FVector(-CameraBoom->TargetArmLength,0,0);
-//  DrawDebugCone(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset), GetViewRotation().Vector(), 2000, float(3.1415f/16.0f), 3.1415f/16.0f, 16, FColor::Blue, false, -1.f, 0, 5);
-//  DrawDebugSphere(GetWorld(), GetActorLocation()+GetViewRotation().RotateVector(CameraOffset + FVector(2000,0,0)),12,12,FColor::Red);
-//
-//  FVector TargetingBoxFaceCenter = RobotTargetingComponent->GetBoxFaceCenter();
-////      UE_LOG(LogTemp, Warning, TEXT("Targeting Comp Relative Rotation: %s"), *RobotCharacter->RobotTargetingComponent->RelativeRotation.ToString());
-////    UE_LOG(LogTemp, Warning, TEXT("Targeting Box Face Center: %s"), *TargetingBoxFaceCenter.ToString());
-//  FRotator ViewRotation = GetViewRotation();
-//  FVector CharLoc = GetActorLocation();
-//  FVector WorldTargetingBoxFaceCenter =  CharLoc + ViewRotation.RotateVector(TargetingBoxFaceCenter);
-//  UE_LOG(LogTemp, Warning, TEXT("%s - Char Loc: %s"), *GetName(), *CharLoc.ToString());
-//    UE_LOG(LogTemp, Warning, TEXT("Targeting Box Face Center: %s"), *TargetingBoxFaceCenter.ToString());
-//    UE_LOG(LogTemp, Warning, TEXT("World Targeting Box Face Center: %s"), *WorldTargetingBoxFaceCenter.ToString());
-//  DrawDebugSphere(GetWorld(),WorldTargetingBoxFaceCenter,8,24,FColor(255,0,0));
-//  FVector2D ScreenLoc;
+  if (HasAuthority())
+  {
+    bTargetAcquired = RobotTargetingComponent->IsTargetAcquired();
+  }
 
-//  TArray<FVector> FaceVerts = RobotTargetingComponent->GetBoxFaceVertices();
-
-//  for (FVector Vec : FaceVerts)
-//  {
-//    FVector WorldVec = CharLoc + ViewRotation.RotateVector(Vec);
-//    DrawDebugSphere(GetWorld(),WorldVec,8,24,FColor(0,255,0));
-//  }
 
 }
 
@@ -533,6 +515,7 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & O
   DOREPLIFETIME(ARobotCharacter, WeaponAbility);
   DOREPLIFETIME(ARobotCharacter, HitPoints);
   DOREPLIFETIME(ARobotCharacter, Power);
+  DOREPLIFETIME(ARobotCharacter, bTargetAcquired);
 
 }
 
@@ -551,7 +534,7 @@ void ARobotCharacter::OnRep_Power()
 void ARobotCharacter::OnTargetableAdded(AActor* Actor)
 {
   UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableAdded"), *GetName());
-  if (RobotTargetingComponent->IsTargetable(Actor))
+  if (HasAuthority() && RobotTargetingComponent->IsTargetable(Actor))
   {
     RobotTargetingComponent->AddTargetable(Actor);
   }
@@ -560,6 +543,10 @@ void ARobotCharacter::OnTargetableAdded(AActor* Actor)
 void ARobotCharacter::OnTargetableRemoved(AActor* Actor)
 {
   UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableRemoved"), *GetName());
+  if (HasAuthority())
+  {
+    RobotTargetingComponent->RemoveTargetable(Actor);
+  }
 }
 
 // Targetable Interface

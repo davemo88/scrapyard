@@ -23,7 +23,7 @@ public:
   UPROPERTY()
   UTargetingProfile* TargetingProfile;
 
-  bool IsTargetAcquired() const;
+  bool IsTargetAcquired();
 
   TSubclassOf<UTargetingWidget> TargetingWidget;
 
@@ -50,6 +50,7 @@ protected:
   bool bTargetAcquired;
 //  TArray<AActor*> Targets;
 
+//  UPROPERTY()
   TArray<AActor*> Targetables;
 
 // get the other actor's location relative to the owner's view rotation vector

@@ -43,10 +43,13 @@ public:
   FOnTargetableRemovedDelegate OnTargetableRemovedDelegate;
 
   UFUNCTION(NetMulticast, Reliable)
-  void MulticastAddTargetable(AActor* Targetable);
+  void MulticastAddTargetable(AActor* Actor);
 
   UFUNCTION(NetMulticast, Reliable)
-  void MulticastRemoveTargetable(AActor* Targetable);
+  void MulticastRemoveTargetable(AActor* Actor);
+
+  void AddTargetable(AActor* Actor);
+  void RemoveTargetable(AActor* Actor);
 
   UPROPERTY()
   TArray<AActor*> TargetableActors;

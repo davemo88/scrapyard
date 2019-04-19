@@ -41,6 +41,10 @@ public:
 
   UPROPERTY(EditAnywhere)
   URobotTargetingComponent* RobotTargetingComponent;
+
+  UPROPERTY(Replicated)
+  bool bTargetAcquired;
+
 // stats
   UPROPERTY()
   URobotStats* RobotStats;
@@ -138,7 +142,7 @@ public:
 //  virtual bool IsTargetableBy(AActor* OtherActor) override;
   
   UPROPERTY(EditAnywhere)
-  uint32 Team;
+  int32 Team;
 
 protected:
   // Called when the game starts or when spawned

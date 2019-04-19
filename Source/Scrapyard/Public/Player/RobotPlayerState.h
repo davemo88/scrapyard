@@ -15,15 +15,13 @@ class SCRAPYARD_API ARobotPlayerState : public APlayerState
   GENERATED_BODY()
   
 public:
-  
-//  void AddOpponent(APlayerState* PlayerState);
 
-//  UPROPERTY()
-//  TArray<APlayerState*> Opponents;
+  int32 GetTeam(); 
+  void SetTeam(int32 NewTeam); 
 
 protected:
 
-//  UFUNCTION(Client, Reliable)
-//  void ClientAddOpponent(APlayerState* PlayerState);
+    int32 Team;
+
   
 };

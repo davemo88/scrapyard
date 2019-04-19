@@ -50,14 +50,24 @@ bool ARobotGameState::IsMatchTimerActive() const
   return GetWorld()->GetTimerManager().IsTimerActive(MatchTimerHandle);
 }
 
-void ARobotGameState::MulticastAddTargetable_Implementation(AActor* Targetable)
+void ARobotGameState::MulticastAddTargetable_Implementation(AActor* Actor)
 {
-  TargetableActors.AddUnique(Targetable);
-  OnTargetableAddedDelegate.Broadcast(Targetable);
+  AddTargetable(Actor);
 }
 
-void ARobotGameState::MulticastRemoveTargetable_Implementation(AActor* Targetable)
+void ARobotGameState::MulticastRemoveTargetable_Implementation(AActor* Actor)
 {
-  TargetableActors.Remove(Targetable);
-  OnTargetableRemovedDelegate.Broadcast(Targetable);
+  RemoveTargetable(Actor);
+}
+
+void ARobotGameState::AddTargetable(AActor* Actor)
+{
+  TargetableActors.AddUnique(Actor);
+  OnTargetableAddedDelegate.Broadcast(Actor);
+}
+
+void ARobotGameState::RemoveTargetable(AActor* Actor)
+{
+  TargetableActors.Remove(Actor);
+  OnTargetableRemovedDelegate.Broadcast(Actor);
 }

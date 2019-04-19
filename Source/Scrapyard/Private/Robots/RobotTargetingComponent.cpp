@@ -8,6 +8,7 @@
 #include "Targeting/ConeTargetingProfile.h"
 #include "Robots/RobotCharacter.h"
 #include "Engine.h"
+#include "UnrealNetwork.h"
 
 
 // Sets default values for this component's properties
@@ -39,16 +40,19 @@ void URobotTargetingComponent::BeginPlay()
 void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
 
+bool URobotTargetingComponent::IsTargetAcquired()
+{
+//  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargetAcquired"), *GetName());
   bTargetAcquired = false;
   for (AActor* Actor: Targetables)
   {
+//    UE_LOG(LogTemp, Warning, TEXT("%s targeting %s"), *GetName(), *Actor->GetName());
     bTargetAcquired = bTargetAcquired || IsTargeted(Actor);
+ //   FString TargetAcquired = bTargetAcquired ? "True" : "False";
+//    UE_LOG(LogTemp, Warning, TEXT("bTargetAcquired = %s"), *TargetAcquired);
   }
-}
-
-bool URobotTargetingComponent::IsTargetAcquired() const
-{
   return bTargetAcquired;
 }
 
