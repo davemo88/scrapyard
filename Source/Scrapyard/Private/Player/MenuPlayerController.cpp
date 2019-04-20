@@ -26,6 +26,9 @@ void AMenuPlayerController::BeginPlay()
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
+  SetIgnoreLookInput(true);
+  SetIgnoreMoveInput(true);
+
   SetupWidget();
 
   OnWidgetReadyDelegate.Broadcast();
