@@ -7,7 +7,7 @@
 #include "GarageLevelScriptActor.generated.h"
 
 class USoloDraft;
-class ARobotBodyGarage;
+class ARobotCharacter;
 class ARobotPartActor;
 
 /**
@@ -24,7 +24,7 @@ public:
 
   USoloDraft* GetCurrentSoloDraft() const;
 
-  void SpawnRobotBodyGarage();
+  void SpawnRobotCharacter();
 
   USoloDraft* SoloDraft;
 
@@ -33,8 +33,8 @@ public:
 
   TArray<ARobotPartActor*> DisplayedParts;
 
-  ARobotBodyGarage* RobotBodyGarage;
+  ARobotCharacter* RobotCharacter;
 
-  ARobotBodyGarage* GetRobotBodyGarage() const;
+  ARobotCharacter* GetRobotCharacter() const;
 
 };

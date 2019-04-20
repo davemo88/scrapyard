@@ -11,7 +11,7 @@
 #include "Game/ScrapyardDefaultAssets.h"
 #include "Levels/GarageLevelScriptActor.h"
 #include "Parts/RobotPart.h"
-#include "Robots/RobotBodyGarage.h"
+#include "Robots/RobotCharacter.h"
 #include "Robots/RobotBodyComponent.h"
 #include "UI/GarageWidget.h"
 #include "UI/YourPartsWidget.h"
@@ -41,12 +41,12 @@ void AGaragePlayerController::SetupWidget()
   GarageWidget->AddToViewport();
 
   AGarageLevelScriptActor* GarageActor = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor());
-  ARobotBodyGarage* RobotBodyGarage = GarageActor->GetRobotBodyGarage();
+  ARobotCharacter* RobotCharacter = GarageActor->GetRobotCharacter();
 //TODO: need to keep track of part assignment after leaving garage, e.g. if you go to testing or battling
 //then the existing part assignment / draft should be loaded when the garage loads
-  PartAssignment = RobotBodyGarage->RobotBodyComponent->PartAssignment;
+  PartAssignment = RobotCharacter->RobotBodyComponent->PartAssignment;
 
-  GarageWidget->RobotStatsWidget->SetRobotStats(RobotBodyGarage->RobotBodyComponent->RobotStats);
+  GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotBodyComponent->RobotStats);
 
   GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
 

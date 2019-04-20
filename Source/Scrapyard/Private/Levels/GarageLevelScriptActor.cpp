@@ -3,7 +3,7 @@
 
 #include "GarageLevelScriptActor.h"
 #include "Game/ScrapyardGameInstance.h"
-#include "Robots/RobotBodyGarage.h"
+#include "Robots/RobotCharacter.h"
 #include "Parts/RobotPart.h"
 #include "Engine/World.h"
 #include "Parts/RobotPartAssignment.h"
@@ -16,7 +16,7 @@ void AGarageLevelScriptActor::BeginPlay()
 
   SoloDraft = GetCurrentSoloDraft();
 
-  SpawnRobotBodyGarage();
+  SpawnRobotCharacter();
 }
 
 USoloDraft* AGarageLevelScriptActor::GetCurrentSoloDraft() const
@@ -25,19 +25,20 @@ USoloDraft* AGarageLevelScriptActor::GetCurrentSoloDraft() const
   return GameInstance->SoloDraft;
 }
 
-void AGarageLevelScriptActor::SpawnRobotBodyGarage()
+void AGarageLevelScriptActor::SpawnRobotCharacter()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SpawnRobotBodyGarage"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("%s::SpawnRobotCharacter"), *GetName());
   UWorld* World = GetWorld();
-  RobotBodyGarage = World->SpawnActor<ARobotBodyGarage>(FVector(0.0f, 0.0f, 70.0f), FRotator(0.0f, 90.0f, 0.0f), FActorSpawnParameters());
+  RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(0.0f, 0.0f, 70.0f), FRotator(0.0f, 90.0f, 0.0f), FActorSpawnParameters());
+  RobotCharacter->RobotBodyComponent->SetEnableGravity(false);
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   if (GameInstance->PartAssignment != nullptr)
   {
-    RobotBodyGarage->RobotBodyComponent->PartAssignment->SetAssignment(GameInstance->PartAssignment); 
+    RobotCharacter->RobotBodyComponent->PartAssignment->SetAssignment(GameInstance->PartAssignment); 
   }
 }
 
-ARobotBodyGarage* AGarageLevelScriptActor::GetRobotBodyGarage() const
+ARobotCharacter* AGarageLevelScriptActor::GetRobotCharacter() const
 {
-  return RobotBodyGarage;
+  return RobotCharacter;
 }

@@ -8,7 +8,6 @@
 #include "GaragePlayerController.generated.h"
 
 class UGarageWidget;
-class ARobotBodyGarage;
 class UPartCardWidget;
 
 /**

@@ -7,12 +7,8 @@
 #include "Components/Button.h"
 #include "GarageWidget.generated.h"
 
-class USoloDraft;
-class UPartCardWidget;
 class UYourPartsWidget;
 class URobotStatsWidget;
-class URobotPart;
-class ARobotBodyGarage;
 
 /**
  * 
@@ -21,8 +17,6 @@ UCLASS()
 class SCRAPYARD_API UGarageWidget : public UUserWidget
 {
   GENERATED_BODY()
-
-//  AGarageLevelScriptActor* GarageLevelScriptActor;
 
 public:
 

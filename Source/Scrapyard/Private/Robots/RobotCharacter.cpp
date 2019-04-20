@@ -14,7 +14,6 @@
 #include "Abilities/HitscanAbility.h"
 #include "UI/RobotHUDWidget.h"
 #include "Blueprint/UserWidget.h"
-#include "Components/CapsuleComponent.h"
 #include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
 #include "Math/UnrealMathVectorConstants.h"
@@ -42,6 +41,9 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 
   RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
   RobotTargetingComponent->SetupAttachment(RootComponent);
+
+// NOTE: maybe sloppy but also seems to make sense
+  AddTickPrerequisiteComponent(RobotTargetingComponent);
 
 }
 
@@ -180,15 +182,13 @@ void ARobotCharacter::SetupCamera()
 
 void ARobotCharacter::SetupBody()
 {
-  UCapsuleComponent* Capsule = GetCapsuleComponent();
-//  Capsule->SetRelativeRotation(FRotator::ZeroRotator);
-
   RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
-// TODO: why do i have to make these weird adjustments?
-// seems like the sketetal mesh is not setup correctly
+// this is adjustment for capsule half height i believe
   RobotBodyComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -88.f));
+// rotation ?
+// seems like the sketetal mesh is not set up correctly
   RobotBodyComponent->SetRelativeRotation(FRotator(0.0f,-90.0f,0.f));
   RobotBodyComponent->PartAssignment->SetDefaultAssignment();
 }
