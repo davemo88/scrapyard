@@ -5,7 +5,6 @@
 #include "ConstructorHelpers.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
 #include "Robots/RobotPartComponent.h"
-#include "Robots/RobotStats.h"
 #include "Parts/RobotPartAssignment.h"
 #include "Abilities/HitscanAbility.h"
 
@@ -49,9 +48,6 @@ URobotBodyComponent::URobotBodyComponent()
   PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
-
-  RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
-  RobotStats->SetPartAssignment(PartAssignment);
 
   WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
   WeaponAbilityComponent->SetupAttachment(this);

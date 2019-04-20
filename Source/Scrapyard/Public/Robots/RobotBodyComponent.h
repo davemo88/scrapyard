@@ -15,7 +15,6 @@ class UArmsPart;
 class ULegsPart;
 class UHandheldPart;
 class URobotPartAssignment;
-class URobotStats;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SCRAPYARD_API URobotBodyComponent : public USkeletalMeshComponent
@@ -38,9 +37,6 @@ public:
 
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartAssignment* PartAssignment;
-
-  UPROPERTY()
-  URobotStats* RobotStats;
 
 // part components
   UPROPERTY(EditAnywhere, BlueprintReadOnly)

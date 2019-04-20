@@ -46,7 +46,7 @@ void AGaragePlayerController::SetupWidget()
 //then the existing part assignment / draft should be loaded when the garage loads
   PartAssignment = RobotCharacter->RobotBodyComponent->PartAssignment;
 
-  GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotBodyComponent->RobotStats);
+  GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
 
   GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
 
