@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Robots/RobotCharacter.h"
+#include "Robots/RobotStats.h"
 #include "RobotMovementComponent.generated.h"
 
 USTRUCT()
@@ -25,15 +26,19 @@ class SCRAPYARD_API URobotMovementComponent : public UCharacterMovementComponent
   
 public:
 
-  virtual void BeginPlay() override;
-
   URobotMovementComponent();
+
+  virtual void BeginPlay() override;
 
   virtual void UpdateFromCompressedFlags(uint8 Flags) override;
 
   virtual class FNetworkPredictionData_Client* GetPredictionData_Client() const override;
   
   virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+  void SetRobotChar(ARobotCharacter* NewRobotChar);
+
+  void UpdateFromRobotStats();
 
 // for compressed flags
   uint8 bBoostInput : 1;
@@ -72,11 +77,11 @@ public:
     MOVE_AirDash       = 0x08,
   };
 
+protected:
+
 //NOTE: want this to be const
   UPROPERTY(EditAnywhere)
   float MassNormalizer;
-
-protected:
 
   friend class URobotTunerWidget;
   

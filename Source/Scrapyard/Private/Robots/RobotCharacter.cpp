@@ -96,6 +96,11 @@ void ARobotCharacter::PostInitializeComponents()
   {
     SetupAbilities();
   }
+
+  if (URobotMovementComponent* MovementComponent = Cast<URobotMovementComponent>(GetMovementComponent()))
+  {
+    MovementComponent->SetRobotChar(this);
+  }
 }
 
 // Called every frame

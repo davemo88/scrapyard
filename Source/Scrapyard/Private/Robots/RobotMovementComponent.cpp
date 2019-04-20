@@ -30,9 +30,6 @@ void URobotMovementComponent::BeginPlay()
 {
   Super::BeginPlay();
 
-  RobotChar = Cast<ARobotCharacter>(GetCharacterOwner());
-
-  GravityScale = MassNormalizer / float(RobotChar->RobotStats->Mass);
 }
 
 void URobotMovementComponent::UpdateFromCompressedFlags(uint8 Flags)
@@ -71,6 +68,20 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 //    UE_LOG(LogTemp, Warning, TEXT("Camera Boom Rel Rot: %s"), *RobotChar->CameraBoom->RelativeRotation.ToString());
   }
 
+}
+
+void URobotMovementComponent::SetRobotChar(ARobotCharacter* NewRobotChar)
+{
+  RobotChar = NewRobotChar;
+  UpdateFromRobotStats();
+}
+
+void URobotMovementComponent::UpdateFromRobotStats()
+{
+  if (RobotChar != nullptr)
+  {
+    GravityScale = MassNormalizer / float(RobotChar->RobotStats->Mass);
+  }
 }
 
 void URobotMovementComponent::SetBoostInput(uint8 bNewBoostInput)
