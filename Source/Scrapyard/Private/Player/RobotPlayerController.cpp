@@ -34,7 +34,7 @@ void ARobotPlayerController::BeginPlay()
 
   SetupMatchTimerWidget();
 
-  AHUD* hud = GetHUD();
+//  AHUD* hud = GetHUD();
 //  hud->ShowHUD();
 
 }

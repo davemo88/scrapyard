@@ -12,6 +12,7 @@ URobotMovementComponent::URobotMovementComponent()
   GroundFriction = 2.0f;
   BrakingDecelerationWalking = 555.0f;
 
+  
 // boosting
 // TODO: depends on core part, weight 
   BoostSpeedMultiplier = 2.0f;

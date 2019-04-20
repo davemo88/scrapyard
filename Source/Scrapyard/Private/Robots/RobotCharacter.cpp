@@ -157,9 +157,7 @@ void ARobotCharacter::SetupRobotHUDWidget()
     PC->RobotHUDWidget->SetRobotCharacter(this);
     PC->RobotHUDWidget->AddToViewport();
 
-    PC->EscapeMenuWidget->TunerWidget->SetRobotChar(this);
-
-//    PC->RobotHUDWidget->SetTargetingWidget(CreateWidget<UTargetingWidget>(PC, GameInstance->DefaultAssetsBP->TargetingWidgetBP));
+//    PC->EscapeMenuWidget->TunerWidget->SetRobotChar(this);
 
   }
   else

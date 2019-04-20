@@ -17,11 +17,7 @@ void UEscapeMenuWidget::NativeConstruct()
   QuitToDesktopButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::QuitToDesktop);
   TunerWidgetButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::ShowTunerWidget);
 
-//  if (UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetOwningLocalPlayer()->GetGameInstance()))
-//  {
-//    TunerWidget = CreateWidget<URobotTunerWidget>(this, GameInstance->DefaultAssetsBP->RobotTunerWidgetBP);
   TunerWidget->SetVisibility(ESlateVisibility::Hidden);
-//  }
 
 }
 
