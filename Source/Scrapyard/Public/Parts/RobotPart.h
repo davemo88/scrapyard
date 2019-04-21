@@ -32,6 +32,89 @@ struct FStatText {
   FStatText(FText InStatName = FText(), FText InStatValue = FText()) : StatName(InStatName), StatValue(InStatValue) {};
 };
 
+USTRUCT()
+struct FRobotPart {
+  GENERATED_BODY()
+
+// all parts
+  UPROPERTY()
+  uint32 PartID;
+
+  UPROPERTY()
+  FText PartName;
+  UPROPERTY()
+  UManufacturer* Manufacturer;
+  UPROPERTY()
+  URarity* Rarity;
+
+  UPROPERTY()
+  uint32 Mass;
+  UPROPERTY()
+  uint32 EnergyDrain;
+
+  UPROPERTY()
+  TSubclassOf<AScrapyardAbility> AbilityClass;
+
+  UPROPERTY()
+  TSoftObjectPtr<USkeletalMesh> SkeletalMesh;
+  UPROPERTY()
+  TSoftObjectPtr<UMaterial> MajorMaterial;
+
+// head, core, arms, legs
+  UPROPERTY()
+  uint32 HitPoints;
+  UPROPERTY()
+  uint32 KineticDefense;
+  UPROPERTY()
+  uint32 ElectricDefense;
+
+  FRobotPart();
+
+  FRobotPart(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
+  {
+    PartID = NewPartID;
+    PartName = NewPartName; 
+    Manufacturer = NewManufacturer;
+    Rarity = NewRarity;
+    Mass = NewMass;
+    EnergyDrain = NewEnergyDrain;
+    AbilityClass = NewAbilityClass;
+    SkeletalMesh = NewSkeletalMesh;
+    MajorMaterial = NewMajorMaterial;
+  }
+
+  static TSoftObjectPtr<UTexture2D> PartTypeIcon;
+ 
+}
+
+USTRUCT()
+struct FHeadPart : FRobotPart {
+  GENERATED_BODY();
+
+// TODO: something more complex?
+  UPROPERTY()
+  uint32 TargetingAbility;
+  UPROPERTY()
+  uint32 ChipSlots;
+
+  FHeadPart();
+
+  FHeadPart(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
+  {
+    PartID = NewPartID;
+    PartName = NewPartName; 
+    Manufacturer = NewManufacturer;
+    Rarity = NewRarity;
+    Mass = NewMass;
+    EnergyDrain = NewEnergyDrain;
+    AbilityClass = NewAbilityClass;
+    SkeletalMesh = NewSkeletalMesh;
+    MajorMaterial = NewMajorMaterial;
+    TargetingAbility = NewTargetingAbility;
+    ChipSlots = NewChipSlots;
+  }
+}
+
 /**
  * 
  */

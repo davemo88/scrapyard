@@ -23,15 +23,12 @@ UScrapyardGameInstance::UScrapyardGameInstance()
   if (UClass* DefaultAssetsBPClass =  DefaultAssetsBPClassRef.TryLoadClass<UScrapyardDefaultAssets>())
   {
 // NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
-//    UScrapyardDefaultAssets* lol = NewObject<UScrapyardDefaultAssets>(DefaultAssetsBPClass);
     DefaultAssetsBP = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
   }
 
   FStringClassReference RobotPartAssetsBPClassRef(TEXT("/Game/RobotPartAssetsBP.RobotPartAssetsBP_C"));
   if (UClass* RobotPartAssetsBPClass = RobotPartAssetsBPClassRef.TryLoadClass<URobotPartAssets>())
   {
-// NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
-//    UScrapyardDefaultAssets* lol = NewObject<UScrapyardDefaultAssets>(DefaultAssetsBPClass);
     RobotPartAssetsBP = RobotPartAssetsBPClass->GetDefaultObject<URobotPartAssets>();
     if (RobotPartAssetsBP)
     {
@@ -45,7 +42,6 @@ UScrapyardGameInstance::UScrapyardGameInstance()
     }
   }
   URobotPart::RobotPartAssetsBP = RobotPartAssetsBP;
-//  URobotPart::Manufacturers = URobotPart::InitManufacturers();
 };
 
 void UScrapyardGameInstance::Init()

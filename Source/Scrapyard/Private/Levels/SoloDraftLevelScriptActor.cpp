@@ -2,7 +2,7 @@
 
 
 #include "SoloDraftLevelScriptActor.h"
-#include "SoloDraftActor.h"
+#include "Drafting/SoloDraftActor.h"
 
 void ASoloDraftLevelScriptActor::BeginPlay()
 {
