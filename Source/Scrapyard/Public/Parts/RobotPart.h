@@ -6,6 +6,7 @@
 #include "Engine/SkeletalMesh.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "Parts/RobotPartAssets.h"
+#include "Parts/RobotPartAssignment.h"
 #include "RobotPart.generated.h"
 
 class UManufacturer;
@@ -17,23 +18,8 @@ class URobotPartAssets;
 class UTexture2D;
 class UMaterial;
 
-// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSkeletalMeshLoadedDelegate);
-// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMajorMaterialLoadedDelegate);
-// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FManufacturerlLoadedDelegate);
-// DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCardIconLoadedDelegate);
-
 USTRUCT()
-struct FStatText {
-  GENERATED_BODY()
-
-  FText StatName;
-  FText StatValue;
-
-  FStatText(FText InStatName = FText(), FText InStatValue = FText()) : StatName(InStatName), StatValue(InStatValue) {};
-};
-
-USTRUCT()
-struct FRobotPart {
+struct FRobotPartTest {
   GENERATED_BODY()
 
 // all parts
@@ -68,9 +54,9 @@ struct FRobotPart {
   UPROPERTY()
   uint32 ElectricDefense;
 
-  FRobotPart();
+  FRobotPartTest();
 
-  FRobotPart(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
+  FRobotPartTest(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
   {
     PartID = NewPartID;
     PartName = NewPartName; 
@@ -83,12 +69,30 @@ struct FRobotPart {
     MajorMaterial = NewMajorMaterial;
   }
 
-  static TSoftObjectPtr<UTexture2D> PartTypeIcon;
+  virtual void Draft(USoloDraft* SoloDraft) { };
+
+  virtual void Assign(URobotPartAssignment* PartAssignment) { };
+
+  virtual TSoftObjectPtr<UTexture2D> GetPartTypeIcon() { return nullptr; }
+
+  virtual TArray<FStatText> GetStatsText() const
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::GetStatsText"), *GetName());
+
+    TArray<FStatText> StatsText;
+    StatsText.Add(FStatText(NSLOCTEXT("SY", "MassStatText", "Mass"),FText::AsNumber(Mass)));
+    StatsText.Add(FStatText(NSLOCTEXT("SY", "HitPointsStatText", "Hit Points"),FText::AsNumber(Mass)));
+    StatsText.Add(FStatText(NSLOCTEXT("SY", "PowerDrainStatText", "Power Drain"),FText::AsNumber(PowerDrain)));
+    StatsText.Add(FStatText(NSLOCTEXT("SY", "PhysicalDefenseStatText", "Physical Defense"),FText::AsNumber(PhysicalDefense)));
+    StatsText.Add(FStatText(NSLOCTEXT("SY", "EnergyDefenseStatText", "Energy Defense"),FText::AsNumber(EnergyDefense)));
+
+    return StatsText;
+  }
  
-}
+};
 
 USTRUCT()
-struct FHeadPart : FRobotPart {
+struct FHeadPartTest : public FRobotPartTest {
   GENERATED_BODY();
 
 // TODO: something more complex?
@@ -97,9 +101,9 @@ struct FHeadPart : FRobotPart {
   UPROPERTY()
   uint32 ChipSlots;
 
-  FHeadPart();
+  FHeadPartTest();
 
-  FHeadPart(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
+  FHeadPartTest(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
   {
     PartID = NewPartID;
     PartName = NewPartName; 
@@ -113,7 +117,125 @@ struct FHeadPart : FRobotPart {
     TargetingAbility = NewTargetingAbility;
     ChipSlots = NewChipSlots;
   }
-}
+
+  void Draft(USoloDraft* SoloDraft) override { SoloDraft->DraftedHeads.AddUnique(this); };
+
+  void Assign(URobotPartAssignment* PartAssignment) override { PartAssignment->SetHead(this); };
+
+};
+
+USTRUCT()
+struct FCorePartTest : public FRobotPartTest {
+  GENERATED_BODY();
+
+  UPROPERTY()
+  uint32 MaxWeight;
+  UPROPERTY()
+  uint32 PowerGeneration;
+  UPROPERTY()
+  uint32 BoosterThrust;
+  UPROPERTY()
+  uint32 BoosterPowerDrain;
+
+  FCorePartTest();
+
+  FCorePartTest(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerGeneration, uint32 NewBoosterThrust, uint32 NewBoosterPowerDrain)
+  {
+    PartID = NewPartID;
+    PartName = NewPartName; 
+    Manufacturer = NewManufacturer;
+    Rarity = NewRarity;
+    Mass = NewMass;
+    EnergyDrain = NewEnergyDrain;
+    AbilityClass = NewAbilityClass;
+    SkeletalMesh = NewSkeletalMesh;
+    MajorMaterial = NewMajorMaterial;
+    MaxWeight = NewMaxWeight;
+    PowerGeneration = NewPowerGeneration;
+    BoosterThrust = NewBoosterThrust;
+    BoosterPowerDrain = NewBoosterPowerDrain;
+  }
+
+//  void Draft(USoloDraft* SoloDraft) override { SoloDraft->DraftedCores.AddUnique(this); }; 
+//
+//  void Assign(URobotPartAssignment* PartAssignment) override { PartAssignment->SetCore(this); };
+};
+
+USTRUCT()
+struct FArmsPartTest : public FRobotPartTest {
+  GENERATED_BODY();
+
+// TODO: something more complex?
+  UPROPERTY()
+  uint32 TargetingAbility;
+  UPROPERTY()
+  uint32 ChipSlots;
+
+  FArmsPartTest();
+
+  FArmsPartTest(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
+  {
+    PartID = NewPartID;
+    PartName = NewPartName; 
+    Manufacturer = NewManufacturer;
+    Rarity = NewRarity;
+    Mass = NewMass;
+    EnergyDrain = NewEnergyDrain;
+    AbilityClass = NewAbilityClass;
+    SkeletalMesh = NewSkeletalMesh;
+    MajorMaterial = NewMajorMaterial;
+    TargetingAbility = NewTargetingAbility;
+    ChipSlots = NewChipSlots;
+  }
+
+//  void Draft(USoloDraft* SoloDraft) override { SoloDraft->DraftedArmss.AddUnique(this); }; 
+//
+//  void Assign(URobotPartAssignment* PartAssignment) override { PartAssignment->SetArms(this); };
+
+};
+
+USTRUCT()
+struct FLegsPartTest : public FRobotPartTest {
+  GENERATED_BODY();
+
+// TODO: something more complex?
+  UPROPERTY()
+  uint32 TargetingAbility;
+  UPROPERTY()
+  uint32 ChipSlots;
+
+  FLegsPartTest();
+
+  FLegsPartTest(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
+  {
+    PartID = NewPartID;
+    PartName = NewPartName; 
+    Manufacturer = NewManufacturer;
+    Rarity = NewRarity;
+    Mass = NewMass;
+    EnergyDrain = NewEnergyDrain;
+    AbilityClass = NewAbilityClass;
+    SkeletalMesh = NewSkeletalMesh;
+    MajorMaterial = NewMajorMaterial;
+    TargetingAbility = NewTargetingAbility;
+    ChipSlots = NewChipSlots;
+  }
+
+//  void Draft(USoloDraft* SoloDraft) override { SoloDraft->DraftedLegss.AddUnique(this); }; 
+//
+//  void Assign(URobotPartAssignment* PartAssignment) override { PartAssignment->SetLegs(this); };
+
+};
+
+USTRUCT()
+struct FStatText {
+  GENERATED_BODY()
+
+  FText StatName;
+  FText StatValue;
+
+  FStatText(FText InStatName = FText(), FText InStatValue = FText()) : StatName(InStatName), StatValue(InStatValue) {};
+};
 
 /**
  * 
