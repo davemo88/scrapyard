@@ -29,3 +29,19 @@ TArray<FStatText> UArmsPart::GetStatsText() const
   StatsText.Add(FStatText(NSLOCTEXT("SY", "WeaponDexterityStatText","Weapon Dexterity"),FText::AsNumber(WeaponDexterity)));
   return StatsText;
 }
+
+UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
+{
+  UArmsPart* NewPart = NewObject<UArmsPart>();
+  NewPart->PartID = NewPartID;
+  NewPart->PartName = NewPartName; 
+  NewPart->Manufacturer = NewManufacturer;
+  NewPart->Rarity = NewRarity;
+  NewPart->Mass = NewMass;
+  NewPart->EnergyDrain = NewEnergyDrain;
+  NewPart->AbilityClass = NewAbilityClass;
+  NewPart->SkeletalMesh = NewSkeletalMesh;
+  NewPart->MajorMaterial = NewMajorMaterial;
+
+  return NewPart;
+}

@@ -7,13 +7,6 @@
 #include "Camera/CameraActor.h"
 #include "SoloDraftActor.generated.h"
 
-class USoloDraft;
-class UHeadPart;
-class UCorePart;
-class UArmsPart;
-class ULegsPart;
-class ARobotPartActor;
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNextPackReadyDelegate);
 
 UCLASS()

@@ -17,6 +17,8 @@ class SCRAPYARD_API UArmsPart : public URobotPart
 
 public:
 
+  static UArmsParts* NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
+
   UPROPERTY()
   int32 MaxWeight;
   UPROPERTY()
@@ -24,13 +26,11 @@ public:
   UPROPERTY() 
   int32 WeaponDexterity;
 
-//  virtual USkeletalMesh* GetSkeletalMesh() override { return nullptr; };
+  void Draft(USoloDraft* SoloDraft) const override;
 
-  void Draft(USoloDraft* SoloDraft) override;
+  void Assign(URobotPartAssignment* PartAssignment) const override;
 
-  void Assign(URobotPartAssignment* PartAssignment) override;
-
-  TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
+  TSoftObjectPtr<UTexture2D> GetPartTypeIcon() const override;
 
   virtual TArray<FStatText> GetStatsText() const override;
 

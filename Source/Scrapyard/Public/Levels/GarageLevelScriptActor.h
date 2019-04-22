@@ -8,7 +8,6 @@
 
 class USoloDraft;
 class ARobotCharacter;
-class ARobotPartActor;
 
 /**
  * 
@@ -30,8 +29,6 @@ public:
 
 //  UFUNCTION()
 //  void AssignPart(URobotPart* Part);
-
-  TArray<ARobotPartActor*> DisplayedParts;
 
   ARobotCharacter* RobotCharacter;
 

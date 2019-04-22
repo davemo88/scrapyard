@@ -14,73 +14,42 @@
 
 URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
 
-const uint32 URobotPart::PartID = 0;
-
-URobotPart::URobotPart()
+static URobotPart* URobotPart::GetPart(uint32 PartID)
 {
-
+  static TArray<uint32, URobotPart*> PartDB = InitPartDB();
+  return PartDB.Find(PartID);
 }
 
-void URobotPart::PostInitProperties()
+TArray<uint32, URobotPart*> URobotPart::InitPartDB()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::PostInitProperties"), *GetName());
-  Super::PostInitProperties();
+  TArray<uint32, URobotPart*> PartDB;
+  return PartDB;
 }
 
 USkeletalMesh* URobotPart::GetSkeletalMesh()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetSkeletalMesh"), *GetName());
-
-  if (SkeletalMesh == NULL && URobotPart::RobotPartAssetsBP != NULL)
+  if (SkeletalMesh->IsValid())
   {
-//    URobotPart::RobotPartAssetsBP->LoadAsset(GetSkeletalMeshAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnSkeletalMeshLoaded));
-    SkeletalMesh = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<USkeletalMesh>(GetSkeletalMeshAssetPtr());
+    return SkeletalMesh.Get();
   }
-
-  return SkeletalMesh;
-}
-
-void URobotPart::OnSkeletalMeshLoaded()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnSkeletalMeshLoaded"), *GetName());
-  SkeletalMesh = GetSkeletalMeshAssetPtr().Get();
+  else if (SkeletalMesh->IsPending())
+  {
+    return SkeletalMesh->LoadSynchronous();
+  }
+  return nullptr;
 }
 
 UMaterial* URobotPart::GetMajorMaterial()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetMajorMaterial"), *GetName());
-
-  if (MajorMaterial == NULL && URobotPart::RobotPartAssetsBP != NULL)
+  if (MajorMaterial->IsValid())
   {
-//    URobotPart::RobotPartAssetsBP->LoadAsset(GetMajorMaterialAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnMajorMaterialLoaded));
-    MajorMaterial = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<UMaterial>(GetMajorMaterialAssetPtr());
+    return MajorMaterial.Get();
   }
-
-  return MajorMaterial;
-
-}
-
-void URobotPart::OnMajorMaterialLoaded()
-{
-  MajorMaterial = GetMajorMaterialAssetPtr().Get();
-}
-
-UTexture2D* URobotPart::GetCardIcon()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetCardIcon"), *GetName());
-  if (CardIcon == NULL && URobotPart::RobotPartAssetsBP != NULL)
+  else if (MajorMaterial->IsPending())
   {
-//    URobotPart::RobotPartAssetsBP->LoadAsset(GetCardIconAssetPtr(), FStreamableDelegate::CreateUObject(this, &URobotPart::OnCardIconLoaded));
-    CardIcon = URobotPart::RobotPartAssetsBP->LoadAssetSynchronous<UTexture2D>(GetCardIconAssetPtr());
+    return MajorMaterial->LoadSynchronous();
   }
-
-  return CardIcon;
-}
-
-void URobotPart::OnCardIconLoaded()
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardIconLoaded"), *GetName());
-  CardIcon = GetCardIconAssetPtr().Get(); 
+  return nullptr;
 }
 
 TArray<FStatText> URobotPart::GetStatsText() const
@@ -94,27 +63,4 @@ TArray<FStatText> URobotPart::GetStatsText() const
   StatsText.Add(FStatText(NSLOCTEXT("SY", "PhysicalDefenseStatText", "Physical Defense"),FText::AsNumber(PhysicalDefense)));
   StatsText.Add(FStatText(NSLOCTEXT("SY", "EnergyDefenseStatText", "Energy Defense"),FText::AsNumber(EnergyDefense)));
   return StatsText;
-}
-
-UManufacturer* URobotPart::GetManufacturer(FString ManufacturerNick)
-{
-  UE_LOG(LogTemp, Warning, TEXT("URobotPart::GetManufacturer"));
-  static TMap<FString, UManufacturer*> it = InitManufacturers();
-  return it[ManufacturerNick];
-//  return it;
-}
-
-TMap<FString, UManufacturer*> URobotPart::InitManufacturers()
-{
-  UE_LOG(LogTemp, Warning, TEXT("URobotPart::InitManufacturers"));
-  TMap<FString, UManufacturer*> Map;
-
-  Map.Add("Default", NewObject<UManufacturer_Default>());
-  Map.Add("Red", NewObject<UManufacturer_Red>());
-  Map.Add("Blue", NewObject<UManufacturer_Blue>());
-  Map.Add("Green", NewObject<UManufacturer_Green>());
-  Map.Add("Purple", NewObject<UManufacturer_Purple>());
-  Map.Add("Orange", NewObject<UManufacturer_Orange>());
-
-  return Map;
 }
