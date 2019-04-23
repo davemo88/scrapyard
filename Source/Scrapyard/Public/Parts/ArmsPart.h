@@ -17,21 +17,21 @@ class SCRAPYARD_API UArmsPart : public URobotPart
 
 public:
 
-  static UArmsParts* NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
+  static UArmsPart* NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
 
   UPROPERTY()
-  int32 MaxWeight;
+  uint32 MaxWeight;
   UPROPERTY()
-  int32 RecoilControl;
+  uint32 RecoilControl;
   UPROPERTY() 
-  int32 WeaponDexterity;
+  uint32 WeaponDexterity;
 
-  void Draft(USoloDraft* SoloDraft) const override;
+  void Draft(USoloDraft* SoloDraft) override;
 
-  void Assign(URobotPartAssignment* PartAssignment) const override;
+  void Assign(URobotPartAssignment* PartAssignment) override;
 
-  TSoftObjectPtr<UTexture2D> GetPartTypeIcon() const override;
+  UTexture2D* GetPartTypeIcon() const override;
 
-  virtual TArray<FStatText> GetStatsText() const override;
+  TArray<FStatText> GetStatsText() const override;
 
 };

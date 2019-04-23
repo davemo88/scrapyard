@@ -16,16 +16,18 @@ class SCRAPYARD_API UHeadPart : public URobotPart
   
 public:
 
+  static UHeadPart* NewHead(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots);
+
   UPROPERTY()
-  int32 TargetingAbility;
+  uint32 TargetingAbility;
   UPROPERTY()
-  int32 ChipSlots;
+  uint32 ChipSlots;
 
   void Draft(USoloDraft* SoloDraft) override;
 
   void Assign(URobotPartAssignment* PartAssignment) override;
 
-  TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
+  UTexture2D* GetPartTypeIcon() const override;
 
   virtual TArray<FStatText> GetStatsText() const override;
 };

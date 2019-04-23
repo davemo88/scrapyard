@@ -16,14 +16,14 @@ class SCRAPYARD_API ULegsPart : public URobotPart
 
 public:
 
-  UPROPERTY(BlueprintReadOnly)
-  int32 MaxWeight;
+  static ULegsPart* NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability);
 
-  UPROPERTY(BlueprintReadOnly)
-  int32 MovementSpeed;
-
-  UPROPERTY(BlueprintReadOnly)
-  int32 Stability;
+  UPROPERTY()
+  uint32 MaxWeight;
+  UPROPERTY()
+  uint32 MovementSpeed;
+  UPROPERTY()
+  uint32 Stability;
 
   void Draft(USoloDraft* SoloDraft) override;
 
@@ -31,7 +31,5 @@ public:
 
   virtual TArray<FStatText> GetStatsText() const override;
 
-protected:
-
-  TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
+  UTexture2D* GetPartTypeIcon() const override;
 };

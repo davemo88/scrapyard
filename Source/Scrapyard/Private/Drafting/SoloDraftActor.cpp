@@ -56,30 +56,10 @@ void ASoloDraftActor::Tick(float DeltaTime)
 
 void ASoloDraftActor::SetupRobotPartPool()
 {
-//  RobotPartPool.Add(NewObject<UHeadPart_Default>());
-  RobotPartPool.Add(NewObject<UHeadPart_Red>());
-  RobotPartPool.Add(NewObject<UHeadPart_Blue>());
-  RobotPartPool.Add(NewObject<UHeadPart_Green>());
-  RobotPartPool.Add(NewObject<UHeadPart_Orange>());
-  RobotPartPool.Add(NewObject<UHeadPart_Purple>());
-//  RobotPartPool.Add(NewObject<UCorePart_Default>()); 
-  RobotPartPool.Add(NewObject<UCorePart_Red>()); 
-  RobotPartPool.Add(NewObject<UCorePart_Blue>()); 
-  RobotPartPool.Add(NewObject<UCorePart_Green>()); 
-  RobotPartPool.Add(NewObject<UCorePart_Orange>()); 
-  RobotPartPool.Add(NewObject<UCorePart_Purple>()); 
-//  RobotPartPool.Add(NewObject<UArmsPart_Default>()); 
-  RobotPartPool.Add(NewObject<UArmsPart_Red>()); 
-  RobotPartPool.Add(NewObject<UArmsPart_Blue>()); 
-  RobotPartPool.Add(NewObject<UArmsPart_Green>()); 
-  RobotPartPool.Add(NewObject<UArmsPart_Orange>()); 
-  RobotPartPool.Add(NewObject<UArmsPart_Purple>()); 
-//  RobotPartPool.Add(NewObject<ULegsPart_Default>());
-  RobotPartPool.Add(NewObject<ULegsPart_Red>()); 
-  RobotPartPool.Add(NewObject<ULegsPart_Blue>()); 
-  RobotPartPool.Add(NewObject<ULegsPart_Green>()); 
-  RobotPartPool.Add(NewObject<ULegsPart_Orange>()); 
-  RobotPartPool.Add(NewObject<ULegsPart_Purple>()); 
+  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(1000));
+  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(2000));
+  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(3000));
+  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(4000));
 }
 
 void ASoloDraftActor::NextPack()

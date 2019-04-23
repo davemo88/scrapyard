@@ -34,9 +34,9 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int32 PowerDrain = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  int32 PhysicalDefense = 0;
+  int32 KineticDefense = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
-  int32 EnergyDefense = 0;
+  int32 ElectricDefense = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
   int32 TargetingAbility = 0;
   UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -56,8 +56,8 @@ public:
   FStatText GetHitPointsStatText();
   FStatText GetMaxPowerStatText();
   FStatText GetPowerDrainStatText();
-  FStatText GetPhysicalDefenseStatText();
-  FStatText GetEnergyDefenseStatText();
+  FStatText GetKineticDefenseStatText();
+  FStatText GetElectricDefenseStatText();
   FStatText GetTargetingAbilityStatText();
   FStatText GetChipSlotsStatText();
   FStatText GetWeaponDexterityStatText();

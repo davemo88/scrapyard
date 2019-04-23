@@ -24,8 +24,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Head->Mass;
     HitPoints += Head->HitPoints;
-    PhysicalDefense += Head->PhysicalDefense;
-    EnergyDefense += Head->EnergyDefense;
+    KineticDefense += Head->KineticDefense;
+    ElectricDefense += Head->ElectricDefense;
     PowerDrain += Head->PowerDrain;
     TargetingAbility = Head->TargetingAbility;
     ChipSlots = Head->ChipSlots;
@@ -34,8 +34,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Core->Mass;
     HitPoints += Core->HitPoints;
-    PhysicalDefense += Core->PhysicalDefense;
-    EnergyDefense += Core->EnergyDefense;
+    KineticDefense += Core->KineticDefense;
+    ElectricDefense += Core->ElectricDefense;
     PowerDrain += Core->PowerDrain;
     PowerSupply = Core->PowerSupply;
     BoosterThrust = Core->BoosterThrust;
@@ -46,8 +46,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Arms->Mass;
     HitPoints += Arms->HitPoints;
-    PhysicalDefense += Arms->PhysicalDefense;
-    EnergyDefense += Arms->EnergyDefense;
+    KineticDefense += Arms->KineticDefense;
+    ElectricDefense += Arms->ElectricDefense;
     PowerDrain += Arms->PowerDrain;
     WeaponDexterity = Arms->WeaponDexterity;
   }
@@ -55,8 +55,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Legs->Mass;
     HitPoints += Legs->HitPoints;
-    PhysicalDefense += Legs->PhysicalDefense;
-    EnergyDefense += Legs->EnergyDefense;
+    KineticDefense += Legs->KineticDefense;
+    ElectricDefense += Legs->ElectricDefense;
     PowerDrain += Legs->PowerDrain;
     MovementSpeed = Legs->MovementSpeed;
   }
@@ -74,8 +74,8 @@ void URobotStats::ZeroStats()
   MaxPower = 0;
   PowerSupply = 0;
   PowerDrain = 0;
-  PhysicalDefense = 0;
-  EnergyDefense = 0;
+  KineticDefense = 0;
+  ElectricDefense = 0;
 }
 
 FStatText URobotStats::GetHitPointsStatText()
@@ -98,14 +98,14 @@ FStatText URobotStats::GetPowerDrainStatText()
   return FStatText(NSLOCTEXT("SY", "StatWidgetPowerDrainName", "Power Drain"), FText::AsNumber(PowerDrain));
 }
 
-FStatText URobotStats::GetPhysicalDefenseStatText()
+FStatText URobotStats::GetKineticDefenseStatText()
 {
-  return FStatText(NSLOCTEXT("SY", "StatWidgetPhysicalDefenseName", "Physical Defense"), FText::AsNumber(PhysicalDefense));
+  return FStatText(NSLOCTEXT("SY", "StatWidgetKineticDefenseName", "Kinetic Defense"), FText::AsNumber(KineticDefense));
 }
 
-FStatText URobotStats::GetEnergyDefenseStatText()
+FStatText URobotStats::GetElectricDefenseStatText()
 {
-  return FStatText(NSLOCTEXT("SY", "StatWidgetEnergyDefenseName", "Energy Defense"), FText::AsNumber(EnergyDefense));
+  return FStatText(NSLOCTEXT("SY", "StatWidgetElectricDefenseName", "Electric Defense"), FText::AsNumber(ElectricDefense));
 }
 
 FStatText URobotStats::GetTargetingAbilityStatText()

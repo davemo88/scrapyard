@@ -8,15 +8,8 @@
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StreamableManager.h"
 #include "UObject/NoExportTypes.h"
-#include "Game/ScrapyardGameInstance.h"
+#include "UObject/SoftObjectPtr.h"
 #include "RobotPartAssets.generated.h"
-
-class UHeadPart;
-class UCorePart;
-class UArmsPart;
-class ULegsPart;
-class UHandheldPart;
-class UScrapyardGameInstance;
 
 /**
  * 
@@ -27,6 +20,20 @@ class SCRAPYARD_API URobotPartAssets : public UObject
   GENERATED_BODY()
 
 public:
+
+  template <class T>
+  T* GetAsset(TSoftObjectPtr<T> AssetRef)
+  {
+    if (AssetRef.IsValid())
+    {
+      return AssetRef.Get();
+    }
+    else if (AssetRef.IsPending())
+    {
+      return AssetRef.LoadSynchronous();
+    }
+    return nullptr;
+  }
 
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HeadPart_Default_SkeletalMesh;
@@ -39,6 +46,8 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HandheldPart_Default_SkeletalMesh;
 
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UMaterial> DefaultMaterial;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UMaterial> RedMaterial;
   UPROPERTY(EditDefaultsOnly)
@@ -58,33 +67,5 @@ public:
   TSoftObjectPtr<UTexture2D> ArmsCardIcon;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> LegsCardIcon;
-
-
-//  template<typename T>
-  void LoadAsset(TSoftObjectPtr<UObject> SoftObjectPtr, FStreamableDelegate DelegateToCall);
-
-//  void LoadAsset(TSoftObjectPtr<UObject> SoftObjectPtr, FStreamableDelegate DelegateToCall);
-
-//TODO: maybe can simplify this by just calling LoadSynchronous on the TSoftObjectPtr
-//TODO: understand why template funciton bodiesin header file and not cpp file
-  template<typename T>
-  T* LoadAssetSynchronous(TSoftObjectPtr<UObject> SoftObjectPtr)
-  {
-    UE_LOG(LogTemp, Warning, TEXT("%s::LoadAssetSynchronous"), *GetName());
-  
-    T* Asset = nullptr;
-  
-    if (!SoftObjectPtr.IsNull() && GameInstance)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("GameInstance For LoadAsset OK"));
-      TSharedPtr<FStreamableHandle> StreamableHandle = GameInstance->AssetLoader.RequestSyncLoad(SoftObjectPtr.ToSoftObjectPath());
-      Asset = Cast<T>(StreamableHandle->GetLoadedAsset());
-    }
-  
-    return Asset;
-  };
-//  TSharedPtr<FStreamableHandle> LoadAssetSynchronous(TSoftObjectPtr<UObject> SoftObjectPtr);
-
-// TODO: this is hack because getting gameinstance outside of actors is mysterious
-  UScrapyardGameInstance* GameInstance;
 };
+

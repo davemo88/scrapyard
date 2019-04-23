@@ -29,11 +29,10 @@ public:
   UPROPERTY()
   const UScrapyardDefaultAssets* DefaultAssetsBP;
 
-  UPROPERTY()
-  URobotPartAssets* RobotPartAssetsBP;
-
 //  UPROPERTY()
-//  TMap<FString, UManufacturer*> Manufacturers;
+//  URobotPartAssets* RobotPartAssetsBP;
+//  UPROPERTY()
+//  TMap<uint32, URobotPart*> PartDB;
 
 //TODO: shouldn't be stored here because game instance doesn't replicate
   UPROPERTY()
@@ -48,5 +47,6 @@ public:
   virtual void Shutdown() override;
   virtual void StartGameInstance() override;
 
+//  void InitPartDB();
   
 };

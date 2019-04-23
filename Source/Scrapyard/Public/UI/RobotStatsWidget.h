@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "Robots/RobotStats.h"
 #include "RobotStatsWidget.generated.h"
 
 class UStatLineWidget;
@@ -45,9 +46,9 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* PowerDrainStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* PhysicalDefenseStatLine;
+  UStatLineWidget* KineticDefenseStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* EnergyDefenseStatLine;
+  UStatLineWidget* ElectricDefenseStatLine;
   UPROPERTY(meta=(BindWidget))
   UStatLineWidget* TargetingAbilityStatLine;
   UPROPERTY(meta=(BindWidget))

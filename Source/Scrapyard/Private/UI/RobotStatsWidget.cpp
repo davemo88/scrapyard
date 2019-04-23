@@ -2,7 +2,7 @@
 
 
 #include "RobotStatsWidget.h"
-#include "StatLineWidget.h"
+#include "UI/StatLineWidget.h"
 
 void URobotStatsWidget::NativeConstruct()
 {
@@ -10,8 +10,8 @@ void URobotStatsWidget::NativeConstruct()
   MassStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetMassName", "Mass"), FText::AsNumber(0)));
   PowerSupplyStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetPowerSupplyName", "Power Supply"), FText::AsNumber(0)));
   PowerDrainStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetPowerDrainName", "Power Drain"), FText::AsNumber(0)));
-  PhysicalDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetPhysicalDefenseName", "Physical Defense"), FText::AsNumber(0)));
-  EnergyDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetEnergyDefenseName", "Energy Defense"), FText::AsNumber(0)));
+  KineticDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetKineticDefenseName", "Physical Defense"), FText::AsNumber(0)));
+  ElectricDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetElectricDefenseName", "Energy Defense"), FText::AsNumber(0)));
   TargetingAbilityStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetTargetingAbilityName", "Targeting Ability"), FText::AsNumber(0)));
   ChipSlotsStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetChipSlotsName", "Chip Slots"), FText::AsNumber(0)));
   WeaponDexterityStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetWeaponDexterityName", "Weapon Dexterity"), FText::AsNumber(0)));
@@ -33,8 +33,8 @@ void URobotStatsWidget::UpdateStats()
   HitPointsStatLine->SetStatLine(RobotStats->GetHitPointsStatText());
   PowerDrainStatLine->SetStatLine(RobotStats->GetPowerDrainStatText());
   PowerSupplyStatLine->SetStatLine(RobotStats->GetPowerSupplyStatText());
-  PhysicalDefenseStatLine->SetStatLine(RobotStats->GetPhysicalDefenseStatText());
-  EnergyDefenseStatLine->SetStatLine(RobotStats->GetEnergyDefenseStatText());
+  KineticDefenseStatLine->SetStatLine(RobotStats->GetKineticDefenseStatText());
+  ElectricDefenseStatLine->SetStatLine(RobotStats->GetElectricDefenseStatText());
   TargetingAbilityStatLine->SetStatLine(RobotStats->GetTargetingAbilityStatText());
   ChipSlotsStatLine->SetStatLine(RobotStats->GetChipSlotsStatText());
   WeaponDexterityStatLine->SetStatLine(RobotStats->GetWeaponDexterityStatText());

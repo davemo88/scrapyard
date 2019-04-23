@@ -26,22 +26,25 @@ UScrapyardGameInstance::UScrapyardGameInstance()
     DefaultAssetsBP = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
   }
 
-  FStringClassReference RobotPartAssetsBPClassRef(TEXT("/Game/RobotPartAssetsBP.RobotPartAssetsBP_C"));
-  if (UClass* RobotPartAssetsBPClass = RobotPartAssetsBPClassRef.TryLoadClass<URobotPartAssets>())
-  {
-    RobotPartAssetsBP = RobotPartAssetsBPClass->GetDefaultObject<URobotPartAssets>();
-    if (RobotPartAssetsBP)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was loaded"));
-// TODO: this is a hack since getting game instance outside of actor is mysterious
-      RobotPartAssetsBP->GameInstance = this;
-    }
-    else
-    {
-      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was NOT loaded"));
-    }
-  }
-  URobotPart::RobotPartAssetsBP = RobotPartAssetsBP;
+  URobotPart::InitRobotPartAssetsBP();
+  URobotPart::InitPartDB();
+
+//  FStringClassReference RobotPartAssetsBPClassRef(TEXT("/Game/RobotPartAssetsBP.RobotPartAssetsBP_C"));
+//  if (UClass* RobotPartAssetsBPClass = RobotPartAssetsBPClassRef.TryLoadClass<URobotPartAssets>())
+//  {
+//    RobotPartAssetsBP = RobotPartAssetsBPClass->GetDefaultObject<URobotPartAssets>();
+//    if (RobotPartAssetsBP)
+//    {
+//      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was loaded"));
+//// TODO: this is a hack since getting game instance outside of actor is mysterious
+////      RobotPartAssetsBP->GameInstance = this;
+//    }
+//    else
+//    {
+//      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was NOT loaded"));
+//    }
+//  }
+//  URobotPart::RobotPartAssetsBP = RobotPartAssetsBP;
 };
 
 void UScrapyardGameInstance::Init()

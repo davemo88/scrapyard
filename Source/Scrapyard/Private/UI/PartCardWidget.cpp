@@ -3,6 +3,7 @@
 #include "PartCardWidget.h"
 #include "Parts/RobotPart.h"
 #include "UI/StatLineWidget.h"
+#include "Game/ScrapyardDefaultAssets.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Components/VerticalBox.h"
 #include "Blueprint/WidgetTree.h"
@@ -14,7 +15,7 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
   {
     CardBackground->SetBrushColor(RobotPart->Manufacturer->CardBackgroundColor);
   }
-  if (UTexture2D* CardIcon = RobotPart->GetCardIcon())
+  if (UTexture2D* CardIcon = RobotPart->GetPartTypeIcon())
   {
     PartTypeIcon->SetBrushFromTexture(CardIcon); 
   }

@@ -56,8 +56,8 @@ void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnNewCardReady"), *GetName());
   
-  CardWidget->RobotPart->GetSkeletalMesh();
-  CardWidget->RobotPart->GetMajorMaterial();
+//  CardWidget->RobotPart->GetSkeletalMesh();
+//  CardWidget->RobotPart->GetMajorMaterial();
   CardWidget->CardDoubleClickedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardDoubleClicked);
 }
 

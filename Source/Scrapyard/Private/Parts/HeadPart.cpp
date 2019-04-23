@@ -4,9 +4,27 @@
 #include "RobotPartAssignment.h"
 #include "SoloDraft.h"
 
+UHeadPart* UHeadPart::NewHead(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
+{
+  UHeadPart* NewPart = NewObject<UHeadPart>();
+  NewPart->PartID = NewPartID;
+  NewPart->PartName = NewPartName; 
+  NewPart->Manufacturer = NewManufacturer;
+  NewPart->Rarity = NewRarity;
+  NewPart->Mass = NewMass;
+  NewPart->HitPoints = NewHitPoints;
+  NewPart->PowerDrain = NewPowerDrain;
+  NewPart->AbilityClass = NewAbilityClass;
+  NewPart->SkeletalMesh = NewSkeletalMesh;
+  NewPart->MajorMaterial = NewMajorMaterial;
+  NewPart->TargetingAbility = NewTargetingAbility;
+  NewPart->ChipSlots = NewChipSlots;
+
+  return NewPart;
+}
+
 void UHeadPart::Draft(USoloDraft* SoloDraft)
 {
-//  SoloDraft->DraftedHeads.AddUnique(this);
   SoloDraft->DraftedHeads.AddUnique(this);
 }
 
@@ -15,9 +33,9 @@ void UHeadPart::Assign(URobotPartAssignment* PartAssignment)
   PartAssignment->SetHead(this);
 }
 
-TSoftObjectPtr<UTexture2D> UHeadPart::GetCardIconAssetPtr()
+UTexture2D* UHeadPart::GetPartTypeIcon() const
 {
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->HeadCardIcon: nullptr;
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GetAsset<UTexture2D>(RobotPartAssetsBP->HeadCardIcon) : nullptr;
 }
 
 TArray<FStatText> UHeadPart::GetStatsText() const

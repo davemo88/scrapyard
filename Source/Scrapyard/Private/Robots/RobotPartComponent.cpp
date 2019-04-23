@@ -19,14 +19,7 @@ void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
   if (GetOwner() != NULL && GetWorld() != NULL && !(GetWorld()->GetNetMode() == NM_DedicatedServer))
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
-    if (USkeletalMesh* Mesh = RobotPart->GetSkeletalMesh())
-    {
-      SetSkeletalMesh(Mesh);
-    }
-  
-    if (UMaterial* MajorMaterial = RobotPart->GetMajorMaterial())
-    {
-      SetMaterial(0, MajorMaterial);
-    }
+    SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(RobotPart->SkeletalMesh));
+    SetMaterial(0, URobotPart::RobotPartAssetsBP->GetAsset<UMaterial>(RobotPart->MajorMaterial));
   }
 }

@@ -5,20 +5,41 @@
 #include "Parts/RobotPartAssets.h"
 #include "SoloDraft.h"
 
-void UCorePart::Draft(USoloDraft* SoloDraft)
+UCorePart* UCorePart::NewCore(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerSupply, uint32 NewBoosterThrust, uint32 NewBoosterPowerDrain)
 {
-//	SoloDraft->DraftedCores.AddUnique(this);
-	SoloDraft->DraftedCores.AddUnique(this);
+  UCorePart* NewPart = NewObject<UCorePart>();
+  NewPart->PartID = NewPartID;
+  NewPart->PartName = NewPartName; 
+  NewPart->Manufacturer = NewManufacturer;
+  NewPart->Rarity = NewRarity;
+  NewPart->Mass = NewMass;
+  NewPart->HitPoints = NewHitPoints;
+  NewPart->PowerDrain = NewPowerDrain;
+  NewPart->AbilityClass = NewAbilityClass;
+  NewPart->SkeletalMesh = NewSkeletalMesh;
+  NewPart->MajorMaterial = NewMajorMaterial;
+  NewPart->MaxWeight = NewMaxWeight;
+  NewPart->PowerSupply = NewPowerSupply;
+  NewPart->BoosterThrust = NewBoosterThrust;
+  NewPart->BoosterPowerDrain = NewBoosterPowerDrain;
+
+  return NewPart;
+
 }
 
-void UCorePart::Assign(URobotPartAssignment* PartAssignment)
+void UCorePart::Draft(USoloDraft* SoloDraft)
+{
+  SoloDraft->DraftedCores.AddUnique(this);
+}
+
+void UCorePart::Assign(URobotPartAssignment* PartAssignment) 
 {
   PartAssignment->SetCore(this);
 }
 
-TSoftObjectPtr<UTexture2D> UCorePart::GetCardIconAssetPtr()
+UTexture2D* UCorePart::GetPartTypeIcon() const
 {
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->CoreCardIcon: nullptr;
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GetAsset<UTexture2D>(RobotPartAssetsBP->CoreCardIcon) : nullptr;
 }
 
 TArray<FStatText> UCorePart::GetStatsText() const

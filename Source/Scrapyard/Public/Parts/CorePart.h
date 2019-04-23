@@ -15,21 +15,23 @@ class SCRAPYARD_API UCorePart : public URobotPart
   GENERATED_BODY()
 
 public:
+  
+  static UCorePart* NewCore(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerSupply, uint32 NewBoosterThrust, uint32 NewBoosterPowerDrain);
 
   UPROPERTY()
-  int32 MaxWeight;
+  uint32 MaxWeight;
   UPROPERTY()
-  int32 PowerSupply;
+  uint32 PowerSupply;
   UPROPERTY()
-  int32 BoosterThrust;
+  uint32 BoosterThrust;
   UPROPERTY()
-  int32 BoosterPowerDrain;
+  uint32 BoosterPowerDrain;
 
   void Draft(USoloDraft* SoloDraft) override;
 
   void Assign(URobotPartAssignment* PartAssignment) override;
 
-  TSoftObjectPtr<UTexture2D> GetCardIconAssetPtr();
+  UTexture2D* GetPartTypeIcon() const override;
 
   virtual TArray<FStatText> GetStatsText() const override;
 };

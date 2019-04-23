@@ -2,11 +2,11 @@
 
 
 #include "RobotPartAssignment.h"
-#include "Parts/Head/HeadPart_Default.h"
-#include "Parts/Core/CorePart_Default.h"
-#include "Parts/Arms/ArmsPart_Default.h"
-#include "Parts/Legs/LegsPart_Default.h"
-#include "Parts/RobotPartHelper.h"
+#include "Parts/RobotPart.h"
+#include "Parts/HeadPart.h"
+#include "Parts/CorePart.h"
+#include "Parts/ArmsPart.h"
+#include "Parts/LegsPart.h"
 
 bool URobotPartAssignment::IsComplete() const
 {
@@ -43,10 +43,11 @@ void URobotPartAssignment::SetLegs(ULegsPart* NewLegs)
 
 void URobotPartAssignment::SetDefaultAssignment()
 {
-  SetHead(NewObject<UHeadPart_Default>());
-  SetCore(NewObject<UCorePart_Default>());
-  SetArms(NewObject<UArmsPart_Default>());
-  SetLegs(NewObject<ULegsPart_Default>());
+//TODO maybe a better way
+  SetHead(URobotPart::PartDB.GetPart<UHeadPart>(1000));
+  SetCore(URobotPart::PartDB.GetPart<UCorePart>(2000));
+  SetArms(URobotPart::PartDB.GetPart<UArmsPart>(3000));
+  SetLegs(URobotPart::PartDB.GetPart<ULegsPart>(4000));
 }
 
 void URobotPartAssignment::SetAssignment(URobotPartAssignment* NewPartAssignment)
@@ -70,30 +71,29 @@ void URobotPartAssignment::SetAssignment(URobotPartAssignment* NewPartAssignment
 void URobotPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
-  TMap<uint32, TSubclassOf<URobotPart>> PartDB = URobotPartHelper::GetPartDatabase();
   UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
   UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
   UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
   UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
-  
-  if (TSubclassOf<URobotPart>* NewHeadUClass = PartDB.Find(PartAssignmentIDs.HeadID))
+
+  if (UHeadPart* NewHead = URobotPart::PartDB.GetPart<UHeadPart>(PartAssignmentIDs.HeadID))
   {
-    Head = NewObject<UHeadPart>(this, *NewHeadUClass);
+    Head = NewHead;
     HeadAssignmentChangedDelegate.Broadcast(Head);
   }
-  if (TSubclassOf<URobotPart>* NewCoreUClass = PartDB.Find(PartAssignmentIDs.CoreID))
+  if (UCorePart* NewCore = URobotPart::PartDB.GetPart<UCorePart>(PartAssignmentIDs.CoreID))
   {
-    Core = NewObject<UCorePart>(this, *NewCoreUClass);
+    Core = NewCore;
     CoreAssignmentChangedDelegate.Broadcast(Core);
   }
-  if (TSubclassOf<URobotPart>* NewArmsUClass = PartDB.Find(PartAssignmentIDs.ArmsID))
+  if (UArmsPart* NewArms = URobotPart::PartDB.GetPart<UArmsPart>(PartAssignmentIDs.ArmsID))
   {
-    Arms = NewObject<UArmsPart>(this, *NewArmsUClass);
+    Arms = NewArms;
     ArmsAssignmentChangedDelegate.Broadcast(Arms);
   }
-  if (TSubclassOf<URobotPart>* NewLegsUClass = PartDB.Find(PartAssignmentIDs.LegsID))
+  if (ULegsPart* NewLegs = URobotPart::PartDB.GetPart<ULegsPart>(PartAssignmentIDs.LegsID))
   {
-    Legs = NewObject<ULegsPart>(this, *NewLegsUClass);
+    Legs = NewLegs;
     LegsAssignmentChangedDelegate.Broadcast(Legs);
   }
 
@@ -106,13 +106,13 @@ FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs() const
 
   if (IsComplete())
   {
-    PartAssignmentIDs.HeadID = Head->GetPartID();
+    PartAssignmentIDs.HeadID = Head->PartID;
     UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
-    PartAssignmentIDs.CoreID = Core->GetPartID();
+    PartAssignmentIDs.CoreID = Core->PartID;
     UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
-    PartAssignmentIDs.ArmsID = Arms->GetPartID();
+    PartAssignmentIDs.ArmsID = Arms->PartID;
     UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
-    PartAssignmentIDs.LegsID = Legs->GetPartID();
+    PartAssignmentIDs.LegsID = Legs->PartID;
     UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
   }
 

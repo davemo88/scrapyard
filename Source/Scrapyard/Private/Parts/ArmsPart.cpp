@@ -5,9 +5,25 @@
 #include "Parts/RobotPartAssets.h"
 #include "SoloDraft.h"
 
+UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
+{
+  UArmsPart* NewPart = NewObject<UArmsPart>();
+  NewPart->PartID = NewPartID;
+  NewPart->PartName = NewPartName; 
+  NewPart->Manufacturer = NewManufacturer;
+  NewPart->Rarity = NewRarity;
+  NewPart->Mass = NewMass;
+  NewPart->HitPoints = NewHitPoints;
+  NewPart->PowerDrain = NewPowerDrain;
+  NewPart->AbilityClass = NewAbilityClass;
+  NewPart->SkeletalMesh = NewSkeletalMesh;
+  NewPart->MajorMaterial = NewMajorMaterial;
+
+  return NewPart;
+}
+
 void UArmsPart::Draft(USoloDraft* SoloDraft)
 {
-//  SoloDraft->DraftedArms.AddUnique(this);
 //  UE_LOG(LogTemp, Warning, TEXT("Drafted %s"), *PartName);
   SoloDraft->DraftedArms.AddUnique(this);
 }
@@ -18,9 +34,9 @@ void UArmsPart::Assign(URobotPartAssignment* PartAssignment)
   PartAssignment->SetArms(this);
 }
 
-TSoftObjectPtr<UTexture2D> UArmsPart::GetCardIconAssetPtr()
+UTexture2D* UArmsPart::GetPartTypeIcon() const
 {
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->ArmsCardIcon: nullptr;
+  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GetAsset<UTexture2D>(RobotPartAssetsBP->ArmsCardIcon): nullptr;
 }
 
 TArray<FStatText> UArmsPart::GetStatsText() const
@@ -30,18 +46,3 @@ TArray<FStatText> UArmsPart::GetStatsText() const
   return StatsText;
 }
 
-UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewEnergyDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
-{
-  UArmsPart* NewPart = NewObject<UArmsPart>();
-  NewPart->PartID = NewPartID;
-  NewPart->PartName = NewPartName; 
-  NewPart->Manufacturer = NewManufacturer;
-  NewPart->Rarity = NewRarity;
-  NewPart->Mass = NewMass;
-  NewPart->EnergyDrain = NewEnergyDrain;
-  NewPart->AbilityClass = NewAbilityClass;
-  NewPart->SkeletalMesh = NewSkeletalMesh;
-  NewPart->MajorMaterial = NewMajorMaterial;
-
-  return NewPart;
-}

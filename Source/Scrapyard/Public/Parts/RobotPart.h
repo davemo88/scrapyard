@@ -7,9 +7,9 @@
 #include "Abilities/ScrapyardAbility.h"
 #include "Parts/RobotPartAssets.h"
 #include "Parts/RobotPartAssignment.h"
+#include "Parts/Manufacturer.h"
 #include "RobotPart.generated.h"
 
-class UManufacturer;
 class URarity;
 class USoloDraft;
 class URobotPartAssignment;
@@ -17,6 +17,53 @@ class URobotPartAssets;
 //class AScrapyardAbility;
 class UTexture2D;
 class UMaterial;
+
+USTRUCT()
+struct FManufacturers
+{
+  GENERATED_BODY()
+
+  UPROPERTY()
+  UManufacturer* DefaultManufacturer;
+  UPROPERTY()
+  UManufacturer* RedManufacturer;
+  UPROPERTY()
+  UManufacturer* BlueManufacturer;
+  UPROPERTY()
+  UManufacturer* GreenManufacturer;
+  UPROPERTY()
+  UManufacturer* OrangeManufacturer;
+  UPROPERTY()
+  UManufacturer* PurpleManufacturer;
+
+//TODO: refactor to allow access to assets blueprints
+  FManufacturers()
+  {
+    DefaultManufacturer = NewObject<UManufacturer>();
+    DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
+    DefaultManufacturer->CardBackgroundColor = FLinearColor(0.43f, 0.43f, 43.0f, 1.0f);
+
+    RedManufacturer = NewObject<UManufacturer>();
+    RedManufacturer->ManufacturerName = NSLOCTEXT("SY", "RedCorpName", "Red Corp");
+    RedManufacturer->CardBackgroundColor = FLinearColor(385.0f, 0.0f, 0.0f, 1.0f);
+
+    BlueManufacturer = NewObject<UManufacturer>();
+    BlueManufacturer->ManufacturerName = NSLOCTEXT("SY", "BlueCorpName", "Blue Corp");
+    BlueManufacturer->CardBackgroundColor = FLinearColor(0.0f, 0.0f, 500.0f, 1.0f);
+
+    GreenManufacturer = NewObject<UManufacturer>();
+    GreenManufacturer->ManufacturerName = NSLOCTEXT("SY", "GreenCorpName", "Green Corp");
+    GreenManufacturer->CardBackgroundColor = FLinearColor(0.0f, 385.0f, 0.0f, 1.0f);
+    
+    OrangeManufacturer = NewObject<UManufacturer>();
+    OrangeManufacturer->ManufacturerName = NSLOCTEXT("SY", "OrangeCorpName", "Orange Corp");
+    OrangeManufacturer->CardBackgroundColor = FLinearColor(1.0f, 0.29f, 0.0f, 1.0f);
+
+    PurpleManufacturer = NewObject<UManufacturer>();
+    PurpleManufacturer->ManufacturerName = NSLOCTEXT("SY", "PurpleCorpName", "Purple Corp");
+    PurpleManufacturer->CardBackgroundColor = FLinearColor(1.0f, 0.0f, 72.0f, 1.0f);
+  };
+};
 
 USTRUCT()
 struct FStatText {
@@ -39,51 +86,72 @@ class SCRAPYARD_API URobotPart : public UObject
 public:
 
   static URobotPartAssets* RobotPartAssetsBP;
+  static void InitRobotPartAssetsBP();
 
-  static URobotPart* GetPart(uint32 PartID);
+  static FPartDatabase PartDB;
+  static void InitPartDB();
+
+  static FManufacturers Manufacturers;
+  static void InitManufacturers();
 
   UPROPERTY()
   uint32 PartID;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY()
   FText PartName;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY()
   UManufacturer* Manufacturer;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY()
   URarity* Rarity;
-  UPROPERTY(BlueprintReadOnly)
-  int32 Mass;
-  UPROPERTY(BlueprintReadOnly)
-  int32 PowerDrain;
-  UPROPERTY(BlueprintReadOnly)
-  int32 HitPoints;
-  UPROPERTY(BlueprintReadOnly)
-  int32 KineticDefense;
-  UPROPERTY(BlueprintReadOnly)
-  int32 ElectricDefense;
-  UPROPERTY(BlueprintReadOnly)
+  UPROPERTY()
+  uint32 Mass;
+  UPROPERTY()
+  uint32 PowerDrain;
+  UPROPERTY()
+  uint32 HitPoints;
+  UPROPERTY()
+  uint32 KineticDefense;
+  UPROPERTY()
+  uint32 ElectricDefense;
+  UPROPERTY()
   TSubclassOf<AScrapyardAbility> AbilityClass;
-
-  UFUNCTION()
-  USkeletalMesh* GetSkeletalMesh();
-  UFUNCTION()
-  UMaterial* GetMajorMaterial();
-
-  virtual TSoftObjectPtr<UTexture2D> GetPartTypeIcon() { return nullptr; } const;
-
-  virtual TArray<FStatText> GetStatsText() const;
-
-  virtual void Draft(USoloDraft* SoloDraft) {} const;
-
-  virtual void Assign(URobotPartAssignment* RobotPartAssignment) {} const;
-
-protected:
-
-  TArray<uint32, URobotPart*> InitPartDB;
-
   UPROPERTY()
   TSoftObjectPtr<USkeletalMesh> SkeletalMesh;
   UPROPERTY()
   TSoftObjectPtr<UMaterial> MajorMaterial;
 
+  virtual UTexture2D* GetPartTypeIcon() const { return nullptr; };
+
+  virtual TArray<FStatText> GetStatsText() const;
+
+  virtual void Draft(USoloDraft* SoloDraft) {};
+
+  virtual void Assign(URobotPartAssignment* RobotPartAssignment) {};
+
+};
+
+USTRUCT()
+struct FPartDatabase
+{
+  GENERATED_BODY()
+
+  void AddPart(URobotPart* NewPart)
+  {
+    PartMap.Add(NewPart->PartID, NewPart);
+  };
+
+  template <class T>
+  T* GetPart(uint32 PartID)
+  {
+    if (PartMap.Find(PartID))
+    {
+      return Cast<T>(PartMap[PartID]);
+    };
+    return nullptr;
+  };
+
+protected:
+
+  UPROPERTY()
+  TMap<uint32, URobotPart*> PartMap;
 
 };
