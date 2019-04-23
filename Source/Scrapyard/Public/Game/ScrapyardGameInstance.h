@@ -6,6 +6,7 @@
 #include "Online.h"
 #include "Engine/GameInstance.h"
 #include "Engine/StreamableManager.h"
+#include "Parts/RobotPart.h"
 #include "ScrapyardGameInstance.generated.h"
 
 class UScrapyardDefaultAssets;
@@ -22,17 +23,30 @@ class SCRAPYARD_API UScrapyardGameInstance : public UGameInstance
   GENERATED_BODY()
 
 public:  
+
+// will this get garbage collected? guess not i suppose
+  static UScrapyardGameInstance* GameInstance;
+
   UScrapyardGameInstance();
+
+  UPROPERTY()
+  URobotPartAssets* RobotPartAssetsBP;
+  void InitRobotPartAssetsBP();
+
+  UPROPERTY()
+  FPartDatabase PartDB;
+  void InitPartDB();
+
+  UPROPERTY()
+  UScrapyardDefaultAssets* DefaultAssetsBP;
+  void InitDefaultAssetsBP();
+
+  FManufacturers Manufacturers;
 
   FStreamableManager AssetLoader;
 
-  UPROPERTY()
-  const UScrapyardDefaultAssets* DefaultAssetsBP;
-
 //  UPROPERTY()
 //  URobotPartAssets* RobotPartAssetsBP;
-//  UPROPERTY()
-//  TMap<uint32, URobotPart*> PartDB;
 
 //TODO: shouldn't be stored here because game instance doesn't replicate
   UPROPERTY()
@@ -42,11 +56,5 @@ public:
   URobotPartAssignment* PartAssignment;
 
   AScrapyardGameSession* GetGameSession() const;  
-
-  virtual void Init() override;
-  virtual void Shutdown() override;
-  virtual void StartGameInstance() override;
-
-//  void InitPartDB();
   
 };

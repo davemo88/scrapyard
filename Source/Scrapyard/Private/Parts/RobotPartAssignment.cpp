@@ -2,6 +2,7 @@
 
 
 #include "RobotPartAssignment.h"
+#include "Game/ScrapyardGameInstance.h"
 #include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
@@ -43,11 +44,14 @@ void URobotPartAssignment::SetLegs(ULegsPart* NewLegs)
 
 void URobotPartAssignment::SetDefaultAssignment()
 {
-//TODO maybe a better way
-  SetHead(URobotPart::PartDB.GetPart<UHeadPart>(1000));
-  SetCore(URobotPart::PartDB.GetPart<UCorePart>(2000));
-  SetArms(URobotPart::PartDB.GetPart<UArmsPart>(3000));
-  SetLegs(URobotPart::PartDB.GetPart<ULegsPart>(4000));
+  if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
+    SetHead(GameInstance->PartDB.GetPart<UHeadPart>(1000));
+    SetCore(GameInstance->PartDB.GetPart<UCorePart>(2000));
+    SetArms(GameInstance->PartDB.GetPart<UArmsPart>(3000));
+    SetLegs(GameInstance->PartDB.GetPart<ULegsPart>(4000));
+  }
 }
 
 void URobotPartAssignment::SetAssignment(URobotPartAssignment* NewPartAssignment)
@@ -76,26 +80,26 @@ void URobotPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
   UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
   UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
 
-  if (UHeadPart* NewHead = URobotPart::PartDB.GetPart<UHeadPart>(PartAssignmentIDs.HeadID))
-  {
-    Head = NewHead;
-    HeadAssignmentChangedDelegate.Broadcast(Head);
-  }
-  if (UCorePart* NewCore = URobotPart::PartDB.GetPart<UCorePart>(PartAssignmentIDs.CoreID))
-  {
-    Core = NewCore;
-    CoreAssignmentChangedDelegate.Broadcast(Core);
-  }
-  if (UArmsPart* NewArms = URobotPart::PartDB.GetPart<UArmsPart>(PartAssignmentIDs.ArmsID))
-  {
-    Arms = NewArms;
-    ArmsAssignmentChangedDelegate.Broadcast(Arms);
-  }
-  if (ULegsPart* NewLegs = URobotPart::PartDB.GetPart<ULegsPart>(PartAssignmentIDs.LegsID))
-  {
-    Legs = NewLegs;
-    LegsAssignmentChangedDelegate.Broadcast(Legs);
-  }
+//  if (UHeadPart* NewHead = URobotPart::PartDB.GetPart<UHeadPart>(PartAssignmentIDs.HeadID))
+//  {
+//    Head = NewHead;
+//    HeadAssignmentChangedDelegate.Broadcast(Head);
+//  }
+//  if (UCorePart* NewCore = URobotPart::PartDB.GetPart<UCorePart>(PartAssignmentIDs.CoreID))
+//  {
+//    Core = NewCore;
+//    CoreAssignmentChangedDelegate.Broadcast(Core);
+//  }
+//  if (UArmsPart* NewArms = URobotPart::PartDB.GetPart<UArmsPart>(PartAssignmentIDs.ArmsID))
+//  {
+//    Arms = NewArms;
+//    ArmsAssignmentChangedDelegate.Broadcast(Arms);
+//  }
+//  if (ULegsPart* NewLegs = URobotPart::PartDB.GetPart<ULegsPart>(PartAssignmentIDs.LegsID))
+//  {
+//    Legs = NewLegs;
+//    LegsAssignmentChangedDelegate.Broadcast(Legs);
+//  }
 
   PartAssignmentChangedDelegate.Broadcast();
 }

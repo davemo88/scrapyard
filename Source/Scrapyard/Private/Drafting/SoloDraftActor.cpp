@@ -56,10 +56,10 @@ void ASoloDraftActor::Tick(float DeltaTime)
 
 void ASoloDraftActor::SetupRobotPartPool()
 {
-  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(1000));
-  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(2000));
-  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(3000));
-  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(4000));
+//  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(1000));
+//  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(2000));
+//  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(3000));
+//  RobotPartPool.Add(URobotPart::PartDB.GetPart<URobotPart>(4000));
 }
 
 void ASoloDraftActor::NextPack()

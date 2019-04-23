@@ -86,13 +86,6 @@ class SCRAPYARD_API URobotPart : public UObject
 public:
 
   static URobotPartAssets* RobotPartAssetsBP;
-  static void InitRobotPartAssetsBP();
-
-  static FPartDatabase PartDB;
-  static void InitPartDB();
-
-  static FManufacturers Manufacturers;
-  static void InitManufacturers();
 
   UPROPERTY()
   uint32 PartID;
@@ -147,6 +140,11 @@ struct FPartDatabase
       return Cast<T>(PartMap[PartID]);
     };
     return nullptr;
+  };
+
+  URobotPart* GetPart(uint32 PartID)
+  {
+    return GetPart<URobotPart>(PartID);
   };
 
 protected:
