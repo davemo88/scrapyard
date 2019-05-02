@@ -189,7 +189,7 @@ void ARobotCharacter::SetupBody()
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
 // this is adjustment for capsule half height i believe
-  RobotBodyComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -88.f));
+//  RobotBodyComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -88.f));
 // rotation ?
 // seems like the sketetal mesh is not set up correctly
   RobotBodyComponent->SetRelativeRotation(FRotator(0.0f,-90.0f,0.f));

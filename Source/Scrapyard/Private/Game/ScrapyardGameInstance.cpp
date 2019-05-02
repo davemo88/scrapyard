@@ -13,6 +13,7 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/Manufacturer.h"
 #include "SoloDraft.h"
 
 UScrapyardGameInstance* UScrapyardGameInstance::GameInstance = nullptr;
@@ -22,12 +23,18 @@ UScrapyardGameInstance::UScrapyardGameInstance()
   GameInstance = this;
 // TODO: find the right place for these
   SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
+};
+
+void UScrapyardGameInstance::Init()
+{
+  Super::Init();
 
 //TODO: rename to wigdets
   InitDefaultAssetsBP();
   InitRobotPartAssetsBP();
+  Manufacturers.InitManufacturers();
   InitPartDB();
-};
+}
 
 AScrapyardGameSession* UScrapyardGameInstance::GetGameSession() const
 {

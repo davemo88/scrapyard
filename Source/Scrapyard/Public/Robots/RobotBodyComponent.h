@@ -29,7 +29,9 @@ protected:
 
 // TODO: put these asset refs into a blueprint
 // default skeletal mesh
-  FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
+// UE4 Mannequin
+//  FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
+  FString DefaultMeshPath = "/Game/Robot/robo-skel";
 // https://answers.unrealengine.com/questions/153496/how-to-set-animation-blueprint-in-c.html
   FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
 

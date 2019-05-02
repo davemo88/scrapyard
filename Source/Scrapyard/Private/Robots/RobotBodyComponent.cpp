@@ -21,8 +21,8 @@ URobotBodyComponent::URobotBodyComponent()
 // TODO: put these assets in a blueprint
   static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(*DefaultMeshPath);
   SetSkeletalMesh(DefaultMesh.Object);
-  static ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass> DefaultAnimBP(*DefaultAnimPath);
-  SetAnimInstanceClass(DefaultAnimBP.Object);
+//  static ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass> DefaultAnimBP(*DefaultAnimPath);
+//  SetAnimInstanceClass(DefaultAnimBP.Object);
 
   HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
   CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));

@@ -28,18 +28,20 @@ public:
   static UScrapyardGameInstance* GameInstance;
 
   UScrapyardGameInstance();
+  
+  virtual void Init() override;
 
   UPROPERTY()
   URobotPartAssets* RobotPartAssetsBP;
   void InitRobotPartAssetsBP();
 
   UPROPERTY()
-  FPartDatabase PartDB;
-  void InitPartDB();
-
-  UPROPERTY()
   UScrapyardDefaultAssets* DefaultAssetsBP;
   void InitDefaultAssetsBP();
+
+  UPROPERTY()
+  FPartDatabase PartDB;
+  void InitPartDB();
 
   FManufacturers Manufacturers;
 

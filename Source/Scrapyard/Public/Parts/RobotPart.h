@@ -37,7 +37,17 @@ struct FManufacturers
   UManufacturer* PurpleManufacturer;
 
 //TODO: refactor to allow access to assets blueprints
-  FManufacturers()
+  FManufacturers() {
+    DefaultManufacturer = nullptr;
+    RedManufacturer = nullptr;
+    BlueManufacturer = nullptr;
+    GreenManufacturer = nullptr;
+    OrangeManufacturer = nullptr;
+    PurpleManufacturer = nullptr;
+  };
+
+
+  void InitManufacturers()
   {
     DefaultManufacturer = NewObject<UManufacturer>();
     DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
