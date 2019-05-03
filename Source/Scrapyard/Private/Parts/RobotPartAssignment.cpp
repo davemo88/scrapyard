@@ -47,10 +47,10 @@ void URobotPartAssignment::SetDefaultAssignment()
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
-    SetHead(GameInstance->PartDB.GetPart<UHeadPart>(1000));
-    SetCore(GameInstance->PartDB.GetPart<UCorePart>(2000));
-    SetArms(GameInstance->PartDB.GetPart<UArmsPart>(3000));
-    SetLegs(GameInstance->PartDB.GetPart<ULegsPart>(4000));
+    SetHead(GameInstance->RobotPartSingleton->PartDB.GetPart<UHeadPart>(1000));
+    SetCore(GameInstance->RobotPartSingleton->PartDB.GetPart<UCorePart>(2000));
+    SetArms(GameInstance->RobotPartSingleton->PartDB.GetPart<UArmsPart>(3000));
+    SetLegs(GameInstance->RobotPartSingleton->PartDB.GetPart<ULegsPart>(4000));
   }
 }
 

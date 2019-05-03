@@ -19,63 +19,6 @@ class UTexture2D;
 class UMaterial;
 
 USTRUCT()
-struct FManufacturers
-{
-  GENERATED_BODY()
-
-  UPROPERTY()
-  UManufacturer* DefaultManufacturer;
-  UPROPERTY()
-  UManufacturer* RedManufacturer;
-  UPROPERTY()
-  UManufacturer* BlueManufacturer;
-  UPROPERTY()
-  UManufacturer* GreenManufacturer;
-  UPROPERTY()
-  UManufacturer* OrangeManufacturer;
-  UPROPERTY()
-  UManufacturer* PurpleManufacturer;
-
-//TODO: refactor to allow access to assets blueprints
-  FManufacturers() {
-    DefaultManufacturer = nullptr;
-    RedManufacturer = nullptr;
-    BlueManufacturer = nullptr;
-    GreenManufacturer = nullptr;
-    OrangeManufacturer = nullptr;
-    PurpleManufacturer = nullptr;
-  };
-
-
-  void InitManufacturers()
-  {
-    DefaultManufacturer = NewObject<UManufacturer>();
-    DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
-    DefaultManufacturer->CardBackgroundColor = FLinearColor(0.43f, 0.43f, 43.0f, 1.0f);
-
-    RedManufacturer = NewObject<UManufacturer>();
-    RedManufacturer->ManufacturerName = NSLOCTEXT("SY", "RedCorpName", "Red Corp");
-    RedManufacturer->CardBackgroundColor = FLinearColor(385.0f, 0.0f, 0.0f, 1.0f);
-
-    BlueManufacturer = NewObject<UManufacturer>();
-    BlueManufacturer->ManufacturerName = NSLOCTEXT("SY", "BlueCorpName", "Blue Corp");
-    BlueManufacturer->CardBackgroundColor = FLinearColor(0.0f, 0.0f, 500.0f, 1.0f);
-
-    GreenManufacturer = NewObject<UManufacturer>();
-    GreenManufacturer->ManufacturerName = NSLOCTEXT("SY", "GreenCorpName", "Green Corp");
-    GreenManufacturer->CardBackgroundColor = FLinearColor(0.0f, 385.0f, 0.0f, 1.0f);
-    
-    OrangeManufacturer = NewObject<UManufacturer>();
-    OrangeManufacturer->ManufacturerName = NSLOCTEXT("SY", "OrangeCorpName", "Orange Corp");
-    OrangeManufacturer->CardBackgroundColor = FLinearColor(1.0f, 0.29f, 0.0f, 1.0f);
-
-    PurpleManufacturer = NewObject<UManufacturer>();
-    PurpleManufacturer->ManufacturerName = NSLOCTEXT("SY", "PurpleCorpName", "Purple Corp");
-    PurpleManufacturer->CardBackgroundColor = FLinearColor(1.0f, 0.0f, 72.0f, 1.0f);
-  };
-};
-
-USTRUCT()
 struct FStatText {
   GENERATED_BODY()
 
@@ -132,34 +75,3 @@ public:
 
 };
 
-USTRUCT()
-struct FPartDatabase
-{
-  GENERATED_BODY()
-
-  void AddPart(URobotPart* NewPart)
-  {
-    PartMap.Add(NewPart->PartID, NewPart);
-  };
-
-  template <class T>
-  T* GetPart(uint32 PartID)
-  {
-    if (PartMap.Find(PartID))
-    {
-      return Cast<T>(PartMap[PartID]);
-    };
-    return nullptr;
-  };
-
-  URobotPart* GetPart(uint32 PartID)
-  {
-    return GetPart<URobotPart>(PartID);
-  };
-
-protected:
-
-  UPROPERTY()
-  TMap<uint32, URobotPart*> PartMap;
-
-};

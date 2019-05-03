@@ -7,6 +7,7 @@
 #include "Engine/Texture2D.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StreamableManager.h"
+#include "Animation/AnimInstance.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/SoftObjectPtr.h"
 #include "RobotPartAssets.generated.h"
@@ -34,6 +35,12 @@ public:
     }
     return nullptr;
   }
+
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> RobotSkeletalMesh;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<UAnimInstance> RobotAnimInstance;
 
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HeadPart_Default_SkeletalMesh;

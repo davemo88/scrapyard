@@ -7,6 +7,7 @@
 #include "Engine/GameInstance.h"
 #include "Engine/StreamableManager.h"
 #include "Parts/RobotPart.h"
+#include "Parts/RobotPartSingleton.h"
 #include "ScrapyardGameInstance.generated.h"
 
 class UScrapyardDefaultAssets;
@@ -32,27 +33,17 @@ public:
   virtual void Init() override;
 
   UPROPERTY()
-  URobotPartAssets* RobotPartAssetsBP;
-  void InitRobotPartAssetsBP();
-
-  UPROPERTY()
   UScrapyardDefaultAssets* DefaultAssetsBP;
   void InitDefaultAssetsBP();
 
-  UPROPERTY()
-  FPartDatabase PartDB;
-  void InitPartDB();
-
-  FManufacturers Manufacturers;
-
   FStreamableManager AssetLoader;
-
-//  UPROPERTY()
-//  URobotPartAssets* RobotPartAssetsBP;
 
 //TODO: shouldn't be stored here because game instance doesn't replicate
   UPROPERTY()
   USoloDraft* SoloDraft;
+
+  UPROPERTY()
+  URobotPartSingleton* RobotPartSingleton;
 
   UPROPERTY()
   URobotPartAssignment* PartAssignment;

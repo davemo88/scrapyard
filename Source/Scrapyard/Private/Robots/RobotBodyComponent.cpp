@@ -6,6 +6,8 @@
 #include "Animation/AnimBlueprintGeneratedClass.h"
 #include "Robots/RobotPartComponent.h"
 #include "Parts/RobotPartAssignment.h"
+#include "Parts/RobotPart.h"
+#include "Parts/RobotPartAssets.h"
 #include "Abilities/HitscanAbility.h"
 
 
@@ -17,12 +19,12 @@ URobotBodyComponent::URobotBodyComponent()
   PrimaryComponentTick.bCanEverTick = true;
 
   bVisible = false;
-  
-// TODO: put these assets in a blueprint
-  static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(*DefaultMeshPath);
-  SetSkeletalMesh(DefaultMesh.Object);
-//  static ConstructorHelpers::FObjectFinder<UAnimBlueprintGeneratedClass> DefaultAnimBP(*DefaultAnimPath);
-//  SetAnimInstanceClass(DefaultAnimBP.Object);
+
+  if (URobotPart::RobotPartAssetsBP != nullptr)
+  {
+    SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::RobotPartAssetsBP->RobotSkeletalMesh));
+    SetAnimInstanceClass(URobotPart::RobotPartAssetsBP->RobotAnimInstance);
+  }
 
   HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
   CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));
