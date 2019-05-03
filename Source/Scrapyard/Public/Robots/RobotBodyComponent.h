@@ -17,7 +17,7 @@ class UHandheldPart;
 class URobotPartAssignment;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class SCRAPYARD_API URobotBodyComponent : public USkeletalMeshComponent
+class SCRAPYARD_API URobotBodyComponent : public USceneComponent
 {
   GENERATED_BODY()
   // Sets default values for this component's properties
@@ -27,15 +27,9 @@ protected:
   // Called when the game starts
   virtual void BeginPlay() override;
 
-// TODO: put these asset refs into a blueprint
-// default skeletal mesh
-// UE4 Mannequin
-//  FString DefaultMeshPath = "/Game/Mannequin/Mesh/SK_Mannequin";
-  FString DefaultMeshPath = "/Game/Robot/robo-skel";
-// https://answers.unrealengine.com/questions/153496/how-to-set-animation-blueprint-in-c.html
-  FString DefaultAnimPath = "AnimBlueprintGeneratedClass'/Game/Mannequin/Animations/MannequinAnimBlueprint.MannequinAnimBlueprint_C'";
-
 public:  
+
+  void SetMasterPoseComponent(USkeletalMeshComponent* MasterPoseComponent);
 
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartAssignment* PartAssignment;
@@ -57,6 +51,5 @@ public:
 
   UPROPERTY()
   UChildActorComponent* WeaponAbilityComponent;
-
 
 };

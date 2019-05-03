@@ -113,7 +113,6 @@ void ARobotCharacter::Tick(float DeltaTime)
     bTargetAcquired = RobotTargetingComponent->IsTargetAcquired();
   }
 
-
 }
 
 // Called to bind functionality to input
@@ -185,9 +184,22 @@ void ARobotCharacter::SetupCamera()
 
 void ARobotCharacter::SetupBody()
 {
+  USkeletalMeshComponent* MeshComponent = GetMesh();
+
+  MeshComponent->bVisible = false;
+
+  if (URobotPart::RobotPartAssetsBP != nullptr)
+  {
+    MeshComponent->SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::RobotPartAssetsBP->RobotSkeletalMesh));
+    MeshComponent->SetAnimInstanceClass(URobotPart::RobotPartAssetsBP->RobotAnimInstance);
+  }
+  
   RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
+
+  RobotBodyComponent->SetMasterPoseComponent(MeshComponent);
+
 // this is adjustment for capsule half height i believe
 //  RobotBodyComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -88.f));
 // rotation ?
