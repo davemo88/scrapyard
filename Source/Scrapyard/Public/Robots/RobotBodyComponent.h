@@ -17,7 +17,7 @@ class UHandheldPart;
 class URobotPartAssignment;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class SCRAPYARD_API URobotBodyComponent : public USceneComponent
+class SCRAPYARD_API URobotBodyComponent : public USkeletalMeshComponent
 {
   GENERATED_BODY()
   // Sets default values for this component's properties
@@ -29,7 +29,7 @@ protected:
 
 public:  
 
-  void SetMasterPoseComponent(USkeletalMeshComponent* MasterPoseComponent);
+//  void SetMasterPoseComponent(USkeletalMeshComponent* MasterPoseComponent);
 
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartAssignment* PartAssignment;

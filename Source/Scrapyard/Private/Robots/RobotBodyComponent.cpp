@@ -18,13 +18,13 @@ URobotBodyComponent::URobotBodyComponent()
   // off to improve performance if you don't need them.
   PrimaryComponentTick.bCanEverTick = true;
 
-//  bVisible = false;
+  bVisible = false;
 
-//  if (URobotPart::RobotPartAssetsBP != nullptr)
-//  {
-//    SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::RobotPartAssetsBP->RobotSkeletalMesh));
-//    SetAnimInstanceClass(URobotPart::RobotPartAssetsBP->RobotAnimInstance);
-//  }
+  if (URobotPart::RobotPartAssetsBP != nullptr)
+  {
+    SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::RobotPartAssetsBP->RobotSkeletalMesh));
+    SetAnimInstanceClass(URobotPart::RobotPartAssetsBP->RobotAnimInstance);
+  }
 
   HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
   CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));
@@ -37,6 +37,11 @@ URobotBodyComponent::URobotBodyComponent()
   ArmsComponent->SetupAttachment(this);
   LegsComponent->SetupAttachment(this);
   RightHandheldComponent->SetupAttachment(this);
+
+  HeadComponent->SetMasterPoseComponent(this);
+  CoreComponent->SetMasterPoseComponent(this);
+  ArmsComponent->SetMasterPoseComponent(this);
+  LegsComponent->SetMasterPoseComponent(this);
 
   PartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("PartAssignment"));
   
@@ -61,14 +66,5 @@ void URobotBodyComponent::BeginPlay()
 
   // ...
   
-}
-
-void URobotBodyComponent::SetMasterPoseComponent(USkeletalMeshComponent* MasterPoseComponent)
-{
-  HeadComponent->SetMasterPoseComponent(MasterPoseComponent);
-  CoreComponent->SetMasterPoseComponent(MasterPoseComponent);
-  ArmsComponent->SetMasterPoseComponent(MasterPoseComponent);
-  LegsComponent->SetMasterPoseComponent(MasterPoseComponent);
-//  RightHandheldComponent->SetMasterPoseComponent(MasterPoseComponent);
 }
 

@@ -69,14 +69,6 @@ public:
   UFUNCTION()
   void BoostHoldTimerExpired();
   
-  enum ScrapyardMovementModes
-  {
-    MOVE_GroundBoost   = 0x01,
-    MOVE_AirBoost      = 0x02,
-    MOVE_GroundDash    = 0x04,
-    MOVE_AirDash       = 0x08,
-  };
-
 protected:
 
 //NOTE: want this to be const

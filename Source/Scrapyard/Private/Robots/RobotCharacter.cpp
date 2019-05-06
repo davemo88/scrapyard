@@ -184,21 +184,9 @@ void ARobotCharacter::SetupCamera()
 
 void ARobotCharacter::SetupBody()
 {
-  USkeletalMeshComponent* MeshComponent = GetMesh();
-
-  MeshComponent->bVisible = false;
-
-  if (URobotPart::RobotPartAssetsBP != nullptr)
-  {
-    MeshComponent->SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::RobotPartAssetsBP->RobotSkeletalMesh));
-    MeshComponent->SetAnimInstanceClass(URobotPart::RobotPartAssetsBP->RobotAnimInstance);
-  }
-  
   RobotBodyComponent = CreateDefaultSubobject<URobotBodyComponent>(TEXT("RobotBodyComponent"));
   RootComponent = GetRootComponent();
   RobotBodyComponent->SetupAttachment(RootComponent);
-
-  RobotBodyComponent->SetMasterPoseComponent(MeshComponent);
 
 // this is adjustment for capsule half height i believe
 //  RobotBodyComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -88.f));
@@ -564,13 +552,3 @@ void ARobotCharacter::OnTargetableRemoved(AActor* Actor)
   }
 }
 
-// Targetable Interface
-//bool ARobotCharacter::IsTargetableBy(AActor* OtherActor)
-//{
-//  if (ARobotCharacter* OtherRobotCharacter = Cast<ARobotCharacter>(OtherActor))
-//  {
-//    return Team != OtherRobotCharacter->Team;
-//  }
-//
-//  return false;
-//}
