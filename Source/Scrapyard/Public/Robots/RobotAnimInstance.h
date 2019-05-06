@@ -4,17 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "Robots/RobotMovementComponent.h"
 #include "RobotAnimInstance.generated.h"
-
-UENUM(BlueprintType)
-enum class ERobotMovementState : uint8
-{
-  MOVE_Idle     UMETA(DisplayName="Idle"),
-  MOVE_Walk     UMETA(DisplayName="Walk"),
-  MOVE_Fly      UMETA(DisplayName="Fly"),
-  MOVE_Fall     UMETA(DisplayName="Fall"),
-  MOVE_Land     UMETA(DisplayName="Land")
-};
 
 /**
  * 
@@ -30,10 +21,10 @@ public:
 
 protected:
 
-  UFUNCTION(BlueprintCallable)
+  UFUNCTION()
   void UpdateMovementState();
 
-  UPROPERTY(BlueprintReadWrite)
+  UPROPERTY(BlueprintReadOnly)
   ERobotMovementState MovementState;
 	
 };

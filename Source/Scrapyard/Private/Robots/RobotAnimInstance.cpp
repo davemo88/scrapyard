@@ -3,12 +3,13 @@
 
 #include "RobotAnimInstance.h"
 #include "Robots/RobotCharacter.h"
+#include "Robots/RobotMovementComponent.h"
 
 void URobotAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::NativeUpdateAnimation"), *GetName());
-//  Super::NativeUpdateAnimation(DeltaSeconds);
-//  UpdateMovementState();
+  Super::NativeUpdateAnimation(DeltaSeconds);
+  UpdateMovementState();
 //  MovementState = ERobotMovementState::MOVE_Walk;
   UE_LOG(LogTemp, Warning, TEXT("Movement State: %i"), MovementState);
   
@@ -16,15 +17,13 @@ void URobotAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 void URobotAnimInstance::UpdateMovementState()
 {
+//TODO: maybe set some refs to these so don't have to cast all the time
   if (ARobotCharacter* RoboChar = Cast<ARobotCharacter>(TryGetPawnOwner()))
   {
-    UE_LOG(LogTemp, Warning, TEXT("anim instance char ok"));
-    UCharacterMovementComponent* MovementComponent = RoboChar->GetCharacterMovement();
-    if (MovementComponent->IsWalking()) 
+    URobotMovementComponent* MovementComponent = Cast<URobotMovementComponent>(RoboChar->GetCharacterMovement());
+    if (MovementComponent)
     {
-      float Speed = RoboChar->GetVelocity().Size();
-      UE_LOG(LogTemp, Warning, TEXT("anim instance char walking - speed %f"), Speed);
-      MovementState = Speed > 0.0f ? ERobotMovementState::MOVE_Walk : ERobotMovementState::MOVE_Idle;
+      MovementState = MovementComponent->GetMovementState();
     }
   }
 }

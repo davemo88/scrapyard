@@ -8,6 +8,16 @@
 #include "Robots/RobotStats.h"
 #include "RobotMovementComponent.generated.h"
 
+UENUM(BlueprintType)
+enum class ERobotMovementState : uint8
+{
+  MOVE_Idle     UMETA(DisplayName="Idle"),
+  MOVE_Walk     UMETA(DisplayName="Walk"),
+  MOVE_Fly      UMETA(DisplayName="Fly"),
+  MOVE_Fall     UMETA(DisplayName="Fall"),
+  MOVE_Land     UMETA(DisplayName="Land")
+};
+
 USTRUCT()
 struct FNewTuneParams
 {
@@ -68,8 +78,14 @@ public:
 
   UFUNCTION()
   void BoostHoldTimerExpired();
+
+  ERobotMovementState GetMovementState();
   
 protected:
+
+  ERobotMovementState MovementState;
+
+  void UpdateMovementState();
 
 //NOTE: want this to be const
   UPROPERTY(EditAnywhere)
