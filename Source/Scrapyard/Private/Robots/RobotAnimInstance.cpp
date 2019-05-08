@@ -7,11 +7,10 @@
 
 void URobotAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeUpdateAnimation"), *GetName());
+//  UE_LOG(LogTemp, Warning, TEXT("%s::NativeUpdateAnimation"), *GetName());
   Super::NativeUpdateAnimation(DeltaSeconds);
   UpdateMovementState();
-//  MovementState = ERobotMovementState::MOVE_Walk;
-  UE_LOG(LogTemp, Warning, TEXT("Movement State: %i"), MovementState);
+//  UE_LOG(LogTemp, Warning, TEXT("Movement State: %i"), MovementState);
   
 }
 

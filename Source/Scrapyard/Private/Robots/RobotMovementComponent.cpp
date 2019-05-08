@@ -63,6 +63,33 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 
 }
 
+void URobotMovementComponent::OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode)
+{
+  Super::OnMovementModeChanged(PreviousMovementMode, PreviousCustomMode);
+
+  if (PreviousMovementMode == MOVE_Falling && MovementMode == MOVE_Walking)
+  {
+    if (RobotChar != nullptr)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("%s::OnMovementModeChanged - setting landing timer"), *GetName());
+      MovementState = ERobotMovementState::MOVE_Land;
+      RobotChar->GetController()->SetIgnoreMoveInput(true);
+      RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, 1.0f);
+    }
+  }
+}
+
+void URobotMovementComponent::OnLandingTimerExpired()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnLandingTimerExpired"), *GetName());
+  MovementState = ERobotMovementState::MOVE_Walk;
+  if (RobotChar != nullptr)
+  {
+    RobotChar->GetController()->ResetIgnoreMoveInput();
+    RobotChar->GetWorldTimerManager().ClearTimer(LandingTimerHandle);
+  }
+}
+
 void URobotMovementComponent::UpdateMovementState()
 {
   if (RobotChar != nullptr)
@@ -71,7 +98,11 @@ void URobotMovementComponent::UpdateMovementState()
     if (IsWalking()) 
     {
 //      UE_LOG(LogTemp, Warning, TEXT("anim instance char walking - speed %f"), Speed);
-      MovementState = Speed > 0.0f ? ERobotMovementState::MOVE_Walk : ERobotMovementState::MOVE_Idle;
+// if landing, wait for timer to run out
+      if (MovementState != ERobotMovementState::MOVE_Land)
+      {
+        MovementState = Speed > 0.0f ? ERobotMovementState::MOVE_Walk : ERobotMovementState::MOVE_Idle;
+      }
     }
     else if (IsFalling())
     {
@@ -187,7 +218,7 @@ void URobotMovementComponent::HandleBoosting()
       if (IsFlying() || IsFalling())
       {
 // TODO: boost velocity should depend on robot stats
-        Velocity.Z = JumpZVelocity;
+        Velocity.Z = JumpZVelocity/2.0f;
         SetMovementMode(MOVE_Flying); 
       }
 
@@ -209,7 +240,6 @@ void URobotMovementComponent::HandleBoosting()
       RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 5);
     }
   }
-
 }
 
 float URobotMovementComponent::GetMaxSpeed() const

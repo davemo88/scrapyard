@@ -13,6 +13,7 @@ enum class ERobotMovementState : uint8
 {
   MOVE_Idle     UMETA(DisplayName="Idle"),
   MOVE_Walk     UMETA(DisplayName="Walk"),
+  MOVE_Boost    UMETA(DisplayName="Boost"),
   MOVE_Fly      UMETA(DisplayName="Fly"),
   MOVE_Fall     UMETA(DisplayName="Fall"),
   MOVE_Land     UMETA(DisplayName="Land")
@@ -83,6 +84,8 @@ public:
   
 protected:
 
+  virtual void OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode) override;
+
   ERobotMovementState MovementState;
 
   void UpdateMovementState();
@@ -91,9 +94,14 @@ protected:
   UPROPERTY(EditAnywhere)
   float MassNormalizer;
 
+  ARobotCharacter* RobotChar;
+
+  FTimerHandle LandingTimerHandle;
+
+  void OnLandingTimerExpired();
+
   friend class URobotTunerWidget;
   
-  ARobotCharacter* RobotChar;
 
 };
 

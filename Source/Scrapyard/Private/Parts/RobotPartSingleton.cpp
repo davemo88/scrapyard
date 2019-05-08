@@ -107,7 +107,7 @@ TArray<URobotPart*> URobotPartSingleton::GetDefaultParts()
       1000,
       500,
       500,
-      10));
+      1));
   DefaultParts.Add(
     UArmsPart::NewArms(
       3000,
