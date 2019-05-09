@@ -29,6 +29,8 @@ protected:
 
 public:  
 
+  void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction);
+
 //  void SetMasterPoseComponent(USkeletalMeshComponent* MasterPoseComponent);
 
   UPROPERTY(EditAnywhere, BlueprintReadOnly)

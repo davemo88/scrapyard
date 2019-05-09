@@ -21,10 +21,13 @@ public:
 
 protected:
 
-  UFUNCTION()
   void UpdateMovementState();
+  void UpdateBodyRotation();
 
   UPROPERTY(BlueprintReadOnly)
   ERobotMovementState MovementState;
-	
+
+  UPROPERTY(BlueprintReadOnly)
+  FRotator BodyRotation;
+
 };

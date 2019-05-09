@@ -8,6 +8,7 @@
 #include "Parts/RobotPartAssignment.h"
 #include "Parts/RobotPart.h"
 #include "Parts/RobotPartAssets.h"
+#include "Robots/RobotCharacter.h"
 #include "Abilities/HitscanAbility.h"
 
 
@@ -68,3 +69,8 @@ void URobotBodyComponent::BeginPlay()
   
 }
 
+void URobotBodyComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+  Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+}

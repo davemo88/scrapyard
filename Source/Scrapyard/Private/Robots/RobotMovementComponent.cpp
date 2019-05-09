@@ -81,6 +81,8 @@ void URobotMovementComponent::OnMovementModeChanged(EMovementMode PreviousMoveme
       RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, 1.0f);
       if (RobotChar->IsLocallyControlled())
       {
+// BUG: could they cheat by somehow sending input anyway
+// i.e. set IgnoreMoveInput on Server as well to prevent that
         RobotChar->GetController()->SetIgnoreMoveInput(true);
       }
     }
@@ -126,14 +128,11 @@ void URobotMovementComponent::UpdateRobotMovementState()
     }
     else if (IsFalling())
     {
-      UE_LOG(LogTemp, Warning, TEXT("anim instance char falling - speed %f"), Speed);
       SetRobotMovementState(ERobotMovementState::MOVE_Fall);
-//      MovementState = ERobotMovementState::MOVE_Fall;
     }
     else if (IsFlying())
     {
       SetRobotMovementState(ERobotMovementState::MOVE_Fly);
-//      MovementState = ERobotMovementState::MOVE_Fly;
     }
   }
 }
