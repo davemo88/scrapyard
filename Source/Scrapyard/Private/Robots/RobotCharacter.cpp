@@ -35,9 +35,11 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   SetupBody();
   SetupStats();
 
-// allow flying movement
-// why is this here as well as the movement component in the initializer list
-  UCharacterMovementComponent* MovementComponent = Cast<UCharacterMovementComponent>(GetCharacterMovement());
+  if (URobotMovementComponent* RobotMovementComponent = Cast<URobotMovementComponent>(GetCharacterMovement()))
+  {
+    RobotMovementComponent->SetNetAddressable();
+    RobotMovementComponent->SetIsReplicated(true); 
+  }
 
   RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
   RobotTargetingComponent->SetupAttachment(RootComponent);

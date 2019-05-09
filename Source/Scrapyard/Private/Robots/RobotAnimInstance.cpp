@@ -22,7 +22,7 @@ void URobotAnimInstance::UpdateMovementState()
     URobotMovementComponent* MovementComponent = Cast<URobotMovementComponent>(RoboChar->GetCharacterMovement());
     if (MovementComponent)
     {
-      MovementState = MovementComponent->GetMovementState();
+      MovementState = MovementComponent->GetRobotMovementState();
     }
   }
 }

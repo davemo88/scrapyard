@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "Player/RobotPlayerController.h"
 #include "TimerManager.h"
+#include "UnrealNetwork.h"
 
 URobotMovementComponent::URobotMovementComponent()
 {
@@ -59,7 +60,10 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 
   HandleBoosting();
 
-  UpdateMovementState();
+  if (RobotChar != nullptr && RobotChar->HasAuthority())
+  {
+    UpdateRobotMovementState();
+  }
 
 }
 
@@ -72,7 +76,8 @@ void URobotMovementComponent::OnMovementModeChanged(EMovementMode PreviousMoveme
     if (RobotChar != nullptr)
     {
       UE_LOG(LogTemp, Warning, TEXT("%s::OnMovementModeChanged - setting landing timer"), *GetName());
-      MovementState = ERobotMovementState::MOVE_Land;
+//      MovementState = ERobotMovementState::MOVE_Land;
+      SetRobotMovementState(ERobotMovementState::MOVE_Land);
       RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, 1.0f);
       if (RobotChar->IsLocallyControlled())
       {
@@ -85,7 +90,8 @@ void URobotMovementComponent::OnMovementModeChanged(EMovementMode PreviousMoveme
 void URobotMovementComponent::OnLandingTimerExpired()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnLandingTimerExpired"), *GetName());
-  MovementState = ERobotMovementState::MOVE_Walk;
+//  MovementState = ERobotMovementState::MOVE_Walk;
+  SetRobotMovementState(ERobotMovementState::MOVE_Walk);
   if (RobotChar != nullptr)
   {
     RobotChar->GetWorldTimerManager().ClearTimer(LandingTimerHandle);
@@ -96,7 +102,7 @@ void URobotMovementComponent::OnLandingTimerExpired()
   }
 }
 
-void URobotMovementComponent::UpdateMovementState()
+void URobotMovementComponent::UpdateRobotMovementState()
 {
   if (RobotChar != nullptr)
   {
@@ -105,26 +111,44 @@ void URobotMovementComponent::UpdateMovementState()
     {
 //      UE_LOG(LogTemp, Warning, TEXT("anim instance char walking - speed %f"), Speed);
 // if landing, wait for timer to run out
-      if (MovementState != ERobotMovementState::MOVE_Land)
+      if (RobotMovementState != ERobotMovementState::MOVE_Land)
       {
-        MovementState = Speed > 0.0f ? ERobotMovementState::MOVE_Walk : ERobotMovementState::MOVE_Idle;
+        if (Speed > 0.0f)
+        {
+          SetRobotMovementState(ERobotMovementState::MOVE_Walk);
+        }
+        else
+        {
+          SetRobotMovementState(ERobotMovementState::MOVE_Idle);
+        }
+//        MovementState = Speed > 0.0f ? ERobotMovementState::MOVE_Walk : ERobotMovementState::MOVE_Idle;
       }
     }
     else if (IsFalling())
     {
       UE_LOG(LogTemp, Warning, TEXT("anim instance char falling - speed %f"), Speed);
-      MovementState = ERobotMovementState::MOVE_Fall;
+      SetRobotMovementState(ERobotMovementState::MOVE_Fall);
+//      MovementState = ERobotMovementState::MOVE_Fall;
     }
     else if (IsFlying())
     {
-      MovementState = ERobotMovementState::MOVE_Fly;
+      SetRobotMovementState(ERobotMovementState::MOVE_Fly);
+//      MovementState = ERobotMovementState::MOVE_Fly;
     }
   }
 }
 
-ERobotMovementState URobotMovementComponent::GetMovementState()
+ERobotMovementState URobotMovementComponent::GetRobotMovementState()
 {
-  return MovementState;
+  return RobotMovementState;
+}
+
+void URobotMovementComponent::SetRobotMovementState(ERobotMovementState NewRobotMovementState)
+{
+  if (RobotChar != nullptr && RobotChar->HasAuthority())
+  {
+    RobotMovementState = NewRobotMovementState;
+  }
 }
 
 void URobotMovementComponent::SetRobotChar(ARobotCharacter* NewRobotChar)
@@ -356,3 +380,9 @@ FSavedMovePtr FNetworkPredictionData_Client_Robot::AllocateNewMove()
   return FSavedMovePtr(new FSavedMove_Robot()); 
 }
 
+void URobotMovementComponent::GetLifetimeReplicatedProps(TArray <class FLifetimeProperty> & OutLifetimeProps) const
+{
+  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+  DOREPLIFETIME(URobotMovementComponent, RobotMovementState);
+}

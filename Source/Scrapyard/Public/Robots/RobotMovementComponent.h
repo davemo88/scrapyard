@@ -80,15 +80,18 @@ public:
   UFUNCTION()
   void BoostHoldTimerExpired();
 
-  ERobotMovementState GetMovementState();
+  ERobotMovementState GetRobotMovementState();
+
+  void SetRobotMovementState(ERobotMovementState NewRobotMovementState);
   
 protected:
 
   virtual void OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode) override;
 
-  ERobotMovementState MovementState;
+  UPROPERTY(Replicated)
+  ERobotMovementState RobotMovementState;
 
-  void UpdateMovementState();
+  void UpdateRobotMovementState();
 
 //NOTE: want this to be const
   UPROPERTY(EditAnywhere)
