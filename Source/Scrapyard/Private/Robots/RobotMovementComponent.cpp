@@ -73,8 +73,11 @@ void URobotMovementComponent::OnMovementModeChanged(EMovementMode PreviousMoveme
     {
       UE_LOG(LogTemp, Warning, TEXT("%s::OnMovementModeChanged - setting landing timer"), *GetName());
       MovementState = ERobotMovementState::MOVE_Land;
-      RobotChar->GetController()->SetIgnoreMoveInput(true);
       RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, 1.0f);
+      if (RobotChar->IsLocallyControlled())
+      {
+        RobotChar->GetController()->SetIgnoreMoveInput(true);
+      }
     }
   }
 }
@@ -85,8 +88,11 @@ void URobotMovementComponent::OnLandingTimerExpired()
   MovementState = ERobotMovementState::MOVE_Walk;
   if (RobotChar != nullptr)
   {
-    RobotChar->GetController()->ResetIgnoreMoveInput();
     RobotChar->GetWorldTimerManager().ClearTimer(LandingTimerHandle);
+    if (RobotChar->IsLocallyControlled())
+    {
+      RobotChar->GetController()->ResetIgnoreMoveInput();
+    }
   }
 }
 
