@@ -18,11 +18,13 @@ class SCRAPYARD_API URobotAnimInstance : public UAnimInstance
 public:
 
   virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+  
+  virtual void NativePostEvaluateAnimation() override;
 
 protected:
 
-  void UpdateMovementState();
-  void UpdateBodyRotation();
+  void UpdateMovementState(float DeltaSeconds);
+  void UpdateBodyRotation(float DeltaSeconds);
 
   UPROPERTY(BlueprintReadOnly)
   ERobotMovementState MovementState;
