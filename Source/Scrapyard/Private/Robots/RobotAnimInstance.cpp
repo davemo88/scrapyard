@@ -49,7 +49,7 @@ void URobotAnimInstance::UpdateBodyRotation(float DeltaSeconds)
 
     FVector RelAccel = Owner->GetActorRotation().UnrotateVector(Accel);
 
-    float TiltMax = 10.0f;
+    float TiltMax = 8.0f;
 
     float TargetPitch = FMath::Clamp(RelAccel.X/50.0f,-TiltMax,TiltMax);
     float TargetRoll = FMath::Clamp(RelAccel.Y/50.0f,-TiltMax,TiltMax);

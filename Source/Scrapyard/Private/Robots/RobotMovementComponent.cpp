@@ -28,6 +28,8 @@ URobotMovementComponent::URobotMovementComponent()
   LandingSpeedThreshold = -600.0f;
   LandingTime = 1.0f;
 
+  SmoothLandingTime = 0.5f;
+
 }
 
 void URobotMovementComponent::BeginPlay()
@@ -75,7 +77,7 @@ void URobotMovementComponent::Landed(const FHitResult & Hit)
   UE_LOG(LogTemp, Warning, TEXT("Robot Velocity = %s"), *RobotChar->GetVelocity().ToString());
   if (RobotChar && RobotChar->GetVelocity().Z < LandingSpeedThreshold)
   {
-    UE_LOG(LogTemp, Warning, TEXT("Below Landing LandingSpeedThreshold"));
+    UE_LOG(LogTemp, Warning, TEXT("Rough Landing"));
     SetRobotMovementState(ERobotMovementState::MOVE_Land);
     RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, LandingTime);
     if (RobotChar->GetController())
@@ -83,11 +85,11 @@ void URobotMovementComponent::Landed(const FHitResult & Hit)
       RobotChar->GetController()->SetIgnoreMoveInput(true);
     }
   }
-}
-
-void URobotMovementComponent::OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode)
-{
-  Super::OnMovementModeChanged(PreviousMovementMode, PreviousCustomMode);
+  else if (RobotChar)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("Smooth Landing"));
+    RobotChar->GetWorldTimerManager().SetTimer(SmoothLandingTimerHandle, this, &URobotMovementComponent::OnSmoothLandingTimerExpired, SmoothLandingTime);
+  }
 }
 
 void URobotMovementComponent::OnLandingTimerExpired()
@@ -105,11 +107,20 @@ void URobotMovementComponent::OnLandingTimerExpired()
   }
 }
 
+void URobotMovementComponent::OnSmoothLandingTimerExpired()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnSmoothLandingTimerExpired"), *GetName());
+  if (RobotChar != nullptr)
+  {
+    RobotChar->GetWorldTimerManager().ClearTimer(SmoothLandingTimerHandle);
+  }
+}
+
 void URobotMovementComponent::UpdateRobotMovementState()
 {
   if (RobotChar != nullptr)
   {
-//    UE_LOG(LogTemp, Warning, TEXT("RobotMovementState: %i"), RobotMovementState);
+//    UE_LOG(LogTemp, Warning, TEXT("Beginning RobotMovementState: %i"), RobotMovementState);
     float Speed = RobotChar->GetVelocity().Size();
     if (IsWalking()) 
     {
@@ -130,7 +141,7 @@ void URobotMovementComponent::UpdateRobotMovementState()
         }
         else
         {
-          UE_LOG(LogTemp, Warning, TEXT("anim instance setting MOVE_Idle %i"),ERobotMovementState::MOVE_Idle);
+//          UE_LOG(LogTemp, Warning, TEXT("anim instance setting MOVE_Idle %i"),ERobotMovementState::MOVE_Idle);
           SetRobotMovementState(ERobotMovementState::MOVE_Idle);
         }
       }
@@ -151,6 +162,7 @@ void URobotMovementComponent::UpdateRobotMovementState()
       SetRobotMovementState(ERobotMovementState::MOVE_Fly);
     }
   }
+//  UE_LOG(LogTemp, Warning, TEXT("Ending RobotMovementState: %i"), RobotMovementState);
 }
 
 ERobotMovementState URobotMovementComponent::GetRobotMovementState()
@@ -194,9 +206,15 @@ void URobotMovementComponent::CheckBoostInput()
     {
       if (IsWalking())
       {
+        if (SmoothLandingTimerHandle.IsValid())
+        {
+          StartBoosting();
+        }
+        else
+        {
         UE_LOG(LogTemp, Warning, TEXT("%s::CheckBoostInput- Set Timer"), *GetName());
         Char->GetWorld()->GetTimerManager().SetTimer(BoostHoldTimerHandle, this, &URobotMovementComponent::BoostHoldTimerExpired, BoostHoldThresholdTime, false);
-
+        }
       }
       else if (IsFalling())
       {
@@ -245,6 +263,11 @@ void URobotMovementComponent::StartBoosting()
 void URobotMovementComponent::StopBoosting()
 {
   bBoosting = false;
+
+  if (RobotMovementState == ERobotMovementState::MOVE_Boost)
+  {
+    SetRobotMovementState(ERobotMovementState::MOVE_Walk);
+  }
 }
 
 void URobotMovementComponent::HandleBoosting()
@@ -286,12 +309,12 @@ void URobotMovementComponent::HandleBoosting()
     }
     else if (IsWalking())
     {
-      SetRobotMovementState(ERobotMovementState::MOVE_Walk);
+//      SetRobotMovementState(ERobotMovementState::MOVE_Walk);
     }
 
     if (RobotChar->HasAuthority())
     {
-      RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 5);
+      RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 1);
     }
   }
 }

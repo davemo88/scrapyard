@@ -88,30 +88,30 @@ public:
   
 protected:
 
-  virtual void OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode) override;
+  ARobotCharacter* RobotChar;
 
   UPROPERTY(Replicated)
   ERobotMovementState RobotMovementState;
 
   void UpdateRobotMovementState();
 
-//NOTE: want this to be const
   UPROPERTY(EditAnywhere)
   float MassNormalizer;
   UPROPERTY(EditAnywhere)
   float LandingSpeedThreshold;
   UPROPERTY(EditAnywhere)
   float LandingTime;
+  UPROPERTY(EditAnywhere)
+  float SmoothLandingTime;
 
-
-  ARobotCharacter* RobotChar;
 
   FTimerHandle LandingTimerHandle;
-
   void OnLandingTimerExpired();
 
+  FTimerHandle  SmoothLandingTimerHandle;
+  void OnSmoothLandingTimerExpired();
+
   friend class URobotTunerWidget;
-  
 
 };
 
