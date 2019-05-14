@@ -60,11 +60,10 @@ void URobotAnimInstance::UpdateBodyRotation(float DeltaSeconds)
 
     NewRotation = FRotator(IntermediateRoll, IntermediateYaw, IntermediatePitch);
 
-    UE_LOG(LogTemp, Warning, TEXT("RelAccel: %s"), *RelAccel.ToString());
-    UE_LOG(LogTemp, Warning, TEXT("New Body Rotation: %s"), *NewRotation.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("RelAccel: %s"), *RelAccel.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("New Body Rotation: %s"), *NewRotation.ToString());
 
   }
-
   BodyRotation = NewRotation;
 }
 

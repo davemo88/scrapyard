@@ -108,6 +108,7 @@ void ARobotCharacter::PostInitializeComponents()
 // Called every frame
 void ARobotCharacter::Tick(float DeltaTime)
 {
+//TODO: we can remove this tick event
   Super::Tick(DeltaTime);
 
   if (HasAuthority())
@@ -140,6 +141,16 @@ void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
     InputComponent->BindAction("PrimaryFire", IE_Pressed, PC, &ARobotPlayerController::OnFire);
     InputComponent->BindAction("PrimaryFire", IE_Released, PC, &ARobotPlayerController::OnStopFire);
   }
+}
+
+void ARobotCharacter::Landed(const FHitResult & Hit)
+{
+  Super::Landed(Hit);
+
+  URobotMovementComponent* MoveComp = Cast<URobotMovementComponent>(GetCharacterMovement());
+
+  MoveComp->Landed(Hit);
+
 }
 
 void ARobotCharacter::SetupRobotHUDWidget()

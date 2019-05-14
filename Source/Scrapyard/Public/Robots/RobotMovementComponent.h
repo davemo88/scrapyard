@@ -47,6 +47,8 @@ public:
   
   virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
+  virtual void Landed(const FHitResult & Hit);
+
   void SetRobotChar(ARobotCharacter* NewRobotChar);
 
   void UpdateFromRobotStats();
@@ -96,6 +98,11 @@ protected:
 //NOTE: want this to be const
   UPROPERTY(EditAnywhere)
   float MassNormalizer;
+  UPROPERTY(EditAnywhere)
+  float LandingSpeedThreshold;
+  UPROPERTY(EditAnywhere)
+  float LandingTime;
+
 
   ARobotCharacter* RobotChar;
 

@@ -9,6 +9,8 @@ AHitscanAbility::AHitscanAbility()
   AbilityName = TEXT("HitscanAbility");
   AbilityRange = 1000;
 
+  SetActorTickEnabled(false);
+
   InstantHitInfo.Add(FInstantHitDamageInfo());
 }
 

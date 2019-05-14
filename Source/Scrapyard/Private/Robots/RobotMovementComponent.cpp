@@ -25,6 +25,8 @@ URobotMovementComponent::URobotMovementComponent()
   bBoosting = false;
 
   MassNormalizer = 500.0f;
+  LandingSpeedThreshold = -600.0f;
+  LandingTime = 1.0f;
 
 }
 
@@ -67,26 +69,25 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 
 }
 
+void URobotMovementComponent::Landed(const FHitResult & Hit)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::Landed"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("Robot Velocity = %s"), *RobotChar->GetVelocity().ToString());
+  if (RobotChar && RobotChar->GetVelocity().Z < LandingSpeedThreshold)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("Below Landing LandingSpeedThreshold"));
+    SetRobotMovementState(ERobotMovementState::MOVE_Land);
+    RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, LandingTime);
+    if (RobotChar->GetController())
+    {
+      RobotChar->GetController()->SetIgnoreMoveInput(true);
+    }
+  }
+}
+
 void URobotMovementComponent::OnMovementModeChanged(EMovementMode PreviousMovementMode, uint8 PreviousCustomMode)
 {
   Super::OnMovementModeChanged(PreviousMovementMode, PreviousCustomMode);
-
-  if (PreviousMovementMode == MOVE_Falling && MovementMode == MOVE_Walking)
-  {
-    if (RobotChar != nullptr)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("%s::OnMovementModeChanged - setting landing timer"), *GetName());
-//      MovementState = ERobotMovementState::MOVE_Land;
-      SetRobotMovementState(ERobotMovementState::MOVE_Land);
-      RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, 1.0f);
-      if (RobotChar->IsLocallyControlled())
-      {
-// BUG: could they cheat by somehow sending input anyway
-// i.e. set IgnoreMoveInput on Server as well to prevent that
-        RobotChar->GetController()->SetIgnoreMoveInput(true);
-      }
-    }
-  }
 }
 
 void URobotMovementComponent::OnLandingTimerExpired()
@@ -97,7 +98,7 @@ void URobotMovementComponent::OnLandingTimerExpired()
   if (RobotChar != nullptr)
   {
     RobotChar->GetWorldTimerManager().ClearTimer(LandingTimerHandle);
-    if (RobotChar->IsLocallyControlled())
+    if (RobotChar->GetController())
     {
       RobotChar->GetController()->ResetIgnoreMoveInput();
     }
@@ -108,6 +109,7 @@ void URobotMovementComponent::UpdateRobotMovementState()
 {
   if (RobotChar != nullptr)
   {
+//    UE_LOG(LogTemp, Warning, TEXT("RobotMovementState: %i"), RobotMovementState);
     float Speed = RobotChar->GetVelocity().Size();
     if (IsWalking()) 
     {
@@ -117,18 +119,32 @@ void URobotMovementComponent::UpdateRobotMovementState()
       {
         if (Speed > 0.0f)
         {
-          SetRobotMovementState(ERobotMovementState::MOVE_Walk);
+          if (bBoosting)
+          {
+            SetRobotMovementState(ERobotMovementState::MOVE_Boost);
+          }
+          else
+          {
+            SetRobotMovementState(ERobotMovementState::MOVE_Walk);
+          }
         }
         else
         {
+          UE_LOG(LogTemp, Warning, TEXT("anim instance setting MOVE_Idle %i"),ERobotMovementState::MOVE_Idle);
           SetRobotMovementState(ERobotMovementState::MOVE_Idle);
         }
-//        MovementState = Speed > 0.0f ? ERobotMovementState::MOVE_Walk : ERobotMovementState::MOVE_Idle;
       }
     }
     else if (IsFalling())
     {
-      SetRobotMovementState(ERobotMovementState::MOVE_Fall);
+      if (RobotMovementState != ERobotMovementState::MOVE_Land)
+      {
+        SetRobotMovementState(ERobotMovementState::MOVE_Fall);
+      }
+      else
+      {
+        UE_LOG(LogTemp, Warning, TEXT("landing while falling"));
+      }
     }
     else if (IsFlying())
     {
@@ -229,10 +245,6 @@ void URobotMovementComponent::StartBoosting()
 void URobotMovementComponent::StopBoosting()
 {
   bBoosting = false;
-  if (IsFlying())
-  {
-    SetMovementMode(MOVE_Falling);
-  }
 }
 
 void URobotMovementComponent::HandleBoosting()
@@ -250,6 +262,10 @@ void URobotMovementComponent::HandleBoosting()
         Velocity.Z = JumpZVelocity/2.0f;
         SetMovementMode(MOVE_Flying); 
       }
+//      else if (IsWalking())
+//      {
+//        
+//      }
 
       if (RobotChar->HasAuthority())
       {
@@ -264,6 +280,15 @@ void URobotMovementComponent::HandleBoosting()
   }
   else
   {
+    if (IsFlying())
+    {
+      SetMovementMode(MOVE_Falling);
+    }
+    else if (IsWalking())
+    {
+      SetRobotMovementState(ERobotMovementState::MOVE_Walk);
+    }
+
     if (RobotChar->HasAuthority())
     {
       RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 5);
