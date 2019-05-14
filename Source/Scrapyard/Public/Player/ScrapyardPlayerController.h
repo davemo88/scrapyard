@@ -27,7 +27,7 @@ protected:
 
   virtual void SetupInputComponent() override;
 
-//TODO: keep track of default in case it changes, e.g. for ESC menu. maybe a better way?
+//NOTE: keep track of default in case it changes, e.g. for ESC menu. maybe a better way?
   bool bDefaultShowMouseCursor;
 
 //  void SetDefaultMouseBehavior();

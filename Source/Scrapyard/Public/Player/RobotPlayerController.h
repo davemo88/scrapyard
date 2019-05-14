@@ -61,8 +61,7 @@ public:
   UFUNCTION(Server, Reliable, WithValidation)
   void ServerNotifyGameStateReplicated();
 
-//TODO: accessor
-  bool bGameStateReplicated;
+  bool IsGameStateReplicated();
 
   void SetNewTune(FRobotTuneParams TuneParams);
 
@@ -71,7 +70,11 @@ public:
 
   void ApplyTuneParams(FRobotTuneParams TuneParams);
 
-private:
+protected:
+  virtual void OnPossess(APawn* InPawn) override;
+
+  virtual void BeginPlay() override;
+
 // want this property because otherwise we will end up casting GetPawn() to ARobotCharacter all the time
   UPROPERTY()
   ARobotCharacter* RobotCharacter;
@@ -79,16 +82,12 @@ private:
   UFUNCTION(Server, Reliable, WithValidation)
   void ServerSetPartAssignmentIDs(FPartAssignmentIDs NewPartAssignmentIDs);
 
-protected:
-
-  virtual void OnPossess(APawn* InPawn) override;
-
 // see UnrealTournament firing implementation
   bool bFirePressed;
 
   TArray< FDeferredFireInput, TInlineAllocator<2> > DeferredFireInputs;
 
-  virtual void BeginPlay() override;
+  bool bGameStateReplicated;
 
 
 };

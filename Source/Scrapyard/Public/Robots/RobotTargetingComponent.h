@@ -32,7 +32,6 @@ public:
 
   TArray<FVector> GetFaceVerts() const;
 
-//TODO: clean up these functions
   void AddTargetable(AActor* Actor);
   void RemoveTargetable(AActor* Actor);
 

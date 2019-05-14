@@ -196,6 +196,11 @@ void ARobotPlayerController::ServerNotifyGameStateReplicated_Implementation()
   }
 }
 
+bool ARobotPlayerController::IsGameStateReplicated()
+{
+  return bGameStateReplicated;
+}
+
 void ARobotCharacter::MulticastSetRobotPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::MulticastSetRobotPartAssignmentFromIDs_Implementation"), *GetName());

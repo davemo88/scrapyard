@@ -51,7 +51,7 @@ bool ABattleGameMode::IsGameStateReplicatedToAllClients()
     ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(*Iterator);
     if (RobotPC)
     {
-      if (RobotPC->bGameStateReplicated)
+      if (RobotPC->IsGameStateReplicated())
       {
         NumReplicatedGameStates++;
       }

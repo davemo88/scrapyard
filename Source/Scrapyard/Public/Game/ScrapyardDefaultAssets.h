@@ -57,5 +57,4 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class UTargetingWidget> TargetingWidgetBP;
 
-
 };
