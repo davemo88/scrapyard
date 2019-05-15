@@ -35,7 +35,7 @@ void USoloDraftWidget::DisplayNextPack()
 
   for (int32 i = 0; i < NextPack.Num(); ++i)
   {
-    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(OwningController, GameInstance->DefaultAssetsBP->PartCardWidgetBP); 
+    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(OwningController, GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
     Card->SetRobotPart(NextPack[i]);
     Card->CardMouseEnteredDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartCardHovered);
     Card->CardDoubleClickedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDoubleClicked);

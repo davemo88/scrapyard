@@ -7,7 +7,7 @@
 #include "Game/RobotGameState.h"
 #include "Player/RobotPlayerController.h"
 #include "Player/RobotPlayerState.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
 #include "GameFramework/HUD.h"
@@ -165,7 +165,7 @@ void ARobotCharacter::SetupRobotHUDWidget()
 // TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
 // e.g. use friend class or write a function
     UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - local PC"), *GetName());
-    PC->RobotHUDWidget = CreateWidget<URobotHUDWidget>(PC, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
+    PC->RobotHUDWidget = CreateWidget<URobotHUDWidget>(PC, GameInstance->AssetsBP->UIAssetsBP->RobotHUDWidgetBP);
     PC->RobotHUDWidget->SetRobotCharacter(this);
     PC->RobotHUDWidget->AddToViewport();
 

@@ -8,7 +8,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Game/ScrapyardGameInstance.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 #include "Levels/GarageLevelScriptActor.h"
 #include "Parts/RobotPart.h"
 #include "Robots/RobotCharacter.h"
@@ -32,7 +32,7 @@ void AGaragePlayerController::SetupWidget()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->DefaultAssetsBP->GarageWidgetBP);
+  GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->AssetsBP->UIAssetsBP->GarageWidgetBP);
   GarageWidget->YourPartsWidget->CurrentDraft = GameInstance->SoloDraft;
   
   GarageWidget->YourPartsWidget->NewPartCardAdded.AddDynamic(this, &AGaragePlayerController::OnNewCardReady);

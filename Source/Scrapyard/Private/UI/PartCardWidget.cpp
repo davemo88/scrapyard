@@ -3,7 +3,7 @@
 #include "PartCardWidget.h"
 #include "Parts/RobotPart.h"
 #include "UI/StatLineWidget.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Components/VerticalBox.h"
 #include "Blueprint/WidgetTree.h"
@@ -64,7 +64,7 @@ void UPartCardWidget::AddStatLine(FStatText StatText)
   UE_LOG(LogTemp, Warning, TEXT("%s::AddStatLine"), *GetName());
   APlayerController* OwningPlayer = GetOwningPlayer();
   UScrapyardGameInstance* GameInstance = OwningPlayer->GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(OwningPlayer, GameInstance->DefaultAssetsBP->StatLineWidgetBP);
+  UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(OwningPlayer, GameInstance->AssetsBP->UIAssetsBP->StatLineWidgetBP);
   StatLine->SetStatLine(StatText);
   StatsBox->AddChild(StatLine);
 

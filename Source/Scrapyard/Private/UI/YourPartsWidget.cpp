@@ -5,7 +5,7 @@
 #include "UI/PartCardWidget.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 
 void UYourPartsWidget::NativeConstruct()
 {
@@ -33,7 +33,7 @@ void UYourPartsWidget::AddDisplayedCard(UPartCardWidget* Card)
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->DefaultAssetsBP->PartCardWidgetBP); 
+  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
   Card->SetRobotPart(RobotPart);
   AddDisplayedCard(Card);
   NewPartCardAdded.Broadcast(Card);

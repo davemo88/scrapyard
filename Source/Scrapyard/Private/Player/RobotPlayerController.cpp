@@ -4,7 +4,7 @@
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerCameraManager.h"
 #include "Player/RobotPlayerState.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 #include "Game/RobotGameState.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/HUD.h"
@@ -142,7 +142,7 @@ void ARobotPlayerController::SetupMatchTimerWidget()
   if (IsLocalController())
   {
     UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-    MatchTimerWidget = CreateWidget<UMatchTimerWidget>(this, GameInstance->DefaultAssetsBP->MatchTimerWidgetBP);
+    MatchTimerWidget = CreateWidget<UMatchTimerWidget>(this, GameInstance->AssetsBP->UIAssetsBP->MatchTimerWidgetBP);
   //TODO: save pointer to gamestate?
     if (ARobotGameState* RobotGS = (Cast<ARobotGameState>(GetWorld()->GetGameState())))
     {

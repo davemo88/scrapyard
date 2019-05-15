@@ -7,7 +7,7 @@
 #include "UI/PartCardWidget.h"
 #include "UI/YourPartsWidget.h"
 #include "Game/ScrapyardGameInstance.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 #include "Components/UniformGridPanel.h"
 #include "Components/UniformGridSlot.h"
 #include "Components/HorizontalBox.h"
@@ -23,7 +23,7 @@ void ASoloDraftPlayerController::SetupWidget()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->DefaultAssetsBP->SoloDraftWidgetBP);
+  SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->AssetsBP->UIAssetsBP->SoloDraftWidgetBP);
   SoloDraftWidget->YourPartsWidget->CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
   SoloDraftWidget->AddToViewport();
 }

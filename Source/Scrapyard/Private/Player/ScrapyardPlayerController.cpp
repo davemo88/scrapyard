@@ -2,7 +2,7 @@
 
 #include "ScrapyardPlayerController.h"
 #include "Game/ScrapyardGameInstance.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 #include "UI/EscapeMenuWidget.h"
 #include "Robots/RobotCharacter.h"
 #include "UI/RobotHUDWidget.h"
@@ -23,7 +23,7 @@ void AScrapyardPlayerController::BeginPlay()
   if (IsLocalController())
   {
     UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-    EscapeMenuWidget = CreateWidget<UEscapeMenuWidget>(this, GameInstance->DefaultAssetsBP->EscapeMenuWidgetBP);
+    EscapeMenuWidget = CreateWidget<UEscapeMenuWidget>(this, GameInstance->AssetsBP->UIAssetsBP->EscapeMenuWidgetBP);
     EscapeMenuWidget->SetVisibility(ESlateVisibility::Hidden);
 //  TODO: this is hacky
     EscapeMenuWidget->AddToViewport(999);
@@ -75,31 +75,3 @@ void AScrapyardPlayerController::HideEscapeMenu()
 }
 
 
-//void AScrapyardPlayerController::SetupRobotHUDWidget()
-//{
-//  if (GetPawn())
-//  {
-//    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-//    RobotHUDWidget = CreateWidget<URobotHUDWidget>(this, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
-//    RobotHUDWidget->SetRobotCharacter(Cast<ARobotCharacter>(GetPawn()));
-//    RobotHUDWidget->AddToViewport();
-//  }
-//}
-//
-//void AScrapyardPlayerController::ClientSetupRobotHUDWidget_Implementation()
-//{
-//  UE_LOG(LogTemp, Warning, TEXT("%s::ClientSetupRobotHUDWidget_Implementation"), *GetName());
-//  if (GetPawn())
-//  {
-//    UE_LOG(LogTemp, Warning, TEXT("pawn ok"));
-//    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-//    RobotHUDWidget = CreateWidget<URobotHUDWidget>(this, GameInstance->DefaultAssetsBP->RobotHUDWidgetBP);
-//    RobotHUDWidget->SetRobotCharacter(Cast<ARobotCharacter>(GetPawn()));
-//    RobotHUDWidget->AddToViewport();
-//  }
-//  else
-//  {
-//    UE_LOG(LogTemp, Warning, TEXT("pawn null"));
-//  }
-//}
-//

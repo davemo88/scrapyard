@@ -3,7 +3,6 @@
 
 #include "EscapeMenuWidget.h"
 #include "Game/ScrapyardGameInstance.h"
-#include "Game/ScrapyardDefaultAssets.h"
 #include "UI/RobotTunerWidget.h"
 #include "Kismet/GameplayStatics.h"
 

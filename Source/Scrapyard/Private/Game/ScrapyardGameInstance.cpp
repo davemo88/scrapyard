@@ -5,7 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 #include "Online/ScrapyardGameSession.h"
-#include "Game/ScrapyardDefaultAssets.h"
+#include "Game/ScrapyardAssets.h"
 #include "Components/Button.h"
 #include "SoloDraft.h"
 
@@ -24,8 +24,7 @@ void UScrapyardGameInstance::Init()
 {
   Super::Init();
 
-//TODO: rename to wigdets
-  InitDefaultAssetsBP();
+  InitAssetsBP();
 }
 
 AScrapyardGameSession* UScrapyardGameInstance::GetGameSession() const
@@ -43,14 +42,14 @@ AScrapyardGameSession* UScrapyardGameInstance::GetGameSession() const
   return nullptr;
 }
 
-void UScrapyardGameInstance::InitDefaultAssetsBP()
+void UScrapyardGameInstance::InitAssetsBP()
 {
 // TODO: best way to get the BP class ref?
 // https://forums.unrealengine.com/development-discussion/c-gameplay-programming/15841-access-to-blueprints-default-paramteres
-  FStringClassReference DefaultAssetsBPClassRef(TEXT("/Game/ScrapyardDefaultAssetsBP.ScrapyardDefaultAssetsBP_C"));
-  if (UClass* DefaultAssetsBPClass =  DefaultAssetsBPClassRef.TryLoadClass<UScrapyardDefaultAssets>())
+  FStringClassReference AssetsBPClassRef(TEXT("/Game/ScrapyardAssetsBP.ScrapyardAssetsBP_C"));
+  if (UClass* AssetsBPClass =  AssetsBPClassRef.TryLoadClass<UScrapyardAssets>())
   {
 // NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
-    DefaultAssetsBP = DefaultAssetsBPClass->GetDefaultObject<UScrapyardDefaultAssets>();
+    AssetsBP = AssetsBPClass->GetDefaultObject<UScrapyardAssets>();
   }
 }

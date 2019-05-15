@@ -10,7 +10,7 @@
 #include "Parts/RobotPartSingleton.h"
 #include "ScrapyardGameInstance.generated.h"
 
-class UScrapyardDefaultAssets;
+class UScrapyardAssets;
 class URobotPart;
 class URobotPartAssets;
 class URobotBodyComponent;
@@ -33,8 +33,8 @@ public:
   virtual void Init() override;
 
   UPROPERTY()
-  UScrapyardDefaultAssets* DefaultAssetsBP;
-  void InitDefaultAssetsBP();
+  UScrapyardAssets* AssetsBP;
+  void InitAssetsBP();
 
   FStreamableManager AssetLoader;
 
