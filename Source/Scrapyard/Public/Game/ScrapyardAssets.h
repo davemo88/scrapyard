@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "UI/UIAssets.h"
+#include "Parts/PartAssets.h"
 #include "ScrapyardAssets.generated.h"
+
 
 /**
  * 
@@ -16,8 +19,10 @@ class SCRAPYARD_API UScrapyardAssets : public UObject
   
 public:
 
-  UUIAssets* UIAssetsBP;
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<UUIAssets> UIAssetsBPClass;
 
-  UPartAssets* PartAssetsBP;
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<UPartAssets> PartAssetsBPClass;
 
 };

@@ -76,63 +76,67 @@ TArray<URobotPart*> UPartSingleton::GetDefaultParts()
 {
   TArray<URobotPart*> DefaultParts;
 
-  DefaultParts.Add(
-    UHeadPart::NewHead(
-      1000,
-      NSLOCTEXT("SY", "DefaultHeadName", "Default Head"),
-      DefaultManufacturer,
-      nullptr,
-      100,
-      50,
-      100,
-      nullptr,
-      URobotPart::PartAssetsBP->HeadPart_Default_SkeletalMesh,
-      URobotPart::PartAssetsBP->DefaultMaterial,
-      10,
-      1));
-  DefaultParts.Add(
-    UCorePart::NewCore(
-      2000,
-      NSLOCTEXT("SY", "DefaultCoreName", "Default Core"),
-      DefaultManufacturer,
-      nullptr,
-      100,
-      50,
-      100,
-      nullptr,
-      URobotPart::PartAssetsBP->CorePart_Default_SkeletalMesh,
-      URobotPart::PartAssetsBP->DefaultMaterial,
-      1000,
-      500,
-      500,
-      3));
-  DefaultParts.Add(
-    UArmsPart::NewArms(
-      3000,
-      NSLOCTEXT("SY", "DefaultArmsName", "Default Arms"),
-      DefaultManufacturer,
-      nullptr,
-      100,
-      50,
-      100,
-      nullptr,
-      URobotPart::PartAssetsBP->ArmsPart_Default_SkeletalMesh,
-      URobotPart::PartAssetsBP->DefaultMaterial));
-  DefaultParts.Add(
-    ULegsPart::NewLegs(
-      4000,
-      NSLOCTEXT("SY", "DefaultLegsName", "Default Legs"),
-      DefaultManufacturer,
-      nullptr,
-      100,
-      50,
-      100,
-      nullptr,
-      URobotPart::PartAssetsBP->LegsPart_Default_SkeletalMesh,
-      URobotPart::PartAssetsBP->DefaultMaterial,
-      1000,
-      500,
-      10));
+  if (URobotPart::PartAssetsBP != nullptr)
+  {
+    DefaultParts.Add(
+      UHeadPart::NewHead(
+        1000,
+        NSLOCTEXT("SY", "DefaultHeadName", "Default Head"),
+        DefaultManufacturer,
+        nullptr,
+        100,
+        50,
+        100,
+        nullptr,
+        URobotPart::PartAssetsBP->HeadPart_Default_SkeletalMesh,
+        URobotPart::PartAssetsBP->DefaultMaterial,
+        10,
+        1));
+    DefaultParts.Add(
+      UCorePart::NewCore(
+        2000,
+        NSLOCTEXT("SY", "DefaultCoreName", "Default Core"),
+        DefaultManufacturer,
+        nullptr,
+        100,
+        50,
+        100,
+        nullptr,
+        URobotPart::PartAssetsBP->CorePart_Default_SkeletalMesh,
+        URobotPart::PartAssetsBP->DefaultMaterial,
+        1000,
+        500,
+        500,
+        3));
+    DefaultParts.Add(
+      UArmsPart::NewArms(
+        3000,
+        NSLOCTEXT("SY", "DefaultArmsName", "Default Arms"),
+        DefaultManufacturer,
+        nullptr,
+        100,
+        50,
+        100,
+        nullptr,
+        URobotPart::PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+        URobotPart::PartAssetsBP->DefaultMaterial));
+    DefaultParts.Add(
+      ULegsPart::NewLegs(
+        4000,
+        NSLOCTEXT("SY", "DefaultLegsName", "Default Legs"),
+        DefaultManufacturer,
+        nullptr,
+        100,
+        50,
+        100,
+        nullptr,
+        URobotPart::PartAssetsBP->LegsPart_Default_SkeletalMesh,
+        URobotPart::PartAssetsBP->DefaultMaterial,
+        1000,
+        500,
+        10));
+  
+  }
 
   return DefaultParts;
 }

@@ -19,7 +19,7 @@ class URobotTunerWidget;
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class SCRAPYARD_API UUIAssets : public UObject
 {
   GENERATED_BODY()
