@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "HeadPart.h"
-#include "RobotPartAssignment.h"
+#include "PartAssignment.h"
 #include "SoloDraft.h"
 
 UHeadPart* UHeadPart::NewHead(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewTargetingAbility, uint32 NewChipSlots)
@@ -28,14 +28,14 @@ void UHeadPart::Draft(USoloDraft* SoloDraft)
   SoloDraft->DraftedHeads.AddUnique(this);
 }
 
-void UHeadPart::Assign(URobotPartAssignment* PartAssignment)
+void UHeadPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetHead(this);
 }
 
 UTexture2D* UHeadPart::GetPartTypeIcon() const
 {
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GetAsset<UTexture2D>(RobotPartAssetsBP->HeadCardIcon) : nullptr;
+  return (PartAssetsBP != NULL) ? PartAssetsBP->GetAsset<UTexture2D>(PartAssetsBP->HeadCardIcon) : nullptr;
 }
 
 TArray<FStatText> UHeadPart::GetStatsText() const

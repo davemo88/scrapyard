@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotPart.h"
-#include "Parts/RobotPartAssets.h"
+#include "Parts/PartAssets.h"
 #include "Parts/Manufacturer.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
@@ -11,7 +11,7 @@
 #include "Engine/Texture2D.h"
 #include "Engine/SkeletalMesh.h"
 
-URobotPartAssets* URobotPart::RobotPartAssetsBP = nullptr;
+UPartAssets* URobotPart::PartAssetsBP = nullptr;
 
 TArray<FStatText> URobotPart::GetStatsText() const
 {

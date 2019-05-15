@@ -6,7 +6,7 @@
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
 
-void URobotStats::SetPartAssignment(URobotPartAssignment* NewPartAssignment)
+void URobotStats::SetPartAssignment(UPartAssignment* NewPartAssignment)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetPartAssignment"), *GetName());
   PartAssignment = NewPartAssignment;

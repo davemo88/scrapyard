@@ -14,7 +14,7 @@ class ULegsPart;
 class UHandheldPart;
 class UBoosterPart;
 class UChipPart;
-class URobotPartAssignment;
+class UPartAssignment;
 
 /**
  * 
@@ -56,6 +56,6 @@ public:
   TArray<URobotPart*> CurrentPack;
 
   UPROPERTY(BlueprintReadOnly)
-  URobotPartAssignment* PartAssignment;
+  UPartAssignment* PartAssignment;
 
 };

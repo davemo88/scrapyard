@@ -24,7 +24,7 @@ void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
   Super::EndPlay(EndPlayReason);
   PartAssignment->GetPartAssignmentIDs();
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  GameInstance->PartAssignment = DuplicateObject<URobotPartAssignment>(PartAssignment, NULL);
+  GameInstance->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
 }
 
 

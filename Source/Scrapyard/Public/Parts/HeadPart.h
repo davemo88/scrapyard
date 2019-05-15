@@ -25,7 +25,7 @@ public:
 
   void Draft(USoloDraft* SoloDraft) override;
 
-  void Assign(URobotPartAssignment* PartAssignment) override;
+  void Assign(UPartAssignment* PartAssignment) override;
 
   UTexture2D* GetPartTypeIcon() const override;
 

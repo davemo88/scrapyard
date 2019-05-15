@@ -6,7 +6,7 @@
 #include "Parts/RobotPart.h"
 #include "ArmsPart.generated.h"
 
-class URobotPartAssignment;
+class UPartAssignment;
 /**
  * 
  */
@@ -28,7 +28,7 @@ public:
 
   void Draft(USoloDraft* SoloDraft) override;
 
-  void Assign(URobotPartAssignment* PartAssignment) override;
+  void Assign(UPartAssignment* PartAssignment) override;
 
   UTexture2D* GetPartTypeIcon() const override;
 

@@ -2,7 +2,7 @@
 
 #include "RobotPartComponent.h"
 #include "Parts/RobotPart.h"
-#include "Parts/RobotPartAssets.h"
+#include "Parts/PartAssets.h"
 #include "Materials/Material.h"
 #include "Components/MeshComponent.h"
 
@@ -19,7 +19,7 @@ void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
   if (GetOwner() != NULL && GetWorld() != NULL && !(GetWorld()->GetNetMode() == NM_DedicatedServer))
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
-    SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(RobotPart->SkeletalMesh));
-    SetMaterial(0, URobotPart::RobotPartAssetsBP->GetAsset<UMaterial>(RobotPart->MajorMaterial));
+    SetSkeletalMesh(URobotPart::PartAssetsBP->GetAsset<USkeletalMesh>(RobotPart->SkeletalMesh));
+    SetMaterial(0, URobotPart::PartAssetsBP->GetAsset<UMaterial>(RobotPart->MajorMaterial));
   }
 }

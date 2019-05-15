@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "RobotPartAssignment.h"
+#include "PartAssignment.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
@@ -9,52 +9,52 @@
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
 
-bool URobotPartAssignment::IsComplete() const
+bool UPartAssignment::IsComplete() const
 {
   return (Head != NULL) && (Core != NULL) && (Arms != NULL) && (Legs != NULL);
 }
 
-void URobotPartAssignment::SetHead(UHeadPart* NewHead)
+void UPartAssignment::SetHead(UHeadPart* NewHead)
 {
   Head = NewHead;
   PartAssignmentChangedDelegate.Broadcast();
   HeadAssignmentChangedDelegate.Broadcast(NewHead);
 }
 
-void URobotPartAssignment::SetCore(UCorePart* NewCore)
+void UPartAssignment::SetCore(UCorePart* NewCore)
 {
   Core = NewCore;
   PartAssignmentChangedDelegate.Broadcast();
   CoreAssignmentChangedDelegate.Broadcast(NewCore);
 }
 
-void URobotPartAssignment::SetArms(UArmsPart* NewArms)
+void UPartAssignment::SetArms(UArmsPart* NewArms)
 {
   Arms = NewArms;
   PartAssignmentChangedDelegate.Broadcast();
   ArmsAssignmentChangedDelegate.Broadcast(NewArms);
 }
 
-void URobotPartAssignment::SetLegs(ULegsPart* NewLegs)
+void UPartAssignment::SetLegs(ULegsPart* NewLegs)
 {
   Legs = NewLegs;
   PartAssignmentChangedDelegate.Broadcast();
   LegsAssignmentChangedDelegate.Broadcast(NewLegs);
 }
 
-void URobotPartAssignment::SetDefaultAssignment()
+void UPartAssignment::SetDefaultAssignment()
 {
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
-    SetHead(GameInstance->RobotPartSingleton->PartDB.GetPart<UHeadPart>(1000));
-    SetCore(GameInstance->RobotPartSingleton->PartDB.GetPart<UCorePart>(2000));
-    SetArms(GameInstance->RobotPartSingleton->PartDB.GetPart<UArmsPart>(3000));
-    SetLegs(GameInstance->RobotPartSingleton->PartDB.GetPart<ULegsPart>(4000));
+    SetHead(GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(1000));
+    SetCore(GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(2000));
+    SetArms(GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(3000));
+    SetLegs(GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(4000));
   }
 }
 
-void URobotPartAssignment::SetAssignment(URobotPartAssignment* NewPartAssignment)
+void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetAssignment"), *GetName());
   if (NewPartAssignment->IsComplete())
@@ -72,7 +72,7 @@ void URobotPartAssignment::SetAssignment(URobotPartAssignment* NewPartAssignment
   }
 }
 
-void URobotPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
+void UPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
   UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
@@ -104,7 +104,7 @@ void URobotPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
   PartAssignmentChangedDelegate.Broadcast();
 }
 
-FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs() const
+FPartAssignmentIDs UPartAssignment::GetPartAssignmentIDs() const
 {
   FPartAssignmentIDs PartAssignmentIDs;
 
@@ -123,22 +123,22 @@ FPartAssignmentIDs URobotPartAssignment::GetPartAssignmentIDs() const
   return PartAssignmentIDs;
 }
 
-UHeadPart* URobotPartAssignment::GetHead() const
+UHeadPart* UPartAssignment::GetHead() const
 {
   return Head;
 }
 
-UCorePart* URobotPartAssignment::GetCore() const
+UCorePart* UPartAssignment::GetCore() const
 {
   return Core;
 }
 
-UArmsPart* URobotPartAssignment::GetArms() const
+UArmsPart* UPartAssignment::GetArms() const
 {
   return Arms;
 }
 
-ULegsPart* URobotPartAssignment::GetLegs() const
+ULegsPart* UPartAssignment::GetLegs() const
 {
   return Legs;
 }

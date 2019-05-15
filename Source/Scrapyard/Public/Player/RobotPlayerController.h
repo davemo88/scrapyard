@@ -8,7 +8,7 @@
 #include "UI/RobotHUDWidget.h"
 #include "UI/MatchTimerWidget.h"
 #include "UI/RobotTunerWidget.h"
-#include "Parts/RobotPartAssignment.h"
+#include "Parts/PartAssignment.h"
 #include "RobotPlayerController.generated.h"
 
 class ARobotCharacter;

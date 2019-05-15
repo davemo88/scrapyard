@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "RobotPartAssignment.generated.h"
+#include "PartAssignment.generated.h"
 
 class UHeadPart;
 class UCorePart;
@@ -45,7 +45,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLegsAssignmentChangedDelegate, URob
  * 
  */
 UCLASS()
-class SCRAPYARD_API URobotPartAssignment : public UObject
+class SCRAPYARD_API UPartAssignment : public UObject
 {
   GENERATED_BODY()
 
@@ -60,7 +60,7 @@ public:
 
   void SetDefaultAssignment();
 
-  void SetAssignment(URobotPartAssignment* NewPartAssignment);
+  void SetAssignment(UPartAssignment* NewPartAssignment);
   void SetAssignment(FPartAssignmentIDs PartAssignmentIDs);
 
   FPartAssignmentIDs GetPartAssignmentIDs() const;

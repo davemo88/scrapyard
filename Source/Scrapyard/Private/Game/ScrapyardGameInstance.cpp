@@ -17,7 +17,7 @@ UScrapyardGameInstance::UScrapyardGameInstance()
 // TODO: find the right place for these
   SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
 
-  RobotPartSingleton = CreateDefaultSubobject<URobotPartSingleton>(TEXT("RobotPartSingleton"));
+  PartSingleton = CreateDefaultSubobject<UPartSingleton>(TEXT("PartSingleton"));
 };
 
 void UScrapyardGameInstance::Init()

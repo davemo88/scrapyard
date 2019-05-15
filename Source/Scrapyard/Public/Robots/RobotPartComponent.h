@@ -8,7 +8,7 @@
 #include "Abilities/ScrapyardAbility.h"
 #include "RobotPartComponent.generated.h"
 
-class URobotPartAssets;
+class UPartAssets;
 class UMaterial;
 class USkeletalMesh;
 class URarity;

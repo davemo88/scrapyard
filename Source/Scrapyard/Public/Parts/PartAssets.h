@@ -10,13 +10,13 @@
 #include "Animation/AnimInstance.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/SoftObjectPtr.h"
-#include "RobotPartAssets.generated.h"
+#include "PartAssets.generated.h"
 
 /**
  * 
  */
 UCLASS(Blueprintable)
-class SCRAPYARD_API URobotPartAssets : public UObject
+class SCRAPYARD_API UPartAssets : public UObject
 {
   GENERATED_BODY()
 

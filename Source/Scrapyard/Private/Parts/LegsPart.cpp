@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "LegsPart.h"
-#include "RobotPartAssignment.h"
+#include "PartAssignment.h"
 #include "SoloDraft.h"
 
 ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability)
@@ -30,14 +30,14 @@ void ULegsPart::Draft(USoloDraft* SoloDraft)
   SoloDraft->DraftedLegs.AddUnique(this);
 }
 
-void ULegsPart::Assign(URobotPartAssignment* PartAssignment)
+void ULegsPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetLegs(this);
 }
 
 UTexture2D* ULegsPart::GetPartTypeIcon() const
 {
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GetAsset<UTexture2D>(RobotPartAssetsBP->LegsCardIcon) : nullptr;
+  return (PartAssetsBP != NULL) ? PartAssetsBP->GetAsset<UTexture2D>(PartAssetsBP->LegsCardIcon) : nullptr;
 }
 
 TArray<FStatText> ULegsPart::GetStatsText() const

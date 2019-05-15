@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ArmsPart.h"
-#include "RobotPartAssignment.h"
-#include "Parts/RobotPartAssets.h"
+#include "PartAssignment.h"
+#include "Parts/PartAssets.h"
 #include "SoloDraft.h"
 
 UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
@@ -28,7 +28,7 @@ void UArmsPart::Draft(USoloDraft* SoloDraft)
   SoloDraft->DraftedArms.AddUnique(this);
 }
 
-void UArmsPart::Assign(URobotPartAssignment* PartAssignment)
+void UArmsPart::Assign(UPartAssignment* PartAssignment)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::Assign"), *GetName());
   PartAssignment->SetArms(this);
@@ -36,7 +36,7 @@ void UArmsPart::Assign(URobotPartAssignment* PartAssignment)
 
 UTexture2D* UArmsPart::GetPartTypeIcon() const
 {
-  return (RobotPartAssetsBP != NULL) ? RobotPartAssetsBP->GetAsset<UTexture2D>(RobotPartAssetsBP->ArmsCardIcon): nullptr;
+  return (PartAssetsBP != NULL) ? PartAssetsBP->GetAsset<UTexture2D>(PartAssetsBP->ArmsCardIcon): nullptr;
 }
 
 TArray<FStatText> UArmsPart::GetStatsText() const

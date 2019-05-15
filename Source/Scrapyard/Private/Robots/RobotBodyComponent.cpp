@@ -5,9 +5,9 @@
 #include "ConstructorHelpers.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
 #include "Robots/RobotPartComponent.h"
-#include "Parts/RobotPartAssignment.h"
+#include "Parts/PartAssignment.h"
 #include "Parts/RobotPart.h"
-#include "Parts/RobotPartAssets.h"
+#include "Parts/PartAssets.h"
 #include "Robots/RobotCharacter.h"
 #include "Abilities/HitscanAbility.h"
 
@@ -21,10 +21,10 @@ URobotBodyComponent::URobotBodyComponent()
 
   bVisible = false;
 
-  if (URobotPart::RobotPartAssetsBP != nullptr)
+  if (URobotPart::PartAssetsBP != nullptr)
   {
-    SetSkeletalMesh(URobotPart::RobotPartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::RobotPartAssetsBP->RobotSkeletalMesh));
-    SetAnimInstanceClass(URobotPart::RobotPartAssetsBP->RobotAnimInstance);
+    SetSkeletalMesh(URobotPart::PartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::PartAssetsBP->RobotSkeletalMesh));
+    SetAnimInstanceClass(URobotPart::PartAssetsBP->RobotAnimInstance);
   }
 
   HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));
@@ -44,7 +44,7 @@ URobotBodyComponent::URobotBodyComponent()
   ArmsComponent->SetMasterPoseComponent(this);
   LegsComponent->SetMasterPoseComponent(this);
 
-  PartAssignment = CreateDefaultSubobject<URobotPartAssignment>(TEXT("PartAssignment"));
+  PartAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("PartAssignment"));
   
   PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(HeadComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);

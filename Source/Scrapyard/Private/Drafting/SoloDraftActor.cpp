@@ -58,10 +58,10 @@ void ASoloDraftActor::SetupRobotPartPool()
 {
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
-    RobotPartPool.Add(GameInstance->RobotPartSingleton->PartDB.GetPart(1000));
-    RobotPartPool.Add(GameInstance->RobotPartSingleton->PartDB.GetPart(2000));
-    RobotPartPool.Add(GameInstance->RobotPartSingleton->PartDB.GetPart(3000));
-    RobotPartPool.Add(GameInstance->RobotPartSingleton->PartDB.GetPart(4000));
+    RobotPartPool.Add(GameInstance->PartSingleton->PartDB.GetPart(1000));
+    RobotPartPool.Add(GameInstance->PartSingleton->PartDB.GetPart(2000));
+    RobotPartPool.Add(GameInstance->PartSingleton->PartDB.GetPart(3000));
+    RobotPartPool.Add(GameInstance->PartSingleton->PartDB.GetPart(4000));
   }
 }
 

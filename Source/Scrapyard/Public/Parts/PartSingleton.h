@@ -6,7 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Parts/RobotPart.h"
 #include "Parts/Manufacturer.h"
-#include "RobotPartSingleton.generated.h"
+#include "PartSingleton.generated.h"
 
 USTRUCT()
 struct FPartDatabase
@@ -44,13 +44,13 @@ protected:
  * 
  */
 UCLASS()
-class SCRAPYARD_API URobotPartSingleton : public UObject
+class SCRAPYARD_API UPartSingleton : public UObject
 {
   GENERATED_BODY()
 
 public:
 
-  URobotPartSingleton();
+  UPartSingleton();
 
   UPROPERTY()
   FPartDatabase PartDB;
@@ -58,9 +58,9 @@ public:
 protected:
 
   UPROPERTY()
-  URobotPartAssets* RobotPartAssetsBP;
+  UPartAssets* PartAssetsBP;
 
-  void InitRobotPartAssetsBP();
+  void InitPartAssetsBP();
 
   UPROPERTY()
   UManufacturer* DefaultManufacturer;

@@ -10,7 +10,7 @@
 #include "Robots/RobotBodyComponent.h"
 #include "Robots/RobotStats.h"
 #include "Robots/RobotTargetingComponent.h"
-#include "Parts/RobotPartAssignment.h"
+#include "Parts/PartAssignment.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
 
@@ -134,7 +134,7 @@ public:
   }
 
   UFUNCTION(NetMulticast, Reliable)
-  void MulticastSetRobotPartAssignmentFromIDs(FPartAssignmentIDs NewPartAssignmentIDs);
+  void MulticastSetPartAssignmentFromIDs(FPartAssignmentIDs NewPartAssignmentIDs);
 
   FHitPointsChangedDelegate HitPointsChangedDelegate;
   FPowerChangedDelegate PowerChangedDelegate;

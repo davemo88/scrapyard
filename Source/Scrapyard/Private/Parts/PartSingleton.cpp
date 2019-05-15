@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "RobotPartSingleton.h"
-#include "Parts/RobotPartAssets.h"
+#include "PartSingleton.h"
+#include "Parts/PartAssets.h"
 #include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
@@ -10,35 +10,35 @@
 #include "Parts/LegsPart.h"
 #include "Parts/Manufacturer.h"
 
-URobotPartSingleton::URobotPartSingleton()
+UPartSingleton::UPartSingleton()
 {
-  InitRobotPartAssetsBP();
+  InitPartAssetsBP();
 //NOTE: should this be called inside InitPartDB? ehhh
   InitManufacturers();
   InitPartDB();
 }
 
-void URobotPartSingleton::InitRobotPartAssetsBP()
+void UPartSingleton::InitPartAssetsBP()
 {
-  FStringClassReference RobotPartAssetsBPClassRef(TEXT("/Game/RobotPartAssetsBP.RobotPartAssetsBP_C"));
-  if (UClass* RobotPartAssetsBPClass = RobotPartAssetsBPClassRef.TryLoadClass<URobotPartAssets>())
+  FStringClassReference PartAssetsBPClassRef(TEXT("/Game/PartAssetsBP.PartAssetsBP_C"));
+  if (UClass* PartAssetsBPClass = PartAssetsBPClassRef.TryLoadClass<UPartAssets>())
   {
-    RobotPartAssetsBP = RobotPartAssetsBPClass->GetDefaultObject<URobotPartAssets>();
-    if (RobotPartAssetsBP)
+    PartAssetsBP = PartAssetsBPClass->GetDefaultObject<UPartAssets>();
+    if (PartAssetsBP)
     {
-      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was loaded"));
-      URobotPart::RobotPartAssetsBP = RobotPartAssetsBP;
+      UE_LOG(LogTemp, Warning, TEXT("PartAssetsBP was loaded"));
+      URobotPart::PartAssetsBP = PartAssetsBP;
 // TODO: this is a hack since getting game instance outside of actor is mysterious
-//      RobotPartAssetsBP->GameInstance = this;
+//      PartAssetsBP->GameInstance = this;
     }
     else
     {
-      UE_LOG(LogTemp, Warning, TEXT("RobotPartAssetsBP was NOT loaded"));
+      UE_LOG(LogTemp, Warning, TEXT("PartAssetsBP was NOT loaded"));
     }
   }
 }
 
-void URobotPartSingleton::InitManufacturers()
+void UPartSingleton::InitManufacturers()
 {
   DefaultManufacturer = CreateDefaultSubobject<UManufacturer>(TEXT("DefaultManufacturer"));
   DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
@@ -65,7 +65,7 @@ void URobotPartSingleton::InitManufacturers()
   PurpleManufacturer->CardBackgroundColor = FLinearColor(1.0f, 0.0f, 72.0f, 1.0f);
 }
 
-void URobotPartSingleton::InitPartDB()
+void UPartSingleton::InitPartDB()
 {
   TArray<URobotPart*> DefaultParts = GetDefaultParts();
   for (URobotPart* Part : DefaultParts)
@@ -74,7 +74,7 @@ void URobotPartSingleton::InitPartDB()
   }
 }
 
-TArray<URobotPart*> URobotPartSingleton::GetDefaultParts()
+TArray<URobotPart*> UPartSingleton::GetDefaultParts()
 {
   TArray<URobotPart*> DefaultParts;
 
@@ -88,8 +88,8 @@ TArray<URobotPart*> URobotPartSingleton::GetDefaultParts()
       50,
       100,
       nullptr,
-      URobotPart::RobotPartAssetsBP->HeadPart_Default_SkeletalMesh,
-      URobotPart::RobotPartAssetsBP->DefaultMaterial,
+      URobotPart::PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      URobotPart::PartAssetsBP->DefaultMaterial,
       10,
       1));
   DefaultParts.Add(
@@ -102,8 +102,8 @@ TArray<URobotPart*> URobotPartSingleton::GetDefaultParts()
       50,
       100,
       nullptr,
-      URobotPart::RobotPartAssetsBP->CorePart_Default_SkeletalMesh,
-      URobotPart::RobotPartAssetsBP->DefaultMaterial,
+      URobotPart::PartAssetsBP->CorePart_Default_SkeletalMesh,
+      URobotPart::PartAssetsBP->DefaultMaterial,
       1000,
       500,
       500,
@@ -118,8 +118,8 @@ TArray<URobotPart*> URobotPartSingleton::GetDefaultParts()
       50,
       100,
       nullptr,
-      URobotPart::RobotPartAssetsBP->ArmsPart_Default_SkeletalMesh,
-      URobotPart::RobotPartAssetsBP->DefaultMaterial));
+      URobotPart::PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      URobotPart::PartAssetsBP->DefaultMaterial));
   DefaultParts.Add(
     ULegsPart::NewLegs(
       4000,
@@ -130,8 +130,8 @@ TArray<URobotPart*> URobotPartSingleton::GetDefaultParts()
       50,
       100,
       nullptr,
-      URobotPart::RobotPartAssetsBP->LegsPart_Default_SkeletalMesh,
-      URobotPart::RobotPartAssetsBP->DefaultMaterial,
+      URobotPart::PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      URobotPart::PartAssetsBP->DefaultMaterial,
       1000,
       500,
       10));

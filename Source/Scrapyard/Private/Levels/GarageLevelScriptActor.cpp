@@ -6,7 +6,7 @@
 #include "Robots/RobotCharacter.h"
 #include "Parts/RobotPart.h"
 #include "Engine/World.h"
-#include "Parts/RobotPartAssignment.h"
+#include "Parts/PartAssignment.h"
 #include "Robots/RobotBodyComponent.h"
 
 

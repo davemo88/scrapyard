@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Parts/RobotPartAssignment.h"
+#include "Parts/PartAssignment.h"
 #include "Player/MenuPlayerController.h"
 #include "GaragePlayerController.generated.h"
 
@@ -20,7 +20,7 @@ class SCRAPYARD_API AGaragePlayerController : public AMenuPlayerController
 
 protected:
 
-  URobotPartAssignment* PartAssignment;
+  UPartAssignment* PartAssignment;
 
   UGarageWidget* GarageWidget;
 

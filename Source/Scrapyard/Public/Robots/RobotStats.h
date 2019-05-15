@@ -7,7 +7,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRobotStatsUpdatedDelegate);
 
-class URobotPartAssignment;
+class UPartAssignment;
 struct FStatText;
 
 /**
@@ -20,7 +20,7 @@ class SCRAPYARD_API URobotStats : public UObject
 
 public:
 
-  void SetPartAssignment(URobotPartAssignment* NewPartAssignment);
+  void SetPartAssignment(UPartAssignment* NewPartAssignment);
 
   UFUNCTION()
   void UpdateStats();
@@ -70,7 +70,7 @@ public:
 
 protected:
 
-  URobotPartAssignment* PartAssignment;
+  UPartAssignment* PartAssignment;
 
   void ZeroStats();
 

@@ -7,15 +7,15 @@
 #include "Engine/GameInstance.h"
 #include "Engine/StreamableManager.h"
 #include "Parts/RobotPart.h"
-#include "Parts/RobotPartSingleton.h"
+#include "Parts/PartSingleton.h"
 #include "ScrapyardGameInstance.generated.h"
 
 class UScrapyardAssets;
 class URobotPart;
-class URobotPartAssets;
+class UPartAssets;
 class URobotBodyComponent;
 class USoloDraft;
-class URobotPartAssignment;
+class UPartAssignment;
 class AScrapyardGameSession;
 
 UCLASS()
@@ -43,10 +43,10 @@ public:
   USoloDraft* SoloDraft;
 
   UPROPERTY()
-  URobotPartSingleton* RobotPartSingleton;
+  UPartSingleton* PartSingleton;
 
   UPROPERTY()
-  URobotPartAssignment* PartAssignment;
+  UPartAssignment* PartAssignment;
 
   AScrapyardGameSession* GetGameSession() const;  
   

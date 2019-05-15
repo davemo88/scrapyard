@@ -5,15 +5,15 @@
 #include "CoreMinimal.h"
 #include "Engine/SkeletalMesh.h"
 #include "Abilities/ScrapyardAbility.h"
-#include "Parts/RobotPartAssets.h"
-#include "Parts/RobotPartAssignment.h"
+#include "Parts/PartAssets.h"
+#include "Parts/PartAssignment.h"
 #include "Parts/Manufacturer.h"
 #include "RobotPart.generated.h"
 
 class URarity;
 class USoloDraft;
-class URobotPartAssignment;
-class URobotPartAssets;
+class UPartAssignment;
+class UPartAssets;
 //class AScrapyardAbility;
 class UTexture2D;
 class UMaterial;
@@ -38,7 +38,7 @@ class SCRAPYARD_API URobotPart : public UObject
 
 public:
 
-  static URobotPartAssets* RobotPartAssetsBP;
+  static UPartAssets* PartAssetsBP;
 
   UPROPERTY()
   uint32 PartID;
@@ -71,7 +71,7 @@ public:
 
   virtual void Draft(USoloDraft* SoloDraft) {};
 
-  virtual void Assign(URobotPartAssignment* RobotPartAssignment) {};
+  virtual void Assign(UPartAssignment* PartAssignment) {};
 
 };
 
