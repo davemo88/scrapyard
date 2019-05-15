@@ -28,8 +28,6 @@ void UPartSingleton::InitPartAssetsBP()
     {
       UE_LOG(LogTemp, Warning, TEXT("PartAssetsBP was loaded"));
       URobotPart::PartAssetsBP = PartAssetsBP;
-// TODO: this is a hack since getting game instance outside of actor is mysterious
-//      PartAssetsBP->GameInstance = this;
     }
     else
     {

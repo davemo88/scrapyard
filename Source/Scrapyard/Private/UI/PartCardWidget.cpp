@@ -58,7 +58,6 @@ void UPartCardWidget::AddStatsText()
   }
 }
 
-// TODO: maybe make stat lines into a userwidget 
 void UPartCardWidget::AddStatLine(FStatText StatText)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::AddStatLine"), *GetName());
@@ -67,6 +66,5 @@ void UPartCardWidget::AddStatLine(FStatText StatText)
   UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(OwningPlayer, GameInstance->AssetsBP->UIAssetsBP->StatLineWidgetBP);
   StatLine->SetStatLine(StatText);
   StatsBox->AddChild(StatLine);
-
 
 }

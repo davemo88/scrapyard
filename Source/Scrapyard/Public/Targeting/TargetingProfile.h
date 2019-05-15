@@ -20,7 +20,9 @@ protected:
 
   float Range;
 
-//TODO: set somewhere authoritatively
+//TODO: set somewhere authoritatively, e.g. from the character
+// this is related to camera offset since the projection targeting
+// depends on alignment with camera point of view
   FVector TargetingOffset;
 
 //  TSubclassOf<UTargetingWidget> TargetingWidget;

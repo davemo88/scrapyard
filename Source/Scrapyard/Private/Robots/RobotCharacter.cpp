@@ -126,7 +126,7 @@ void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
   Super::SetupPlayerInputComponent(PlayerInputComponent);
 
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-//TODO: why this check?
+
   if (PC)
   {
     InputComponent->BindAxis("MoveX", this, &ARobotCharacter::Axis_MoveX);
@@ -158,8 +158,6 @@ void ARobotCharacter::SetupRobotHUDWidget()
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-// TODO: can there be a locally controlled PC with ROLE_Authority? i guess if everything is local?
-//  if (Role < ROLE_Authority && PC && IsLocallyControlled())
   if (PC && IsLocallyControlled())
   {
 // TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
@@ -263,13 +261,12 @@ void ARobotCharacter::OnStatsUpdated()
 
 void ARobotCharacter::Axis_MoveX(float AxisValue)
 {
-//TODO: remove this check
   if (Controller && AxisValue != 0.f)
   {
     // Limit pitch when walking or falling
     URobotMovementComponent* MovementComponent = Cast<URobotMovementComponent>(GetMovementComponent());
     const bool bLimitRotation = (MovementComponent->IsMovingOnGround() || MovementComponent->IsFalling() || MovementComponent->IsFlying());
-//    const bool bLimitRotation = (GetCharacterMovement()->IsMovingOnGround() || GetCharacterMovement()->IsFalling());
+
     const FRotator Rotation = bLimitRotation ? GetActorRotation() : Controller->GetControlRotation();
     const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::X);
 
@@ -328,6 +325,8 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
+//TODO: create subclass with these weird controls
+//
 //  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 ////  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
 //  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
@@ -356,62 +355,6 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 
   AddControllerPitchInput(AxisValue);
 }
-
-//void ARobotCharacter::Axis_Boost(float AxisValue)
-//{
-//  URobotMovementComponent* MovementComponent = Cast<URobotMovementComponent>(GetMovementComponent());
-//  FString MovementModeName = MovementComponent->GetMovementName();
-////  UE_LOG(LogTemp, Warning, TEXT("Preboost Movement Mode: %s "), *MovementModeName);
-//  if (AxisValue != 0.f && Power > 0)
-//  {
-//    if (MovementComponent->IsWalking())
-//    {
-//
-//    }
-//    else if (MovementComponent->IsFalling())
-//    {
-//      {
-//        MovementComponent->SetMovementMode(MOVE_Flying, 5);
-//      }
-//    }
-//    else if (MovementComponent->IsFlying())
-//    {
-//// TODO: set some scaling constants for booster thrust and powerdrain
-//      const FVector Up = FVector(0, 0, 1);
-//      AddMovementInput(Up, AxisValue);
-//      Power = FMath::Max(Power - (int)(RobotStats->BoosterPowerDrain * AxisValue * 0.1), 0);
-//    }
-//  }
-//  else if (AxisValue != 0.f && Power <= 0)
-//  {
-//    if (MovementComponent->IsFlying())
-//    {
-//      {
-//        MovementComponent->SetMovementMode(MOVE_Falling, 5);
-//      }
-//    }
-//  }
-//  else if (AxisValue == 0.f)
-//  {
-//    if (Power < RobotStats->MaxPower)
-//    {
-//      Power = FMath::Min(RobotStats->MaxPower, Power + 10);
-//    }
-//
-//    if (MovementComponent->IsFlying())
-//    {
-//      MovementComponent->SetMovementMode(MOVE_Falling, 3);
-//    }
-//  };
-//  if (!HasAuthority())
-//  {
-//    ServerBoost(AxisValue);
-//  }
-////  UE_LOG(LogTemp, Warning, TEXT("Postboost Movement Mode: %s "), *MovementModeName);
-//
-//// better to switch on this enum type later
-////  EMovementMode MovementMode = MovementComponent->MovementMode;
-//}
 
 void ARobotCharacter::StartBoosting()
 {

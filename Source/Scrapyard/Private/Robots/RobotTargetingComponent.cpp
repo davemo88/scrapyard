@@ -113,9 +113,7 @@ FVector URobotTargetingComponent::GetLocationRelativeToView(AActor* OtherActor) 
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   FVector OwnerLocation = OwnerChar->GetActorLocation();
   FRotator ViewRotation = OwnerChar->GetViewRotation();
-//TODO: Set this somewhere, e.g. on the character (it's the position of the camera relative to the char)
-// this should be camera offset i think
-  FVector TargetingOffset = TargetingProfile->TargetingOffset;//FVector(-350, 0, 130);
+  FVector TargetingOffset = TargetingProfile->TargetingOffset;
   FVector RotatedTargetingOffset = ViewRotation.RotateVector(TargetingOffset);
   FRotator InverseViewRotation = ViewRotation.GetInverse();
   FVector TargetingOrigin = OwnerLocation + RotatedTargetingOffset;

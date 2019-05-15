@@ -143,7 +143,6 @@ void ARobotPlayerController::SetupMatchTimerWidget()
   {
     UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
     MatchTimerWidget = CreateWidget<UMatchTimerWidget>(this, GameInstance->AssetsBP->UIAssetsBP->MatchTimerWidgetBP);
-  //TODO: save pointer to gamestate?
     if (ARobotGameState* RobotGS = (Cast<ARobotGameState>(GetWorld()->GetGameState())))
     {
       RobotGS->OnMatchTimerStartedDelegate.AddDynamic(MatchTimerWidget, &UMatchTimerWidget::StartMatchTimer);

@@ -38,10 +38,6 @@ public:
 
   FStreamableManager AssetLoader;
 
-//TODO: shouldn't be stored here because game instance doesn't replicate
-  UPROPERTY()
-  USoloDraft* SoloDraft;
-
   UPROPERTY()
   UPartSingleton* PartSingleton;
 
@@ -49,5 +45,9 @@ public:
   UPartAssignment* PartAssignment;
 
   AScrapyardGameSession* GetGameSession() const;  
+
+//TODO: how to store this to save between level changes?
+  UPROPERTY()
+  USoloDraft* SoloDraft;
   
 };

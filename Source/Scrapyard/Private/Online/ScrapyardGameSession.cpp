@@ -204,7 +204,6 @@ void AScrapyardGameSession::OnJoinSessionComplete(FName SessionName, EOnJoinSess
       Sessions->ClearOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegateHandle);
 
       // Get the first local PlayerController, so we can call "ClientTravel" to get to the Server Map
-      // TODO: should get if world is null since i bet this will go wrong haha
       APlayerController * const PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
 
       // We need a FString to use ClientTravel and we can let the SessionInterface contruct such a

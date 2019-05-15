@@ -8,14 +8,13 @@
 
 URobotMovementComponent::URobotMovementComponent()
 {
+// TODO: set all from robot stats
 // slipperiness
-// TODO: depends on leg part
   GroundFriction = 2.0f;
   BrakingDecelerationWalking = 555.0f;
 
   
 // boosting
-// TODO: depends on core part, weight 
   BoostSpeedMultiplier = 2.0f;
   BoostAccelerationMultiplier = 2.0f;
 

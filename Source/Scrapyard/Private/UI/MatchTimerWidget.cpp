@@ -20,7 +20,6 @@ void UMatchTimerWidget::StopMatchTimer()
 void UMatchTimerWidget::UpdateMatchTimer()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::UpdateMatchTimer"), *GetName());
-//TODO: refactor this 
   if (ARobotGameState* RobotGS = Cast<ARobotGameState>(GetWorld()->GetGameState()))
   {
     MatchTime->SetText(FText::AsNumber(RobotGS->GetMatchTimerSecondsRemaining()));

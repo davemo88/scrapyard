@@ -57,9 +57,9 @@ void UPartAssignment::SetDefaultAssignment()
 void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetAssignment"), *GetName());
+// TODO: should be possible with incomplete assignments 
   if (NewPartAssignment->IsComplete())
   {
-// TODO: unsafe with incomplete assignments but should be possible
     Head = NewPartAssignment->Head;
     Core = NewPartAssignment->Core;
     Arms = NewPartAssignment->Arms;

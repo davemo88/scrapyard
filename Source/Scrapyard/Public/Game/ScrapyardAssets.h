@@ -9,7 +9,6 @@
 /**
  * 
  */
-//TODO: refactor this class and other asset assignment classes
 UCLASS(Blueprintable)
 class SCRAPYARD_API UScrapyardAssets : public UObject
 {

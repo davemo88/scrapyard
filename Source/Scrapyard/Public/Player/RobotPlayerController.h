@@ -37,7 +37,6 @@ public:
   UMatchTimerWidget* MatchTimerWidget;
   void SetupMatchTimerWidget();
 
-// TODO: refector these to be protected
   virtual void OnFire();
   virtual void OnStopFire();
 

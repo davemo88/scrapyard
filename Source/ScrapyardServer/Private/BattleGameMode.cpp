@@ -68,11 +68,9 @@ bool ABattleGameMode::ReadyToStartMatch_Implementation()
   bool Ready = false;
   if (GetNumPlayers() >= MinPlayers)
   {
+// NOTE: everything might not be replicated at this point (e.g. gamestate)
     if (!RobotGS->IsMatchTimerActive() && IsGameStateReplicatedToAllClients() && !bMatchTimerExpired)
     {
-// TODO: everything might not be replicated at this point (e.g. gamestate) so we need to either:
-// 1. wait for an event from each client to confirm everything is ready
-// 2. just wait a bit and hope
 // if a client's gamestate hasn't finished replicating yet, then this rpc won't be executed on that client
       RobotGS->MulticastStartMatchTimer(5);
     }
@@ -159,7 +157,7 @@ void ABattleGameMode::HandleMatchAborted()
 void ABattleGameMode::HandleMatchHasEnded()
 {
   UE_LOG(LogTemp, Warning, TEXT("HandleMatchHasEnded"));
-//TODO: timer
+//TODO: more gracefully, e.g. timer
   RestartGame();
 }
 

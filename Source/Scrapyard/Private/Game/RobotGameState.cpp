@@ -26,7 +26,6 @@ void ARobotGameState::MulticastStopMatchTimer_Implementation()
 void ARobotGameState::MatchTimer()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::MatchTimer"), *GetName());
-//TODO: heh heh this looks bad
   if (MatchTimerSecondsRemaining > 0)
   {
     MatchTimerSecondsRemaining--;
