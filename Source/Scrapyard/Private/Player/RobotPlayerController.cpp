@@ -34,9 +34,6 @@ void ARobotPlayerController::BeginPlay()
 
   SetupMatchTimerWidget();
 
-//  AHUD* hud = GetHUD();
-//  hud->ShowHUD();
-
 }
 
 void ARobotPlayerController::Tick(float DeltaTime)

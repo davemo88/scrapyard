@@ -13,6 +13,7 @@ UScrapyardGameInstance* UScrapyardGameInstance::GameInstance = nullptr;
 
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
+//TODO: LOL look at this hack
   GameInstance = this;
 // TODO: find the right place for these
   SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
@@ -52,8 +53,15 @@ void UScrapyardGameInstance::InitAssetsBP()
 // NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
     AssetsBP = AssetsBPClass->GetDefaultObject<UScrapyardAssets>();
 
-    AssetsBP->UIAssetsBP = AssetsBP->UIAssetsBPClass->GetDefaultObject<UIAssetsBPClass>();
-    AssetsBP->PartsAssetsBP = AssetsBP->PartsAssetsBPClass->GetDefaultObject<PartsAssetsBPClass>();
-
+    if (AssetsBP->UIAssetsBPClass != nullptr)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("Loading UIAssetsBP"), *GetName());
+      AssetsBP->UIAssetsBP = AssetsBP->UIAssetsBPClass->GetDefaultObject<UUIAssets>();
+    }
+    if (AssetsBP->PartAssetsBPClass != nullptr)
+    {
+      UE_LOG(LogTemp, Warning, TEXT("Loading PartAssetsBP"), *GetName());
+      AssetsBP->PartAssetsBP = AssetsBP->PartAssetsBPClass->GetDefaultObject<UPartAssets>();
+    }
   }
 }
