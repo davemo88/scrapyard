@@ -15,6 +15,10 @@ class SCRAPYARD_API UTargetingProfile : public UObject
   GENERATED_BODY()
 
   friend class URobotTargetingComponent;
+
+public:
+
+  FVector GetTargetingOffset();
   
 protected:
 

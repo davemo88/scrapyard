@@ -44,6 +44,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   RobotTargetingComponent = CreateDefaultSubobject<URobotTargetingComponent>(TEXT("RobotTargetingComponent")); 
   RobotTargetingComponent->SetupAttachment(RootComponent);
 
+//TODO: refactor to get rid of ARobotCharacter tick event
 // NOTE: maybe sloppy but also seems to make sense
   AddTickPrerequisiteComponent(RobotTargetingComponent);
 

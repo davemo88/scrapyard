@@ -3,4 +3,7 @@
 
 #include "TargetingProfile.h"
 
-
+FVector UTargetingProfile::GetTargetingOffset()
+{
+  return TargetingOffset;
+}

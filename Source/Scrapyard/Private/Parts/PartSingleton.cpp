@@ -12,28 +12,9 @@
 
 UPartSingleton::UPartSingleton()
 {
-  InitPartAssetsBP();
 //NOTE: should this be called inside InitPartDB? ehhh
   InitManufacturers();
   InitPartDB();
-}
-
-void UPartSingleton::InitPartAssetsBP()
-{
-  FStringClassReference PartAssetsBPClassRef(TEXT("/Game/PartAssetsBP.PartAssetsBP_C"));
-  if (UClass* PartAssetsBPClass = PartAssetsBPClassRef.TryLoadClass<UPartAssets>())
-  {
-    PartAssetsBP = PartAssetsBPClass->GetDefaultObject<UPartAssets>();
-    if (PartAssetsBP)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("PartAssetsBP was loaded"));
-      URobotPart::PartAssetsBP = PartAssetsBP;
-    }
-    else
-    {
-      UE_LOG(LogTemp, Warning, TEXT("PartAssetsBP was NOT loaded"));
-    }
-  }
 }
 
 void UPartSingleton::InitManufacturers()

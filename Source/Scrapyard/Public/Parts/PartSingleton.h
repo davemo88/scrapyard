@@ -58,11 +58,6 @@ public:
 protected:
 
   UPROPERTY()
-  UPartAssets* PartAssetsBP;
-
-  void InitPartAssetsBP();
-
-  UPROPERTY()
   UManufacturer* DefaultManufacturer;
   UPROPERTY()
   UManufacturer* RedManufacturer;

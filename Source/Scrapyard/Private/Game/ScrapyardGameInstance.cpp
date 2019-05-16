@@ -50,7 +50,7 @@ void UScrapyardGameInstance::InitAssetsBP()
   FStringClassReference AssetsBPClassRef(TEXT("/Game/ScrapyardAssetsBP.ScrapyardAssetsBP_C"));
   if (UClass* AssetsBPClass =  AssetsBPClassRef.TryLoadClass<UScrapyardAssets>())
   {
-// NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
+// NOTE: NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
     AssetsBP = AssetsBPClass->GetDefaultObject<UScrapyardAssets>();
 
     if (AssetsBP->UIAssetsBPClass != nullptr)
@@ -62,6 +62,7 @@ void UScrapyardGameInstance::InitAssetsBP()
     {
       UE_LOG(LogTemp, Warning, TEXT("Loading PartAssetsBP"), *GetName());
       AssetsBP->PartAssetsBP = AssetsBP->PartAssetsBPClass->GetDefaultObject<UPartAssets>();
+      URobotPart::PartAssetsBP = AssetsBP->PartAssetsBP;
     }
   }
 }
