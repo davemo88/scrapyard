@@ -25,4 +25,8 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<UPartAssets> PartAssetsBPClass;
 
+  UUIAssets* UIAssetsBP;
+
+  UPartAssets* PartAssetsBP;
+
 };

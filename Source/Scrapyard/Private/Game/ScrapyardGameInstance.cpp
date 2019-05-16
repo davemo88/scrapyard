@@ -51,5 +51,9 @@ void UScrapyardGameInstance::InitAssetsBP()
   {
 // NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
     AssetsBP = AssetsBPClass->GetDefaultObject<UScrapyardAssets>();
+
+    AssetsBP->UIAssetsBP = AssetsBP->UIAssetsBPClass->GetDefaultObject<UIAssetsBPClass>();
+    AssetsBP->PartsAssetsBP = AssetsBP->PartsAssetsBPClass->GetDefaultObject<PartsAssetsBPClass>();
+
   }
 }
