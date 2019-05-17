@@ -74,6 +74,11 @@ protected:
 
   void InitManufacturers();
 
-  TArray<URobotPart*> GetDefaultParts();
+  void  InitDefaultParts();
+  void  InitRedParts();
+  void  InitBlueParts();
+  void  InitGreenParts();
+  void  InitOrangeParts();
+  void  InitPurpleParts();
 	
 };

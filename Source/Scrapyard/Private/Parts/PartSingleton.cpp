@@ -22,8 +22,6 @@ void UPartSingleton::InitManufacturers()
 {
   DefaultManufacturer = NewObject<UManufacturer>();
   DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
-  DefaultManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedCard);
 
   RedManufacturer = NewObject<UManufacturer>();
   RedManufacturer->ManufacturerName = NSLOCTEXT("SY", "RedCorpName", "Red Corp");
@@ -53,80 +51,378 @@ void UPartSingleton::InitManufacturers()
 
 void UPartSingleton::InitPartDB()
 {
-  TArray<URobotPart*> DefaultParts = GetDefaultParts();
-  for (URobotPart* Part : DefaultParts)
-  {
-    PartDB.AddPart(Part);
-  }
+  InitDefaultParts();
+  InitRedParts();
+  InitBlueParts();
+  InitGreenParts();
+  InitOrangeParts();
+  InitPurpleParts();
 }
 
-TArray<URobotPart*> UPartSingleton::GetDefaultParts()
+void UPartSingleton::InitDefaultParts()
 {
-  TArray<URobotPart*> DefaultParts;
+  PartDB.AddPart(
+    UHeadPart::NewHead(
+      1000,
+      NSLOCTEXT("SY", "DefaultHeadName", "Default Head"),
+      DefaultManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
+      10,
+      1));
+  PartDB.AddPart(
+    UCorePart::NewCore(
+      2000,
+      NSLOCTEXT("SY", "DefaultCoreName", "Default Core"),
+      DefaultManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
+      1000,
+      500,
+      500,
+      3));
+  PartDB.AddPart(
+    UArmsPart::NewArms(
+      3000,
+      NSLOCTEXT("SY", "DefaultArmsName", "Default Arms"),
+      DefaultManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial));
+  PartDB.AddPart(
+    ULegsPart::NewLegs(
+      4000,
+      NSLOCTEXT("SY", "DefaultLegsName", "Default Legs"),
+      DefaultManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
+      1000,
+      500,
+      10));
+}
 
-  if (UScrapyardGameInstance::AssetsBP != nullptr)
-  {
-    DefaultParts.Add(
-      UHeadPart::NewHead(
-        1000,
-        NSLOCTEXT("SY", "DefaultHeadName", "Default Head"),
-        DefaultManufacturer,
-        nullptr,
-        100,
-        50,
-        100,
-        nullptr,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
-        10,
-        1));
-    DefaultParts.Add(
-      UCorePart::NewCore(
-        2000,
-        NSLOCTEXT("SY", "DefaultCoreName", "Default Core"),
-        DefaultManufacturer,
-        nullptr,
-        100,
-        50,
-        100,
-        nullptr,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
-        1000,
-        500,
-        500,
-        3));
-    DefaultParts.Add(
-      UArmsPart::NewArms(
-        3000,
-        NSLOCTEXT("SY", "DefaultArmsName", "Default Arms"),
-        DefaultManufacturer,
-        nullptr,
-        100,
-        50,
-        100,
-        nullptr,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial));
-    DefaultParts.Add(
-      ULegsPart::NewLegs(
-        4000,
-        NSLOCTEXT("SY", "DefaultLegsName", "Default Legs"),
-        DefaultManufacturer,
-        nullptr,
-        100,
-        50,
-        100,
-        nullptr,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
-        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
-        1000,
-        500,
-        10));
-  
-  }
+void UPartSingleton::InitRedParts()
+{
+  PartDB.AddPart(
+    UHeadPart::NewHead(
+      1001,
+      NSLOCTEXT("SY", "RedHeadName", "Red Head"),
+      RedManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
+      10,
+      1));
+  PartDB.AddPart(
+    UCorePart::NewCore(
+      2001,
+      NSLOCTEXT("SY", "RedCoreName", "Red Core"),
+      RedManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
+      1000,
+      500,
+      500,
+      3));
+  PartDB.AddPart(
+    UArmsPart::NewArms(
+      3001,
+      NSLOCTEXT("SY", "RedArmsName", "Red Arms"),
+      RedManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial));
+  PartDB.AddPart(
+    ULegsPart::NewLegs(
+      4001,
+      NSLOCTEXT("SY", "RedLegsName", "Red Legs"),
+      RedManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
+      1000,
+      500,
+      10));
+}
 
-  return DefaultParts;
+void UPartSingleton::InitBlueParts()
+{
+  PartDB.AddPart(
+    UHeadPart::NewHead(
+      1002,
+      NSLOCTEXT("SY", "BlueHeadName", "Blue Head"),
+      BlueManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
+      10,
+      1));
+  PartDB.AddPart(
+    UCorePart::NewCore(
+      2002,
+      NSLOCTEXT("SY", "BlueCoreName", "Blue Core"),
+      BlueManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
+      1000,
+      500,
+      500,
+      3));
+  PartDB.AddPart(
+    UArmsPart::NewArms(
+      3002,
+      NSLOCTEXT("SY", "BlueArmsName", "Blue Arms"),
+      BlueManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial));
+  PartDB.AddPart(
+    ULegsPart::NewLegs(
+      4002,
+      NSLOCTEXT("SY", "BlueLegsName", "Blue Legs"),
+      BlueManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
+      1000,
+      500,
+      10));
+}
+
+void UPartSingleton::InitGreenParts()
+{
+  PartDB.AddPart(
+    UHeadPart::NewHead(
+      1003,
+      NSLOCTEXT("SY", "GreenHeadName", "Green Head"),
+      GreenManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
+      10,
+      1));
+  PartDB.AddPart(
+    UCorePart::NewCore(
+      2003,
+      NSLOCTEXT("SY", "GreenCoreName", "Green Core"),
+      GreenManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
+      1000,
+      500,
+      500,
+      3));
+  PartDB.AddPart(
+    UArmsPart::NewArms(
+      3003,
+      NSLOCTEXT("SY", "GreenArmsName", "Green Arms"),
+      GreenManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial));
+  PartDB.AddPart(
+    ULegsPart::NewLegs(
+      4003,
+      NSLOCTEXT("SY", "GreenLegsName", "Green Legs"),
+      GreenManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
+      1000,
+      500,
+      10));
+}
+
+void UPartSingleton::InitOrangeParts()
+{
+  PartDB.AddPart(
+    UHeadPart::NewHead(
+      1004,
+      NSLOCTEXT("SY", "OrangeHeadName", "Orange Head"),
+      OrangeManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
+      10,
+      1));
+  PartDB.AddPart(
+    UCorePart::NewCore(
+      2004,
+      NSLOCTEXT("SY", "OrangeCoreName", "Orange Core"),
+      OrangeManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
+      1000,
+      500,
+      500,
+      3));
+  PartDB.AddPart(
+    UArmsPart::NewArms(
+      3004,
+      NSLOCTEXT("SY", "OrangeArmsName", "Orange Arms"),
+      OrangeManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial));
+  PartDB.AddPart(
+    ULegsPart::NewLegs(
+      4004,
+      NSLOCTEXT("SY", "OrangeLegsName", "Orange Legs"),
+      OrangeManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
+      1000,
+      500,
+      10));
+}
+
+void UPartSingleton::InitPurpleParts()
+{
+  PartDB.AddPart(
+    UHeadPart::NewHead(
+      1005,
+      NSLOCTEXT("SY", "PurpleHeadName", "Purple Head"),
+      PurpleManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
+      10,
+      1));
+  PartDB.AddPart(
+    UCorePart::NewCore(
+      2005,
+      NSLOCTEXT("SY", "PurpleCoreName", "Purple Core"),
+      PurpleManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
+      1000,
+      500,
+      500,
+      3));
+  PartDB.AddPart(
+    UArmsPart::NewArms(
+      3005,
+      NSLOCTEXT("SY", "PurpleArmsName", "Purple Arms"),
+      PurpleManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial));
+  PartDB.AddPart(
+    ULegsPart::NewLegs(
+      4005,
+      NSLOCTEXT("SY", "PurpleLegsName", "Purple Legs"),
+      PurpleManufacturer,
+      nullptr,
+      100,
+      50,
+      100,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
+      1000,
+      500,
+      10));
 }
 
 

@@ -11,7 +11,8 @@
 void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 {
   RobotPart = NewRobotPart;
-  if (RobotPart->Manufacturer)
+// NOTE: being reckless here
+  if (RobotPart->Manufacturer->Card)
   {
     CardBackground->SetBrushFromTexture(RobotPart->Manufacturer->Card);
   }
