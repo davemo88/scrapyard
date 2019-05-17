@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Engine/SkeletalMesh.h"
-#include "Abilities/ScrapyardAbility.h"
 #include "Parts/PartAssets.h"
 #include "Parts/PartAssignment.h"
 #include "Parts/Manufacturer.h"
+#include "Abilities/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
 class URarity;
 class USoloDraft;
 class UPartAssignment;
 class UPartAssets;
-//class AScrapyardAbility;
 class UTexture2D;
 class UMaterial;
 
@@ -37,8 +36,6 @@ class SCRAPYARD_API URobotPart : public UObject
   GENERATED_BODY()
 
 public:
-
-  static UPartAssets* PartAssetsBP;
 
   UPROPERTY()
   uint32 PartID;

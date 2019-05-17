@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ArmsPart.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
 #include "PartAssignment.h"
 #include "Parts/PartAssets.h"
 #include "SoloDraft.h"
@@ -36,7 +38,9 @@ void UArmsPart::Assign(UPartAssignment* PartAssignment)
 
 UTexture2D* UArmsPart::GetPartTypeIcon() const
 {
-  return (PartAssetsBP != NULL) ? PartAssetsBP->GetAsset<UTexture2D>(PartAssetsBP->ArmsCardIcon): nullptr;
+  return (UScrapyardGameInstance::AssetsBP != NULL) ? 
+    UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsCardIcon) 
+    : nullptr;
 }
 
 TArray<FStatText> UArmsPart::GetStatsText() const

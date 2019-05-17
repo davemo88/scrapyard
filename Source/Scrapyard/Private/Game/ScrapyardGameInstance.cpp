@@ -1,15 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ScrapyardGameInstance.h"
+#include "SoloDraft.h"
+#include "Game/ScrapyardAssets.h"
 #include "Engine/Engine.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/GameModeBase.h"
 #include "Online/ScrapyardGameSession.h"
 #include "Game/ScrapyardAssets.h"
 #include "Components/Button.h"
-#include "SoloDraft.h"
 
 UScrapyardGameInstance* UScrapyardGameInstance::GameInstance = nullptr;
+UScrapyardAssets* UScrapyardGameInstance::AssetsBP = nullptr;
 
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
@@ -53,7 +55,9 @@ void UScrapyardGameInstance::InitAssetsBP()
   if (UClass* AssetsBPClass =  AssetsBPClassRef.TryLoadClass<UScrapyardAssets>())
   {
 // NOTE: NewObject will use the C++ class defaults, not the BP defaults, which defeats the purpose of setting asset refs in BP
-    AssetsBP = AssetsBPClass->GetDefaultObject<UScrapyardAssets>();
+    AssetsBPRef = AssetsBPClass->GetDefaultObject<UScrapyardAssets>();
+// setting static variable
+    AssetsBP = AssetsBPRef;
 
     if (AssetsBP->UIAssetsBPClass != nullptr)
     {
@@ -64,7 +68,6 @@ void UScrapyardGameInstance::InitAssetsBP()
     {
       UE_LOG(LogTemp, Warning, TEXT("Loading PartAssetsBP"), *GetName());
       AssetsBP->PartAssetsBP = AssetsBP->PartAssetsBPClass->GetDefaultObject<UPartAssets>();
-      URobotPart::PartAssetsBP = AssetsBP->PartAssetsBP;
     }
   }
 }

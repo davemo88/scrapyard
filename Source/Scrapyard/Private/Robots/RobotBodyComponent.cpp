@@ -1,15 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotBodyComponent.h"
-#include "Components/SceneComponent.h"
-#include "ConstructorHelpers.h"
-#include "Animation/AnimBlueprintGeneratedClass.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
 #include "Robots/RobotPartComponent.h"
 #include "Parts/PartAssignment.h"
 #include "Parts/RobotPart.h"
 #include "Parts/PartAssets.h"
 #include "Robots/RobotCharacter.h"
 #include "Abilities/HitscanAbility.h"
+#include "Components/SceneComponent.h"
+#include "ConstructorHelpers.h"
+#include "Animation/AnimBlueprintGeneratedClass.h"
 
 
 // Sets default values for this component's properties
@@ -21,10 +23,11 @@ URobotBodyComponent::URobotBodyComponent()
 
   bVisible = false;
 
-  if (URobotPart::PartAssetsBP != nullptr)
+  if (UScrapyardGameInstance::AssetsBP != nullptr)
   {
-    SetSkeletalMesh(URobotPart::PartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::PartAssetsBP->RobotSkeletalMesh));
-    SetAnimInstanceClass(URobotPart::PartAssetsBP->RobotAnimInstance);
+//    SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->PartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::PartAssetsBP->RobotSkeletalMesh));
+    SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->PartAssetsBP->RobotSkeletalMesh);
+    SetAnimInstanceClass(UScrapyardGameInstance::AssetsBP->PartAssetsBP->RobotAnimInstance);
   }
 
   HeadComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("HeadComponent"));

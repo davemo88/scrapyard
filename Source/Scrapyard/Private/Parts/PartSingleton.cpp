@@ -2,6 +2,8 @@
 
 
 #include "PartSingleton.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
 #include "Parts/PartAssets.h"
 #include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
@@ -20,27 +22,22 @@ void UPartSingleton::InitManufacturers()
 {
   DefaultManufacturer = NewObject<UManufacturer>();
   DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
-  DefaultManufacturer->CardBackgroundColor = FLinearColor(0.43f, 0.43f, 43.0f, 1.0f);
 
   RedManufacturer = NewObject<UManufacturer>();
   RedManufacturer->ManufacturerName = NSLOCTEXT("SY", "RedCorpName", "Red Corp");
-  RedManufacturer->CardBackgroundColor = FLinearColor(385.0f, 0.0f, 0.0f, 1.0f);
+//  RedManufacturer->Card = URobotPart::PartAssets->
 
   BlueManufacturer = NewObject<UManufacturer>();
   BlueManufacturer->ManufacturerName = NSLOCTEXT("SY", "BlueCorpName", "Blue Corp");
-  BlueManufacturer->CardBackgroundColor = FLinearColor(0.0f, 0.0f, 500.0f, 1.0f);
 
   GreenManufacturer = NewObject<UManufacturer>();
   GreenManufacturer->ManufacturerName = NSLOCTEXT("SY", "GreenCorpName", "Green Corp");
-  GreenManufacturer->CardBackgroundColor = FLinearColor(0.0f, 385.0f, 0.0f, 1.0f);
 
   OrangeManufacturer = NewObject<UManufacturer>();
   OrangeManufacturer->ManufacturerName = NSLOCTEXT("SY", "OrangeCorpName", "Orange Corp");
-  OrangeManufacturer->CardBackgroundColor = FLinearColor(1.0f, 0.29f, 0.0f, 1.0f);
 
   PurpleManufacturer = NewObject<UManufacturer>();
   PurpleManufacturer->ManufacturerName = NSLOCTEXT("SY", "PurpleCorpName", "Purple Corp");
-  PurpleManufacturer->CardBackgroundColor = FLinearColor(1.0f, 0.0f, 72.0f, 1.0f);
 }
 
 void UPartSingleton::InitPartDB()
@@ -56,7 +53,7 @@ TArray<URobotPart*> UPartSingleton::GetDefaultParts()
 {
   TArray<URobotPart*> DefaultParts;
 
-  if (URobotPart::PartAssetsBP != nullptr)
+  if (UScrapyardGameInstance::AssetsBP != nullptr)
   {
     DefaultParts.Add(
       UHeadPart::NewHead(
@@ -68,8 +65,8 @@ TArray<URobotPart*> UPartSingleton::GetDefaultParts()
         50,
         100,
         nullptr,
-        URobotPart::PartAssetsBP->HeadPart_Default_SkeletalMesh,
-        URobotPart::PartAssetsBP->DefaultMaterial,
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
         10,
         1));
     DefaultParts.Add(
@@ -82,8 +79,8 @@ TArray<URobotPart*> UPartSingleton::GetDefaultParts()
         50,
         100,
         nullptr,
-        URobotPart::PartAssetsBP->CorePart_Default_SkeletalMesh,
-        URobotPart::PartAssetsBP->DefaultMaterial,
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
         1000,
         500,
         500,
@@ -98,8 +95,8 @@ TArray<URobotPart*> UPartSingleton::GetDefaultParts()
         50,
         100,
         nullptr,
-        URobotPart::PartAssetsBP->ArmsPart_Default_SkeletalMesh,
-        URobotPart::PartAssetsBP->DefaultMaterial));
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial));
     DefaultParts.Add(
       ULegsPart::NewLegs(
         4000,
@@ -110,8 +107,8 @@ TArray<URobotPart*> UPartSingleton::GetDefaultParts()
         50,
         100,
         nullptr,
-        URobotPart::PartAssetsBP->LegsPart_Default_SkeletalMesh,
-        URobotPart::PartAssetsBP->DefaultMaterial,
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+        UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
         1000,
         500,
         10));

@@ -27,16 +27,14 @@ public:
 
 // will this get garbage collected? guess not i suppose
   static UScrapyardGameInstance* GameInstance;
+  
+  static UScrapyardAssets* AssetsBP;
 
   UScrapyardGameInstance();
   
   virtual void Init() override;
 
-  UPROPERTY()
-  UScrapyardAssets* AssetsBP;
-  void InitAssetsBP();
-
-  FStreamableManager AssetLoader;
+  AScrapyardGameSession* GetGameSession() const;  
 
   UPROPERTY()
   UPartSingleton* PartSingleton;
@@ -44,10 +42,15 @@ public:
   UPROPERTY()
   UPartAssignment* PartAssignment;
 
-  AScrapyardGameSession* GetGameSession() const;  
-
-//TODO: how to store this to save between level changes?
   UPROPERTY()
   USoloDraft* SoloDraft;
+
+protected:
+
+// so our static AssetsBP doesn't get garbage collected
+  UPROPERTY()
+  UScrapyardAssets* AssetsBPRef;
+
+  void InitAssetsBP();
   
 };

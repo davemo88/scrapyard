@@ -29,4 +29,18 @@ public:
 
   UPartAssets* PartAssetsBP;
 
+  template <class T>
+  T* GetAsset(TSoftObjectPtr<T> AssetRef)
+  {
+    if (AssetRef.IsValid())
+    {
+      return AssetRef.Get();
+    }
+    else if (AssetRef.IsPending())
+    {
+      return AssetRef.LoadSynchronous();
+    }
+    return nullptr;
+  }
+
 };

@@ -19,7 +19,6 @@ public:
   UPROPERTY()
   FText ManufacturerName;
   UPROPERTY()
-  FLinearColor CardBackgroundColor;
-//  UPROPERTY()
-//  TSoftObjectPtr<UTexture2D> Logo;
+  UTexture2D* Card;
+
 };

@@ -22,22 +22,8 @@ class SCRAPYARD_API UPartAssets : public UObject
 
 public:
 
-  template <class T>
-  T* GetAsset(TSoftObjectPtr<T> AssetRef)
-  {
-    if (AssetRef.IsValid())
-    {
-      return AssetRef.Get();
-    }
-    else if (AssetRef.IsPending())
-    {
-      return AssetRef.LoadSynchronous();
-    }
-    return nullptr;
-  }
-
   UPROPERTY(EditDefaultsOnly)
-  TSoftObjectPtr<USkeletalMesh> RobotSkeletalMesh;
+  USkeletalMesh* RobotSkeletalMesh;
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<UAnimInstance> RobotAnimInstance;
@@ -65,6 +51,17 @@ public:
   TSoftObjectPtr<UMaterial> PurpleMaterial;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UMaterial> OrangeMaterial;
+
+  UPROPERTY()
+  TSoftObjectPtr<UTexture2D> RedCard;
+  UPROPERTY()
+  TSoftObjectPtr<UTexture2D> BlueCard;
+  UPROPERTY()
+  TSoftObjectPtr<UTexture2D> GreenCard;
+  UPROPERTY()
+  TSoftObjectPtr<UTexture2D> PurpleCard;
+  UPROPERTY()
+  TSoftObjectPtr<UTexture2D> OrangeCard;
 
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> HeadCardIcon;

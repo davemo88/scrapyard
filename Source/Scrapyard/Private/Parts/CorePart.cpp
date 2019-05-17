@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CorePart.h"
-#include "PartAssignment.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
+#include "Parts/PartAssignment.h"
 #include "SoloDraft.h"
 
 UCorePart* UCorePart::NewCore(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerSupply, uint32 NewBoosterThrust, uint32 NewBoosterPowerDrain)
@@ -38,7 +40,9 @@ void UCorePart::Assign(UPartAssignment* PartAssignment)
 
 UTexture2D* UCorePart::GetPartTypeIcon() const
 {
-  return (PartAssetsBP != NULL) ? PartAssetsBP->GetAsset<UTexture2D>(PartAssetsBP->CoreCardIcon) : nullptr;
+  return (UScrapyardGameInstance::AssetsBP != NULL) ? 
+    UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(UScrapyardGameInstance::AssetsBP->PartAssetsBP->CoreCardIcon) 
+    : nullptr;
 }
 
 TArray<FStatText> UCorePart::GetStatsText() const
