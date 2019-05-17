@@ -52,15 +52,15 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UMaterial> OrangeMaterial;
 
-  UPROPERTY()
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> RedCard;
-  UPROPERTY()
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> BlueCard;
-  UPROPERTY()
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> GreenCard;
-  UPROPERTY()
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> PurpleCard;
-  UPROPERTY()
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> OrangeCard;
 
   UPROPERTY(EditDefaultsOnly)

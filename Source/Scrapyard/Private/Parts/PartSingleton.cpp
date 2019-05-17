@@ -22,22 +22,33 @@ void UPartSingleton::InitManufacturers()
 {
   DefaultManufacturer = NewObject<UManufacturer>();
   DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
+  DefaultManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedCard);
 
   RedManufacturer = NewObject<UManufacturer>();
   RedManufacturer->ManufacturerName = NSLOCTEXT("SY", "RedCorpName", "Red Corp");
-//  RedManufacturer->Card = URobotPart::PartAssets->
+  RedManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedCard);
 
   BlueManufacturer = NewObject<UManufacturer>();
   BlueManufacturer->ManufacturerName = NSLOCTEXT("SY", "BlueCorpName", "Blue Corp");
+  BlueManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueCard);
 
   GreenManufacturer = NewObject<UManufacturer>();
   GreenManufacturer->ManufacturerName = NSLOCTEXT("SY", "GreenCorpName", "Green Corp");
+  GreenManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenCard);
 
   OrangeManufacturer = NewObject<UManufacturer>();
   OrangeManufacturer->ManufacturerName = NSLOCTEXT("SY", "OrangeCorpName", "Orange Corp");
+  OrangeManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeCard);
 
   PurpleManufacturer = NewObject<UManufacturer>();
   PurpleManufacturer->ManufacturerName = NSLOCTEXT("SY", "PurpleCorpName", "Purple Corp");
+  PurpleManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleCard);
 }
 
 void UPartSingleton::InitPartDB()
