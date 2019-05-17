@@ -26,6 +26,8 @@ void UScrapyardGameInstance::Init()
   Super::Init();
 
   InitAssetsBP();
+
+  PartSingleton->Init();
 }
 
 AScrapyardGameSession* UScrapyardGameInstance::GetGameSession() const

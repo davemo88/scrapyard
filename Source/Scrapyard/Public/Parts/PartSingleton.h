@@ -50,7 +50,7 @@ class SCRAPYARD_API UPartSingleton : public UObject
 
 public:
 
-  UPartSingleton();
+  void Init();
 
   UPROPERTY()
   FPartDatabase PartDB;
@@ -70,9 +70,9 @@ protected:
   UPROPERTY()
   UManufacturer* PurpleManufacturer;
 
-  void InitManufacturers();
-
   void InitPartDB();
+
+  void InitManufacturers();
 
   TArray<URobotPart*> GetDefaultParts();
 	
