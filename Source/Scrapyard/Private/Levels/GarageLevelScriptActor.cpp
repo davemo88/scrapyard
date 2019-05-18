@@ -29,7 +29,7 @@ void AGarageLevelScriptActor::SpawnRobotCharacter()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SpawnRobotCharacter"), *GetName());
   UWorld* World = GetWorld();
-  RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(0.0f, 0.0f, 160.0f), FRotator(0.0f, 180.0f, 0.0f), FActorSpawnParameters());
+  RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(300.0f, 0.0f, 200.0f), FRotator(-10.0f, 180.0f, 0.f), FActorSpawnParameters());
   RobotCharacter->RobotBodyComponent->SetEnableGravity(false);
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   if (GameInstance->PartAssignment != nullptr)
