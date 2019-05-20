@@ -6,6 +6,8 @@
 #include "UObject/NoExportTypes.h"
 #include "TargetingProfile.generated.h"
 
+class ARobotCharacter;
+
 /**
  * 
  */
@@ -18,21 +20,27 @@ class SCRAPYARD_API UTargetingProfile : public UObject
 
 public:
 
-  FVector GetTargetingOffset();
-  
 protected:
 
+//  TSubclassOf<UTargetingWidget> TargetingWidget;
+
   float Range;
+
+  virtual bool IsTargeted(ARobotCharacter* Robot, AActor* Target);
+
+  virtual TArray<FVector> InitFaceVerts() { TArray<FVector> it; return it; };
 
 //TODO: set somewhere authoritatively, e.g. from the character
 // this is related to camera offset since the projection targeting
 // depends on alignment with camera point of view
-  FVector TargetingOffset;
+  virtual FVector GetTargetingOffset(ARobotCharacter* Robot) const;
 
-//  TSubclassOf<UTargetingWidget> TargetingWidget;
+  virtual FVector GetTargetingLocation(ARobotCharacter* Robot) const;
 
-  virtual bool IsTargeted(FVector OtherRelativeLocation) { return false; };
+  virtual FRotator GetTargetingRotation(ARobotCharacter* Robot) const;
 
-  virtual TArray<FVector> InitFaceVerts() { TArray<FVector> it; return it; };
+  FVector GetTargetRelativeLocation(FVector TargetingLocation, FRotator TargetingRotation, FVector TargetLocation) const;
+
+  bool IsInRange(FVector TargetRelativeLocation, FVector TargetingOffset) const;
   
 };

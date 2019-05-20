@@ -47,10 +47,13 @@ void UPartAssignment::SetDefaultAssignment()
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
     UE_LOG(LogTemp, Warning, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
-    SetHead(GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(1000));
-    SetCore(GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(2000));
-    SetArms(GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(3000));
-    SetLegs(GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(4000));
+    if (GameInstance->PartSingleton != nullptr)
+    {
+      SetHead(GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(1000));
+      SetCore(GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(2000));
+      SetArms(GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(3000));
+      SetLegs(GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(4000));
+    }
   }
 }
 

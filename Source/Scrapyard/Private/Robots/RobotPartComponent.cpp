@@ -16,12 +16,15 @@ void URobotPartComponent::BeginPlay()
 
 void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart"), *GetName());
-  RobotPart = NewRobotPart;
-  if (GetOwner() != NULL && GetWorld() != NULL && !(GetWorld()->GetNetMode() == NM_DedicatedServer))
+  if (NewRobotPart != nullptr)
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
-    SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->GetAsset<USkeletalMesh>(RobotPart->SkeletalMesh));
-    SetMaterial(0,UScrapyardGameInstance::AssetsBP->GetAsset<UMaterial>(RobotPart->MajorMaterial));
+    UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart"), *GetName());
+    RobotPart = NewRobotPart;
+    if (GetOwner() != NULL && GetWorld() != NULL && !(GetWorld()->GetNetMode() == NM_DedicatedServer))
+    {
+      UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
+      SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->GetAsset<USkeletalMesh>(RobotPart->SkeletalMesh));
+      SetMaterial(0,UScrapyardGameInstance::AssetsBP->GetAsset<UMaterial>(RobotPart->MajorMaterial));
+    }
   }
 }

@@ -22,7 +22,7 @@ protected:
 
   float ConeAngle; 
 
-  virtual bool IsTargeted(FVector OtherRelativeLocation) override;
+  virtual bool IsTargeted(ARobotCharacter* Robot, AActor* Target) override;
 
   virtual TArray<FVector> InitFaceVerts() override;
 

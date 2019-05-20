@@ -27,9 +27,6 @@ public:
 
   TSubclassOf<UTargetingWidget> TargetingWidget;
 
-//  virtual FVector GetTargetingOffset();
-//
-
   TArray<FVector> GetFaceVerts() const;
 
   void AddTargetable(AActor* Actor);

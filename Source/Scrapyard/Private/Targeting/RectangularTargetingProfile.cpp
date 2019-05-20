@@ -9,22 +9,22 @@ URectangularTargetingProfile::URectangularTargetingProfile()
   VerticalAngle = 3.1415f/16.0f;
   HorizontalAngle = 3.1415f/12.0f;
 
-  TargetingOffset = FVector(-350,0,130);
-
 }
 
-bool URectangularTargetingProfile::IsTargeted(FVector OtherRelativeLocation)
+bool URectangularTargetingProfile::IsTargeted(ARobotCharacter* Robot, AActor* Target)
 {
 //  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargeted"), *GetName());
-  if (OtherRelativeLocation.X > Range || OtherRelativeLocation.X < -TargetingOffset.X)
+  FVector TargetRelativeLocation = GetTargetRelativeLocation(GetTargetingLocation(Robot), GetTargetingRotation(Robot), Target->GetActorLocation());
+
+  if (!IsInRange(TargetRelativeLocation, GetTargetingOffset(Robot)))
   {
     return false;
   }
 
-  float HorizontalTargetingRange = FMath::Tan(HorizontalAngle) * OtherRelativeLocation.X;
-  float VerticalTargetingRange = FMath::Tan(VerticalAngle) * OtherRelativeLocation.X;
+  float HorizontalTargetingRange = FMath::Tan(HorizontalAngle) * TargetRelativeLocation.X;
+  float VerticalTargetingRange = FMath::Tan(VerticalAngle) * TargetRelativeLocation.X;
 
-  return FMath::Abs(OtherRelativeLocation.Y) < HorizontalTargetingRange && FMath::Abs(OtherRelativeLocation.Z) < VerticalTargetingRange;
+  return FMath::Abs(TargetRelativeLocation.Y) < HorizontalTargetingRange && FMath::Abs(TargetRelativeLocation.Z) < VerticalTargetingRange;
 
 }
 

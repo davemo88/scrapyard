@@ -61,8 +61,8 @@ bool URobotTargetingComponent::IsTargeted(AActor* Actor) const
 {
   if (TargetingProfile != nullptr)
   {
-    FVector OtherRelativeLocation = GetLocationRelativeToView(Actor);
-    return TargetingProfile->IsTargeted(OtherRelativeLocation);
+//TODO register this somewhere to avoid many casts?
+    return TargetingProfile->IsTargeted(Cast<ARobotCharacter>(GetOwner()), Actor);
   }
 
   return false;
@@ -108,16 +108,3 @@ bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
 //  return TargetingProfile->GetRange();
 //}
 
-FVector URobotTargetingComponent::GetLocationRelativeToView(AActor* OtherActor) const
-{
-  ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
-  FVector OwnerLocation = OwnerChar->GetActorLocation();
-  FRotator ViewRotation = OwnerChar->GetViewRotation();
-  FVector TargetingOffset = TargetingProfile->TargetingOffset;
-  FVector RotatedTargetingOffset = ViewRotation.RotateVector(TargetingOffset);
-  FRotator InverseViewRotation = ViewRotation.GetInverse();
-  FVector TargetingOrigin = OwnerLocation + RotatedTargetingOffset;
-  FVector OtherRelativeLocation = InverseViewRotation.RotateVector(OtherActor->GetActorLocation()-TargetingOrigin);
-
-  return OtherRelativeLocation;
-}

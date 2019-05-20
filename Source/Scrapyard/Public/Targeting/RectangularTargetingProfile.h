@@ -23,7 +23,7 @@ protected:
   float VerticalAngle;
   float HorizontalAngle;
 
-  virtual bool IsTargeted(FVector OtherRelativeLocation);
+  virtual bool IsTargeted(ARobotCharacter* Robot, AActor* Target) override;
 
   virtual TArray<FVector> InitFaceVerts();
 	
