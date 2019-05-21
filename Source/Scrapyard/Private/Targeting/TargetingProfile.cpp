@@ -14,6 +14,7 @@ FVector UTargetingProfile::GetTargetingOffset(ARobotCharacter* Robot) const
     UE_LOG(LogTemp, Warning, TEXT("GetTargetingOffset - Robot Location %s"), *Robot->GetActorLocation().ToString());
     UE_LOG(LogTemp, Warning, TEXT("GetTargetingOffset - Camera Location %s"), *Controller->PlayerCameraManager->GetCameraLocation().ToString());
     UE_LOG(LogTemp, Warning, TEXT("GetTargetingOffset - Targeting Offset %s"), *TargetingOffset.ToString());
+    return TargetingOffset;
   }
   return FVector::ZeroVector;
 }
@@ -41,7 +42,7 @@ FRotator UTargetingProfile::GetTargetingRotation(ARobotCharacter* Robot) const
 
 bool UTargetingProfile::IsInRange(FVector TargetRelativeLocation, FVector TargetingOffset) const
 {
-  if (TargetRelativeLocation.X < Range && TargetRelativeLocation.X > FMath::Abs(TargetingOffset.X))
+  if (TargetRelativeLocation.X < Range && TargetRelativeLocation.X > -TargetingOffset.X)
   {
     return true;
   }

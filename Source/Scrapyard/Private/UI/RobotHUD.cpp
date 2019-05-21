@@ -20,16 +20,15 @@ void ARobotHUD::DrawHUD()
   {
     if (ARobotCharacter* RobotCharacter = RobotPC->GetRobotCharacter())
     {
-      FVector CameraOffset = RobotCharacter->CameraBoom->SocketOffset + FVector(-RobotCharacter->CameraBoom->TargetArmLength,0,0);
+      FVector CameraLocation = RobotPC->PlayerCameraManager->GetCameraLocation();
+      FRotator ViewRotation = RobotCharacter->GetViewRotation();
 
       TArray<FVector> FaceVerts = RobotCharacter->RobotTargetingComponent->GetFaceVerts();
 
-      FRotator ViewRotation = RobotCharacter->GetViewRotation();
-      FVector TargetingOrigin = RobotCharacter->GetActorLocation() + ViewRotation.RotateVector(CameraOffset);
       TArray<FVector2D> HUDVerts;
       for (FVector Vec : FaceVerts)
       {
-        FVector WorldVec = TargetingOrigin + ViewRotation.RotateVector(Vec);
+        FVector WorldVec =  CameraLocation + ViewRotation.RotateVector(Vec);
         HUDVerts.Add(FVector2D(Project(WorldVec)));
       }
 
