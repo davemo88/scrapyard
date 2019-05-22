@@ -26,7 +26,7 @@ protected:
 
   float Range;
 
-  virtual bool IsTargeted(ARobotCharacter* Robot, AActor* Target);
+  virtual bool IsTargeted(ARobotCharacter* Robot, AActor* Target); 
 
   virtual TArray<FVector> InitFaceVerts() { TArray<FVector> it; return it; };
 
@@ -40,6 +40,8 @@ protected:
   virtual FRotator GetTargetingRotation(ARobotCharacter* Robot) const;
 
   FVector GetTargetRelativeLocation(FVector TargetingLocation, FRotator TargetingRotation, FVector TargetLocation) const;
+
+  FVector GetLocationRelativeToView(ARobotCharacter* Robot, AActor* Target) const;
 
   bool IsInRange(FVector TargetRelativeLocation, FVector TargetingOffset) const;
   

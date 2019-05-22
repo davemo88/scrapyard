@@ -7,32 +7,27 @@
 
 FVector UTargetingProfile::GetTargetingOffset(ARobotCharacter* Robot) const
 {
-//  UE_LOG(LogTemp, Warning, TEXT("%s::GetTargetingOffset"), *GetName());
-  if (AScrapyardPlayerController* Controller = Robot->GetController<ARobotPlayerController>())
-  {
-    FVector TargetingOffset = Controller->PlayerCameraManager->GetCameraLocation() - Robot->GetActorLocation(); 
-    UE_LOG(LogTemp, Warning, TEXT("GetTargetingOffset - Robot Location %s"), *Robot->GetActorLocation().ToString());
-    UE_LOG(LogTemp, Warning, TEXT("GetTargetingOffset - Camera Location %s"), *Controller->PlayerCameraManager->GetCameraLocation().ToString());
-    UE_LOG(LogTemp, Warning, TEXT("GetTargetingOffset - Targeting Offset %s"), *TargetingOffset.ToString());
-    return TargetingOffset;
-  }
-  return FVector::ZeroVector;
+  return Robot->CameraBoom->SocketOffset + FVector(-Robot->CameraBoom->TargetArmLength,0,0);
 }
 
 bool UTargetingProfile::IsTargeted(ARobotCharacter* Robot, AActor* Target)
 {
-//  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargeted"), *GetName());
   return false;
 }
 
 FVector UTargetingProfile::GetTargetRelativeLocation(FVector TargetingLocation, FRotator TargetingRotation, FVector TargetLocation) const
 {
-  return TargetingRotation.GetInverse().RotateVector(TargetLocation-TargetingLocation);
+  return TargetingRotation.UnrotateVector(TargetLocation-TargetingLocation);
+}
+
+FVector UTargetingProfile::GetLocationRelativeToView(ARobotCharacter* Robot, AActor* Target) const
+{
+  return Robot->GetViewRotation().UnrotateVector(Target->GetActorLocation() - Robot->GetActorLocation());
 }
 
 FVector UTargetingProfile::GetTargetingLocation(ARobotCharacter* Robot) const
 {
-  return Robot->GetActorLocation() + GetTargetingOffset(Robot);
+  return Robot->GetActorLocation() + GetTargetingRotation(Robot).RotateVector(GetTargetingOffset(Robot));
 }
 
 FRotator UTargetingProfile::GetTargetingRotation(ARobotCharacter* Robot) const
@@ -42,13 +37,7 @@ FRotator UTargetingProfile::GetTargetingRotation(ARobotCharacter* Robot) const
 
 bool UTargetingProfile::IsInRange(FVector TargetRelativeLocation, FVector TargetingOffset) const
 {
-  if (TargetRelativeLocation.X < Range && TargetRelativeLocation.X > -TargetingOffset.X)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+  UE_LOG(LogTemp, Warning, TEXT("%s::IsInRange - Distance to Target: %f"), *GetName(), TargetRelativeLocation.X);
+  return (TargetRelativeLocation.X < Range && TargetRelativeLocation.X > -TargetingOffset.X);
 }
 
