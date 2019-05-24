@@ -71,5 +71,27 @@ public:
   TSoftObjectPtr<UTexture2D> ArmsCardIcon;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> LegsCardIcon;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HeadPart_Red_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> CorePart_Red_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> ArmsPart_Red_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> LegsPart_Red_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HandheldPart_Red_SkeletalMesh;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HeadPart_Orange_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> CorePart_Orange_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> ArmsPart_Orange_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> LegsPart_Orange_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HandheldPart_Orange_SkeletalMesh;
 };
 

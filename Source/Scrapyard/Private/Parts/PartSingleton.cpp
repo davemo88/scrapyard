@@ -132,7 +132,7 @@ void UPartSingleton::InitRedParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Red_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
       10,
       1));
@@ -146,7 +146,7 @@ void UPartSingleton::InitRedParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Red_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
       1000,
       500,
@@ -162,7 +162,7 @@ void UPartSingleton::InitRedParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Red_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial));
   PartDB.AddPart(
     ULegsPart::NewLegs(
@@ -174,7 +174,7 @@ void UPartSingleton::InitRedParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Red_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
       1000,
       500,
@@ -315,7 +315,7 @@ void UPartSingleton::InitOrangeParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Orange_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
       10,
       1));
@@ -329,7 +329,7 @@ void UPartSingleton::InitOrangeParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Orange_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
       1000,
       500,
@@ -345,7 +345,7 @@ void UPartSingleton::InitOrangeParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Orange_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial));
   PartDB.AddPart(
     ULegsPart::NewLegs(
@@ -357,7 +357,7 @@ void UPartSingleton::InitOrangeParts()
       50,
       100,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Orange_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
       1000,
       500,

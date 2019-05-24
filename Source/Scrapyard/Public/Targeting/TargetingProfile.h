@@ -30,9 +30,6 @@ protected:
 
   virtual TArray<FVector> InitFaceVerts() { TArray<FVector> it; return it; };
 
-//TODO: set somewhere authoritatively, e.g. from the character
-// this is related to camera offset since the projection targeting
-// depends on alignment with camera point of view
   virtual FVector GetTargetingOffset(ARobotCharacter* Robot) const;
 
   virtual FVector GetTargetingLocation(ARobotCharacter* Robot) const;
