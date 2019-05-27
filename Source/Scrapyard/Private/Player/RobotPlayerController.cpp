@@ -14,8 +14,6 @@ ARobotPlayerController::ARobotPlayerController()
 {
   UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController Constructor"));
   PlayerCameraManagerClass = ARobotPlayerCameraManager::StaticClass();
-
-//  bShowMouseCursor = true;
 }
 
 void ARobotPlayerController::BeginPlay()
@@ -246,4 +244,10 @@ void ARobotPlayerController::ApplyTuneParams(FRobotTuneParams TuneParams)
       RobotMovementComp->BoostHoldThresholdTime= FCString::Atof(*TuneParams.BoostHoldThresholdTime);
     }
   }
+}
+
+void ARobotPlayerController::SetDefaultInputMode()
+{
+  FInputModeGameOnly InputMode = FInputModeGameOnly();
+  SetInputMode(InputMode);
 }

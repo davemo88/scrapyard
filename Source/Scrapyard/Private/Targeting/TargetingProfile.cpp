@@ -41,3 +41,10 @@ bool UTargetingProfile::IsInRange(FVector TargetRelativeLocation, FVector Target
   return (TargetRelativeLocation.X < Range && TargetRelativeLocation.X > -TargetingOffset.X);
 }
 
+bool UTargetingProfile::IsInRange(ARobotCharacter* Robot, AActor* Target) const
+{
+  FVector LocationRelativeToView = GetLocationRelativeToView(Robot, Target);
+  UE_LOG(LogTemp, Warning, TEXT("%s::IsInRange - Distance to Target: %f"), *GetName(), LocationRelativeToView.Size());
+  return (LocationRelativeToView.Size() < Range && LocationRelativeToView.X > GetTargetingOffset(Robot).X);
+}
+

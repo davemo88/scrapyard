@@ -88,5 +88,6 @@ protected:
 
   bool bGameStateReplicated;
 
+  virtual void SetDefaultInputMode() override;
 
 };

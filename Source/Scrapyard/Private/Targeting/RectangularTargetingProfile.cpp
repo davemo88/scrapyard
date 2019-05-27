@@ -16,7 +16,7 @@ bool URectangularTargetingProfile::IsTargeted(ARobotCharacter* Robot, AActor* Ta
 //  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargeted"), *GetName());
   FVector TargetRelativeLocation = GetTargetRelativeLocation(GetTargetingLocation(Robot), GetTargetingRotation(Robot), Target->GetActorLocation());
 
-  if (!IsInRange(TargetRelativeLocation, GetTargetingOffset(Robot)))
+  if (!IsInRange(Robot, Target))
   {
     return false;
   }

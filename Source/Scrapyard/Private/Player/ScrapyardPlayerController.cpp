@@ -57,10 +57,9 @@ void AScrapyardPlayerController::ShowEscapeMenu()
   UE_LOG(LogTemp, Warning, TEXT("%s::ShowEscapeMenu"), *StaticClass()->GetFName().ToString());
   EscapeMenuWidget->SetVisibility(ESlateVisibility::Visible);
   ClientIgnoreLookInput(true);
-  const FInputModeGameAndUI InputMode = FInputModeGameAndUI();
-  SetInputMode(InputMode);
+  SetEscapeMenuInputMode();
   bShowMouseCursor = true;
-  EscapeMenuWidget->SetUserFocus(this);
+//  EscapeMenuWidget->SetUserFocus(this);
 }
 
 
@@ -69,9 +68,23 @@ void AScrapyardPlayerController::HideEscapeMenu()
   UE_LOG(LogTemp, Warning, TEXT("%s::HideEscapeMenu"), *StaticClass()->GetFName().ToString());
   EscapeMenuWidget->SetVisibility(ESlateVisibility::Hidden);
   ClientIgnoreLookInput(false);
-  const FInputModeGameOnly InputMode = FInputModeGameOnly();
-  SetInputMode(InputMode);
+  SetDefaultInputMode();
   bShowMouseCursor = bDefaultShowMouseCursor;
 }
 
+void AScrapyardPlayerController::SetEscapeMenuInputMode()
+{
+//  const FInputModeGameAndUI InputMode = FInputModeGameAndUI();
+//  const FInputModeUIOnly InputMode = FInputModeUIOnly();
+  FInputModeGameAndUI InputMode = FInputModeGameAndUI();
+  InputMode.SetWidgetToFocus(EscapeMenuWidget->TakeWidget());
+//  InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
+  SetInputMode(InputMode);
+}
+
+void AScrapyardPlayerController::SetDefaultInputMode()
+{
+  FInputModeGameAndUI InputMode = FInputModeGameAndUI();
+  SetInputMode(InputMode);
+}
 

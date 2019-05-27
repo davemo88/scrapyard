@@ -23,6 +23,7 @@ public:
   UEscapeMenuWidget* EscapeMenuWidget;
 
 protected:
+
   virtual void BeginPlay() override;
 
   virtual void SetupInputComponent() override;
@@ -35,5 +36,9 @@ protected:
   void ToggleEscapeMenu();
   virtual void ShowEscapeMenu();
   virtual void HideEscapeMenu();
+
+  void SetEscapeMenuInputMode();
+
+  virtual void SetDefaultInputMode();
 
 };
