@@ -13,13 +13,13 @@ URectangularTargetingProfile::URectangularTargetingProfile()
 
 bool URectangularTargetingProfile::IsTargeted(ARobotCharacter* Robot, AActor* Target)
 {
-//  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargeted"), *GetName());
-  FVector TargetRelativeLocation = GetTargetRelativeLocation(GetTargetingLocation(Robot), GetTargetingRotation(Robot), Target->GetActorLocation());
 
   if (!IsInRange(Robot, Target))
   {
     return false;
   }
+//  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargeted"), *GetName());
+  FVector TargetRelativeLocation = GetTargetRelativeLocation(GetTargetingLocation(Robot), GetTargetingRotation(Robot), Target->GetActorLocation());
 
   float HorizontalTargetingRange = FMath::Tan(HorizontalAngle) * TargetRelativeLocation.X;
   float VerticalTargetingRange = FMath::Tan(VerticalAngle) * TargetRelativeLocation.X;

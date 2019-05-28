@@ -13,12 +13,12 @@ UConeTargetingProfile::UConeTargetingProfile()
 bool UConeTargetingProfile::IsTargeted(ARobotCharacter* Robot, AActor* Target)
 {
 
-  FVector TargetRelativeLocation = GetTargetRelativeLocation(GetTargetingLocation(Robot), GetTargetingRotation(Robot), Target->GetActorLocation());
-
-  if (!IsInRange(TargetRelativeLocation, GetTargetingOffset(Robot)))
+  if (!IsInRange(Robot, Target))
   {
     return false;
   }
+
+  FVector TargetRelativeLocation = GetTargetRelativeLocation(GetTargetingLocation(Robot), GetTargetingRotation(Robot), Target->GetActorLocation());
 
   float ConeRadius = GetConeRadius(FMath::Abs(TargetRelativeLocation.X));
   float OtherRadius = FVector::Dist(FVector(TargetRelativeLocation.X,0,0), TargetRelativeLocation); 

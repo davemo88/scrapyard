@@ -29,6 +29,11 @@ public:
 
   TArray<FVector> GetFaceVerts() const;
 
+  UFUNCTION()
+  void OnTargetableRegistered(AActor* Actor);
+  UFUNCTION()
+  void OnTargetableUnregistered(AActor* Actor);
+
   void AddTargetable(AActor* Actor);
   void RemoveTargetable(AActor* Actor);
 

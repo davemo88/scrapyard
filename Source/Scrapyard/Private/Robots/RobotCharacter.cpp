@@ -48,6 +48,8 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 // NOTE: maybe sloppy but also seems to make sense
   AddTickPrerequisiteComponent(RobotTargetingComponent);
 
+  TargetableComponent = CreateDefaultSubobject<UTargetableComponent>(TEXT("TargetableComponent"));
+
 }
 
 // Called when the game starts or when spawned
@@ -65,27 +67,6 @@ void ARobotCharacter::BeginPlay()
     if (IsLocallyControlled())
     {
       SetupRobotHUDWidget();
-    }
-  }
-
-  if (ARobotGameState* RobotGameState = GetWorld()->GetGameState<ARobotGameState>())
-  {
-
-    if (HasAuthority())
-    {
-
-      for (AActor* Actor: RobotGameState->TargetableActors)
-      {
-        if (RobotTargetingComponent->IsTargetable(Actor))
-        {
-          RobotTargetingComponent->AddTargetable(Actor);
-        }
-      }
-
-      RobotGameState->AddTargetable(this);
-
-      RobotGameState->OnTargetableAddedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableAdded);
-      RobotGameState->OnTargetableRemovedDelegate.AddDynamic(this, &ARobotCharacter::OnTargetableRemoved);
     }
   }
 }
@@ -489,23 +470,5 @@ void ARobotCharacter::OnRep_Power()
 {
   UE_LOG(LogTemp,Warning,TEXT("%s::OnRep_Power"), *GetName());
   PowerChangedDelegate.Broadcast();
-}
-
-void ARobotCharacter::OnTargetableAdded(AActor* Actor)
-{
-  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableAdded"), *GetName());
-  if (HasAuthority() && RobotTargetingComponent->IsTargetable(Actor))
-  {
-    RobotTargetingComponent->AddTargetable(Actor);
-  }
-}
-
-void ARobotCharacter::OnTargetableRemoved(AActor* Actor)
-{
-  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableRemoved"), *GetName());
-  if (HasAuthority())
-  {
-    RobotTargetingComponent->RemoveTargetable(Actor);
-  }
 }
 

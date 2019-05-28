@@ -2,6 +2,7 @@
 
 
 #include "RobotTargetingComponent.h"
+#include "Game/RobotGameState.h"
 #include "Player/RobotPlayerController.h"
 #include "Player/RobotPlayerState.h"
 #include "Targeting/RectangularTargetingProfile.h"
@@ -31,6 +32,25 @@ void URobotTargetingComponent::BeginPlay()
 {
   Super::BeginPlay();
   // ...
+
+  if (ARobotGameState* RobotGameState = GetOwner()->GetWorld()->GetGameState<ARobotGameState>())
+  {
+
+    if (GetOwner()->HasAuthority())
+    {
+
+      for (AActor* Actor: RobotGameState->TargetableActors)
+      {
+        if (IsTargetable(Actor))
+        {
+          AddTargetable(Actor);
+        }
+      }
+
+      RobotGameState->OnTargetableAddedDelegate.AddDynamic(this, &URobotTargetingComponent::OnTargetableRegistered);
+      RobotGameState->OnTargetableRemovedDelegate.AddDynamic(this, &URobotTargetingComponent::OnTargetableUnregistered);
+    }
+  }
 }
 
 
@@ -91,6 +111,7 @@ void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
 
 bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
 {
+//TODO: need to handle non-Robot actors, e.g. maybe use targeting interface
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   if (ARobotCharacter* OtherChar = Cast<ARobotCharacter>(Actor))
   {
@@ -103,8 +124,21 @@ bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
   return false;
 }
 
-//float URobotTargetingComponent::GetRange()
-//{
-//  return TargetingProfile->GetRange();
-//}
+void URobotTargetingComponent::OnTargetableRegistered(AActor* Actor)
+{
+  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableRegistered"), *GetName());
+  if (GetOwner()->HasAuthority() && IsTargetable(Actor))
+  {
+    AddTargetable(Actor);
+  }
+}
+
+void URobotTargetingComponent::OnTargetableUnregistered(AActor* Actor)
+{
+  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableUnregistered"), *GetName());
+  if (GetOwner()->HasAuthority())
+  {
+    RemoveTargetable(Actor);
+  }
+}
 

@@ -35,12 +35,25 @@ void URobotAnimInstance::UpdateBodyRotation(float DeltaSeconds)
 {
   FRotator NewRotation = FRotator::ZeroRotator;
 
+//TODO: client only
   if (ARobotCharacter* Owner = Cast<ARobotCharacter>(TryGetPawnOwner()))
   {
-//TODO: client only
-// 
+// TODO: handle backwards movement case
     float RelativeYaw = Owner->GetActorRotation().UnrotateVector(Owner->GetVelocity()).Rotation().Yaw; 
-    float IntermediateYaw = FMath::FInterpTo(BodyRotation.Yaw,RelativeYaw,DeltaSeconds,5);
+    float IntermediateYaw = FMath::Fmod(FMath::FInterpTo(BodyRotation.Yaw,RelativeYaw,DeltaSeconds,5), 360.f);
+
+//    UE_LOG(LogTemp, Warning, TEXT("IntermediateYaw: %f"), IntermediateYaw);
+
+//    if (IntermediateYaw < -90.0f)
+//    {
+//      IntermediateYaw = -IntermediateYaw;
+//    }
+//    else if (IntermediateYaw > 90.0f)
+//    {
+//      IntermediateYaw = IntermediateYaw - 180.0f;
+//    }
+
+
 //    NewRotation = NewRotation + FRotator(0.0f, IntermediateYaw, 0.0f);
 
     FRotator RelAccelRotation  = Owner->GetActorRotation().UnrotateVector(Owner->GetCharacterMovement()->GetCurrentAcceleration()).Rotation();

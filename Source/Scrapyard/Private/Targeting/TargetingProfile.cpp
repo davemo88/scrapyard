@@ -7,6 +7,7 @@
 
 FVector UTargetingProfile::GetTargetingOffset(ARobotCharacter* Robot) const
 {
+//NOTE: perhaps update this to use camera position, e.g. if it's bumping up against something
   return Robot->CameraBoom->SocketOffset + FVector(-Robot->CameraBoom->TargetArmLength,0,0);
 }
 
@@ -44,7 +45,7 @@ bool UTargetingProfile::IsInRange(FVector TargetRelativeLocation, FVector Target
 bool UTargetingProfile::IsInRange(ARobotCharacter* Robot, AActor* Target) const
 {
   FVector LocationRelativeToView = GetLocationRelativeToView(Robot, Target);
-  UE_LOG(LogTemp, Warning, TEXT("%s::IsInRange - Distance to Target: %f"), *GetName(), LocationRelativeToView.Size());
+//  UE_LOG(LogTemp, Warning, TEXT("%s::IsInRange - Distance to Target: %f"), *GetName(), LocationRelativeToView.Size());
   return (LocationRelativeToView.Size() < Range && LocationRelativeToView.X > GetTargetingOffset(Robot).X);
 }
 

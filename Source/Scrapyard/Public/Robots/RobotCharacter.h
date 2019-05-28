@@ -11,6 +11,7 @@
 #include "Robots/RobotStats.h"
 #include "Robots/RobotTargetingComponent.h"
 #include "Parts/PartAssignment.h"
+#include "Targeting/TargetableComponent.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
 
@@ -37,12 +38,14 @@ public:
 
   void SetupRobotHUDWidget();
 
-// body
   UPROPERTY(EditAnywhere)
   URobotBodyComponent* RobotBodyComponent;
 
   UPROPERTY(EditAnywhere)
   URobotTargetingComponent* RobotTargetingComponent;
+
+  UPROPERTY(EditAnywhere)
+  UTargetableComponent* TargetableComponent;
 
   UPROPERTY(Replicated)
   bool bTargetAcquired;
@@ -139,9 +142,6 @@ public:
   FHitPointsChangedDelegate HitPointsChangedDelegate;
   FPowerChangedDelegate PowerChangedDelegate;
   FZeroHitPointsDelegate ZeroHitPointsDelegate;
-
-//  UFUNCTION()
-//  virtual bool IsTargetableBy(AActor* OtherActor) override;
   
   UPROPERTY(EditAnywhere)
   int32 Team;
@@ -163,11 +163,5 @@ protected:
   void OnStatsUpdated();
 
   friend class URobotTunerWidget;
-
-  UFUNCTION()
-  void OnTargetableAdded(AActor* Actor);
-
-  UFUNCTION()
-  void OnTargetableRemoved(AActor* Actor);
 
 };
