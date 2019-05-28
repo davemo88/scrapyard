@@ -111,14 +111,11 @@ void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
 
 bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
 {
-//TODO: need to handle non-Robot actors, e.g. maybe use targeting interface
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
-  if (ARobotCharacter* OtherChar = Cast<ARobotCharacter>(Actor))
+  ITargetableInterface* Targetable = Cast<ITargetableInterface>(Actor);
+  if (Targetable != nullptr)
   {
-    if (OwnerChar->Team != OtherChar->Team)
-    {
-      return true; 
-    }
+    return Targetable->IsTargetableBy(OwnerChar);
   }
 
   return false;

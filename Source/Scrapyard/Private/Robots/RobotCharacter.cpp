@@ -472,3 +472,7 @@ void ARobotCharacter::OnRep_Power()
   PowerChangedDelegate.Broadcast();
 }
 
+bool ARobotCharacter::IsTargetableBy(ARobotCharacter* Robot)
+{
+  return Team != Robot->Team;
+}

@@ -12,6 +12,7 @@
 #include "Robots/RobotTargetingComponent.h"
 #include "Parts/PartAssignment.h"
 #include "Targeting/TargetableComponent.h"
+#include "Targeting/TargetableInterface.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "RobotCharacter.generated.h"
 
@@ -20,7 +21,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPowerChangedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FZeroHitPointsDelegate);
 
 UCLASS()
-class SCRAPYARD_API ARobotCharacter : public ACharacter
+class SCRAPYARD_API ARobotCharacter : public ACharacter, public ITargetableInterface
 {
   GENERATED_BODY()
 
@@ -145,6 +146,11 @@ public:
   
   UPROPERTY(EditAnywhere)
   int32 Team;
+
+// Targetable Interfacte
+  UFUNCTION()
+  virtual bool IsTargetableBy(ARobotCharacter* Robot) override;
+//  virtual bool IsTargetableBy_Implementation(ARobotCharacter* Robot) override;
 
 protected:
   // Called when the game starts or when spawned
