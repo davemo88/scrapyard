@@ -2,6 +2,7 @@
 
 
 #include "RobotGameState.h"
+#include "Targeting/TargetableInterface.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
 
@@ -61,8 +62,11 @@ void ARobotGameState::MulticastRemoveTargetable_Implementation(AActor* Actor)
 
 void ARobotGameState::AddTargetable(AActor* Actor)
 {
-  TargetableActors.AddUnique(Actor);
-  OnTargetableAddedDelegate.Broadcast(Actor);
+  if (Cast<ITargetableInterface>(Actor))
+  {
+    TargetableActors.AddUnique(Actor);
+    OnTargetableAddedDelegate.Broadcast(Actor);
+  }
 }
 
 void ARobotGameState::RemoveTargetable(AActor* Actor)

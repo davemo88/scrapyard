@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
 #include "Targeting/TargetableComponent.h"
 #include "Targeting/TargetableInterface.h"
 #include "Drone.generated.h"
 
 UCLASS()
-class SCRAPYARD_API ADrone : public AActor
+class SCRAPYARD_API ADrone : public AActor, public ITargetableInterface
 {
   GENERATED_BODY()
   
@@ -17,9 +18,8 @@ public:
   // Sets default values for this actor's properties
   ADrone();
 
-protected:
-  // Called when the game starts or when spawned
-  virtual void BeginPlay() override;
+// Called every frame
+  virtual void Tick(float DeltaTime) override;
 
 // Targetable Interface
   virtual bool IsTargetableBy(ARobotCharacter* Robot) override;
@@ -27,11 +27,14 @@ protected:
   UPROPERTY(EditAnywhere)
   int32 Team;
 
-public:  
-  // Called every frame
-  virtual void Tick(float DeltaTime) override;
-
   UPROPERTY()
   UTargetableComponent* TargetableComponent;
-  
+
+  UPROPERTY(EditAnywhere)
+  UStaticMeshComponent* StaticMeshComponent;
+
+protected:
+  // Called when the game starts or when spawned
+  virtual void BeginPlay() override;
+
 };
