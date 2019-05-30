@@ -2,6 +2,8 @@
 
 
 #include "Drone.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
 #include "Robots/RobotCharacter.h"
 
 
@@ -15,12 +17,20 @@ ADrone::ADrone()
 
   StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 
+  if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
+  {
+    StaticMesh = AssetsBP->DroneAssetsBP->DefaultMesh;
+    Material = AssetsBP->DroneAssetsBP->DefaultMaterial;
+  }
+
 }
 
 // Called when the game starts or when spawned
 void ADrone::BeginPlay()
 {
   Super::BeginPlay();
+
+  SetAssets();
   
 }
 
@@ -34,4 +44,13 @@ void ADrone::Tick(float DeltaTime)
 bool ADrone::IsTargetableBy(ARobotCharacter* Robot)
 {
   return Team != Robot->Team;
+}
+
+void ADrone::SetAssets()
+{
+  if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
+  {
+    StaticMeshComponent->SetStaticMesh(AssetsBP->GetAsset<UStaticMesh>(StaticMesh));
+    StaticMeshComponent->SetMaterial(0,AssetsBP->GetAsset<UMaterial>(Material));
+  }
 }

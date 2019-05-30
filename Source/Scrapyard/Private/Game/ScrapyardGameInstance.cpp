@@ -59,15 +59,6 @@ void UScrapyardGameInstance::InitAssetsBP()
 // setting static variable
     AssetsBP = AssetsBPRef;
 
-    if (AssetsBP->UIAssetsBPClass != nullptr)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("Loading UIAssetsBP"), *GetName());
-      AssetsBP->UIAssetsBP = AssetsBP->UIAssetsBPClass->GetDefaultObject<UUIAssets>();
-    }
-    if (AssetsBP->PartAssetsBPClass != nullptr)
-    {
-      UE_LOG(LogTemp, Warning, TEXT("Loading PartAssetsBP"), *GetName());
-      AssetsBP->PartAssetsBP = AssetsBP->PartAssetsBPClass->GetDefaultObject<UPartAssets>();
-    }
+    AssetsBP->InitAssetsBP();
   }
 }

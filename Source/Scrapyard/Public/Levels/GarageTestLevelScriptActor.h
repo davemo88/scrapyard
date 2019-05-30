@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Levels/ScrapyardLevelScriptActor.h"
+#include "Drones/Drone.h"
 #include "GarageTestLevelScriptActor.generated.h"
 
 /**
@@ -18,6 +19,16 @@ public:
   
   void BeginPlay() override;
   
+protected:
+
+  void SpawnTestDrones();
+
+  UPROPERTY()
+  ADrone* TestDrone1;
+  UPROPERTY()
+  ADrone* TestDrone2;
+  UPROPERTY()
+  ADrone* TestDrone3;
   
   
 };

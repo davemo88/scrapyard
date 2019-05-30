@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "UI/UIAssets.h"
 #include "Parts/PartAssets.h"
+#include "Drones/DroneAssets.h"
 #include "ScrapyardAssets.generated.h"
 
 
@@ -19,15 +20,22 @@ class SCRAPYARD_API UScrapyardAssets : public UObject
   
 public:
 
+  void InitAssetsBP();
+
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<UUIAssets> UIAssetsBPClass;
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<UPartAssets> PartAssetsBPClass;
 
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<UDroneAssets> DroneAssetsBPClass;
+
   UUIAssets* UIAssetsBP;
 
   UPartAssets* PartAssetsBP;
+
+  UDroneAssets* DroneAssetsBP;
 
   template <class T>
   T* GetAsset(TSoftObjectPtr<T> AssetRef)

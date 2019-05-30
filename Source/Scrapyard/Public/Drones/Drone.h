@@ -33,8 +33,13 @@ public:
   UPROPERTY(EditAnywhere)
   UStaticMeshComponent* StaticMeshComponent;
 
+  TSoftObjectPtr<UStaticMesh> StaticMesh;  
+  TSoftObjectPtr<UMaterial> Material;
+
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
+
+  void SetAssets();
 
 };
