@@ -41,11 +41,6 @@ void ADrone::Tick(float DeltaTime)
 
 }
 
-bool ADrone::IsTargetableBy(ARobotCharacter* Robot)
-{
-  return Team != Robot->Team;
-}
-
 void ADrone::SetAssets()
 {
   if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
@@ -53,4 +48,9 @@ void ADrone::SetAssets()
     StaticMeshComponent->SetStaticMesh(AssetsBP->GetAsset<UStaticMesh>(StaticMesh));
     StaticMeshComponent->SetMaterial(0,AssetsBP->GetAsset<UMaterial>(Material));
   }
+}
+
+bool ADrone::IsTargetableBy(ARobotCharacter* Robot)
+{
+  return Team != Robot->Team;
 }

@@ -18,6 +18,8 @@ class SCRAPYARD_API AGarageTestLevelScriptActor : public AScrapyardLevelScriptAc
 public:
   
   void BeginPlay() override;
+
+  virtual void Tick(float DeltaSeconds) override;
   
 protected:
 
@@ -29,6 +31,8 @@ protected:
   ADrone* TestDrone2;
   UPROPERTY()
   ADrone* TestDrone3;
+  
+
   
   
 };

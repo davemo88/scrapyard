@@ -33,5 +33,10 @@ void AGarageTestLevelScriptActor::SpawnTestDrones()
   TestDrone2 = World->SpawnActor<ADrone>(FVector(-1000.0f, -1000.0f, 200.0f), FRotator::ZeroRotator, FActorSpawnParameters());
   TestDrone1->Team = 1;
   TestDrone2->Team = 1;
-//  TestDrone3 = World->SpawnActor<ADrone>(FVector(-1000.0f, 1000.0f, 200.0f), FRotator::ZeroRotator, FActorSpawnParameters());
+
+}
+
+void AGarageTestLevelScriptActor::Tick(float DeltaSeconds)
+{
+  Super::Tick(DeltaSeconds);
 }
