@@ -21,6 +21,13 @@ public:
 // Called every frame
   virtual void Tick(float DeltaTime) override;
 
+  virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+  virtual void BeginDestroy() override;
+
+  UPROPERTY(EditAnywhere)
+  int32 HitPoints;
+
   UPROPERTY(EditAnywhere)
   int32 Team;
 
@@ -29,6 +36,7 @@ public:
 
   UPROPERTY(EditAnywhere)
   UStaticMeshComponent* StaticMeshComponent;
+
 
 // Targetable Interface
   virtual bool IsTargetableBy(ARobotCharacter* Robot) override;
@@ -41,5 +49,8 @@ protected:
 
   TSoftObjectPtr<UStaticMesh> StaticMesh;  
   TSoftObjectPtr<UMaterial> Material;
+
+  UPROPERTY()
+  UParticleSystem* OnDestroyParticleSystem; 
 
 };

@@ -5,6 +5,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
 #include "Robots/RobotCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 
 // Sets default values
@@ -21,7 +22,10 @@ ADrone::ADrone()
   {
     StaticMesh = AssetsBP->DroneAssetsBP->DefaultMesh;
     Material = AssetsBP->DroneAssetsBP->DefaultMaterial;
+    OnDestroyParticleSystem = AssetsBP->GetAsset<UParticleSystem>(AssetsBP->DroneAssetsBP->DefaultOnDestroyParticleSystem);
   }
+
+  HitPoints = 100;
 
 }
 
@@ -38,6 +42,30 @@ void ADrone::BeginPlay()
 void ADrone::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
+
+}
+
+float ADrone::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::TakeDamage - %i damage from %s"), *GetName(), int(DamageAmount), *DamageCauser->GetName());
+  HitPoints = FMath::Max(0,HitPoints - int(DamageAmount));
+
+  if (HitPoints == 0)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("Drone Destroyed"));
+    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+    Destroy();
+  }
+
+  return Super::TakeDamage(DamageAmount,DamageEvent,EventInstigator,DamageCauser);
+
+}
+
+void ADrone::BeginDestroy()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginDestroy"), *GetName());
+
+  Super::BeginDestroy();
 
 }
 

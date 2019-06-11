@@ -22,5 +22,8 @@ public:
   
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UMaterial> DefaultMaterial;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UParticleSystem> DefaultOnDestroyParticleSystem;
   
 };
