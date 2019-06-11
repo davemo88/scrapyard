@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "UObject/NoExportTypes.h"
 #include "Game/ScrapyardDamageType.h"
+#include "Targeting/TargetingProfile.h"
 #include "ScrapyardAbility.generated.h"
 
 class UAbilityState;
@@ -67,6 +68,9 @@ public:
 
   UPROPERTY(Replicated)
   ARobotCharacter* RobotOwner;
+
+  UPROPERTY()
+  UTargetingProfile* TargetingProfile;
 
   friend class UAbilityState;
   friend class UAbilityStateActive;
@@ -131,6 +135,10 @@ protected:
 
   UPROPERTY()
   uint8 FireEventIndex;
+
+  virtual void SetupAbilityStates();
+
+  virtual void SetupTargetingProfile();
 
 public:
 

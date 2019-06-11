@@ -203,9 +203,10 @@ void ARobotCharacter::SetupAbilities()
 //  {
 //    WeaponAbility = RobotBodyComponent->RightHandheld->PartAbililty;
 //  }
-  const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
+//  const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
+//  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
+//  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
+//
   RobotBodyComponent->WeaponAbilityComponent->CreateChildActor();
 
   WeaponAbility = Cast<AScrapyardAbility>(RobotBodyComponent->WeaponAbilityComponent->GetChildActor());

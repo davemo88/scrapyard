@@ -43,6 +43,8 @@ public:
 
 //  float GetRange();
 
+  virtual FVector GetFireDirection();
+
 protected:
 
   // Called when the game starts

@@ -64,3 +64,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
   }
 }
 
+void AScrapyardAbility::SetupTargetingProfile()
+{
+  TargetingProfile = CreateDefaultSubobject<URectangularTargetingProfile>(TEXT("TargetingProfile"));
+}

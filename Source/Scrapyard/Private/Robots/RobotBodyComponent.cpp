@@ -56,6 +56,7 @@ URobotBodyComponent::URobotBodyComponent()
 
   WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
   WeaponAbilityComponent->SetupAttachment(this);
+//TODO: get from handheld part 
   WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
 
 //  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));

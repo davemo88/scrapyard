@@ -13,20 +13,31 @@
 
 AScrapyardAbility::AScrapyardAbility()
 {
+  AbilityName = TEXT("ScrapyardAbility");
+
   bReplicates = true;
   bAlwaysRelevant = true;
 
+// TODO: virtual function to set up the ability states and targeting profile
   UE_LOG(LogTemp, Warning, TEXT("%s::AScrapyardAbility"), *GetName());
+  SetupAbilityStates();
+  CurrentState = ActiveState;
+
+  SetupTargetingProfile();
+}
+
+void AScrapyardAbility::SetupAbilityStates()
+{
   InactiveState = CreateDefaultSubobject<UAbilityStateInactive>(TEXT("AbilityStateInactive"));
   ActiveState = CreateDefaultSubobject<UAbilityStateActive>(TEXT("AbilityStateActive"));
 
   FiringState.Add(CreateDefaultSubobject<UAbilityStateFiring>(TEXT("FiringState0")));
   FireInterval.Add(1.0f);
+}
 
-  CurrentState = ActiveState;
-
-  AbilityName = TEXT("ScrapyardAbility");
-
+void AScrapyardAbility::SetupTargetingProfile()
+{
+  TargetingProfile = CreateDefaultSubobject<UTargetingProfile>(TEXT("TargetingProfile"));
 }
 
 void AScrapyardAbility::StartFire(uint8 FireModeNum)
@@ -295,4 +306,5 @@ void AScrapyardAbility::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > &
 {
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
   DOREPLIFETIME(AScrapyardAbility, RobotOwner);
+//  DOREPLIFETIME(AScrapyardAbility, TargetingProfile);
 }

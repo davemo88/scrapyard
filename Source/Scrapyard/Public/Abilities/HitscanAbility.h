@@ -26,5 +26,9 @@ public:
   void FireShot() override;
 
   virtual void FireInstantHit(bool bDealDamage = true, FHitResult* OutHit = NULL) override;
+
+protected:
+
+  virtual void SetupTargetingProfile();
 	
 };
