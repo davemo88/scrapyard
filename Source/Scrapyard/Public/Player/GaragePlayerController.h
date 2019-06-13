@@ -20,11 +20,12 @@ class SCRAPYARD_API AGaragePlayerController : public AMenuPlayerController
 
 protected:
 
+  UPROPERTY()
   UPartAssignment* PartAssignment;
 
   UGarageWidget* GarageWidget;
 
-  void SetupWidget();
+  virtual void SetupWidget() override;
 
   UFUNCTION()
   void OnNewCardReady(UPartCardWidget* CardWidget);

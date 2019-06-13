@@ -55,7 +55,6 @@ void ARobotPlayerController::OnPossess(APawn* InPawn)
   if (ARobotCharacter* RoboChar = Cast<ARobotCharacter>(InPawn))
   {
     SetRobotCharacter(RoboChar);
-//    RoboChar->RobotBodyComponent->PartAssignment->SetAssignment(PartAssignmentIDs);
     RoboChar->MulticastSetPartAssignmentFromIDs(PartAssignmentIDs);
 
     if (ARobotPlayerState* RobotPlayerState = GetPlayerState<ARobotPlayerState>())
@@ -193,12 +192,6 @@ void ARobotPlayerController::ServerNotifyGameStateReplicated_Implementation()
 bool ARobotPlayerController::IsGameStateReplicated()
 {
   return bGameStateReplicated;
-}
-
-void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
-{
-  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastSetPartAssignmentFromIDs_Implementation"), *GetName());
-  RobotBodyComponent->PartAssignment->SetAssignment(NewPartAssignmentIDs);
 }
 
 //void ARobotPlayerController::GetLifetimeReplicatedProps(TArray <FLifetimeProperty> & OutLifetimeProps) const

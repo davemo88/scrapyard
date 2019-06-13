@@ -13,7 +13,6 @@ class UMaterial;
 class USkeletalMesh;
 class URarity;
 class USoloDraft;
-class URobotBodyComponent;
 
 /**
  * 

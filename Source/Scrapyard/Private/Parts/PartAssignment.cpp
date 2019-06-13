@@ -203,15 +203,32 @@ FPartAssignmentIDs UPartAssignment::GetPartAssignmentIDs() const
     UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
     PartAssignmentIDs.LegsID = Legs->PartID;
     UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
-    PartAssignmentIDs.LeftHandheldID = LeftHandheld->PartID;
+
+// TODO: need to do null checks for optional parts, maybe all
+    if (LeftHandheld != nullptr)
+    {
+      PartAssignmentIDs.LeftHandheldID = LeftHandheld->PartID;
+    }
     UE_LOG(LogTemp, Warning, TEXT("Left Handheld PartID: %d"), PartAssignmentIDs.LeftHandheldID);
-    PartAssignmentIDs.RightHandheldID = RightHandheld->PartID;
+    if (RightHandheld != nullptr)
+    {
+      PartAssignmentIDs.RightHandheldID = RightHandheld->PartID;
+    }
     UE_LOG(LogTemp, Warning, TEXT("Right Handheld PartID: %d"), PartAssignmentIDs.RightHandheldID);
-    PartAssignmentIDs.FirstChipID = FirstChip->PartID;
+    if (FirstChip != nullptr)
+    {
+      PartAssignmentIDs.FirstChipID = FirstChip->PartID;
+    }
     UE_LOG(LogTemp, Warning, TEXT("First Chip PartID: %d"), PartAssignmentIDs.FirstChipID);
-    PartAssignmentIDs.SecondChipID = SecondChip->PartID;
+    if (SecondChip != nullptr)
+    {
+      PartAssignmentIDs.SecondChipID = SecondChip->PartID;
+    }
     UE_LOG(LogTemp, Warning, TEXT("Second Chip PartID: %d"), PartAssignmentIDs.SecondChipID);
-    PartAssignmentIDs.ThirdChipID = ThirdChip->PartID;
+    if (ThirdChip != nullptr)
+    {
+      PartAssignmentIDs.ThirdChipID = ThirdChip->PartID;
+    }
     UE_LOG(LogTemp, Warning, TEXT("Third Chip PartID: %d"), PartAssignmentIDs.ThirdChipID);
   }
 

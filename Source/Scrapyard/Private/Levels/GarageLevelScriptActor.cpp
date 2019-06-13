@@ -34,7 +34,7 @@ void AGarageLevelScriptActor::SpawnRobotCharacter()
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   if (GameInstance->PartAssignment != nullptr)
   {
-    RobotCharacter->RobotBodyComponent->PartAssignment->SetAssignment(GameInstance->PartAssignment); 
+    RobotCharacter->PartAssignment->SetAssignment(GameInstance->PartAssignment); 
   }
 }
 

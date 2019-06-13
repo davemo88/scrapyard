@@ -31,6 +31,8 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   bReplicates = true;
   bAlwaysRelevant = true;
 
+  PartAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("PartAssignment"));
+
   SetupCamera();
   SetupBody();
   SetupStats();
@@ -186,16 +188,16 @@ void ARobotCharacter::SetupBody()
 // rotation ?
 // seems like the sketetal mesh is not set up correctly
   RobotBodyComponent->SetRelativeRotation(FRotator(0.0f,-90.0f,0.f));
-  RobotBodyComponent->PartAssignment->SetDefaultAssignment();
 
-//  RobotBodyComponent->PartAssignment->HeadAssignmentChangedDelegate.AddDynamic()
+  PartAssignment->SetDefaultAssignment();
+
 }
 
 void ARobotCharacter::SetupStats()
 {
   RobotStats = CreateDefaultSubobject<URobotStats>(TEXT("RobotStats"));
   RobotStats->RobotStatsUpdatedDelegate.AddDynamic(this, &ARobotCharacter::OnStatsUpdated);
-  RobotStats->SetPartAssignment(RobotBodyComponent->PartAssignment);
+  RobotStats->SetPartAssignment(PartAssignment);
 }
 
 void ARobotCharacter::SetupAbilities()
@@ -478,4 +480,10 @@ void ARobotCharacter::OnRep_Power()
 bool ARobotCharacter::IsTargetableBy(ARobotCharacter* Robot)
 {
   return Team != Robot->Team;
+}
+
+void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastSetPartAssignmentFromIDs_Implementation"), *GetName());
+  PartAssignment->SetAssignment(NewPartAssignmentIDs);
 }

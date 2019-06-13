@@ -39,6 +39,9 @@ public:
 
   void SetupRobotHUDWidget();
 
+  UPROPERTY()
+  UPartAssignment* PartAssignment;
+
   UPROPERTY(EditAnywhere)
   URobotBodyComponent* RobotBodyComponent;
 

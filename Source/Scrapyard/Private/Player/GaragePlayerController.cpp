@@ -12,7 +12,6 @@
 #include "Levels/GarageLevelScriptActor.h"
 #include "Parts/RobotPart.h"
 #include "Robots/RobotCharacter.h"
-#include "Robots/RobotBodyComponent.h"
 #include "UI/GarageWidget.h"
 #include "UI/YourPartsWidget.h"
 #include "UI/PartCardWidget.h"
@@ -21,10 +20,10 @@
 void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::EndPlay"), *GetName());
-  Super::EndPlay(EndPlayReason);
   PartAssignment->GetPartAssignmentIDs();
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   GameInstance->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
+  Super::EndPlay(EndPlayReason);
 }
 
 
@@ -44,7 +43,7 @@ void AGaragePlayerController::SetupWidget()
   ARobotCharacter* RobotCharacter = GarageActor->GetRobotCharacter();
 //TODO: need to keep track of part assignment after leaving garage, e.g. if you go to testing or battling
 //then the existing part assignment / draft should be loaded when the garage loads
-  PartAssignment = RobotCharacter->RobotBodyComponent->PartAssignment;
+  PartAssignment = RobotCharacter->PartAssignment;
 
   GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
 
