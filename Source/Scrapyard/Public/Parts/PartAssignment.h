@@ -10,6 +10,8 @@ class UHeadPart;
 class UCorePart;
 class UArmsPart;
 class ULegsPart;
+class UHandheldPart;
+class UChipPart;
 
 USTRUCT()
 struct FPartAssignmentIDs
@@ -24,23 +26,31 @@ struct FPartAssignmentIDs
   uint32 ArmsID;
   UPROPERTY()
   uint32 LegsID;
+  UPROPERTY()
+  uint32 LeftHandheldID;
+  UPROPERTY()
+  uint32 RightHandheldID;
+//NOTE: hard to say how to implement dynamic number of chips but it can't be much more than 3 max
+  UPROPERTY()
+  uint32 FirstChipID;
+  UPROPERTY()
+  uint32 SecondChipID;
+  UPROPERTY()
+  uint32 ThirdChipID;
 
-//  bool IsComplete()
-//  {
-//    return HeadID != 0 && CoreID != 0 && ArmsID != 0 && LegsID != 0;
-//  }
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPartAssignmentChangedDelegate);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeadAssignmentChangedDelegate, UHeadPart*, NewHead);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAssignmentChangedDelegate, UCorePart*, NewCore);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FArmsAssignmentChangedDelegate, UArmsPart*, NewArms);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLegsAssignmentChangedDelegate, ULegsPart*, NewLegs);
-// possible to clean this up?
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeadAssignmentChangedDelegate, URobotPart*, NewHead);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAssignmentChangedDelegate, URobotPart*, NewCore);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FArmsAssignmentChangedDelegate, URobotPart*, NewArms);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLegsAssignmentChangedDelegate, URobotPart*, NewLegs);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLeftHandheldAssignmentChangedDelegate, URobotPart*, NewHandheld);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRightHandheldAssignmentChangedDelegate, URobotPart*, NewHandheld);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFirstChipAssignmentChangedDelegate, URobotPart*, NewChip);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSecondChipAssignmentChangedDelegate, URobotPart*, NewChip);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FThirdChipAssignmentChangedDelegate, URobotPart*, NewChip);
+//
 /**
  * 
  */
@@ -57,6 +67,11 @@ public:
   void SetCore(UCorePart* NewCore);
   void SetArms(UArmsPart* NewArms);
   void SetLegs(ULegsPart* NewLegs);
+  void SetLeftHandheld(UHandheldPart* NewLeftHandheld);
+  void SetRightHandheld(UHandheldPart* NewRightHandheld);
+  void SetFirstChip(UChipPart* NewFirstChip);
+  void SetSecondChip(UChipPart* NewSecondChip);
+  void SetThirdChip(UChipPart* NewThirdChip);
 
   void SetDefaultAssignment();
 
@@ -69,12 +84,22 @@ public:
   UCorePart* GetCore() const;
   UArmsPart* GetArms() const;
   ULegsPart* GetLegs() const;
+  UHandheldPart* GetLeftHandheld() const;
+  UHandheldPart* GetRightHandheld() const;
+  UChipPart* GetFirstChip() const;
+  UChipPart* GetSecondChip() const;
+  UChipPart* GetThirdChip() const;
   
   FPartAssignmentChangedDelegate PartAssignmentChangedDelegate;
   FHeadAssignmentChangedDelegate HeadAssignmentChangedDelegate;
   FCoreAssignmentChangedDelegate CoreAssignmentChangedDelegate;
   FArmsAssignmentChangedDelegate ArmsAssignmentChangedDelegate;
   FLegsAssignmentChangedDelegate LegsAssignmentChangedDelegate;
+  FLeftHandheldAssignmentChangedDelegate LeftHandheldAssignmentChangedDelegate;
+  FRightHandheldAssignmentChangedDelegate RightHandheldAssignmentChangedDelegate;
+  FFirstChipAssignmentChangedDelegate FirstChipAssignmentChangedDelegate;
+  FSecondChipAssignmentChangedDelegate SecondChipAssignmentChangedDelegate;
+  FThirdChipAssignmentChangedDelegate ThirdChipAssignmentChangedDelegate;
 
 protected:
   
@@ -86,6 +111,16 @@ protected:
   UArmsPart* Arms;
   UPROPERTY(BlueprintReadOnly)
   ULegsPart* Legs;
+  UPROPERTY(BlueprintReadOnly)
+  UHandheldPart* LeftHandheld;
+  UPROPERTY(BlueprintReadOnly)
+  UHandheldPart* RightHandheld;
+  UPROPERTY(BlueprintReadOnly)
+  UChipPart* FirstChip;
+  UPROPERTY(BlueprintReadOnly)
+  UChipPart* SecondChip;
+  UPROPERTY(BlueprintReadOnly)
+  UChipPart* ThirdChip;
 
   void SavePartAssignment();
 

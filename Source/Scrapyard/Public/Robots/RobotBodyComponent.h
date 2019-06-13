@@ -46,11 +46,21 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* LegsComponent;
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  URobotPartComponent* LeftHandheldComponent;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* RightHandheldComponent;
-//  UPROPERTY(EditAnywhere, BlueprintReadWrite)
-//  UParticleSystemComponent* BoostingParticleComponent;
-//
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  URobotPartComponent* FirstChipComponent;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  URobotPartComponent* SecondChipComponent;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  URobotPartComponent* ThirdChipComponent;
 
+// other visual effects
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  UParticleSystemComponent* BoostingParticleComponent;
+
+//TODO: get rid of this
   UPROPERTY()
   UChildActorComponent* WeaponAbilityComponent;
 

@@ -2,6 +2,7 @@
 
 
 #include "HitscanAbility.h"
+#include "Targeting/RectangularTargetingProfile.h"
 #include "Robots/RobotCharacter.h"
 
 AHitscanAbility::AHitscanAbility()
@@ -64,7 +65,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
   }
 }
 
-void AScrapyardAbility::SetupTargetingProfile()
+void AHitscanAbility::SetupTargetingProfile()
 {
   TargetingProfile = CreateDefaultSubobject<URectangularTargetingProfile>(TEXT("TargetingProfile"));
 }

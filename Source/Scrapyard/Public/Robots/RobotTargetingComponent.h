@@ -41,9 +41,11 @@ public:
 
   bool IsTargeted(AActor* Actor) const;
 
+//  TArray<AActor> Targets;
+
 //  float GetRange();
 
-  virtual FVector GetFireDirection();
+//  virtual FVector GetFireDirection();
 
 protected:
 
@@ -51,7 +53,8 @@ protected:
   virtual void BeginPlay() override;
 
   bool bTargetAcquired;
-//  TArray<AActor*> Targets;
+
+  TArray<AActor*> Targets;
 
 //  UPROPERTY()
   TArray<AActor*> Targetables;

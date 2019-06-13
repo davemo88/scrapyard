@@ -25,7 +25,6 @@ URobotBodyComponent::URobotBodyComponent()
 
   if (UScrapyardGameInstance::AssetsBP != nullptr)
   {
-//    SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->PartAssetsBP->GetAsset<USkeletalMesh>(URobotPart::PartAssetsBP->RobotSkeletalMesh));
     SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->PartAssetsBP->RobotSkeletalMesh);
     SetAnimInstanceClass(UScrapyardGameInstance::AssetsBP->PartAssetsBP->RobotAnimInstance);
   }
@@ -40,12 +39,18 @@ URobotBodyComponent::URobotBodyComponent()
   CoreComponent->SetupAttachment(this);
   ArmsComponent->SetupAttachment(this);
   LegsComponent->SetupAttachment(this);
-  RightHandheldComponent->SetupAttachment(this);
 
   HeadComponent->SetMasterPoseComponent(this);
   CoreComponent->SetMasterPoseComponent(this);
   ArmsComponent->SetMasterPoseComponent(this);
   LegsComponent->SetMasterPoseComponent(this);
+
+// TODO: do these need the master pose? or are they socketed to the other parts?
+  LeftHandheldComponent->SetupAttachment(this);
+  RightHandheldComponent->SetupAttachment(this);
+  FirstChipComponent->SetupAttachment(this);
+  SecondChipComponent->SetupAttachment(this);
+  ThirdChipComponent->SetupAttachment(this);
 
   PartAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("PartAssignment"));
   
@@ -53,6 +58,12 @@ URobotBodyComponent::URobotBodyComponent()
   PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
+
+  PartAssignment->LeftHandheldAssignmentChangedDelegate.AddDynamic(LeftHandheldComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(RightHandheldComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->FirstChipAssignmentChangedDelegate.AddDynamic(FirstChipComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->SecondChipAssignmentChangedDelegate.AddDynamic(SecondChipComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->ThirdChipAssignmentChangedDelegate.AddDynamic(ThirdChipComponent, &URobotPartComponent::SetRobotPart);
 
   WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
   WeaponAbilityComponent->SetupAttachment(this);

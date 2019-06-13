@@ -187,6 +187,8 @@ void ARobotCharacter::SetupBody()
 // seems like the sketetal mesh is not set up correctly
   RobotBodyComponent->SetRelativeRotation(FRotator(0.0f,-90.0f,0.f));
   RobotBodyComponent->PartAssignment->SetDefaultAssignment();
+
+//  RobotBodyComponent->PartAssignment->HeadAssignmentChangedDelegate.AddDynamic()
 }
 
 void ARobotCharacter::SetupStats()

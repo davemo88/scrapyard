@@ -98,6 +98,20 @@ public:
 
 // abilities 
   UPROPERTY(Replicated)
+  AScrapyardAbility* HeadAbility;
+  UPROPERTY(Replicated)
+  AScrapyardAbility* CoreAbility;
+  UPROPERTY(Replicated)
+  AScrapyardAbility* ArmsAbility;
+  UPROPERTY(Replicated)
+  AScrapyardAbility* LegsAbility;
+  UPROPERTY(Replicated)
+  AScrapyardAbility* LeftHandheldAbility;
+  UPROPERTY(Replicated)
+  AScrapyardAbility* RightHandheldAbility;
+
+// TODO: get rid of this
+  UPROPERTY(Replicated)
   AScrapyardAbility* WeaponAbility;
 
   UFUNCTION()
