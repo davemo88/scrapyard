@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Parts/PartAssignment.h"
+#include "Robots/RobotStats.h"
 #include "Player/MenuPlayerController.h"
 #include "GaragePlayerController.generated.h"
 
@@ -18,10 +19,24 @@ class SCRAPYARD_API AGaragePlayerController : public AMenuPlayerController
 {
   GENERATED_BODY()
 
+public:
+
+  AGaragePlayerController();
+
+  void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
+  UFUNCTION()
+  void GotoGarageTestLevel();
+
 protected:
 
   UPROPERTY()
   UPartAssignment* PartAssignment;
+
+  UPROPERTY()
+  UPartAssignment* NewValueAssignment;
+  UPROPERTY()
+  URobotStats* NewValueStats;
 
   UGarageWidget* GarageWidget;
 
@@ -32,11 +47,8 @@ protected:
 
   UFUNCTION()
   void OnCardDoubleClicked(URobotPart* RobotPart);
-
-public:
-
-  void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-
   UFUNCTION()
-  void GotoGarageTestLevel();
+  void OnCardMouseEntered(URobotPart* RobotPart);
+  UFUNCTION()
+  void OnCardMouseLeft(URobotPart* RobotPart);
 };

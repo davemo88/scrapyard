@@ -2,6 +2,7 @@
 
 
 #include "StatLineWidget.h"
+#include "Components/TextBlock.h"
 
 void UStatLineWidget::SetStatLine(FStatText StatText)
 {

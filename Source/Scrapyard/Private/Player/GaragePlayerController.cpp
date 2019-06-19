@@ -17,15 +17,11 @@
 #include "UI/PartCardWidget.h"
 #include "UI/RobotStatsWidget.h"
 
-void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+AGaragePlayerController::AGaragePlayerController()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::EndPlay"), *GetName());
-  PartAssignment->GetPartAssignmentIDs();
-  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  GameInstance->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
-  Super::EndPlay(EndPlayReason);
+  NewValueAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("NewValueAssignment"));
+  NewValueStats = CreateDefaultSubobject<URobotStats>(TEXT("NewValueStats"));
 }
-
 
 void AGaragePlayerController::SetupWidget()
 {
@@ -46,8 +42,12 @@ void AGaragePlayerController::SetupWidget()
   PartAssignment = RobotCharacter->PartAssignment;
 
   GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
+  GarageWidget->RobotStatsWidget->SetNewValueStats(NewValueStats);
 
   GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
+
+  NewValueAssignment->SetAssignment(PartAssignment);
+  NewValueStats->SetPartAssignment(NewValueAssignment);
 
 }
 
@@ -58,6 +58,8 @@ void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
 //  CardWidget->RobotPart->GetSkeletalMesh();
 //  CardWidget->RobotPart->GetMajorMaterial();
   CardWidget->CardDoubleClickedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardDoubleClicked);
+  CardWidget->CardMouseEnteredDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseEntered);
+  CardWidget->CardMouseLeftDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseLeft);
 }
 
 void AGaragePlayerController::OnCardDoubleClicked(URobotPart* RobotPart)
@@ -66,8 +68,31 @@ void AGaragePlayerController::OnCardDoubleClicked(URobotPart* RobotPart)
   RobotPart->Assign(PartAssignment);
 }
 
+void AGaragePlayerController::OnCardMouseEntered(URobotPart* RobotPart)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardMouseEntered"), *GetName());
+  RobotPart->Assign(NewValueAssignment);
+//  NewValueAssignment->GetPartAssignmentIDs();
+}
+void AGaragePlayerController::OnCardMouseLeft(URobotPart* RobotPart)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardMouseLeft"), *GetName());
+  NewValueAssignment->SetAssignment(PartAssignment);
+//  NewValueAssignment->GetPartAssignmentIDs();
+}
+
 void AGaragePlayerController::GotoGarageTestLevel()
 {
   UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageTestLevel");
+}
+
+void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::EndPlay"), *GetName());
+//TODO: this is just here to print some stuff to logs i guess
+  PartAssignment->GetPartAssignmentIDs();
+  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
+  GameInstance->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
+  Super::EndPlay(EndPlayReason);
 }
 

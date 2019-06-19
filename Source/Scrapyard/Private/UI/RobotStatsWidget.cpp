@@ -2,7 +2,8 @@
 
 
 #include "RobotStatsWidget.h"
-#include "UI/StatLineWidget.h"
+#include "UI/RobotStatLineWidget.h"
+#include "Parts/RobotPart.h"
 
 void URobotStatsWidget::NativeConstruct()
 {
@@ -27,6 +28,12 @@ void URobotStatsWidget::SetRobotStats(URobotStats* NewRobotStats)
   UpdateStats();
 }
 
+void URobotStatsWidget::SetNewValueStats(URobotStats* NewRobotStats)
+{
+  NewValueStats = NewRobotStats;
+  NewValueStats->RobotStatsUpdatedDelegate.AddDynamic(this, &URobotStatsWidget::UpdateNewValues);
+}
+
 void URobotStatsWidget::UpdateStats()
 {
   MassStatLine->SetStatLine(RobotStats->GetMassStatText());
@@ -41,6 +48,30 @@ void URobotStatsWidget::UpdateStats()
   BoosterThrustStatLine->SetStatLine(RobotStats->GetBoosterThrustStatText());
   BoosterPowerDrainStatLine->SetStatLine(RobotStats->GetBoosterPowerDrainStatText());
   MovementSpeedStatLine->SetStatLine(RobotStats->GetMovementSpeedStatText());
+}
 
+void URobotStatsWidget::UpdateNewValues()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::UpdateNewValues"), *GetName());
+  if (NewValueStats->Mass != RobotStats->Mass)
+  {
+    MassStatLine->SetNewValue(FText::AsNumber(NewValueStats->Mass), NewValueStats->Mass < RobotStats->Mass);
+  }
+  else
+  {
+    MassStatLine->SetNewValue(FText(), false);
+  }
+
+//  HitPointsStatLine->SetNewValue(NewValueStats->GetHitPointsStatText().StatValue);
+//  PowerDrainStatLine->SetNewValue(NewValueStats->GetPowerDrainStatText().StatValue);
+//  PowerSupplyStatLine->SetNewValue(NewValueStats->GetPowerSupplyStatText().StatValue);
+//  KineticDefenseStatLine->SetNewValue(NewValueStats->GetKineticDefenseStatText().StatValue);
+//  ElectricDefenseStatLine->SetNewValue(NewValueStats->GetElectricDefenseStatText().StatValue);
+//  TargetingAbilityStatLine->SetNewValue(NewValueStats->GetTargetingAbilityStatText().StatValue);
+//  ChipSlotsStatLine->SetNewValue(NewValueStats->GetChipSlotsStatText().StatValue);
+//  WeaponDexterityStatLine->SetNewValue(NewValueStats->GetWeaponDexterityStatText().StatValue);
+//  BoosterThrustStatLine->SetNewValue(NewValueStats->GetBoosterThrustStatText().StatValue);
+//  BoosterPowerDrainStatLine->SetNewValue(NewValueStats->GetBoosterPowerDrainStatText().StatValue);
+//  MovementSpeedStatLine->SetNewValue(NewValueStats->GetMovementSpeedStatText().StatValue);
 }
 

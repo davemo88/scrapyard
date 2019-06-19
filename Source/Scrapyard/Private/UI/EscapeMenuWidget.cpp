@@ -36,7 +36,7 @@ void UEscapeMenuWidget::QuitToMainMenu()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::QuitToMainMenu"), *GetName());
   UWorld* World = GetWorld();
-  UGameplayStatics::OpenLevel(World, "/Game/Levels/MainLevel");
+  UGameplayStatics::OpenLevel(World, "/Game/Levels/DebugMainLevel");
   
 }
 

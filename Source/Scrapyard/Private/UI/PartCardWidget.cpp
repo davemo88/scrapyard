@@ -46,6 +46,7 @@ void UPartCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPo
 void UPartCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseLeave"), *GetName());
+  CardMouseLeftDelegate.Broadcast(RobotPart);
   Super::NativeOnMouseLeave(InMouseEvent);
 }
 

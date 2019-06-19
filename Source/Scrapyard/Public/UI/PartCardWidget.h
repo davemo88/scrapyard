@@ -15,6 +15,7 @@ struct FStatText;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardClickedDelegate, URobotPart*, Part);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPart*, Part);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseEnteredDelegate, URobotPart*, Part);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseLeftDelegate, URobotPart*, Part);
 
 /**
  * 
@@ -39,6 +40,7 @@ public:
   FCardDoubleClickedDelegate CardDoubleClickedDelegate;
 
   FCardMouseEnteredDelegate CardMouseEnteredDelegate;
+  FCardMouseEnteredDelegate CardMouseLeftDelegate;
 
 protected:
 

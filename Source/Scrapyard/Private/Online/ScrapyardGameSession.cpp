@@ -236,7 +236,7 @@ void AScrapyardGameSession::OnDestroySessionComplete(FName SessionName, bool bWa
 
       if (bWasSuccessful)
       {
-        UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/MainLevel", true);
+        UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/DebugMainLevel", true);
       }
     }
   }

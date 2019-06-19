@@ -20,7 +20,7 @@ class SCRAPYARD_API UStatLineWidget : public UUserWidget
 public:
   
   UFUNCTION()
-  void SetStatLine(FStatText StatText);
+  virtual void SetStatLine(FStatText StatText);
 
 protected:
 

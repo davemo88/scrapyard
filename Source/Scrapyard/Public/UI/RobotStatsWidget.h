@@ -8,7 +8,7 @@
 #include "Robots/RobotStats.h"
 #include "RobotStatsWidget.generated.h"
 
-class UStatLineWidget;
+class URobotStatLineWidget;
 class UVerticalBox;
 class UButton;
 
@@ -23,6 +23,8 @@ class SCRAPYARD_API URobotStatsWidget : public UUserWidget
 public:
 
   void SetRobotStats(URobotStats* NewRobotStats); 
+
+  void SetNewValueStats(URobotStats* NewRobotStats);
   
 protected:
 
@@ -31,35 +33,41 @@ protected:
   UPROPERTY()
   URobotStats* RobotStats; 
 
+  UPROPERTY()
+  URobotStats* NewValueStats; 
+
   UFUNCTION()
   void UpdateStats();
+
+  UFUNCTION()
+  void UpdateNewValues();
 
   UPROPERTY(meta=(BindWidget))
   UVerticalBox* StatsPanel;
  
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* HitPointsStatLine;
+  URobotStatLineWidget* HitPointsStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* MassStatLine;
+  URobotStatLineWidget* MassStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* PowerSupplyStatLine;
+  URobotStatLineWidget* PowerSupplyStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* PowerDrainStatLine;
+  URobotStatLineWidget* PowerDrainStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* KineticDefenseStatLine;
+  URobotStatLineWidget* KineticDefenseStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* ElectricDefenseStatLine;
+  URobotStatLineWidget* ElectricDefenseStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* TargetingAbilityStatLine;
+  URobotStatLineWidget* TargetingAbilityStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* ChipSlotsStatLine;
+  URobotStatLineWidget* ChipSlotsStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* WeaponDexterityStatLine;
+  URobotStatLineWidget* WeaponDexterityStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* BoosterThrustStatLine;
+  URobotStatLineWidget* BoosterThrustStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* BoosterPowerDrainStatLine;
+  URobotStatLineWidget* BoosterPowerDrainStatLine;
   UPROPERTY(meta=(BindWidget))
-  UStatLineWidget* MovementSpeedStatLine;
+  URobotStatLineWidget* MovementSpeedStatLine;
   
 };
