@@ -6,7 +6,7 @@
 #include "Parts/PartAssignment.h"
 #include "SoloDraft.h"
 
-UCorePart* UCorePart::NewCore(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerSupply, uint32 NewBoosterThrust, uint32 NewBoosterPowerDrain)
+UCorePart* UCorePart::NewCore(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewKineticDefense, uint32 NewElectricDefense, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerSupply, uint32 NewBoosterThrust, uint32 NewBoosterPowerDrain)
 {
   UCorePart* NewPart = NewObject<UCorePart>();
   NewPart->PartID = NewPartID;
@@ -16,6 +16,8 @@ UCorePart* UCorePart::NewCore(uint32 NewPartID, FText NewPartName, UManufacturer
   NewPart->Mass = NewMass;
   NewPart->HitPoints = NewHitPoints;
   NewPart->PowerDrain = NewPowerDrain;
+  NewPart->KineticDefense = NewKineticDefense;
+  NewPart->ElectricDefense = NewElectricDefense;
   NewPart->AbilityClass = NewAbilityClass;
   NewPart->SkeletalMesh = NewSkeletalMesh;
   NewPart->MajorMaterial = NewMajorMaterial;

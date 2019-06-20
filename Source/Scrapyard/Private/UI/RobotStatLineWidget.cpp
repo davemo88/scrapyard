@@ -14,27 +14,27 @@ void URobotStatLineWidget::SetStatLine(FStatText StatText)
 {
   StatName->SetText(StatText.StatName);
   StatValue->SetText(StatText.StatValue);
-  NewValue->SetText(FText());
+  NewValueText->SetText(FText());
 }
 
-void URobotStatLineWidget::SetNewValue(FText NewStatValue, bool bBetter)
+void URobotStatLineWidget::SetNewValue(int32 NewValue, int32 OldValue, FBetterComparator IsBetter)
 {
-  NewValue->SetText(NewStatValue);
-
-  if (!NewStatValue.EqualTo(FText()))
+  if (NewValue != OldValue)
   {
+    NewValueText->SetText(FText::AsNumber(NewValue));
     NewValueArrow->SetVisibility(ESlateVisibility::Visible);
-    if (bBetter)
+    if (IsBetter(NewValue, OldValue))
     {
-      NewValue->SetColorAndOpacity(FSlateColor(FLinearColor::Green));
+      NewValueText->SetColorAndOpacity(FSlateColor(FLinearColor::Green));
     }
     else
     {
-      NewValue->SetColorAndOpacity(FSlateColor(FLinearColor::Red));
+      NewValueText->SetColorAndOpacity(FSlateColor(FLinearColor::Red));
     }
   }
   else
   {
+    NewValueText->SetText(FText());
     NewValueArrow->SetVisibility(ESlateVisibility::Hidden);
   }
 }

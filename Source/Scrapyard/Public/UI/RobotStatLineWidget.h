@@ -19,14 +19,15 @@ public:
 
   virtual void SetStatLine(FStatText) override;
 
-  void SetNewValue(FText NewStatValue, bool bBetter);
+  typedef bool(*FBetterComparator)(int32, int32);
+  void SetNewValue(int32 NewValue, int32 OldValue, FBetterComparator IsBetter);
 
 protected:
 
   void NativeConstruct() override;
 
   UPROPERTY(meta=(BindWidget))
-  UTextBlock* NewValue;
+  UTextBlock* NewValueText;
 
   UPROPERTY(meta=(BindWidget))
   UImage* NewValueArrow;

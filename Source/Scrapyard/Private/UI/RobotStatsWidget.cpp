@@ -43,35 +43,27 @@ void URobotStatsWidget::UpdateStats()
   KineticDefenseStatLine->SetStatLine(RobotStats->GetKineticDefenseStatText());
   ElectricDefenseStatLine->SetStatLine(RobotStats->GetElectricDefenseStatText());
   TargetingAbilityStatLine->SetStatLine(RobotStats->GetTargetingAbilityStatText());
-  ChipSlotsStatLine->SetStatLine(RobotStats->GetChipSlotsStatText());
   WeaponDexterityStatLine->SetStatLine(RobotStats->GetWeaponDexterityStatText());
   BoosterThrustStatLine->SetStatLine(RobotStats->GetBoosterThrustStatText());
   BoosterPowerDrainStatLine->SetStatLine(RobotStats->GetBoosterPowerDrainStatText());
   MovementSpeedStatLine->SetStatLine(RobotStats->GetMovementSpeedStatText());
+  ChipSlotsStatLine->SetStatLine(RobotStats->GetChipSlotsStatText());
 }
 
 void URobotStatsWidget::UpdateNewValues()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::UpdateNewValues"), *GetName());
-  if (NewValueStats->Mass != RobotStats->Mass)
-  {
-    MassStatLine->SetNewValue(FText::AsNumber(NewValueStats->Mass), NewValueStats->Mass < RobotStats->Mass);
-  }
-  else
-  {
-    MassStatLine->SetNewValue(FText(), false);
-  }
+    MassStatLine->SetNewValue(NewValueStats->Mass, RobotStats->Mass, [](int32 New, int32 Old){ return New < Old; });
+    HitPointsStatLine->SetNewValue(NewValueStats->HitPoints, RobotStats->HitPoints, [](int32 New, int32 Old){ return New > Old; });
+    PowerDrainStatLine->SetNewValue(NewValueStats->PowerDrain, RobotStats->PowerDrain, [](int32 New, int32 Old){ return New < Old; });
+    KineticDefenseStatLine->SetNewValue(NewValueStats->KineticDefense, RobotStats->KineticDefense, [](int32 New, int32 Old){ return New > Old; });
+    ElectricDefenseStatLine->SetNewValue(NewValueStats->ElectricDefense, RobotStats->ElectricDefense, [](int32 New, int32 Old){ return New > Old; });
+    TargetingAbilityStatLine->SetNewValue(NewValueStats->TargetingAbility, RobotStats->TargetingAbility, [](int32 New, int32 Old){ return New < Old; });
+    WeaponDexterityStatLine->SetNewValue(NewValueStats->WeaponDexterity, RobotStats->WeaponDexterity, [](int32 New, int32 Old){ return New < Old; });
+    BoosterThrustStatLine->SetNewValue(NewValueStats->BoosterThrust, RobotStats->BoosterThrust, [](int32 New, int32 Old){ return New < Old; });
+    BoosterPowerDrainStatLine->SetNewValue(NewValueStats->BoosterPowerDrain, RobotStats->BoosterPowerDrain, [](int32 New, int32 Old){ return New < Old; });
+    MovementSpeedStatLine->SetNewValue(NewValueStats->MovementSpeed, RobotStats->MovementSpeed, [](int32 New, int32 Old){ return New < Old; });
+    ChipSlotsStatLine->SetNewValue(NewValueStats->ChipSlots, RobotStats->ChipSlots, [](int32 New, int32 Old){ return New < Old; });
+      
 
-//  HitPointsStatLine->SetNewValue(NewValueStats->GetHitPointsStatText().StatValue);
-//  PowerDrainStatLine->SetNewValue(NewValueStats->GetPowerDrainStatText().StatValue);
-//  PowerSupplyStatLine->SetNewValue(NewValueStats->GetPowerSupplyStatText().StatValue);
-//  KineticDefenseStatLine->SetNewValue(NewValueStats->GetKineticDefenseStatText().StatValue);
-//  ElectricDefenseStatLine->SetNewValue(NewValueStats->GetElectricDefenseStatText().StatValue);
-//  TargetingAbilityStatLine->SetNewValue(NewValueStats->GetTargetingAbilityStatText().StatValue);
-//  ChipSlotsStatLine->SetNewValue(NewValueStats->GetChipSlotsStatText().StatValue);
-//  WeaponDexterityStatLine->SetNewValue(NewValueStats->GetWeaponDexterityStatText().StatValue);
-//  BoosterThrustStatLine->SetNewValue(NewValueStats->GetBoosterThrustStatText().StatValue);
-//  BoosterPowerDrainStatLine->SetNewValue(NewValueStats->GetBoosterPowerDrainStatText().StatValue);
-//  MovementSpeedStatLine->SetNewValue(NewValueStats->GetMovementSpeedStatText().StatValue);
 }
-

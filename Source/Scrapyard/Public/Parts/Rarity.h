@@ -13,13 +13,13 @@
 UCLASS()
 class SCRAPYARD_API URarity : public UDataAsset
 {
-	GENERATED_BODY()
-	
+  GENERATED_BODY()
+  
 public:
 
-	UPROPERTY(EditAnywhere)
-	FString RarityName;
+  UPROPERTY(EditAnywhere)
+  FString RarityName;
 
-	UPROPERTY(EditAnywhere)
-	UTexture2D* RaritySymbol;
+  UPROPERTY(EditAnywhere)
+  UTexture2D* RaritySymbol;
 };
