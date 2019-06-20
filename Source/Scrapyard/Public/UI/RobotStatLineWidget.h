@@ -23,6 +23,8 @@ public:
 
 protected:
 
+  void NativeConstruct() override;
+
   UPROPERTY(meta=(BindWidget))
   UTextBlock* NewValue;
 

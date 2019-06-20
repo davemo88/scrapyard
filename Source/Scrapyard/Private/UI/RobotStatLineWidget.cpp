@@ -4,6 +4,12 @@
 #include "RobotStatLineWidget.h"
 #include "Components/TextBlock.h"
 
+void URobotStatLineWidget::NativeConstruct()
+{
+  Super::NativeConstruct();
+  NewValueArrow->SetVisibility(ESlateVisibility::Hidden);
+}
+
 void URobotStatLineWidget::SetStatLine(FStatText StatText)
 {
   StatName->SetText(StatText.StatName);

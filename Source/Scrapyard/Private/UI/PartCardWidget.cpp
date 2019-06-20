@@ -70,3 +70,15 @@ void UPartCardWidget::AddStatLine(FStatText StatText)
   StatsBox->AddChild(StatLine);
 
 }
+
+FReply UPartCardWidget::NativeOnMouseButtonDown(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
+{
+// stops OnMouseLeave event from firing by not calling Super
+  return FReply::Handled();
+}
+
+FReply UPartCardWidget::NativeOnMouseButtonUp(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
+{
+// stops OnMouseEnter event from firing by not calling Super
+  return FReply::Handled();
+}

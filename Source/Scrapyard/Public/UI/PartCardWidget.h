@@ -38,11 +38,13 @@ public:
 
   FCardClickedDelegate CardClickedDelegate;
   FCardDoubleClickedDelegate CardDoubleClickedDelegate;
-
   FCardMouseEnteredDelegate CardMouseEnteredDelegate;
   FCardMouseEnteredDelegate CardMouseLeftDelegate;
 
 protected:
+
+  FReply NativeOnMouseButtonDown(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
+  FReply NativeOnMouseButtonUp(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 
   void NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 

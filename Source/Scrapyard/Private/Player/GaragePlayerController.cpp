@@ -66,6 +66,7 @@ void AGaragePlayerController::OnCardDoubleClicked(URobotPart* RobotPart)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnCardDoubleClicked"), *GetName());
   RobotPart->Assign(PartAssignment);
+  RobotPart->Assign(NewValueAssignment);
 }
 
 void AGaragePlayerController::OnCardMouseEntered(URobotPart* RobotPart)
