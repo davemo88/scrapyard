@@ -41,8 +41,6 @@ public:
 
   bool IsTargeted(AActor* Actor) const;
 
-//  TArray<AActor> Targets;
-
 //  float GetRange();
 
 //  virtual FVector GetFireDirection();
@@ -55,10 +53,13 @@ protected:
   UPROPERTY(Replicated)
   bool bTargetAcquired;
 
+  UPROPERTY(Replicated)
   TArray<AActor*> Targets;
 
 //  UPROPERTY()
   TArray<AActor*> Targetables;
+
+  float GetTargetPriority(AActor* Target);
 
 // get the other actor's location relative to the owner's view rotation vector
   FVector GetLocationRelativeToView(AActor* OtherActor) const;

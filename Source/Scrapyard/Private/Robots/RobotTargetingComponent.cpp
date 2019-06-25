@@ -21,6 +21,9 @@ URobotTargetingComponent::URobotTargetingComponent()
 
   bTargetAcquired = false;
 
+//  SetNetAddressable();
+//  SetIsReplicated(true);
+
   TargetingProfile = CreateDefaultSubobject<URectangularTargetingProfile>(TEXT("TargetingProfile"));
 //  TargetingProfile = CreateDefaultSubobject<UConeTargetingProfile>(TEXT("TargetingProfile"));
 
@@ -64,11 +67,24 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
     bTargetAcquired = false;
     for (AActor* Actor: Targetables)
     {
+      if (IsTargeted(Actor))
+      {
+        Targets.AddUnique(Actor);
+        bTargetAcquired = true;
+      }
+      else// if Targets.Contains(Actor)
+      {
+        Targets.Remove(Actor);
+      }
 //      UE_LOG(LogTemp, Warning, TEXT("%s targeting %s"), *GetName(), *Actor->GetName());
-      bTargetAcquired = bTargetAcquired || IsTargeted(Actor);
+//      bTargetAcquired = bTargetAcquired || IsTargeted(Actor);
 //      FString TargetAcquired = bTargetAcquired ? "True" : "False";
 //      UE_LOG(LogTemp, Warning, TEXT("bTargetAcquired = %s"), *TargetAcquired);
     }
+    Algo::Sort(Targets, [this](AActor* Target1, AActor* Target2)
+    {
+      return this->GetTargetPriority(Target1) > this->GetTargetPriority(Target2);
+    });
   }
 }
 
@@ -121,6 +137,19 @@ bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
   return false;
 }
 
+float URobotTargetingComponent::GetTargetPriority(AActor* Target)
+{
+// distance method
+//  return 1.0f/FVector::Distance(Target->GetActorLocation(),GetOwner()->GetActorLocation());
+// view method
+  ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
+  FVector ToTarget = Target->GetActorLocation()-OwnerChar->GetActorLocation();
+  FVector TargetDirection = ToTarget/ToTarget.Size();
+  float Priority = FVector::DotProduct(TargetDirection, OwnerChar->GetViewRotation().Vector());
+//  UE_LOG(LogTemp, Warning, TEXT("%s Targeting Priority: %f"), *Target->GetName(), Priority);
+  return Priority;
+}
+
 void URobotTargetingComponent::OnTargetableRegistered(AActor* Actor)
 {
   UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableRegistered"), *GetName());
@@ -144,5 +173,6 @@ void URobotTargetingComponent::GetLifetimeReplicatedProps(TArray <FLifetimePrope
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
   DOREPLIFETIME(URobotTargetingComponent, bTargetAcquired);
+  DOREPLIFETIME(URobotTargetingComponent, Targets);
 
 }
