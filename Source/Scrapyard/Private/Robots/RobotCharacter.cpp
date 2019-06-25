@@ -95,10 +95,10 @@ void ARobotCharacter::Tick(float DeltaTime)
 //TODO: we can remove this tick event
   Super::Tick(DeltaTime);
 
-  if (HasAuthority())
-  {
-    bTargetAcquired = RobotTargetingComponent->IsTargetAcquired();
-  }
+//  if (HasAuthority())
+//  {
+//    bTargetAcquired = RobotTargetingComponent->IsTargetAcquired();
+//  }
 
 }
 
@@ -461,7 +461,7 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & O
   DOREPLIFETIME(ARobotCharacter, WeaponAbility);
   DOREPLIFETIME(ARobotCharacter, HitPoints);
   DOREPLIFETIME(ARobotCharacter, Power);
-  DOREPLIFETIME(ARobotCharacter, bTargetAcquired);
+//  DOREPLIFETIME(ARobotCharacter, bTargetAcquired);
 
 }
 
@@ -475,6 +475,11 @@ void ARobotCharacter::OnRep_Power()
 {
   UE_LOG(LogTemp,Warning,TEXT("%s::OnRep_Power"), *GetName());
   PowerChangedDelegate.Broadcast();
+}
+
+bool ARobotCharacter::IsTargetAcquired()
+{
+  return RobotTargetingComponent->IsTargetAcquired();
 }
 
 bool ARobotCharacter::IsTargetableBy(ARobotCharacter* Robot)

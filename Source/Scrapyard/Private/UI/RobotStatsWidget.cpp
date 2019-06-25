@@ -58,12 +58,11 @@ void URobotStatsWidget::UpdateNewValues()
     PowerDrainStatLine->SetNewValue(NewValueStats->PowerDrain, RobotStats->PowerDrain, [](int32 New, int32 Old){ return New < Old; });
     KineticDefenseStatLine->SetNewValue(NewValueStats->KineticDefense, RobotStats->KineticDefense, [](int32 New, int32 Old){ return New > Old; });
     ElectricDefenseStatLine->SetNewValue(NewValueStats->ElectricDefense, RobotStats->ElectricDefense, [](int32 New, int32 Old){ return New > Old; });
-    TargetingAbilityStatLine->SetNewValue(NewValueStats->TargetingAbility, RobotStats->TargetingAbility, [](int32 New, int32 Old){ return New < Old; });
-    WeaponDexterityStatLine->SetNewValue(NewValueStats->WeaponDexterity, RobotStats->WeaponDexterity, [](int32 New, int32 Old){ return New < Old; });
-    BoosterThrustStatLine->SetNewValue(NewValueStats->BoosterThrust, RobotStats->BoosterThrust, [](int32 New, int32 Old){ return New < Old; });
+    TargetingAbilityStatLine->SetNewValue(NewValueStats->TargetingAbility, RobotStats->TargetingAbility, [](int32 New, int32 Old){ return New > Old; });
+    WeaponDexterityStatLine->SetNewValue(NewValueStats->WeaponDexterity, RobotStats->WeaponDexterity, [](int32 New, int32 Old){ return New > Old; });
+    BoosterThrustStatLine->SetNewValue(NewValueStats->BoosterThrust, RobotStats->BoosterThrust, [](int32 New, int32 Old){ return New > Old; });
     BoosterPowerDrainStatLine->SetNewValue(NewValueStats->BoosterPowerDrain, RobotStats->BoosterPowerDrain, [](int32 New, int32 Old){ return New < Old; });
-    MovementSpeedStatLine->SetNewValue(NewValueStats->MovementSpeed, RobotStats->MovementSpeed, [](int32 New, int32 Old){ return New < Old; });
-    ChipSlotsStatLine->SetNewValue(NewValueStats->ChipSlots, RobotStats->ChipSlots, [](int32 New, int32 Old){ return New < Old; });
-      
+    MovementSpeedStatLine->SetNewValue(NewValueStats->MovementSpeed, RobotStats->MovementSpeed, [](int32 New, int32 Old){ return New > Old; });
+    ChipSlotsStatLine->SetNewValue(NewValueStats->ChipSlots, RobotStats->ChipSlots, [](int32 New, int32 Old){ return New > Old; });
 
 }

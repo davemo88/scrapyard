@@ -52,6 +52,7 @@ protected:
   // Called when the game starts
   virtual void BeginPlay() override;
 
+  UPROPERTY(Replicated)
   bool bTargetAcquired;
 
   TArray<AActor*> Targets;

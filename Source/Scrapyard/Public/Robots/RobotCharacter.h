@@ -51,8 +51,10 @@ public:
   UPROPERTY(EditAnywhere)
   UTargetableComponent* TargetableComponent;
 
-  UPROPERTY(Replicated)
-  bool bTargetAcquired;
+//  UPROPERTY(Replicated)
+//  bool bTargetAcquired;
+
+  bool IsTargetAcquired();
 
 // stats
   UPROPERTY()

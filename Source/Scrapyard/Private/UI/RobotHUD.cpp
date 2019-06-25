@@ -108,7 +108,7 @@ FLinearColor ARobotHUD::GetTargetingColor()
   {
     if (ARobotCharacter* RoboChar = RobotPC->GetRobotCharacter())
     {
-      if (RoboChar->bTargetAcquired)
+      if (RoboChar->IsTargetAcquired())
       {
         return FLinearColor(FColor::Green);
       }

@@ -139,3 +139,10 @@ void URobotTargetingComponent::OnTargetableUnregistered(AActor* Actor)
   }
 }
 
+void URobotTargetingComponent::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & OutLifetimeProps) const
+{
+  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+  DOREPLIFETIME(URobotTargetingComponent, bTargetAcquired);
+
+}
