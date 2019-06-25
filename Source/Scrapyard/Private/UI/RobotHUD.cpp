@@ -46,6 +46,14 @@ void ARobotHUD::DrawHUD()
             2);
       }
 
+      TArray<AActor*> Targets = RobotCharacter->RobotTargetingComponent->GetTargets();
+
+      for (AActor* Target : Targets)
+      {
+        FVector2D ScreenLocation = FVector2D(Project(Target->GetActorLocation()));
+        DrawRect(FLinearColor::Blue, ScreenLocation.X, ScreenLocation.Y, 4.0f, 4.0f);
+      }
+
 //      FVector RelativeCenter = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
 //      FVector WorldCenter = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
 //      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD RelativeCenter - %s"), *GetName(), *RelativeCenter.ToString());
@@ -117,5 +125,10 @@ FLinearColor ARobotHUD::GetTargetingColor()
 
   return FLinearColor(FColor::Red);
     
+}
+
+void ARobotHUD::DrawTargetBox(AActor* Target)
+{
+
 }
 

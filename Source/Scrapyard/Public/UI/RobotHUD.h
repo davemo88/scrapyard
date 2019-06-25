@@ -19,6 +19,10 @@ public:
   ARobotHUD();
   
   virtual void DrawHUD() override;
+
+protected:
+
+  virtual void DrawTargetBox(AActor* Target);
   
   virtual FLinearColor GetTargetingColor();
   

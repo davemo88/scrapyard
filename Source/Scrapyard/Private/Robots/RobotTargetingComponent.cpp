@@ -21,8 +21,8 @@ URobotTargetingComponent::URobotTargetingComponent()
 
   bTargetAcquired = false;
 
-//  SetNetAddressable();
-//  SetIsReplicated(true);
+  SetNetAddressable();
+  SetIsReplicated(true);
 
   TargetingProfile = CreateDefaultSubobject<URectangularTargetingProfile>(TEXT("TargetingProfile"));
 //  TargetingProfile = CreateDefaultSubobject<UConeTargetingProfile>(TEXT("TargetingProfile"));
@@ -91,6 +91,11 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 bool URobotTargetingComponent::IsTargetAcquired()
 {
   return bTargetAcquired;
+}
+
+TArray<AActor*> URobotTargetingComponent::GetTargets()
+{
+  return Targets;
 }
 
 bool URobotTargetingComponent::IsTargeted(AActor* Actor) const

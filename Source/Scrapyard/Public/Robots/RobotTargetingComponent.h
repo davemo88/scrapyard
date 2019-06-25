@@ -25,6 +25,8 @@ public:
 
   bool IsTargetAcquired();
 
+  TArray<AActor*> GetTargets();
+
   TSubclassOf<UTargetingWidget> TargetingWidget;
 
   TArray<FVector> GetFaceVerts() const;
