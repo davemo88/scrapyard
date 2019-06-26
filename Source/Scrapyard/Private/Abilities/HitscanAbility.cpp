@@ -39,13 +39,25 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
   UE_LOG(LogTemp, Warning, TEXT("AHitscanAbility::FireInstantHit"));
 
 //TODO: replace these with output from targeting system
-  const FVector SpawnLoc = GetFireStartLoc();
-  const FRotator SpawnRot = GetBaseFireRotation();
-  const FVector FireDirection = SpawnRot.Vector();
-  const FVector EndTrace = SpawnLoc + FireDirection * AbilityRange;
+//  const FVector SpawnLoc = GetFireStartLoc();
+//  const FRotator SpawnRot = GetBaseFireRotation();
+//  const FVector FireDirection = SpawnRot.Vector();
+//  const FVector EndTrace = SpawnLoc + FireDirection * AbilityRange;
 
   FHitResult Hit;
-  HitScanTrace(SpawnLoc, EndTrace, 0.0f, Hit, 0.0f);
+  const FVector RobotLoc = RobotOwner->GetActorLocation();
+  if (RobotOwner->RobotTargetingComponent->IsTargetAcquired())
+  {
+    AActor* Target = RobotOwner->RobotTargetingComponent->GetTargets()[0];
+    const FVector PredictedLoc = RobotOwner->RobotTargetingComponent->GetPredictedTargetLocation(Target, 0.0f);
+    HitScanTrace(RobotLoc, PredictedLoc, 0.0f, Hit, 0.0f);
+  }
+  else
+  {
+    const FVector ViewDirection = RobotOwner->GetViewRotation().Vector(); 
+    const FVector EndLoc = RobotLoc + ViewDirection * AbilityRange;
+    HitScanTrace(RobotLoc, EndLoc, 0.0f, Hit, 0.0f);
+  }
 
   if (Hit.Actor != NULL && bDealDamage)
   {
@@ -54,7 +66,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
         FScrapyardPointDamageEvent(
           InstantHitInfo[CurrentFireMode].Damage,
           Hit,
-          FireDirection,
+          FVector::ZeroVector,
           InstantHitInfo[CurrentFireMode].DamageType,
           FVector::ZeroVector),
         RobotOwner->Controller,
