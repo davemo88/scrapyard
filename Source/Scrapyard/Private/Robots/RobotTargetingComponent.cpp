@@ -98,6 +98,16 @@ TArray<AActor*> URobotTargetingComponent::GetTargets()
   return Targets;
 }
 
+FVector URobotTargetingComponent::GetPredictedTargetLocation(AActor* Target, float DeltaTime)
+{
+  FVector PredictedLocation;
+  if (TargetingProfile != nullptr)
+  {
+    PredictedLocation = TargetingProfile->GetPredictedTargetLocation(Target, DeltaTime); 
+  }
+  return PredictedLocation;
+}
+
 bool URobotTargetingComponent::IsTargeted(AActor* Actor) const
 {
   if (TargetingProfile != nullptr)

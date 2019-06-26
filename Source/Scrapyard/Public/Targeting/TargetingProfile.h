@@ -42,5 +42,7 @@ protected:
 
   bool IsInRange(FVector TargetRelativeLocation, FVector TargetingOffset) const;
   bool IsInRange(ARobotCharacter* Robot, AActor* Target) const;
+
+  FVector GetPredictedTargetLocation(AActor* Target, float DeltaTime);
   
 };

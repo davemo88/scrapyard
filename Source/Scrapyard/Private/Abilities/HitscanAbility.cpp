@@ -38,6 +38,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 {
   UE_LOG(LogTemp, Warning, TEXT("AHitscanAbility::FireInstantHit"));
 
+//TODO: replace these with output from targeting system
   const FVector SpawnLoc = GetFireStartLoc();
   const FRotator SpawnRot = GetBaseFireRotation();
   const FVector FireDirection = SpawnRot.Vector();

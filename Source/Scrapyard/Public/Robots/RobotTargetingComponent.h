@@ -27,6 +27,8 @@ public:
 
   TArray<AActor*> GetTargets();
 
+  FVector GetPredictedTargetLocation(AActor* Target, float DeltaTime);
+
   TSubclassOf<UTargetingWidget> TargetingWidget;
 
   TArray<FVector> GetFaceVerts() const;

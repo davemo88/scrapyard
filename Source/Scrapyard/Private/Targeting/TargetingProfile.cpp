@@ -49,3 +49,7 @@ bool UTargetingProfile::IsInRange(ARobotCharacter* Robot, AActor* Target) const
   return (LocationRelativeToView.Size() < Range && LocationRelativeToView.X > GetTargetingOffset(Robot).X);
 }
 
+FVector UTargetingProfile::GetPredictedTargetLocation(AActor* Target, float DeltaTime)
+{
+  return Target->GetActorLocation() + DeltaTime * Target->GetVelocity();
+}
