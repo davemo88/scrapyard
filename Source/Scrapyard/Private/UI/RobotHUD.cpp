@@ -47,11 +47,20 @@ void ARobotHUD::DrawHUD()
       }
 
       TArray<AActor*> Targets = RobotCharacter->RobotTargetingComponent->GetTargets();
-
-      for (AActor* Target : Targets)
+//
+//      for (AActor* Target : Targets)
+//
+      for (int i = 0; i < Targets.Num(); ++i)
       {
-        FVector2D ScreenLocation = FVector2D(Project(Target->GetActorLocation()));
-        DrawRect(FLinearColor::Blue, ScreenLocation.X, ScreenLocation.Y, 4.0f, 4.0f);
+        FVector2D ScreenLocation = FVector2D(Project(Targets[i]->GetActorLocation()));
+        if (i == 0)
+        {
+          DrawRect(FLinearColor::Green, ScreenLocation.X, ScreenLocation.Y, 4.0f, 4.0f);
+        }
+        else
+        {
+          DrawRect(FLinearColor::Blue, ScreenLocation.X, ScreenLocation.Y, 4.0f, 4.0f);
+        }
       }
 
 //      FVector RelativeCenter = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
