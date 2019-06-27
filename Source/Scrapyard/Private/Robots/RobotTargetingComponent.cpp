@@ -65,6 +65,7 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
   if (GetOwner()->HasAuthority())
   {
     bTargetAcquired = false;
+//    Targets.Reset();
     for (AActor* Actor: Targetables)
     {
       if (IsTargeted(Actor))
@@ -138,6 +139,7 @@ void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::RemoveTargetable"), *GetName());
   Targetables.Remove(Actor);
+  Targets.Remove(Actor);
 }
 
 bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
@@ -160,8 +162,10 @@ float URobotTargetingComponent::GetTargetPriority(AActor* Target)
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   FVector ToTarget = Target->GetActorLocation()-OwnerChar->GetActorLocation();
   FVector TargetDirection = ToTarget/ToTarget.Size();
-  float Priority = FVector::DotProduct(TargetDirection, OwnerChar->GetViewRotation().Vector());
-//  UE_LOG(LogTemp, Warning, TEXT("%s Targeting Priority: %f"), *Target->GetName(), Priority);
+  float Priority = FVector::DotProduct(TargetDirection, OwnerChar->GetActorRotation().Vector());
+//  float Priority = FVector::DotProduct(TargetDirection, OwnerChar->GetViewRotation().Vector());
+  UE_LOG(LogTemp, Warning, TEXT("%s Targeting Priority: %f"), *Target->GetName(), Priority);
+  UE_LOG(LogTemp, Warning, TEXT("%s Target Direction Vector Size: %f"), *Target->GetName(), TargetDirection.Size());
   return Priority;
 }
 

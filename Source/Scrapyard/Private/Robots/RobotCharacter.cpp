@@ -168,8 +168,8 @@ void ARobotCharacter::SetupCamera()
   CameraBoom->SetupAttachment(RootComponent);
 
   CameraBoom->bAbsoluteRotation = false;
-  CameraBoom->TargetArmLength = 350.f;
-  CameraBoom->SocketOffset = FVector(0.f, 0.f, 130.f);
+  CameraBoom->TargetArmLength = 500.f;
+  CameraBoom->SocketOffset = FVector(0.f, 0.f, 200.f);
   CameraBoom->bUsePawnControlRotation = true;
   
   OurCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("OurCamera"));

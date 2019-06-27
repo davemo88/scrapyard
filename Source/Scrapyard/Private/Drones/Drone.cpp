@@ -27,6 +27,8 @@ ADrone::ADrone()
 
   HitPoints = 100;
 
+//  OnTakeAnyDamage.AddDynamic(this, &ADrone::OnDroneTakeAnyDamage);
+
 }
 
 // Called when the game starts or when spawned
@@ -52,12 +54,10 @@ float ADrone::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AC
 
   if (HitPoints == 0)
   {
-    UE_LOG(LogTemp, Warning, TEXT("Drone Destroyed"));
-    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
-    Destroy();
+    SetLifeSpan(0.001f);
   }
 
-  return Super::TakeDamage(DamageAmount,DamageEvent,EventInstigator,DamageCauser);
+  return DamageAmount;
 
 }
 
@@ -66,7 +66,15 @@ void ADrone::BeginDestroy()
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginDestroy"), *GetName());
 
   Super::BeginDestroy();
+}
 
+void ADrone::LifeSpanExpired()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::LifeSpanExpired"), *GetName());
+  UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+  TargetableComponent->UnregisterWithGamestate();
+//TODO: LifeSpanExpired just calls Destroy. why isn't this being destroyed immediately?
+  Super::LifeSpanExpired();
 }
 
 void ADrone::SetAssets()
@@ -82,3 +90,15 @@ bool ADrone::IsTargetableBy(ARobotCharacter* Robot)
 {
   return Team != Robot->Team;
 }
+
+//void ADrone::OnDroneTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
+//{
+//  UE_LOG(LogTemp, Warning, TEXT("%s::OnDroneTakeAnyDamage"), *GetName());
+//  if (HitPoints == 0)
+//  {
+//    UE_LOG(LogTemp, Warning, TEXT("Drone Destroyed"));
+////TODO: unregister targetable
+//    Destroy();
+//  }
+//
+//}

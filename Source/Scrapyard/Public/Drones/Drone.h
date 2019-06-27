@@ -37,6 +37,8 @@ public:
   UPROPERTY(EditAnywhere)
   UStaticMeshComponent* StaticMeshComponent;
 
+//  void OnDroneTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+  virtual void LifeSpanExpired() override;
 
 // Targetable Interface
   virtual bool IsTargetableBy(ARobotCharacter* Robot) override;

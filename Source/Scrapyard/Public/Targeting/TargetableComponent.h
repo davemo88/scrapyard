@@ -18,12 +18,12 @@ public:
 
   virtual void BeginDestroy() override;
 
+  virtual void RegisterWithGamestate();
+  virtual void UnregisterWithGamestate();
+
 protected:
   // Called when the game starts
   virtual void BeginPlay() override;
-
-  virtual void RegisterWithGamestate();
-  virtual void UnregisterWithGamestate();
 
 public:  
   // Called every frame
