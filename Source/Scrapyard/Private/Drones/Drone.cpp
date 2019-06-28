@@ -16,16 +16,26 @@ ADrone::ADrone()
 
   TargetableComponent = CreateDefaultSubobject<UTargetableComponent>(TEXT("TargetableComponent"));
 
+  CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
+  CapsuleComponent->SetCapsuleHalfHeight(50.0f); 
+  CapsuleComponent->SetCapsuleRadius(50.0f); 
+  SetRootComponent(CapsuleComponent);
+
   StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
+
+  StaticMeshComponent->SetupAttachment(GetRootComponent());
+
+  StaticMeshComponent->SetRelativeLocation(FVector(0.0f,0.0f,-50.0f));
 
   if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
   {
     StaticMesh = AssetsBP->DroneAssetsBP->DefaultMesh;
     Material = AssetsBP->DroneAssetsBP->DefaultMaterial;
     OnDestroyParticleSystem = AssetsBP->GetAsset<UParticleSystem>(AssetsBP->DroneAssetsBP->DefaultOnDestroyParticleSystem);
+    OnHitParticleSystem = AssetsBP->GetAsset<UParticleSystem>(AssetsBP->DroneAssetsBP->DefaultOnHitParticleSystem);
   }
 
-  HitPoints = 100;
+  HitPoints = 150;
 
 //  OnTakeAnyDamage.AddDynamic(this, &ADrone::OnDroneTakeAnyDamage);
 
@@ -55,6 +65,10 @@ float ADrone::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AC
   if (HitPoints == 0)
   {
     SetLifeSpan(0.001f);
+  }
+  else
+  {
+    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnHitParticleSystem, GetActorLocation());
   }
 
   return DamageAmount;
@@ -88,6 +102,8 @@ void ADrone::SetAssets()
 
 bool ADrone::IsTargetableBy(ARobotCharacter* Robot)
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargetableBy"), *GetName());
+  UE_LOG(LogTemp, Warning, TEXT("Targetable Team: %i; Robot Team: %i"), Team, Robot->Team);
   return Team != Robot->Team;
 }
 

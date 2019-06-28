@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Targeting/TargetableComponent.h"
 #include "Targeting/TargetableInterface.h"
 #include "Drone.generated.h"
@@ -35,6 +36,9 @@ public:
   UTargetableComponent* TargetableComponent;
 
   UPROPERTY(EditAnywhere)
+  UCapsuleComponent* CapsuleComponent;
+
+  UPROPERTY(EditAnywhere)
   UStaticMeshComponent* StaticMeshComponent;
 
 //  void OnDroneTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
@@ -54,5 +58,7 @@ protected:
 
   UPROPERTY()
   UParticleSystem* OnDestroyParticleSystem; 
+  UPROPERTY()
+  UParticleSystem* OnHitParticleSystem; 
 
 };

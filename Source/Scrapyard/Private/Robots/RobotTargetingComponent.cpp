@@ -144,6 +144,7 @@ void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
 
 bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargetable"), *GetName());
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   ITargetableInterface* Targetable = Cast<ITargetableInterface>(Actor);
   if (Targetable != nullptr)
