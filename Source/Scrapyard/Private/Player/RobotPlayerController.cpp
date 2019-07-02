@@ -30,7 +30,7 @@ void ARobotPlayerController::BeginPlay()
 //  InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
   SetInputMode(InputMode);
 
-  SetupMatchTimerWidget();
+  SetupMatchStatusWidget();
 
 }
 
@@ -61,6 +61,11 @@ void ARobotPlayerController::OnPossess(APawn* InPawn)
     {
       RoboChar->Team = RobotPlayerState->GetTeam();
       UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Team %i"), *RoboChar->GetName(), RoboChar->Team);
+    }
+
+    if (IsLocalController())
+    {
+      RoboChar->SetupRobotHUDWidget();
     }
   }
 }
@@ -131,20 +136,20 @@ ARobotCharacter* ARobotPlayerController::GetRobotCharacter()
   return RobotCharacter;
 }
 
-void ARobotPlayerController::SetupMatchTimerWidget()
+void ARobotPlayerController::SetupMatchStatusWidget()
 {
   if (IsLocalController())
   {
     UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-    MatchTimerWidget = CreateWidget<UMatchTimerWidget>(this, GameInstance->AssetsBP->UIAssetsBP->MatchTimerWidgetBP);
+    MatchStatusWidget = CreateWidget<UMatchStatusWidget>(this, GameInstance->AssetsBP->UIAssetsBP->MatchStatusWidgetBP);
     if (ARobotGameState* RobotGS = (Cast<ARobotGameState>(GetWorld()->GetGameState())))
     {
-      RobotGS->OnMatchTimerStartedDelegate.AddDynamic(MatchTimerWidget, &UMatchTimerWidget::StartMatchTimer);
-      RobotGS->OnMatchTimerUpdatedDelegate.AddDynamic(MatchTimerWidget, &UMatchTimerWidget::UpdateMatchTimer);
-      RobotGS->OnMatchTimerStoppedDelegate.AddDynamic(MatchTimerWidget, &UMatchTimerWidget::StopMatchTimer);
+      RobotGS->OnMatchTimerStartedDelegate.AddDynamic(MatchStatusWidget, &UMatchStatusWidget::StartMatchTimer);
+      RobotGS->OnMatchTimerUpdatedDelegate.AddDynamic(MatchStatusWidget, &UMatchStatusWidget::UpdateMatchTimer);
+      RobotGS->OnMatchTimerStoppedDelegate.AddDynamic(MatchStatusWidget, &UMatchStatusWidget::StopMatchTimer);
     }
-    MatchTimerWidget->SetVisibility(ESlateVisibility::Hidden);
-    MatchTimerWidget->AddToViewport();
+//    MatchStatusWidget->SetVisibility(ESlateVisibility::Hidden);
+    MatchStatusWidget->AddToViewport();
   }
 }
 

@@ -6,7 +6,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Player/ScrapyardPlayerController.h"
 #include "UI/RobotHUDWidget.h"
-#include "UI/MatchTimerWidget.h"
+#include "UI/MatchStatusWidget.h"
 #include "UI/RobotTunerWidget.h"
 #include "Parts/PartAssignment.h"
 #include "RobotPlayerController.generated.h"
@@ -32,10 +32,13 @@ public:
 
   virtual void Tick(float DeltaTime) override;
 
+  UPROPERTY()
   URobotHUDWidget* RobotHUDWidget;
 
-  UMatchTimerWidget* MatchTimerWidget;
-  void SetupMatchTimerWidget();
+  UPROPERTY()
+  UMatchStatusWidget* MatchStatusWidget;
+
+  void SetupMatchStatusWidget();
 
   virtual void OnFire();
   virtual void OnStopFire();

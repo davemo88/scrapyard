@@ -31,6 +31,9 @@ protected:
 
   uint32 MinPlayers;
 
+  uint32 StartCountdownTime;
+  uint32 BattleTime;
+
   UFUNCTION()
   virtual void OnZeroHitPoints();
 
@@ -41,9 +44,6 @@ protected:
   virtual bool ReadyToStartMatch_Implementation() override;
 
   virtual bool ReadyToEndMatch_Implementation() override;
-
-  UFUNCTION()
-  void OnMatchTimerExpired();
 
   bool bMatchTimerExpired;
     
@@ -56,4 +56,11 @@ protected:
 
   FTimerHandle StartMatchTimerHandle;
 
-};
+  UFUNCTION()
+  void OnBattleTimeExpired();
+
+  UFUNCTION()
+  void OnStartCountdownTimeExpired();
+
+  UFUNCTION()
+  void OnMatchTimerExpired();

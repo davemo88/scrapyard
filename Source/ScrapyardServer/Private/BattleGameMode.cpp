@@ -10,7 +10,8 @@ ABattleGameMode::ABattleGameMode()
 {
   GameStateClass = ABattleGameState::StaticClass();
 
-  MinPlayers = 2;
+  MinPlayers = 1;//2;
+  BattleTime = 10;
 
   bMatchTimerExpired = false;
   bReadyToEndMatch = false;
@@ -21,6 +22,7 @@ void ABattleGameMode::BeginPlay()
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
   ARobotGameState* RobotGS = GetGameState<ARobotGameState>();
+//TODO: update this to use specific resolution functions for when certain timers end
   RobotGS->OnMatchTimerExpiredDelegate.AddDynamic(this, &ABattleGameMode::OnMatchTimerExpired);
 }
 
@@ -33,6 +35,7 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
   RobotPC->ClientGetPartAssignmentIDs();
 
   ARobotPlayerState* PlayerState = RobotPC->GetPlayerState<ARobotPlayerState>(); 
+//TODO: need to set teams more intelligently
   PlayerState->SetTeam(GetNumPlayers());
 }
 
@@ -55,7 +58,6 @@ bool ABattleGameMode::IsGameStateReplicatedToAllClients()
       {
         NumReplicatedGameStates++;
       }
-
     }
   }
   return NumPlayers == NumReplicatedGameStates;
@@ -118,6 +120,10 @@ void ABattleGameMode::OnZeroHitPoints()
 void ABattleGameMode::OnMatchTimerExpired()
 {
   bMatchTimerExpired = true;
+  if (ARobotGameState* RobotGS = GetGameState<ARobotGameState>())
+  {
+    RobotGS->MulticastStopMatchTimer();
+  }
 }
 
 void ABattleGameMode::HandleMatchIsWaitingToStart()
@@ -131,6 +137,11 @@ void ABattleGameMode::HandleMatchHasStarted()
   Super::HandleMatchHasStarted();
   UE_LOG(LogTemp, Warning, TEXT("%s::HandleMatchHasStarted"), *GetName());
   bMatchTimerExpired = false;
+  if (ARobotGameState* RobotGS = GetGameState<ARobotGameState>())
+  {
+    RobotGS->MulticastStartMatchTimer(BattleTime);
+  }
+
 }
 
 void ABattleGameMode::HandleMatchAborted()

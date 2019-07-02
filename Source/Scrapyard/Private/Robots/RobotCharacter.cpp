@@ -68,6 +68,7 @@ void ARobotCharacter::BeginPlay()
     PC->SetRobotCharacter(this);
     if (IsLocallyControlled())
     {
+      UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Local PC"), *GetName());
       SetupRobotHUDWidget();
     }
   }

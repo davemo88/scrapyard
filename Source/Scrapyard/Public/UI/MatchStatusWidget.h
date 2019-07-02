@@ -5,20 +5,20 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
-#include "MatchTimerWidget.generated.h"
+#include "MatchStatusWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARD_API UMatchTimerWidget : public UUserWidget
+class SCRAPYARD_API UMatchStatusWidget : public UUserWidget
 {
   GENERATED_BODY()
   
-  UPROPERTY(meta=(BindWidget))
-  UTextBlock* MatchTime;
-
 public:
+
+  UFUNCTION()
+  void SetAnnouncement(FText AnnouncementText);
 
   UFUNCTION()
   void StartMatchTimer();
@@ -26,5 +26,15 @@ public:
   void StopMatchTimer();
   UFUNCTION()
   void UpdateMatchTimer();
+  
+protected:
+
+  virtual void NativeConstruct() override;
+
+  UPROPERTY(meta=(BindWidget))
+  UTextBlock* Announcement;
+  
+  UPROPERTY(meta=(BindWidget))
+  UTextBlock* MatchTime;
   
 };
