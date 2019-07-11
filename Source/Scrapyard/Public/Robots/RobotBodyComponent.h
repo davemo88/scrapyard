@@ -60,8 +60,4 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   UParticleSystemComponent* BoostingParticleComponent;
 
-//TODO: get rid of this
-  UPROPERTY()
-  UChildActorComponent* WeaponAbilityComponent;
-
 };

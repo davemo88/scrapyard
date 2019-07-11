@@ -51,10 +51,17 @@ URobotBodyComponent::URobotBodyComponent()
 
 // TODO: do these need the master pose? or are they socketed to the other parts?
   LeftHandheldComponent->SetupAttachment(this);
+  LeftHandheldComponent->SetRelativeLocation(FVector(70,120,70));
+
   RightHandheldComponent->SetupAttachment(this);
+  RightHandheldComponent->SetRelativeLocation(FVector(-70,120,70));
+
   FirstChipComponent->SetupAttachment(this);
   SecondChipComponent->SetupAttachment(this);
   ThirdChipComponent->SetupAttachment(this);
+
+//  FName RightHandheldSocket = TEXT("RightHandheldSocket");
+//  RightHandheldComponent->AttachToComponent(this, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), RightHandheldSocket);
 
   if (ARobotCharacter* OwningRobot = Cast<ARobotCharacter>(GetOwner()))
   {
@@ -80,10 +87,9 @@ URobotBodyComponent::URobotBodyComponent()
 
   }
 
-  WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
-  WeaponAbilityComponent->SetupAttachment(this);
-//TODO: get from handheld part 
-  WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
+//  WeaponAbilityComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("WeaponAbilityComponent"));
+//  WeaponAbilityComponent->SetupAttachment(this);
+//  WeaponAbilityComponent->SetChildActorClass(AHitscanAbility::StaticClass());
 
 //  BoostingParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoostingParticleComponent"));
 //  BoostingParticleComponent->SetupAttachment(this);

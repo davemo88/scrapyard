@@ -16,15 +16,17 @@ class SCRAPYARD_API UHandheldPart : public URobotPart
 
 public:
 
-  UHandheldPart();
+  static UHandheldPart* NewHandheld(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewPowerDrain, uint32 NewAttack, float NewCooldown, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
 
   UPROPERTY(EditAnywhere)
   int32 Attack = 0;
 
 // milliseconds
   UPROPERTY(EditAnywhere)
-  int32 Cooldown = 0;
+  float Cooldown = 0.0f;
 
-  void Draft(USoloDraft* SoloDraft);
+  virtual void Draft(USoloDraft* SoloDraft) override;
+
+  virtual void Assign(UPartAssignment* PartAssignment) override;
 
 };

@@ -15,6 +15,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMatchTimerStoppedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTargetableAddedDelegate, AActor*, Targetable);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTargetableRemovedDelegate, AActor*, Targetable);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnReadyToStartMatchDelegate, bool, bReady);
 /**
  * 
  */
@@ -35,6 +36,8 @@ public:
 
   bool IsMatchTimerActive() const;
 
+  bool IsMatchTimerExpired() const;
+
   FOnMatchTimerStartedDelegate OnMatchTimerStartedDelegate;
   FOnMatchTimerUpdatedDelegate OnMatchTimerUpdatedDelegate;
   FOnMatchTimerExpiredDelegate OnMatchTimerExpiredDelegate;
@@ -42,6 +45,8 @@ public:
 
   FOnTargetableAddedDelegate OnTargetableAddedDelegate;
   FOnTargetableRemovedDelegate OnTargetableRemovedDelegate;
+
+  FOnReadyToStartMatchDelegate OnReadyToStartMatchDelegate;
 
   UFUNCTION(NetMulticast, Reliable)
   void MulticastAddTargetable(AActor* Actor);
@@ -55,12 +60,15 @@ public:
   UPROPERTY()
   TArray<AActor*> TargetableActors;
 
+  UFUNCTION(NetMulticast, Reliable)
+  void MulticastReadyToStartMatch(bool bReady);
+
 protected:
   FTimerHandle MatchTimerHandle;
 
   uint32 MatchTimerSecondsRemaining;
 
-  bool MatchTimerExpired;
+  bool bMatchTimerExpired;
 
   UFUNCTION()
   void MatchTimer();

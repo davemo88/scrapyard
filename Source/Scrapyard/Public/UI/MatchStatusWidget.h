@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
+#include "Components/Border.h"
+#include "Animation/WidgetAnimation.h"
 #include "MatchStatusWidget.generated.h"
 
 /**
@@ -26,6 +28,12 @@ public:
   void StopMatchTimer();
   UFUNCTION()
   void UpdateMatchTimer();
+
+  UFUNCTION()
+  void OnReadyToStartMatch(bool bReady);
+
+  UFUNCTION()
+  void ShowScreenBlocker();
   
 protected:
 
@@ -36,5 +44,11 @@ protected:
   
   UPROPERTY(meta=(BindWidget))
   UTextBlock* MatchTime;
+
+  UPROPERTY(meta=(BindWidget))
+  UBorder* ScreenBlocker;
+
+  UPROPERTY(meta=(BindWidgetAnim))
+  UWidgetAnimation* ScreenBlockerFade;
   
 };

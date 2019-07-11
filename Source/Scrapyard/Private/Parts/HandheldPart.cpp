@@ -5,17 +5,33 @@
 #include "Abilities/HitscanAbility.h"
 #include "SoloDraft.h"
 
-UHandheldPart::UHandheldPart()
+UHandheldPart* UHandheldPart::NewHandheld(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewPowerDrain, uint32 NewAttack, float NewCooldown, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UHandheldPart:UHandheldPart"));
-  AbilityClass = AHitscanAbility::StaticClass();
+  UHandheldPart* NewPart = NewObject<UHandheldPart>();
+  NewPart->PartID = NewPartID;
+  NewPart->PartName = NewPartName; 
+  NewPart->Manufacturer = NewManufacturer;
+  NewPart->Rarity = NewRarity;
+  NewPart->Mass = NewMass;
+  NewPart->PowerDrain = NewPowerDrain;
+  NewPart->Attack = NewAttack;
+  NewPart->Cooldown = NewCooldown;
+  NewPart->AbilityClass = NewAbilityClass;
+  NewPart->SkeletalMesh = NewSkeletalMesh;
+  NewPart->MajorMaterial = NewMajorMaterial;
+
+  return NewPart;
 }
 
 void UHandheldPart::Draft(USoloDraft* SoloDraft)
 {
-//  SoloDraft->DraftedHandheld.Add(this);
+  SoloDraft->DraftedHandhelds.AddUnique(this);
 }
 
-
+//TODO: handle right vs left
+void UHandheldPart::Assign(UPartAssignment* PartAssignment)
+{
+  PartAssignment->SetRightHandheld(this);
+}
 
 

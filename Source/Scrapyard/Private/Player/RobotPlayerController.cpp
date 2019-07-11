@@ -142,11 +142,14 @@ void ARobotPlayerController::SetupMatchStatusWidget()
   {
     UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
     MatchStatusWidget = CreateWidget<UMatchStatusWidget>(this, GameInstance->AssetsBP->UIAssetsBP->MatchStatusWidgetBP);
+    MatchStatusWidget->SetAnnouncement(FText());
     if (ARobotGameState* RobotGS = (Cast<ARobotGameState>(GetWorld()->GetGameState())))
     {
       RobotGS->OnMatchTimerStartedDelegate.AddDynamic(MatchStatusWidget, &UMatchStatusWidget::StartMatchTimer);
       RobotGS->OnMatchTimerUpdatedDelegate.AddDynamic(MatchStatusWidget, &UMatchStatusWidget::UpdateMatchTimer);
       RobotGS->OnMatchTimerStoppedDelegate.AddDynamic(MatchStatusWidget, &UMatchStatusWidget::StopMatchTimer);
+
+      RobotGS->OnReadyToStartMatchDelegate.AddDynamic(MatchStatusWidget, &UMatchStatusWidget::OnReadyToStartMatch);
     }
 //    MatchStatusWidget->SetVisibility(ESlateVisibility::Hidden);
     MatchStatusWidget->AddToViewport();

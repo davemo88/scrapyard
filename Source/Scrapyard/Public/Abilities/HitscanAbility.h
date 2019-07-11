@@ -23,7 +23,7 @@ public:
   virtual void BeginPlay() override;
   virtual void Tick(float DeltaTime) override;
 
-  void FireShot() override;
+  virtual void FireShot() override;
 
   virtual void FireInstantHit(bool bDealDamage = true, FHitResult* OutHit = NULL) override;
 

@@ -162,6 +162,7 @@ bool AScrapyardAbility::CanFireAgain()
   
 void AScrapyardAbility::FireShot()
 {
+  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::FireShot"));
   // can either override this on ability subclasses
   // or override FireProjectile / FireInstantHit etc
 }

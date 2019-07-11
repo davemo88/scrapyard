@@ -6,6 +6,7 @@
 #include "Game/RobotGameState.h"
 #include "BattleGameState.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLeavingMapDelegate);
 
 /**
  * 
@@ -16,6 +17,11 @@ class SCRAPYARD_API ABattleGameState : public ARobotGameState
   GENERATED_BODY()
       
 public:
+
+  FOnLeavingMapDelegate OnLeavingMapDelegate;
+
+  UFUNCTION(NetMulticast, Reliable)
+  void MulticastBroadcastLeavingMap();
 
   ABattleGameState();
 

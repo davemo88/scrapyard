@@ -5,7 +5,6 @@
 
 ABattleGameState::ABattleGameState()
 {
-
 }
 
 void ABattleGameState::BeginPlay()
@@ -21,7 +20,9 @@ void ABattleGameState::BeginPlay()
     if (RobotPC)
     {
       RobotPC->ServerNotifyGameStateReplicated();
+      OnLeavingMapDelegate.AddDynamic(RobotPC->MatchStatusWidget, &UMatchStatusWidget::ShowScreenBlocker);
     }
+
   }
 // for development testing in editor
   else if (GetNetMode() == ENetMode::NM_Standalone)
@@ -47,7 +48,7 @@ void ABattleGameState::HandleMatchIsWaitingToStart()
     ARobotPlayerController* RobotPC = World->GetFirstPlayerController<ARobotPlayerController>();
     if (RobotPC)
     {
-      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","WaitingToStart","Waiting To Start Match"));
+      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","WaitingToStartAnnouncement","Waiting To Start Battle"));
     }
   }
 }
@@ -63,7 +64,7 @@ void ABattleGameState::HandleMatchHasStarted()
     ARobotPlayerController* RobotPC = World->GetFirstPlayerController<ARobotPlayerController>();
     if (RobotPC)
     {
-      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","WaitingToStart","Battle!"));
+      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","BattleStartAnnouncement","Battle!"));
     }
   }
 }
@@ -79,7 +80,9 @@ void ABattleGameState::HandleMatchHasEnded()
     ARobotPlayerController* RobotPC = World->GetFirstPlayerController<ARobotPlayerController>();
     if (RobotPC)
     {
-      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","WaitingToStart","Match Has Ended"));
+      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","BattleEndedAccouncement","Battle Has Ended"));
+      RobotPC->MatchStatusWidget->ShowScreenBlocker();
+      RobotPC->RobotHUDWidget->SetVisibility(ESlateVisibility::Hidden);
     }
   }
 }
@@ -95,8 +98,13 @@ void ABattleGameState::HandleLeavingMap()
     ARobotPlayerController* RobotPC = World->GetFirstPlayerController<ARobotPlayerController>();
     if (RobotPC)
     {
-      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","WaitingToStart","Leaving Map"));
+      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","LeavingMapAnnouncement","Leaving Map"));
     }
   }
 }
 
+void ABattleGameState::MulticastBroadcastLeavingMap_Implementation()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastBroadcastLeavingMap"), *GetName());
+  OnLeavingMapDelegate.Broadcast();
+}

@@ -10,6 +10,8 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/HandheldPart.h"
+#include "Abilities/HitscanAbility.h"
 #include "Parts/Manufacturer.h"
 
 void UPartSingleton::Init()
@@ -126,6 +128,19 @@ void UPartSingleton::InitDefaultParts()
       1000,
       500,
       10));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      5000,
+      NSLOCTEXT("SY", "DefaultHandheldName", "Default Handheld"),
+      DefaultManufacturer,
+      nullptr,
+      120,
+      55,
+      91,
+      0.5f,
+      AHitscanAbility::StaticClass(),
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial));
 }
 
 void UPartSingleton::InitRedParts()
@@ -195,6 +210,19 @@ void UPartSingleton::InitRedParts()
       1000,
       300,
       20));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      5001,
+      NSLOCTEXT("SY", "RedHandheldName", "Red Handheld"),
+      RedManufacturer,
+      nullptr,
+      120,
+      55,
+      91,
+      0.5f,
+      AHitscanAbility::StaticClass(),
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial));
 }
 
 void UPartSingleton::InitBlueParts()
@@ -211,7 +239,7 @@ void UPartSingleton::InitBlueParts()
       8,
       8,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Blue_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
       10,
       1));
@@ -227,7 +255,7 @@ void UPartSingleton::InitBlueParts()
       15,
       14,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Blue_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
       1000,
       500,
@@ -245,7 +273,7 @@ void UPartSingleton::InitBlueParts()
       9,
       9,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Blue_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial));
   PartDB.AddPart(
     ULegsPart::NewLegs(
@@ -259,11 +287,24 @@ void UPartSingleton::InitBlueParts()
       12,
       11,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Blue_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
       1000,
       500,
       10));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      5002,
+      NSLOCTEXT("SY", "BlueHandheldName", "Blue Handheld"),
+      BlueManufacturer,
+      nullptr,
+      120,
+      55,
+      91,
+      0.5f,
+      AHitscanAbility::StaticClass(),
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial));
 }
 
 void UPartSingleton::InitGreenParts()
@@ -280,7 +321,7 @@ void UPartSingleton::InitGreenParts()
       4,
       11,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Green_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
       10,
       1));
@@ -296,7 +337,7 @@ void UPartSingleton::InitGreenParts()
       8,
       18,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Green_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
       1000,
       500,
@@ -314,7 +355,7 @@ void UPartSingleton::InitGreenParts()
       7,
       17,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Green_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial));
   PartDB.AddPart(
     ULegsPart::NewLegs(
@@ -328,11 +369,24 @@ void UPartSingleton::InitGreenParts()
       10,
       13,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Green_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
       1000,
       500,
       10));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      5003,
+      NSLOCTEXT("SY", "GreenHandheldName", "Green Handheld"),
+      GreenManufacturer,
+      nullptr,
+      120,
+      55,
+      91,
+      0.5f,
+      AHitscanAbility::StaticClass(),
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial));
 }
 
 void UPartSingleton::InitOrangeParts()
@@ -402,6 +456,19 @@ void UPartSingleton::InitOrangeParts()
       1000,
       500,
       10));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      5004,
+      NSLOCTEXT("SY", "OrangeHandheldName", "Orange Handheld"),
+      OrangeManufacturer,
+      nullptr,
+      120,
+      55,
+      91,
+      0.5f,
+      AHitscanAbility::StaticClass(),
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial));
 }
 
 void UPartSingleton::InitPurpleParts()
@@ -418,7 +485,7 @@ void UPartSingleton::InitPurpleParts()
       4,
       7,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
       10,
       1));
@@ -434,7 +501,7 @@ void UPartSingleton::InitPurpleParts()
       9,
       21,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
       1000,
       500,
@@ -452,7 +519,7 @@ void UPartSingleton::InitPurpleParts()
       4,
       9,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->ArmsPart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial));
   PartDB.AddPart(
     ULegsPart::NewLegs(
@@ -466,11 +533,24 @@ void UPartSingleton::InitPurpleParts()
       6,
       12,
       nullptr,
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsPart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
       1000,
       500,
       10));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      5005,
+      NSLOCTEXT("SY", "PurpleHandheldName", "Purple Handheld"),
+      PurpleManufacturer,
+      nullptr,
+      120,
+      55,
+      91,
+      0.5f,
+      AHitscanAbility::StaticClass(),
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial));
 }
 
 

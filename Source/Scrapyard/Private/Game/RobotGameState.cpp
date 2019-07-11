@@ -8,7 +8,7 @@
 
 void ARobotGameState::MulticastStartMatchTimer_Implementation(uint32 Seconds)
 {
-  MatchTimerExpired = false;
+  bMatchTimerExpired = false;
   UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStartMatchTimer"), *GetName());
   UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStartMatchTimer - %d Seconds"), *GetName(), Seconds);
   MatchTimerSecondsRemaining = Seconds;
@@ -35,6 +35,7 @@ void ARobotGameState::MatchTimer()
     {
       UE_LOG(LogTemp, Warning, TEXT("%s::MatchTimer - Timer Expired"), *GetName());
       GetWorld()->GetTimerManager().ClearTimer(MatchTimerHandle);
+      bMatchTimerExpired = true;
       OnMatchTimerExpiredDelegate.Broadcast();      
     }
   }
@@ -48,6 +49,11 @@ uint32 ARobotGameState::GetMatchTimerSecondsRemaining() const
 bool ARobotGameState::IsMatchTimerActive() const
 {
   return GetWorld()->GetTimerManager().IsTimerActive(MatchTimerHandle);
+}
+
+bool ARobotGameState::IsMatchTimerExpired() const
+{
+  return bMatchTimerExpired;
 }
 
 void ARobotGameState::MulticastAddTargetable_Implementation(AActor* Actor)
@@ -73,4 +79,10 @@ void ARobotGameState::RemoveTargetable(AActor* Actor)
 {
   TargetableActors.Remove(Actor);
   OnTargetableRemovedDelegate.Broadcast(Actor);
+}
+
+void ARobotGameState::MulticastReadyToStartMatch_Implementation(bool bReady)
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastReadyToStartMatch"), *GetName());
+  OnReadyToStartMatchDelegate.Broadcast(bReady);
 }

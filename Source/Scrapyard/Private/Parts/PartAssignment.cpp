@@ -90,6 +90,8 @@ void UPartAssignment::SetDefaultAssignment()
       SetCore(GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(2000));
       SetArms(GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(3000));
       SetLegs(GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(4000));
+//      SetLeftHandheld(GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(5000));
+      SetRightHandheld(GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(5000));
     }
   }
 }

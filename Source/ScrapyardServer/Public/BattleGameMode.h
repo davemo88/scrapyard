@@ -33,10 +33,12 @@ protected:
 
   uint32 StartCountdownTime;
   uint32 BattleTime;
+  uint32 EndCooldownTime;
 
   UFUNCTION()
   virtual void OnZeroHitPoints();
 
+  bool bReadyToStartMatch;
   bool bReadyToEndMatch;
 
   bool IsGameStateReplicatedToAllClients();
@@ -44,8 +46,6 @@ protected:
   virtual bool ReadyToStartMatch_Implementation() override;
 
   virtual bool ReadyToEndMatch_Implementation() override;
-
-  bool bMatchTimerExpired;
     
   void HandleMatchIsWaitingToStart() override;
   void HandleMatchHasStarted() override;
@@ -59,8 +59,16 @@ protected:
   UFUNCTION()
   void OnBattleTimeExpired();
 
+//  UFUNCTION()
+//  void OnStartCountdownTimeExpired();
+
+//  UFUNCTION()
+//  void OnStartCountdownTimeExpired();
+
   UFUNCTION()
-  void OnStartCountdownTimeExpired();
+  void OnEndCooldownTimeExpired();
 
   UFUNCTION()
   void OnMatchTimerExpired();
+
+};

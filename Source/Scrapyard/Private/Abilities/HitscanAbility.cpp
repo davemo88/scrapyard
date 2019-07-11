@@ -46,6 +46,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 
   FHitResult Hit;
   const FVector RobotLoc = RobotOwner->GetActorLocation();
+//  const FVector FireOrigin = RobotLoc + FVector(70,120,70);
   if (RobotOwner->RobotTargetingComponent->IsTargetAcquired())
   {
     AActor* Target = RobotOwner->RobotTargetingComponent->GetTargets()[0];

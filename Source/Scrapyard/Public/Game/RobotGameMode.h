@@ -23,5 +23,9 @@ public:
   void PostLogin(APlayerController* NewPlayer) override;
   
   virtual TSubclassOf<AGameSession> GetGameSessionClass() const override;  
+
+protected:
+
+  bool bMatchTimerExpired;
   
 };

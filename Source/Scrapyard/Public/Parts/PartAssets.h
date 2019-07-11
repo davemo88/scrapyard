@@ -84,6 +84,28 @@ public:
   TSoftObjectPtr<USkeletalMesh> HandheldPart_Red_SkeletalMesh;
 
   UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HeadPart_Blue_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> CorePart_Blue_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> ArmsPart_Blue_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> LegsPart_Blue_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HandheldPart_Blue_SkeletalMesh;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HeadPart_Green_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> CorePart_Green_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> ArmsPart_Green_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> LegsPart_Green_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HandheldPart_Green_SkeletalMesh;
+
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HeadPart_Orange_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> CorePart_Orange_SkeletalMesh;
@@ -93,5 +115,16 @@ public:
   TSoftObjectPtr<USkeletalMesh> LegsPart_Orange_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HandheldPart_Orange_SkeletalMesh;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HeadPart_Purple_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> CorePart_Purple_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> ArmsPart_Purple_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> LegsPart_Purple_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> HandheldPart_Purple_SkeletalMesh;
 };
 

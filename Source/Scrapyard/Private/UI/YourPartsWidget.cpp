@@ -55,6 +55,7 @@ void UYourPartsWidget::DisplayAll()
   AllParts.Append(CurrentDraft->DraftedCores);
   AllParts.Append(CurrentDraft->DraftedArms);
   AllParts.Append(CurrentDraft->DraftedLegs);
+  AllParts.Append(CurrentDraft->DraftedHandhelds);
   DisplayParts(AllParts);
 }
 

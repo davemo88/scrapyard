@@ -13,6 +13,7 @@
 #include "GameFramework/HUD.h"
 #include "Abilities/HitscanAbility.h"
 #include "UI/RobotHUDWidget.h"
+#include "Parts/HandheldPart.h"
 #include "Blueprint/UserWidget.h"
 #include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
@@ -95,11 +96,6 @@ void ARobotCharacter::Tick(float DeltaTime)
 {
 //TODO: we can remove this tick event
   Super::Tick(DeltaTime);
-
-//  if (HasAuthority())
-//  {
-//    bTargetAcquired = RobotTargetingComponent->IsTargetAcquired();
-//  }
 
 }
 
@@ -204,32 +200,32 @@ void ARobotCharacter::SetupStats()
 void ARobotCharacter::SetupAbilities()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities"), *GetName());
-//  if (RobotBodyComponent && RobotBodyComponent->RightHandheld && RobotBodyComponent->RightHandheld->PartAbililty)
-//  {
-//    WeaponAbility = RobotBodyComponent->RightHandheld->PartAbililty;
-//  }
 //  const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
 //  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
 //  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
-//
-  RobotBodyComponent->WeaponAbilityComponent->CreateChildActor();
 
-  WeaponAbility = Cast<AScrapyardAbility>(RobotBodyComponent->WeaponAbilityComponent->GetChildActor());
+  if (PartAssignment->GetRightHandheld() && PartAssignment->GetRightHandheld()->AbilityClass)
+  {
+//TODO:: should this use SpawnActor?
+    WeaponAbility = NewObject<AScrapyardAbility>(PartAssignment->GetRightHandheld()->AbilityClass);
+
+    UE_LOG(LogTemp, Warning, TEXT("Weapon Ability Class Name: %s"), *PartAssignment->GetRightHandheld()->AbilityClass->GetName());
 
 // TODO: why do we have RobotOwner if we can just the real Owner?
 // TODO: why setting owner in two different ways here? seems just wrong
 // BUG: should only set owner on the server
-  WeaponAbility->RobotOwner = this;
-  if (WeaponAbility->GetOwner())
-  {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: %s"), *GetName(), *WeaponAbility->GetOwner()->GetName());
+    WeaponAbility->RobotOwner = this;
+    if (WeaponAbility->GetOwner())
+    {
+      UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: %s"), *GetName(), *WeaponAbility->GetOwner()->GetName());
+    }
+    else
+    {
+      UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: NULL"), *GetName());
+    }
+    WeaponAbility->SetOwner(this);
+    UE_LOG(LogTemp ,Warning, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
   }
-  else
-  {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: NULL"), *GetName());
-  }
-  WeaponAbility->SetOwner(this);
-  UE_LOG(LogTemp ,Warning, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
 
 }
 
