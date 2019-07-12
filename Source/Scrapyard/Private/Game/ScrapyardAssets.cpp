@@ -19,4 +19,9 @@ void UScrapyardAssets::InitAssetsBP()
     UE_LOG(LogTemp, Warning, TEXT("Loading DroneAssetsBP"), *GetName());
     DroneAssetsBP = DroneAssetsBPClass->GetDefaultObject<UDroneAssets>();
   }
+  if (ProjectileAssetsBPClass != nullptr)
+  {
+    UE_LOG(LogTemp, Warning, TEXT("Loading ProjectileAssetsBP"), *GetName());
+    ProjectileAssetsBP = ProjectileAssetsBPClass->GetDefaultObject<UProjectileAssets>();
+  }
 }

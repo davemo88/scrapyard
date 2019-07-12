@@ -7,6 +7,7 @@
 #include "UI/UIAssets.h"
 #include "Parts/PartAssets.h"
 #include "Drones/DroneAssets.h"
+#include "Projectiles/ProjectileAssets.h"
 #include "ScrapyardAssets.generated.h"
 
 
@@ -31,11 +32,16 @@ public:
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<UDroneAssets> DroneAssetsBPClass;
 
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<UProjectileAssets> ProjectileAssetsBPClass;
+
   UUIAssets* UIAssetsBP;
 
   UPartAssets* PartAssetsBP;
 
   UDroneAssets* DroneAssetsBP;
+
+  UProjectileAssets* ProjectileAssetsBP;
 
   template <class T>
   T* GetAsset(TSoftObjectPtr<T> AssetRef)

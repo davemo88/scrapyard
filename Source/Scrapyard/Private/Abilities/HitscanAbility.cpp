@@ -4,6 +4,7 @@
 #include "HitscanAbility.h"
 #include "Targeting/RectangularTargetingProfile.h"
 #include "DrawDebugHelpers.h"
+#include "Projectiles/LaserProjectile.h"
 #include "Robots/RobotCharacter.h"
 
 AHitscanAbility::AHitscanAbility()
@@ -19,11 +20,6 @@ void AHitscanAbility::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
   UE_LOG(LogTemp, Warning, TEXT("%s::Tick"), *GetName());
-  if (RobotOwner != nullptr)
-  {
-    const FVector RobotLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,70,120));
-    DrawDebugSphere(GetWorld(), RobotLoc, 20, 10, FColor::Red, true, 0.1f);
-  }
 }
 
 void AHitscanAbility::BeginPlay()
@@ -51,17 +47,24 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 //  const FVector EndTrace = SpawnLoc + FireDirection * AbilityRange;
 
   FHitResult Hit;
-  const FVector RobotLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,70,120));
+  const FVector RobotLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,220,70));
+//TODO: do this laser in a multicast function
+//TODO: refactor trace end point so this can go more smoothly
+  ALaserProjectile* Laser = GetWorld()->SpawnActor<ALaserProjectile>(FActorSpawnParameters());
+  Laser->SetLifeSpan(1.0f);
+  Laser->LaserBeam->SetBeamSourcePoint(0,RobotLoc,0);
   if (RobotOwner->RobotTargetingComponent->IsTargetAcquired())
   {
     AActor* Target = RobotOwner->RobotTargetingComponent->GetTargets()[0];
     const FVector PredictedLoc = RobotOwner->RobotTargetingComponent->GetPredictedTargetLocation(Target, 0.0f);
+    Laser->LaserBeam->SetBeamTargetPoint(0,PredictedLoc,0);
     HitScanTrace(RobotLoc, PredictedLoc, 0.0f, Hit, 0.0f);
   }
   else
   {
     const FVector ViewDirection = RobotOwner->GetViewRotation().Vector(); 
     const FVector EndLoc = RobotLoc + ViewDirection * AbilityRange;
+    Laser->LaserBeam->SetBeamTargetPoint(0,EndLoc,0);
     HitScanTrace(RobotLoc, EndLoc, 0.0f, Hit, 0.0f);
   }
 

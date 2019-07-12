@@ -96,6 +96,9 @@ void ARobotCharacter::Tick(float DeltaTime)
 {
 //TODO: we can remove this tick event
   Super::Tick(DeltaTime);
+//  UE_LOG(LogTemp, Warning, TEXT("%s::Tick"), *GetName());
+  const FVector RobotLoc = GetActorLocation() + RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,220,70));
+//  DrawDebugSphere(GetWorld(), RobotLoc, 20, 10, FColor::Red);
 
 }
 
@@ -206,8 +209,7 @@ void ARobotCharacter::SetupAbilities()
 
   if (PartAssignment->GetRightHandheld() && PartAssignment->GetRightHandheld()->AbilityClass)
   {
-//TODO:: should this use SpawnActor?
-    WeaponAbility = NewObject<AScrapyardAbility>(PartAssignment->GetRightHandheld()->AbilityClass);
+    WeaponAbility = GetWorld()->SpawnActor<AScrapyardAbility>(PartAssignment->GetRightHandheld()->AbilityClass, FActorSpawnParameters());
 
     UE_LOG(LogTemp, Warning, TEXT("Weapon Ability Class Name: %s"), *PartAssignment->GetRightHandheld()->AbilityClass->GetName());
 
