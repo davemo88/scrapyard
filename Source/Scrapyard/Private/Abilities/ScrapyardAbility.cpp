@@ -42,7 +42,7 @@ void AScrapyardAbility::SetupTargetingProfile()
 
 void AScrapyardAbility::StartFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::StartFire"), *GetName());
+  UE_LOG(LogTemp,Warning,TEXT("%s::StartFire (Scrapyard Ability)"), *GetName());
 
   const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
   UE_LOG(LogTemp, Warning, TEXT("%s::StartFire - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));

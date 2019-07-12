@@ -3,14 +3,14 @@
 
 #include "HitscanAbility.h"
 #include "Targeting/RectangularTargetingProfile.h"
+#include "DrawDebugHelpers.h"
 #include "Robots/RobotCharacter.h"
 
 AHitscanAbility::AHitscanAbility()
 {
   AbilityName = TEXT("HitscanAbility");
   AbilityRange = 1000;
-
-  SetActorTickEnabled(false);
+//  SetActorTickEnabled(false);
 
   InstantHitInfo.Add(FInstantHitDamageInfo());
 }
@@ -18,6 +18,12 @@ AHitscanAbility::AHitscanAbility()
 void AHitscanAbility::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
+  UE_LOG(LogTemp, Warning, TEXT("%s::Tick"), *GetName());
+  if (RobotOwner != nullptr)
+  {
+    const FVector RobotLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,70,120));
+    DrawDebugSphere(GetWorld(), RobotLoc, 20, 10, FColor::Red, true, 0.1f);
+  }
 }
 
 void AHitscanAbility::BeginPlay()
@@ -45,8 +51,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 //  const FVector EndTrace = SpawnLoc + FireDirection * AbilityRange;
 
   FHitResult Hit;
-  const FVector RobotLoc = RobotOwner->GetActorLocation();
-//  const FVector FireOrigin = RobotLoc + FVector(70,120,70);
+  const FVector RobotLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,70,120));
   if (RobotOwner->RobotTargetingComponent->IsTargetAcquired())
   {
     AActor* Target = RobotOwner->RobotTargetingComponent->GetTargets()[0];
