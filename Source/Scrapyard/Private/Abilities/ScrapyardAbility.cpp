@@ -228,7 +228,7 @@ void AScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector
 
   ECollisionChannel TraceChannel = ECC_Pawn; 
   FCollisionQueryParams QueryParams(GetClass()->GetFName(), true, RobotOwner);
-  QueryParams.TraceTag = TraceTag;
+//  QueryParams.TraceTag = TraceTag;
 // single line trace
   if (TraceRadius <= 0.0f)
   {

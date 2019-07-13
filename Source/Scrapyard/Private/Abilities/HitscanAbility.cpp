@@ -51,7 +51,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 //TODO: do this laser in a multicast function
 //TODO: refactor trace end point so this can go more smoothly
   ALaserProjectile* Laser = GetWorld()->SpawnActor<ALaserProjectile>(FActorSpawnParameters());
-  Laser->SetLifeSpan(1.0f);
+  Laser->SetLifeSpan(2.0f);
   Laser->LaserBeam->SetBeamSourcePoint(0,RobotLoc,0);
   if (RobotOwner->RobotTargetingComponent->IsTargetAcquired())
   {
