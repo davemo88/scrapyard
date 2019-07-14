@@ -30,4 +30,7 @@ public:
   UPROPERTY(meta=(BindWidget))
   UButton* RobotTestButton;
 
+  UPROPERTY(meta=(BindWidget))
+  UButton* BattleButton;
+
 };

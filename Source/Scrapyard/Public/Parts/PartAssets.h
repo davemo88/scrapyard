@@ -71,6 +71,10 @@ public:
   TSoftObjectPtr<UTexture2D> ArmsCardIcon;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> LegsCardIcon;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> HandheldCardIcon;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> ChipCardIcon;
 
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HeadPart_Red_SkeletalMesh;

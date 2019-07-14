@@ -71,5 +71,8 @@ protected:
 
   UFUNCTION()
   void OnLegsFilterButtonClicked();
+
+  UFUNCTION()
+  void OnHandheldFilterButtonClicked();
   
 };

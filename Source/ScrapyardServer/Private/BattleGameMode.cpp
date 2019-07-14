@@ -10,7 +10,7 @@ ABattleGameMode::ABattleGameMode()
 {
   GameStateClass = ABattleGameState::StaticClass();
 
-  MinPlayers = 1;
+  MinPlayers = 2;
   BattleTime = 10;
   EndCooldownTime = 5;
 

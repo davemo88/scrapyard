@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "HandheldPart.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "Abilities/HitscanAbility.h"
 #include "SoloDraft.h"
@@ -32,6 +34,13 @@ void UHandheldPart::Draft(USoloDraft* SoloDraft)
 void UHandheldPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetRightHandheld(this);
+}
+
+UTexture2D* UHandheldPart::GetPartTypeIcon() const
+{
+  return (UScrapyardGameInstance::AssetsBP != NULL) ? 
+    UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldCardIcon) 
+    : nullptr;
 }
 
 

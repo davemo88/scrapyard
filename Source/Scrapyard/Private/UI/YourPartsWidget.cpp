@@ -18,6 +18,7 @@ void UYourPartsWidget::NativeConstruct()
   CoreFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnCoreFilterButtonClicked);
   ArmsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnArmsFilterButtonClicked);
   LegsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnLegsFilterButtonClicked);
+  HandheldFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnHandheldFilterButtonClicked);
 }
 
 void UYourPartsWidget::ClearDisplayedCards()
@@ -87,5 +88,11 @@ void UYourPartsWidget::OnLegsFilterButtonClicked()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedLegs);
+}
+
+void UYourPartsWidget::OnHandheldFilterButtonClicked()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
+  DisplayParts(CurrentDraft->DraftedHandhelds);
 }
 
