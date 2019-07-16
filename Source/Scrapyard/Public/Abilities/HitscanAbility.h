@@ -30,5 +30,7 @@ public:
 protected:
 
   virtual void SetupTargetingProfile();
+
+  virtual void ShowAbilityEffects(FAbilityEffectParams AbilityEffectParams) override;
 	
 };

@@ -309,3 +309,11 @@ void AScrapyardAbility::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > &
   DOREPLIFETIME(AScrapyardAbility, RobotOwner);
 //  DOREPLIFETIME(AScrapyardAbility, TargetingProfile);
 }
+
+void AScrapyardAbility::MulticastShowAbilityEffects_Implementation(FAbilityEffectParams AbilityEffectParams)
+{
+  if (!HasAuthority() || GetNetMode() == ENetMode::NM_Standalone)
+  {
+    ShowAbilityEffects(AbilityEffectParams);
+  }
+}

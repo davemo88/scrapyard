@@ -7,6 +7,8 @@
 #include "Components/Border.h"
 #include "Components/Image.h"
 #include "Components/VerticalBox.h"
+#include "Components/SizeBox.h"
+#include "Components/ScaleBox.h"
 #include "PartCardWidget.generated.h"
 
 class URobotPart;
@@ -40,6 +42,12 @@ public:
   FCardDoubleClickedDelegate CardDoubleClickedDelegate;
   FCardMouseEnteredDelegate CardMouseEnteredDelegate;
   FCardMouseEnteredDelegate CardMouseLeftDelegate;
+
+//  UPROPERTY(meta=(BindWidget))
+//  UScaleBox* CardScaleBox;
+//
+  UPROPERTY(meta=(BindWidget))
+  USizeBox* CardSizeBox;
 
 protected:
 

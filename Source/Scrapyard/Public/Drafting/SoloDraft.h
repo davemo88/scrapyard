@@ -29,10 +29,11 @@ public:
   USoloDraft();
 
   UPROPERTY()
-  int32 MaxPicks = 6;
+  int32 MaxPicks = 10;
 
+// TODO: which pick you're on
   UPROPERTY()
-  int32 NumPicks = 0;
+  int32 NumPicks = 1;
 
   UPROPERTY()
   int32 NumChoicesPerPick = 3;

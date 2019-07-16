@@ -53,6 +53,18 @@ struct FPendingFireEvent
 
 };
 
+USTRUCT()
+struct FAbilityEffectParams
+{
+  GENERATED_BODY()
+
+  UPROPERTY()
+  FVector FireLoc;
+
+  UPROPERTY()
+  FVector EndLoc;
+};
+
 /**
  * 
  */
@@ -115,32 +127,6 @@ public:
 //  virtual FRotator GetAdjustedAim(FVector StartFireLoc);
   
   virtual void HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime);
-
-protected:
-   
-  UPROPERTY()
-  UAbilityState* CurrentState;
-
-  UPROPERTY()
-  uint8 CurrentFireMode;
-  
-  UPROPERTY()
-  UAbilityStateActive* ActiveState;
-  UPROPERTY()
-  UAbilityStateInactive* InactiveState;
-  UPROPERTY()
-  TArray<class UAbilityStateFiring*> FiringState;
-  UPROPERTY()
-  TArray<float> FireInterval;
-
-  UPROPERTY()
-  uint8 FireEventIndex;
-
-  virtual void SetupAbilityStates();
-
-  virtual void SetupTargetingProfile();
-
-public:
 
   inline ARobotCharacter* GetRobotOwner() const 
   {
@@ -208,4 +194,33 @@ public:
   UFUNCTION (Client, Unreliable)
   void ClientMissedHitScan(FVector_NetQuantize MissedHitScanStart, FVector_NetQuantize MissedHitScanEnd, FVector_NetQuantize MissedHitScanLoc, float MissedHitScanTime, uint8 MissedHitScanIndex);
 
+protected:
+   
+  UPROPERTY()
+  UAbilityState* CurrentState;
+
+  UPROPERTY()
+  uint8 CurrentFireMode;
+  
+  UPROPERTY()
+  UAbilityStateActive* ActiveState;
+  UPROPERTY()
+  UAbilityStateInactive* InactiveState;
+  UPROPERTY()
+  TArray<class UAbilityStateFiring*> FiringState;
+  UPROPERTY()
+  TArray<float> FireInterval;
+
+  UPROPERTY()
+  uint8 FireEventIndex;
+
+  virtual void SetupAbilityStates();
+
+  virtual void SetupTargetingProfile();
+
+  virtual void ShowAbilityEffects(FAbilityEffectParams AbilityEffectParams) {};
+
+  UFUNCTION(NetMulticast, Unreliable)
+  void MulticastShowAbilityEffects(FAbilityEffectParams AbilityEffectParams);
+  
 };

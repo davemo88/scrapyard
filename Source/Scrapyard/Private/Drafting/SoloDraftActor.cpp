@@ -141,7 +141,7 @@ void ASoloDraftActor::ServerDraftPart_Implementation(URobotPart* RobotPart)
   UE_LOG(LogTemp, Warning, TEXT("num arms %i"), CurrentDraft->DraftedArms.Num());
   UE_LOG(LogTemp, Warning, TEXT("num legs %i"), CurrentDraft->DraftedLegs.Num());
 
-  if (CurrentDraft->NumPicks < CurrentDraft->MaxPicks)
+  if (CurrentDraft->NumPicks <= CurrentDraft->MaxPicks)
   {
     NextPack();
   }

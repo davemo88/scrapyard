@@ -10,7 +10,7 @@
 AHitscanAbility::AHitscanAbility()
 {
   AbilityName = TEXT("HitscanAbility");
-  AbilityRange = 1000;
+  AbilityRange = 3000;
 //  SetActorTickEnabled(false);
 
   InstantHitInfo.Add(FInstantHitDamageInfo());
@@ -45,28 +45,36 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 //  const FRotator SpawnRot = GetBaseFireRotation();
 //  const FVector FireDirection = SpawnRot.Vector();
 //  const FVector EndTrace = SpawnLoc + FireDirection * AbilityRange;
-
+  FAbilityEffectParams AbilityEffectParams;
   FHitResult Hit;
-  const FVector RobotLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,220,70));
+  FVector FireDirection;
+  const FVector FireLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,220,70));
+
 //TODO: do this laser in a multicast function
 //TODO: refactor trace end point so this can go more smoothly
-  ALaserProjectile* Laser = GetWorld()->SpawnActor<ALaserProjectile>(FActorSpawnParameters());
-  Laser->SetLifeSpan(2.0f);
-  Laser->LaserBeam->SetBeamSourcePoint(0,RobotLoc,0);
+//  ALaserProjectile* Laser = GetWorld()->SpawnActor<ALaserProjectile>(FActorSpawnParameters());
+//  Laser->SetLifeSpan(0.5f);
+//  Laser->LaserBeam->SetBeamSourcePoint(0,FireLoc,0);
+
   if (RobotOwner->RobotTargetingComponent->IsTargetAcquired())
   {
     AActor* Target = RobotOwner->RobotTargetingComponent->GetTargets()[0];
     const FVector PredictedLoc = RobotOwner->RobotTargetingComponent->GetPredictedTargetLocation(Target, 0.0f);
-    Laser->LaserBeam->SetBeamTargetPoint(0,PredictedLoc,0);
-    HitScanTrace(RobotLoc, PredictedLoc, 0.0f, Hit, 0.0f);
+    FireDirection = (PredictedLoc - FireLoc).GetSafeNormal();
   }
   else
   {
-    const FVector ViewDirection = RobotOwner->GetViewRotation().Vector(); 
-    const FVector EndLoc = RobotLoc + ViewDirection * AbilityRange;
-    Laser->LaserBeam->SetBeamTargetPoint(0,EndLoc,0);
-    HitScanTrace(RobotLoc, EndLoc, 0.0f, Hit, 0.0f);
+    FireDirection = RobotOwner->GetViewRotation().Vector(); 
   }
+
+  const FVector EndLoc = FireLoc + FireDirection * AbilityRange;
+
+  AbilityEffectParams.FireLoc = FireLoc;
+  AbilityEffectParams.EndLoc = EndLoc;
+
+  UE_LOG(LogTemp, Warning, TEXT("FireLoc: %s, EndLoc: %s"), *AbilityEffectParams.FireLoc.ToString(), *AbilityEffectParams.EndLoc.ToString());
+
+  HitScanTrace(FireLoc, EndLoc, 0.0f, Hit, 0.0f);
 
   if (Hit.Actor != NULL && bDealDamage)
   {
@@ -85,9 +93,24 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
   {
     *OutHit = Hit;
   }
+
+  MulticastShowAbilityEffects(AbilityEffectParams);
+
 }
 
 void AHitscanAbility::SetupTargetingProfile()
 {
   TargetingProfile = CreateDefaultSubobject<URectangularTargetingProfile>(TEXT("TargetingProfile"));
+}
+
+void AHitscanAbility::ShowAbilityEffects(FAbilityEffectParams AbilityEffectParams)
+{
+//  const FVector FireLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,220,70));
+//  const FVector EndLoc = FireLoc + AbilityEffectParams.FireDirection * AbilityRange;
+  UE_LOG(LogTemp, Warning, TEXT("FireLoc: %s, EndLoc: %s"), *AbilityEffectParams.FireLoc.ToString(), *AbilityEffectParams.EndLoc.ToString());
+  ALaserProjectile* Laser = GetWorld()->SpawnActor<ALaserProjectile>(FActorSpawnParameters());
+  Laser->SetLifeSpan(0.5f);
+  Laser->LaserBeam->SetBeamSourcePoint(0,AbilityEffectParams.FireLoc,0);
+  Laser->LaserBeam->SetBeamTargetPoint(0,AbilityEffectParams.EndLoc,0);
+
 }

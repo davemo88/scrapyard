@@ -8,6 +8,7 @@
 #include "UI/YourPartsWidget.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
+#include "Game/SoloDraftGameState.h"
 #include "Components/UniformGridPanel.h"
 #include "Components/UniformGridSlot.h"
 #include "Components/HorizontalBox.h"
@@ -36,7 +37,7 @@ void ASoloDraftPlayerController::OnNextPack()
 
 void ASoloDraftPlayerController::OnPartDoubleClicked(URobotPart* RobotPart)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnPartDrafted"), *GetName());  
+  UE_LOG(LogTemp, Warning, TEXT("%s::OnPartDoubleClicked"), *GetName());  
 
   PartDraftedDelegate.Broadcast(RobotPart);
 

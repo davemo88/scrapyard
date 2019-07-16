@@ -24,6 +24,7 @@ protected:
 
 //  TSubclassOf<UTargetingWidget> TargetingWidget;
 
+//TODO: need to set this somewhere authoritatively
   float Range;
 
   virtual bool IsTargeted(ARobotCharacter* Robot, AActor* Target); 

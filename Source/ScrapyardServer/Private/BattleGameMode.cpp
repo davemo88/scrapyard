@@ -44,6 +44,14 @@ void ABattleGameMode::Logout(AController* Exiting)
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::Logout"), *GetName());
   Super::Logout(Exiting);
+
+  if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(Exiting))
+  {
+    UE_LOG(LogTemp, Warning, TEXT("Logout: UnregisterWithGamestate"));
+    if (RobotPC->GetRobotCharacter())
+    RobotPC->GetRobotCharacter()->TargetableComponent->UnregisterWithGamestate();
+  }
+  
   if (GetNumPlayers() < MinPlayers)
   {
     bReadyToEndMatch = true;

@@ -5,7 +5,12 @@
 #include "SoloDraftPlayerController.h"
 #include "UI/YourPartsWidget.h"
 #include "Blueprint/WidgetTree.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
 #include "Game/SoloDraftGameState.h"
+#include "Components/TextBlock.h"
+#include "Components/UniformGridPanel.h"
+#include "Components/UniformGridSlot.h"
 
 void USoloDraftWidget::NativeConstruct()
 {
@@ -35,10 +40,13 @@ void USoloDraftWidget::DisplayNextPack()
 
   for (int32 i = 0; i < NextPack.Num(); ++i)
   {
-    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(OwningController, GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
+    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(OwningController, GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP);
+
     Card->SetRobotPart(NextPack[i]);
     Card->CardMouseEnteredDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartCardHovered);
     Card->CardDoubleClickedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDoubleClicked);
+    Card->CardSizeBox->SetWidthOverride(240);
+    Card->CardSizeBox->SetHeightOverride(330);
     PackDisplayPanel->AddChild(Card);
     if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))
     {
