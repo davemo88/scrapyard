@@ -2,6 +2,7 @@
 
 
 #include "TargetableComponent.h"
+#include "Scrapyard.h"
 #include "Game/RobotGameState.h"
 
 
@@ -54,7 +55,7 @@ void UTargetableComponent::RegisterWithGamestate()
 
 void UTargetableComponent::UnregisterWithGamestate()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::UnregisterWithGamestate"), *GetName());
+  UE_LOG(LogTargeting, Log, TEXT("%s::UnregisterWithGamestate"), *GetName());
   if (GetOwner() && GetOwner()->HasAuthority() && GetOwner()->GetWorld())
   {
     if (ARobotGameState* RobotGameState = GetOwner()->GetWorld()->GetGameState<ARobotGameState>())

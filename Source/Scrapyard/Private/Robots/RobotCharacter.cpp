@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotCharacter.h"
+#include "Scrapyard.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/RobotGameMode.h"
 #include "Robots/RobotMovementComponent.h"
@@ -25,7 +26,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
 //  : Super(ObjectInitializer)
   : Super(ObjectInitializer.SetDefaultSubobjectClass<URobotMovementComponent>(ARobotCharacter::CharacterMovementComponentName))
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ARobotCharacter"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::ARobotCharacter"), *GetName());
    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   PrimaryActorTick.bCanEverTick = true;
 
@@ -60,16 +61,16 @@ void ARobotCharacter::BeginPlay()
 {
   Super::BeginPlay();
   const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
+  UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
+  UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
 
   if (ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController()))
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - PC ok"), *GetName());
+    UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - PC ok"), *GetName());
     PC->SetRobotCharacter(this);
     if (IsLocallyControlled())
     {
-      UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Local PC"), *GetName());
+      UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - Local PC"), *GetName());
       SetupRobotHUDWidget();
     }
   }
@@ -77,7 +78,7 @@ void ARobotCharacter::BeginPlay()
 
 void ARobotCharacter::PostInitializeComponents()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::PostInitializeComponents"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::PostInitializeComponents"), *GetName());
   Super::PostInitializeComponents();
 
   if (HasAuthority())
@@ -96,7 +97,7 @@ void ARobotCharacter::Tick(float DeltaTime)
 {
 //TODO: we can remove this tick event
   Super::Tick(DeltaTime);
-//  UE_LOG(LogTemp, Warning, TEXT("%s::Tick"), *GetName());
+//  UE_LOG(LogCharacter, Log, TEXT("%s::Tick"), *GetName());
   const FVector RobotLoc = GetActorLocation() + RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,220,70));
 //  DrawDebugSphere(GetWorld(), RobotLoc, 20, 10, FColor::Red);
 
@@ -105,7 +106,7 @@ void ARobotCharacter::Tick(float DeltaTime)
 // Called to bind functionality to input
 void ARobotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupPlayerInputComponent"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::SetupPlayerInputComponent"), *GetName());
 
   Super::SetupPlayerInputComponent(PlayerInputComponent);
 
@@ -139,14 +140,14 @@ void ARobotCharacter::Landed(const FHitResult & Hit)
 
 void ARobotCharacter::SetupRobotHUDWidget()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::SetupRobotHUDWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
   if (PC && IsLocallyControlled())
   {
 // TODO: perhaps refactor creation of the widget so the widget itself doesn't have to be public
 // e.g. use friend class or write a function
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - local PC"), *GetName());
+    UE_LOG(LogCharacter, Log, TEXT("%s::SetupRobotHUDWidget - local PC"), *GetName());
     PC->RobotHUDWidget = CreateWidget<URobotHUDWidget>(PC, GameInstance->AssetsBP->UIAssetsBP->RobotHUDWidgetBP);
     PC->RobotHUDWidget->SetRobotCharacter(this);
     PC->RobotHUDWidget->AddToViewport();
@@ -156,7 +157,7 @@ void ARobotCharacter::SetupRobotHUDWidget()
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetupRobotHUDWidget - nonlocal or null PC"), *GetName());
+    UE_LOG(LogCharacter, Log, TEXT("%s::SetupRobotHUDWidget - nonlocal or null PC"), *GetName());
   }
 }
 
@@ -202,16 +203,16 @@ void ARobotCharacter::SetupStats()
 
 void ARobotCharacter::SetupAbilities()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::SetupAbilities"), *GetName());
 //  const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
-//  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
-//  UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
+//  UE_LOG(LogCharacter, Log, TEXT("%s::SetupAbilities - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
+//  UE_LOG(LogCharacter, Log, TEXT("%s::SetupAbilities - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
 
   if (PartAssignment->GetRightHandheld() && PartAssignment->GetRightHandheld()->AbilityClass)
   {
     WeaponAbility = GetWorld()->SpawnActor<AScrapyardAbility>(PartAssignment->GetRightHandheld()->AbilityClass, FActorSpawnParameters());
 
-    UE_LOG(LogTemp, Warning, TEXT("Weapon Ability Class Name: %s"), *PartAssignment->GetRightHandheld()->AbilityClass->GetName());
+    UE_LOG(LogCharacter, Log, TEXT("Weapon Ability Class Name: %s"), *PartAssignment->GetRightHandheld()->AbilityClass->GetName());
 
 // TODO: why do we have RobotOwner if we can just the real Owner?
 // TODO: why setting owner in two different ways here? seems just wrong
@@ -219,23 +220,23 @@ void ARobotCharacter::SetupAbilities()
     WeaponAbility->RobotOwner = this;
     if (WeaponAbility->GetOwner())
     {
-      UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: %s"), *GetName(), *WeaponAbility->GetOwner()->GetName());
+      UE_LOG(LogCharacter, Log, TEXT("%s::SetupAbilities - WeaponAbility Owner: %s"), *GetName(), *WeaponAbility->GetOwner()->GetName());
     }
     else
     {
-      UE_LOG(LogTemp, Warning, TEXT("%s::SetupAbilities - WeaponAbility Owner: NULL"), *GetName());
+      UE_LOG(LogCharacter, Log, TEXT("%s::SetupAbilities - WeaponAbility Owner: NULL"), *GetName());
     }
     WeaponAbility->SetOwner(this);
-    UE_LOG(LogTemp ,Warning, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
+    UE_LOG(LogCharacter ,Log, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
   }
 
 }
 
 void ARobotCharacter::OnStatsUpdated()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnStatsUpdated"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("HitPoints: %i"), RobotStats->HitPoints);
-  UE_LOG(LogTemp, Warning, TEXT("Power: %i"), RobotStats->MaxPower);
+  UE_LOG(LogCharacter, Log, TEXT("%s::OnStatsUpdated"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("HitPoints: %i"), RobotStats->HitPoints);
+  UE_LOG(LogCharacter, Log, TEXT("Power: %i"), RobotStats->MaxPower);
 
 //TODO: functions to do these
 //TODO: why aren't these updated on replication?
@@ -273,7 +274,7 @@ void ARobotCharacter::Axis_MoveY(float AxisValue)
 void ARobotCharacter::Axis_TurnZ(float AxisValue)
 {
 //  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
-//  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
+//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
 
 //  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
 //  if (PC)
@@ -285,18 +286,18 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 //    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
 //    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
 //
-////    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+////    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
 //
 ////    uint32 MaxX = GSystemResolution.ResX;
 //    uint32 CenterX = GSystemResolution.ResX / 2;
 //
-////    UE_LOG(LogTemp, Warning, TEXT("Center X: %i"), CenterX);
+////    UE_LOG(LogCharacter, Log, TEXT("Center X: %i"), CenterX);
 //
 //    float TurnRate = float(MouseX - CenterX) / float(CenterX);
 //
 //    float MaxTurnRate = 1.0f;
 //
-////    UE_LOG(LogTemp, Warning, TEXT("TurnZ Rate: %f"), TurnRate);
+////    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
 //
 //    AddControllerYawInput(TurnRate * MaxTurnRate);
 //
@@ -314,7 +315,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 //TODO: create subclass with these weird controls
 //
 //  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
-////  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
+////  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
 //  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
 //  if (PC)
 //  {
@@ -324,17 +325,17 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 //
 //    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
 //    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-////    UE_LOG(LogTemp, Warning, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+////    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
 //
 //    uint32 CenterY = GSystemResolution.ResY / 2;
 //
-////    UE_LOG(LogTemp, Warning, TEXT("Center Y: %i"), CenterY);
+////    UE_LOG(LogCharacter, Log, TEXT("Center Y: %i"), CenterY);
 //
 //    float TurnRate = float(MouseY - CenterY) / float(CenterY);
 //
 //    float MaxTurnRate = 1.0f;
 //
-////    UE_LOG(LogTemp, Warning, TEXT("TurnY rate: %f"), TurnRate);
+////    UE_LOG(LogCharacter, Log, TEXT("TurnY rate: %f"), TurnRate);
 //
 //    AddControllerPitchInput(TurnRate * MaxTurnRate);
 //  }
@@ -344,7 +345,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 
 void ARobotCharacter::StartBoosting()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::StartBoosting"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::StartBoosting"), *GetName());
   URobotMovementComponent* MoveComp = Cast<URobotMovementComponent>(GetCharacterMovement());
   if (MoveComp)
   {
@@ -354,7 +355,7 @@ void ARobotCharacter::StartBoosting()
 
 void ARobotCharacter::StopBoosting()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::StopBoosting"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::StopBoosting"), *GetName());
   URobotMovementComponent* MoveComp = Cast<URobotMovementComponent>(GetCharacterMovement());
   if (MoveComp)
   {
@@ -374,7 +375,7 @@ void ARobotCharacter::StopBoosting()
 
 float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::TakeDamage"));
+  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::TakeDamage"));
 
   // CDO = class default object
   const UDamageType* const DamageTypeCDO = DamageEvent.DamageTypeClass ? DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>() : GetDefault<UDamageType>();
@@ -391,7 +392,7 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
   {
     MulticastShowDamage(Damage, DamageEvent, EventInstigator, DamageCauser, HitInfo);
     HitPoints = FMath::Max(0,HitPoints-(int)Damage);
-    UE_LOG(LogTemp, Warning, TEXT("%s::TakeDamage - HitPoints set to %d"), *GetName(), HitPoints);
+    UE_LOG(LogCharacter, Log, TEXT("%s::TakeDamage - HitPoints set to %d"), *GetName(), HitPoints);
 
     if (HitPoints == 0)
     {
@@ -410,11 +411,11 @@ void ARobotCharacter::MulticastShowDamage_Implementation(float Damage, const FDa
 
 void ARobotCharacter::StartFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::StartFire"), *GetName());
+  UE_LOG(LogCharacter,Log,TEXT("%s::StartFire"), *GetName());
 
   if (!IsLocallyControlled())
   {
-    UE_LOG(LogTemp, Warning, TEXT("StartFire can only be called on the owning client"));
+    UE_LOG(LogCharacter, Log, TEXT("StartFire can only be called on the owning client"));
   }
   else
   {
@@ -424,14 +425,14 @@ void ARobotCharacter::StartFire(uint8 FireModeNum)
     }
     else
     {
-      UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::WeaponAbility is NULL"));
+      UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::WeaponAbility is NULL"));
     }
   }
 }
 
 void ARobotCharacter::StopFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("ARobotCharacter::StopFire"));
+  UE_LOG(LogCharacter,Log,TEXT("ARobotCharacter::StopFire"));
   if (WeaponAbility != NULL)
   {
     WeaponAbility->StopFire(FireModeNum);
@@ -466,13 +467,13 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & O
 
 void ARobotCharacter::OnRep_HitPoints()
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::OnRep_HitPoints"), *GetName());
+  UE_LOG(LogCharacter,Log,TEXT("%s::OnRep_HitPoints"), *GetName());
   HitPointsChangedDelegate.Broadcast();
 }
 
 void ARobotCharacter::OnRep_Power()
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::OnRep_Power"), *GetName());
+  UE_LOG(LogCharacter,Log,TEXT("%s::OnRep_Power"), *GetName());
   PowerChangedDelegate.Broadcast();
 }
 
@@ -488,6 +489,6 @@ bool ARobotCharacter::IsTargetableBy(ARobotCharacter* Robot)
 
 void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastSetPartAssignmentFromIDs_Implementation"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("%s::MulticastSetPartAssignmentFromIDs_Implementation"), *GetName());
   PartAssignment->SetAssignment(NewPartAssignmentIDs);
 }

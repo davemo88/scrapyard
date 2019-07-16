@@ -16,8 +16,6 @@
 
 TArray<FStatText> URobotPart::GetStatsText() const
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetStatsText"), *GetName());
-
   TArray<FStatText> StatsText;
   StatsText.Add(FStatText(NSLOCTEXT("SY", "MassStatText", "Mass"),FText::AsNumber(Mass)));
   StatsText.Add(FStatText(NSLOCTEXT("SY", "HitPointsStatText", "Hit Points"),FText::AsNumber(Mass)));

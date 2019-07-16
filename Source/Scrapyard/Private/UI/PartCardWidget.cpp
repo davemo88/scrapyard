@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "PartCardWidget.h"
+#include "Scrapyard.h"
 #include "Parts/RobotPart.h"
 #include "UI/StatLineWidget.h"
 #include "Game/ScrapyardAssets.h"
@@ -25,34 +26,34 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 
 void UPartCardWidget::OnPartCardClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnPartCardClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnPartCardClicked"), *GetName());
   CardClickedDelegate.Broadcast(RobotPart);
 }
 
 FReply UPartCardWidget::NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseButtonDoubleClick"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonDoubleClick"), *GetName());
   CardDoubleClickedDelegate.Broadcast(RobotPart);
   return Super::NativeOnMouseButtonDoubleClick(InGeometry, InMouseEvent);
 }
 
 void UPartCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseEnter"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseEnter"), *GetName());
   CardMouseEnteredDelegate.Broadcast(RobotPart);
   Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }
 
 void UPartCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnMouseLeave"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseLeave"), *GetName());
   CardMouseLeftDelegate.Broadcast(RobotPart);
   Super::NativeOnMouseLeave(InMouseEvent);
 }
 
 void UPartCardWidget::AddStatsText()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::AddStatsText"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::AddStatsText"), *GetName());
   TArray<FStatText> StatsText = RobotPart->GetStatsText();
   for (int32 i = 0; i < StatsText.Num(); ++i)
   {
@@ -62,7 +63,7 @@ void UPartCardWidget::AddStatsText()
 
 void UPartCardWidget::AddStatLine(FStatText StatText)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::AddStatLine"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::AddStatLine"), *GetName());
   APlayerController* OwningPlayer = GetOwningPlayer();
   UScrapyardGameInstance* GameInstance = OwningPlayer->GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(OwningPlayer, GameInstance->AssetsBP->UIAssetsBP->StatLineWidgetBP);

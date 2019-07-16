@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "HitscanAbility.h"
+#include "Scrapyard.h"
 #include "Targeting/RectangularTargetingProfile.h"
 #include "DrawDebugHelpers.h"
 #include "Projectiles/LaserProjectile.h"
@@ -19,18 +19,18 @@ AHitscanAbility::AHitscanAbility()
 void AHitscanAbility::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
-  UE_LOG(LogTemp, Warning, TEXT("%s::Tick"), *GetName());
+  UE_LOG(LogAbilities, Warning, TEXT("%s::Tick"), *GetName());
 }
 
 void AHitscanAbility::BeginPlay()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Location:"), *GetName(), *GetActorLocation().ToString());
+  UE_LOG(LogAbilities, Log, TEXT("%s::BeginPlay"), *GetName());
+  UE_LOG(LogAbilities, Verbose, TEXT("%s::BeginPlay - Location:"), *GetName(), *GetActorLocation().ToString());
 }
 
 void AHitscanAbility::FireShot()
 {
-  UE_LOG(LogTemp, Warning, TEXT("AHitscanAbility::FireShot"));
+  UE_LOG(LogAbilities, Log, TEXT("AHitscanAbility::FireShot"));
 
   FHitResult OutHit;
   FireInstantHit(true, &OutHit);
@@ -38,7 +38,7 @@ void AHitscanAbility::FireShot()
 
 void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 {
-  UE_LOG(LogTemp, Warning, TEXT("AHitscanAbility::FireInstantHit"));
+  UE_LOG(LogAbilities, Log, TEXT("AHitscanAbility::FireInstantHit"));
 
 //TODO: replace these with output from targeting system
 //  const FVector SpawnLoc = GetFireStartLoc();
@@ -72,7 +72,7 @@ void AHitscanAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
   AbilityEffectParams.FireLoc = FireLoc;
   AbilityEffectParams.EndLoc = EndLoc;
 
-  UE_LOG(LogTemp, Warning, TEXT("FireLoc: %s, EndLoc: %s"), *AbilityEffectParams.FireLoc.ToString(), *AbilityEffectParams.EndLoc.ToString());
+  UE_LOG(LogAbilities, Verbose, TEXT("FireLoc: %s, EndLoc: %s"), *AbilityEffectParams.FireLoc.ToString(), *AbilityEffectParams.EndLoc.ToString());
 
   HitScanTrace(FireLoc, EndLoc, 0.0f, Hit, 0.0f);
 
@@ -107,7 +107,7 @@ void AHitscanAbility::ShowAbilityEffects(FAbilityEffectParams AbilityEffectParam
 {
 //  const FVector FireLoc = RobotOwner->GetActorLocation() + RobotOwner->RobotBodyComponent->GetComponentRotation().RotateVector(FVector(-70,220,70));
 //  const FVector EndLoc = FireLoc + AbilityEffectParams.FireDirection * AbilityRange;
-  UE_LOG(LogTemp, Warning, TEXT("FireLoc: %s, EndLoc: %s"), *AbilityEffectParams.FireLoc.ToString(), *AbilityEffectParams.EndLoc.ToString());
+  UE_LOG(LogAbilities, Verbose, TEXT("FireLoc: %s, EndLoc: %s"), *AbilityEffectParams.FireLoc.ToString(), *AbilityEffectParams.EndLoc.ToString());
   ALaserProjectile* Laser = GetWorld()->SpawnActor<ALaserProjectile>(FActorSpawnParameters());
   Laser->SetLifeSpan(0.5f);
   Laser->LaserBeam->SetBeamSourcePoint(0,AbilityEffectParams.FireLoc,0);

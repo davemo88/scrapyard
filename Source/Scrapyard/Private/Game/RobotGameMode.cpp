@@ -23,9 +23,9 @@ ARobotGameMode::ARobotGameMode()
 
 void ARobotGameMode::PostLogin(APlayerController* NewPlayer)
 {
+  UE_LOG(LogGameMode, Log, TEXT("%s::PostLogin"), *GetName());
   Super::PostLogin(NewPlayer);
 
-  UE_LOG(LogTemp, Warning, TEXT("A player has logged in"));
 }
 
 TSubclassOf<AGameSession> ARobotGameMode::GetGameSessionClass() const

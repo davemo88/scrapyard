@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotStats.h"
+#include "Scrapyard.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
@@ -8,7 +9,7 @@
 
 void URobotStats::SetPartAssignment(UPartAssignment* NewPartAssignment)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetPartAssignment"), *GetName());
+  UE_LOG(LogParts, Log, TEXT("%s::SetPartAssignment"), *GetName());
   PartAssignment = NewPartAssignment;
   PartAssignment->PartAssignmentChangedDelegate.AddDynamic(this, &URobotStats::UpdateStats);
   UpdateStats();
@@ -16,7 +17,7 @@ void URobotStats::SetPartAssignment(UPartAssignment* NewPartAssignment)
 
 void URobotStats::UpdateStats()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::UpdateStats"), *GetName());
+  UE_LOG(LogParts, Log, TEXT("%s::UpdateStats"), *GetName());
 
   ZeroStats();
 

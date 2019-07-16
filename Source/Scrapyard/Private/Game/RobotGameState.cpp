@@ -9,8 +9,8 @@
 void ARobotGameState::MulticastStartMatchTimer_Implementation(uint32 Seconds)
 {
   bMatchTimerExpired = false;
-  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStartMatchTimer"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStartMatchTimer - %d Seconds"), *GetName(), Seconds);
+  UE_LOG(LogGameState, Log, TEXT("%s::MulticastStartMatchTimer"), *GetName());
+  UE_LOG(LogGameState, Log, TEXT("%s::MulticastStartMatchTimer - %d Seconds"), *GetName(), Seconds);
   MatchTimerSecondsRemaining = Seconds;
   GetWorld()->GetTimerManager().SetTimer(MatchTimerHandle, this, &ARobotGameState::MatchTimer, 1.0f, true);
   OnMatchTimerStartedDelegate.Broadcast();
@@ -19,21 +19,21 @@ void ARobotGameState::MulticastStartMatchTimer_Implementation(uint32 Seconds)
 void ARobotGameState::MulticastStopMatchTimer_Implementation()
 {
 //TODO: clear delegates and stop the timer
-  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastStopMatchTimer"), *GetName());
+  UE_LOG(LogGameState, Log, TEXT("%s::MulticastStopMatchTimer"), *GetName());
   GetWorld()->GetTimerManager().ClearTimer(MatchTimerHandle);
   OnMatchTimerStoppedDelegate.Broadcast();
 }
 
 void ARobotGameState::MatchTimer()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::MatchTimer"), *GetName());
+  UE_LOG(LogGameState, Log, TEXT("%s::MatchTimer"), *GetName());
   if (MatchTimerSecondsRemaining > 0)
   {
     MatchTimerSecondsRemaining--;
     OnMatchTimerUpdatedDelegate.Broadcast();
     if (MatchTimerSecondsRemaining == 0)
     {
-      UE_LOG(LogTemp, Warning, TEXT("%s::MatchTimer - Timer Expired"), *GetName());
+      UE_LOG(LogGameState, Log, TEXT("%s::MatchTimer - Timer Expired"), *GetName());
       GetWorld()->GetTimerManager().ClearTimer(MatchTimerHandle);
       bMatchTimerExpired = true;
       OnMatchTimerExpiredDelegate.Broadcast();      
@@ -83,6 +83,6 @@ void ARobotGameState::RemoveTargetable(AActor* Actor)
 
 void ARobotGameState::MulticastReadyToStartMatch_Implementation(bool bReady)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::MulticastReadyToStartMatch"), *GetName());
+  UE_LOG(LogGameState, Log, TEXT("%s::MulticastReadyToStartMatch"), *GetName());
   OnReadyToStartMatchDelegate.Broadcast(bReady);
 }

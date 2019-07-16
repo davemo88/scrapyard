@@ -11,7 +11,7 @@
 
 AScrapyardGameSession::AScrapyardGameSession()
 {
-  UE_LOG(LogTemp, Warning, TEXT("AScrapyardGameSession Constructor"));
+  UE_LOG(LogOnline, Log, TEXT("AScrapyardGameSession Constructor"));
   OnCreateSessionCompleteDelegate = FOnCreateSessionCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnCreateSessionComplete);
   OnStartSessionCompleteDelegate = FOnStartSessionCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnStartOnlineGameComplete);
   OnFindSessionsCompleteDelegate = FOnFindSessionsCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnFindSessionsComplete);
@@ -30,7 +30,7 @@ bool AScrapyardGameSession::HostSession(FUniqueNetIdRepl UserId, FName SessionNa
 
     if (Sessions.IsValid() && UserId.IsValid())
     {
-      UE_LOG(LogTemp, Warning, TEXT("about to try to make the session settings"));
+      UE_LOG(LogOnline, Log, TEXT("about to try to make the session settings"));
 
       SessionSettings = MakeShareable(new FScrapyardOnlineSessionSettings());
 
@@ -42,12 +42,12 @@ bool AScrapyardGameSession::HostSession(FUniqueNetIdRepl UserId, FName SessionNa
     }
     else
     {
-      UE_LOG(LogTemp, Warning, TEXT("couldn't host the session"));
+      UE_LOG(LogOnline, Log, TEXT("couldn't host the session"));
     }
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("couldn't host the session"));
+    UE_LOG(LogOnline, Log, TEXT("couldn't host the session"));
   }
 
   return false;
@@ -251,7 +251,7 @@ void AScrapyardGameSession::RegisterServer()
 {
   Super::RegisterServer();
   
-  UE_LOG(LogTemp, Warning, TEXT("RegisterServer. Hosting DedicatedSession"));
+  UE_LOG(LogOnline, Log, TEXT("RegisterServer. Hosting DedicatedSession"));
 
   IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get();
 
@@ -261,7 +261,7 @@ void AScrapyardGameSession::RegisterServer()
 
     if (Sessions.IsValid())
     {
-      UE_LOG(LogTemp, Warning, TEXT("about to try to make the session settings"));
+      UE_LOG(LogOnline, Log, TEXT("about to try to make the session settings"));
 
       SessionSettings = MakeShareable(new FScrapyardOnlineSessionSettings());
 
@@ -273,11 +273,11 @@ void AScrapyardGameSession::RegisterServer()
     }
     else
     {
-      UE_LOG(LogTemp, Warning, TEXT("sessions interface is invalid"));
+      UE_LOG(LogOnline, Log, TEXT("sessions interface is invalid"));
     }
   }
   else
   {
-    UE_LOG(LogTemp, Warning, TEXT("no online subsystem found"));
+    UE_LOG(LogOnline, Log, TEXT("no online subsystem found"));
   }
 }

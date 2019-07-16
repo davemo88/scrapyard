@@ -61,7 +61,7 @@ void URobotTargetingComponent::BeginPlay()
 void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
   Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargetAcquired"), *GetName());
+//  UE_LOG(LogTargeting, Log, TEXT("%s::IsTargetAcquired"), *GetName());
   if (GetOwner()->HasAuthority())
   {
     bTargetAcquired = false;
@@ -77,10 +77,10 @@ void URobotTargetingComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
       {
         Targets.Remove(Actor);
       }
-//      UE_LOG(LogTemp, Warning, TEXT("%s targeting %s"), *GetName(), *Actor->GetName());
+//      UE_LOG(LogTargeting, Log, TEXT("%s targeting %s"), *GetName(), *Actor->GetName());
 //      bTargetAcquired = bTargetAcquired || IsTargeted(Actor);
 //      FString TargetAcquired = bTargetAcquired ? "True" : "False";
-//      UE_LOG(LogTemp, Warning, TEXT("bTargetAcquired = %s"), *TargetAcquired);
+//      UE_LOG(LogTargeting, Log, TEXT("bTargetAcquired = %s"), *TargetAcquired);
     }
     Algo::Sort(Targets, [this](AActor* Target1, AActor* Target2)
     {
@@ -122,7 +122,7 @@ bool URobotTargetingComponent::IsTargeted(AActor* Actor) const
 
 TArray<FVector> URobotTargetingComponent::GetFaceVerts() const
 {
-//  UE_LOG(LogTemp, Warning, TEXT("%s::GetFaceVerts"), *GetName());
+//  UE_LOG(LogTargeting, Log, TEXT("%s::GetFaceVerts"), *GetName());
   static TArray<FVector> FaceVerts = TargetingProfile->InitFaceVerts();
 
   return FaceVerts;
@@ -130,21 +130,21 @@ TArray<FVector> URobotTargetingComponent::GetFaceVerts() const
 
 void URobotTargetingComponent::AddTargetable(AActor* Actor)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("%s::AddTargetable - %s"), *GetName(), *Actor->GetName());
+  UE_LOG(LogTargeting, Log, TEXT("%s::AddTargetable"), *GetName());
+  UE_LOG(LogTargeting, Log, TEXT("%s::AddTargetable - %s"), *GetName(), *Actor->GetName());
   Targetables.AddUnique(Actor);
 }
 
 void URobotTargetingComponent::RemoveTargetable(AActor* Actor)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::RemoveTargetable"), *GetName());
+  UE_LOG(LogTargeting, Log, TEXT("%s::RemoveTargetable"), *GetName());
   Targetables.Remove(Actor);
   Targets.Remove(Actor);
 }
 
 bool URobotTargetingComponent::IsTargetable(AActor* Actor) const
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargetable"), *GetName());
+  UE_LOG(LogTargeting, Log, TEXT("%s::IsTargetable"), *GetName());
   ARobotCharacter* OwnerChar = Cast<ARobotCharacter>(GetOwner());
   ITargetableInterface* Targetable = Cast<ITargetableInterface>(Actor);
   if (Targetable != nullptr)
@@ -165,14 +165,14 @@ float URobotTargetingComponent::GetTargetPriority(AActor* Target)
   FVector TargetDirection = ToTarget/ToTarget.Size();
   float Priority = FVector::DotProduct(TargetDirection, OwnerChar->GetActorRotation().Vector());
 //  float Priority = FVector::DotProduct(TargetDirection, OwnerChar->GetViewRotation().Vector());
-  UE_LOG(LogTemp, Warning, TEXT("%s Targeting Priority: %f"), *Target->GetName(), Priority);
-  UE_LOG(LogTemp, Warning, TEXT("%s Target Direction Vector Size: %f"), *Target->GetName(), TargetDirection.Size());
+  UE_LOG(LogTargeting, Log, TEXT("%s Targeting Priority: %f"), *Target->GetName(), Priority);
+  UE_LOG(LogTargeting, Log, TEXT("%s Target Direction Vector Size: %f"), *Target->GetName(), TargetDirection.Size());
   return Priority;
 }
 
 void URobotTargetingComponent::OnTargetableRegistered(AActor* Actor)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableRegistered"), *GetName());
+  UE_LOG(LogTargeting,Log,TEXT("%s::OnTargetableRegistered"), *GetName());
   if (GetOwner()->HasAuthority() && IsTargetable(Actor))
   {
     AddTargetable(Actor);
@@ -181,7 +181,7 @@ void URobotTargetingComponent::OnTargetableRegistered(AActor* Actor)
 
 void URobotTargetingComponent::OnTargetableUnregistered(AActor* Actor)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::OnTargetableUnregistered"), *GetName());
+  UE_LOG(LogTargeting,Log,TEXT("%s::OnTargetableUnregistered"), *GetName());
   if (GetOwner()->HasAuthority())
   {
     RemoveTargetable(Actor);

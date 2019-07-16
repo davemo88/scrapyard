@@ -2,6 +2,7 @@
 
 
 #include "Drone.h"
+#include "Scrapyard.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
 #include "Robots/RobotCharacter.h"
@@ -59,7 +60,7 @@ void ADrone::Tick(float DeltaTime)
 
 float ADrone::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::TakeDamage - %i damage from %s"), *GetName(), int(DamageAmount), *DamageCauser->GetName());
+  UE_LOG(LogDrone, Verbose, TEXT("%s::TakeDamage - %i damage from %s"), *GetName(), int(DamageAmount), *DamageCauser->GetName());
   HitPoints = FMath::Max(0,HitPoints - int(DamageAmount));
 
   if (HitPoints == 0)
@@ -77,14 +78,12 @@ float ADrone::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AC
 
 void ADrone::BeginDestroy()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginDestroy"), *GetName());
-
   Super::BeginDestroy();
 }
 
 void ADrone::LifeSpanExpired()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::LifeSpanExpired"), *GetName());
+  UE_LOG(LogDrone, Log, TEXT("%s::LifeSpanExpired"), *GetName());
   UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
   TargetableComponent->UnregisterWithGamestate();
 //TODO: LifeSpanExpired just calls Destroy. why isn't this being destroyed immediately?
@@ -102,19 +101,7 @@ void ADrone::SetAssets()
 
 bool ADrone::IsTargetableBy(ARobotCharacter* Robot)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargetableBy"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("Targetable Team: %i; Robot Team: %i"), Team, Robot->Team);
+  UE_LOG(LogTargeting, Log, TEXT("%s::IsTargetableBy"), *GetName());
+  UE_LOG(LogTargeting, Verbose, TEXT("Targetable Team: %i; Robot Team: %i"), Team, Robot->Team);
   return Team != Robot->Team;
 }
-
-//void ADrone::OnDroneTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
-//{
-//  UE_LOG(LogTemp, Warning, TEXT("%s::OnDroneTakeAnyDamage"), *GetName());
-//  if (HitPoints == 0)
-//  {
-//    UE_LOG(LogTemp, Warning, TEXT("Drone Destroyed"));
-////TODO: unregister targetable
-//    Destroy();
-//  }
-//
-//}

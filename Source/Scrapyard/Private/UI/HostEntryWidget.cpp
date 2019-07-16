@@ -2,6 +2,7 @@
 
 
 #include "HostEntryWidget.h"
+#include "Scrapyard.h"
 
 void UHostEntryWidget::NativeConstruct()
 {
@@ -30,7 +31,7 @@ void UHostEntryWidget::Join()
     TravelString = FString::Printf(TEXT("%s//Game/Levels/BattleLevel"), *HostEntryBox->GetText().ToString());
   }
   Player->ClientTravel(TravelString, ETravelType::TRAVEL_Absolute);
-  UE_LOG(LogTemp, Warning, TEXT("%s::Join - After Client Travel"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::Join - After Client Travel"), *GetName());
 }
 
 void UHostEntryWidget::Cancel()

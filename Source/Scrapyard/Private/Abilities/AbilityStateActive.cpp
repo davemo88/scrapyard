@@ -4,13 +4,14 @@
 #include "Abilities/AbilityStateActive.h"
 #include "Abilities/AbilityState.h"
 #include "Abilities/AbilityStateFiring.h"
+#include "Scrapyard.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "Robots/RobotCharacter.h"
 #include "Player/RobotPlayerController.h"
 
 void UAbilityStateActive::BeginState(const UAbilityState* PrevState)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UAbilityStateActive::BeginState"));
+  UE_LOG(LogAbilities, Log, TEXT("UAbilityStateActive::BeginState"));
   ARobotCharacter* RobotOwner = GetOuterAScrapyardAbility()->GetRobotOwner();
 
   for (uint8 i = 0; i <GetOuterAScrapyardAbility()->GetNumFireModes(); i++)
@@ -29,7 +30,7 @@ void UAbilityStateActive::BeginState(const UAbilityState* PrevState)
 
 bool UAbilityStateActive::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UAbilityStateActive::BeginFiringSequence"));
+  UE_LOG(LogAbilities, Log, TEXT("UAbilityStateActive::BeginFiringSequence"));
   AScrapyardAbility* Ability = GetOuterAScrapyardAbility();
   if (Ability->FiringState.IsValidIndex(FireModeNum))
   {

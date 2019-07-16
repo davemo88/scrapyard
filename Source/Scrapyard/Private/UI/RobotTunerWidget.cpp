@@ -1,14 +1,14 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "RobotTunerWidget.h"
+#include "Scrapyard.h"
 #include "Player/RobotPlayerController.h"
 
 
 
 void URobotTunerWidget::NativeConstruct()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeConstruct"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
   
   SetNewTuneButton->OnClicked.AddDynamic(this, &URobotTunerWidget::SetNewTune);
@@ -21,7 +21,7 @@ void URobotTunerWidget::NativeConstruct()
 
 void URobotTunerWidget::SetRobotChar(ARobotCharacter* NewRobotChar)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotChar"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::SetRobotChar"), *GetName());
   if (NewRobotChar)
   {
     RobotChar = NewRobotChar;
@@ -38,7 +38,7 @@ void URobotTunerWidget::SetRobotChar(ARobotCharacter* NewRobotChar)
 
 void URobotTunerWidget::SetNewTune()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetNewTune"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::SetNewTune"), *GetName());
   FRobotTuneParams TuneParams = GetTuneParams();
   if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(GetOwningPlayer()))
   {
@@ -53,9 +53,8 @@ FRobotTuneParams URobotTunerWidget::GetTuneParams()
   FRobotTuneParams TuneParams;
 
   TuneParams.GroundFriction = GroundFrictionTextBox->GetText().ToString();
-  UE_LOG(LogTemp, Warning, TEXT("GetTuneParams GroundFriction: %s"), *TuneParams.GroundFriction);
   TuneParams.BoostHoldThresholdTime = BoostHoldThresholdTimeTextBox->GetText().ToString();
-  UE_LOG(LogTemp, Warning, TEXT("GetTuneParams BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
+  UE_LOG(LogUI, Log, TEXT("GetTuneParams BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
 
   return TuneParams;
 }

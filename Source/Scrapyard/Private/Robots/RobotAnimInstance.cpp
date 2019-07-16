@@ -2,17 +2,18 @@
 
 
 #include "RobotAnimInstance.h"
+#include "Scrapyard.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotMovementComponent.h"
 #include "Math/Rotator.h"
 
 void URobotAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
-//  UE_LOG(LogTemp, Warning, TEXT("%s::NativeUpdateAnimation"), *GetName());
+  UE_LOG(LogAnimation, VeryVerbose, TEXT("%s::NativeUpdateAnimation"), *GetName());
   Super::NativeUpdateAnimation(DeltaSeconds);
 
   UpdateMovementState(DeltaSeconds);
-//  UE_LOG(LogTemp, Warning, TEXT("Movement State: %i"), MovementState);
+  UE_LOG(LogAnimation, VeryVerbose, TEXT("Movement State: %i"), MovementState);
 //
   UpdateBodyRotation(DeltaSeconds);
   
@@ -42,7 +43,7 @@ void URobotAnimInstance::UpdateBodyRotation(float DeltaSeconds)
     float RelativeYaw = Owner->GetActorRotation().UnrotateVector(Owner->GetVelocity()).Rotation().Yaw; 
     float IntermediateYaw = FMath::Fmod(FMath::FInterpTo(BodyRotation.Yaw,RelativeYaw,DeltaSeconds,5), 360.f);
 
-//    UE_LOG(LogTemp, Warning, TEXT("IntermediateYaw: %f"), IntermediateYaw);
+//    UE_LOG(LogAnimation, Log, TEXT("IntermediateYaw: %f"), IntermediateYaw);
 
 //    if (IntermediateYaw < -90.0f)
 //    {
@@ -73,8 +74,8 @@ void URobotAnimInstance::UpdateBodyRotation(float DeltaSeconds)
 
     NewRotation = FRotator(IntermediateRoll, IntermediateYaw, IntermediatePitch);
 
-//    UE_LOG(LogTemp, Warning, TEXT("RelAccel: %s"), *RelAccel.ToString());
-//    UE_LOG(LogTemp, Warning, TEXT("New Body Rotation: %s"), *NewRotation.ToString());
+//    UE_LOG(LogAnimation, Log, TEXT("RelAccel: %s"), *RelAccel.ToString());
+//    UE_LOG(LogAnimation, Log, TEXT("New Body Rotation: %s"), *NewRotation.ToString());
 
   }
   BodyRotation = NewRotation;

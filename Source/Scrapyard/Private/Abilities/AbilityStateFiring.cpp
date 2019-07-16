@@ -2,10 +2,11 @@
 
 
 #include "AbilityStateFiring.h"
+#include "Scrapyard.h"
 
 void UAbilityStateFiring::BeginState(const UAbilityState* PrevState)
 {
-  UE_LOG(LogTemp, Warning, TEXT("UAbilityStateFiring::BeginState"));
+  UE_LOG(LogAbilities, Log, TEXT("%s::BeginState"), *GetName());
 //  GetOuterAScrapyardAbility()->OnStartedFiring; 
 
   AScrapyardAbility* Ability = GetOuterAScrapyardAbility();
@@ -17,7 +18,7 @@ void UAbilityStateFiring::BeginState(const UAbilityState* PrevState)
 
 void UAbilityStateFiring::EndState()
 {
-  UE_LOG(LogTemp, Warning, TEXT("UAbilityStateFiring::EndState"));
+  UE_LOG(LogAbilities, Log, TEXT("%s::EndState"), *GetName());
 //  GetOuterAScrapyardAbility()->OnStoppedFiring()
   GetOuterAScrapyardAbility()->RobotOwner->GetWorldTimerManager().ClearAllTimersForObject(this);
 }

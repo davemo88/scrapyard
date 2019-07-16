@@ -2,6 +2,7 @@
 
 
 #include "YourPartsWidget.h"
+#include "Scrapyard.h"
 #include "UI/PartCardWidget.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
@@ -9,7 +10,7 @@
 
 void UYourPartsWidget::NativeConstruct()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeConstruct"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 //  CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
 
@@ -62,37 +63,37 @@ void UYourPartsWidget::DisplayAll()
 
 void UYourPartsWidget::OnAllFilterButtonClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnAllFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnAllFilterButtonClicked"), *GetName());
   DisplayAll();
 }
 
 void UYourPartsWidget::OnHeadFilterButtonClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnHeadFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnHeadFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedHeads);
 }
 
 void UYourPartsWidget::OnCoreFilterButtonClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnCoreFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnCoreFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedCores);
 }
 
 void UYourPartsWidget::OnArmsFilterButtonClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnArmsFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnArmsFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedArms);
 }
 
 void UYourPartsWidget::OnLegsFilterButtonClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedLegs);
 }
 
 void UYourPartsWidget::OnHandheldFilterButtonClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedHandhelds);
 }
 

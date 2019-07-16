@@ -5,15 +5,13 @@
 
 void AMainMenuLevelScriptActor::PreInitializeComponents()
 {
-	Super::PreInitializeComponents();
+  Super::PreInitializeComponents();
 
-	UE_LOG(LogTemp, Warning, TEXT("MainMenuLevelScriptActor PreInitializeComponents"));
 }
 
 void AMainMenuLevelScriptActor::BeginPlay()
 {
-	Super::BeginPlay();
+  Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("MainMenuLevelScriptActor BeginPlay"));
 
 }

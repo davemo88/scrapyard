@@ -6,7 +6,6 @@
 
 void ASoloDraftLevelScriptActor::BeginPlay()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
   UWorld* World = GetWorld();

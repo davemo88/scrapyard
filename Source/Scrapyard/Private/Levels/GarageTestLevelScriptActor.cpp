@@ -9,7 +9,6 @@
 
 void AGarageTestLevelScriptActor::BeginPlay()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay(); 
 
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();

@@ -12,7 +12,6 @@ ARobotHUD::ARobotHUD()
 
 void ARobotHUD::DrawHUD()
 {
-//  UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD"), *GetName());
   Super::DrawHUD();
 //  DrawLine(20,20,40,40,FLinearColor(FColor::Red),10);
 //  DrawRect(FLinearColor(FColor::Blue),70,60,50,50); 
@@ -65,13 +64,9 @@ void ARobotHUD::DrawHUD()
 
 //      FVector RelativeCenter = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
 //      FVector WorldCenter = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
-//      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD RelativeCenter - %s"), *GetName(), *RelativeCenter.ToString());
-//      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD WorldCenter - %s"), *GetName(), *WorldCenter.ToString());
 //
 //      FVector RelativeEdge = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
 //      FVector WorldEdge = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
-//      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD RelativeCenter - %s"), *GetName(), *RelativeCenter.ToString());
-//      UE_LOG(LogTemp, Warning, TEXT("%s::DrawHUD WorldCenter - %s"), *GetName(), *WorldCenter.ToString());
 
 //      FVector2D CenterScreenLoc = Project(WorldCenter);
 

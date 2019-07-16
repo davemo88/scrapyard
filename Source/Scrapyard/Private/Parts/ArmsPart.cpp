@@ -28,13 +28,11 @@ UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer
 
 void UArmsPart::Draft(USoloDraft* SoloDraft)
 {
-//  UE_LOG(LogTemp, Warning, TEXT("Drafted %s"), *PartName);
   SoloDraft->DraftedArms.AddUnique(this);
 }
 
 void UArmsPart::Assign(UPartAssignment* PartAssignment)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::Assign"), *GetName());
   PartAssignment->SetArms(this);
 }
 

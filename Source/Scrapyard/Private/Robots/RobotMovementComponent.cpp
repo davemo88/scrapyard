@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotMovementComponent.h"
+#include "Scrapyard.h"
 #include "GameFramework/Character.h"
 #include "Player/RobotPlayerController.h"
 #include "TimerManager.h"
@@ -51,8 +52,6 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
   ARobotPlayerController* PC = Cast<ARobotPlayerController>(RobotChar->Controller);
   if (PC != NULL && PC->PlayerInput != NULL)
   {
-//    this is from Unreal Tournament
-//    UE_LOG(LogTemp, Warning, TEXT("ApplyDeferred"));
 //    if (PC->HasDeferredFireInputs())
 //    {
       PC->ApplyDeferredFireInputs();
@@ -72,11 +71,11 @@ void URobotMovementComponent::TickComponent(float DeltaTime, enum ELevelTick Tic
 
 void URobotMovementComponent::Landed(const FHitResult & Hit)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::Landed"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("Robot Velocity = %s"), *RobotChar->GetVelocity().ToString());
+  UE_LOG(LogMovement, Log, TEXT("%s::Landed"), *GetName());
+  UE_LOG(LogMovement, Log, TEXT("Robot Velocity = %s"), *RobotChar->GetVelocity().ToString());
   if (RobotChar && RobotChar->GetVelocity().Z < LandingSpeedThreshold)
   {
-    UE_LOG(LogTemp, Warning, TEXT("Rough Landing"));
+    UE_LOG(LogMovement, Log, TEXT("Rough Landing"));
     SetRobotMovementState(ERobotMovementState::MOVE_Land);
     RobotChar->GetWorldTimerManager().SetTimer(LandingTimerHandle, this, &URobotMovementComponent::OnLandingTimerExpired, LandingTime);
     if (RobotChar->GetController())
@@ -86,14 +85,14 @@ void URobotMovementComponent::Landed(const FHitResult & Hit)
   }
   else if (RobotChar)
   {
-    UE_LOG(LogTemp, Warning, TEXT("Smooth Landing"));
+    UE_LOG(LogMovement, Log, TEXT("Smooth Landing"));
     RobotChar->GetWorldTimerManager().SetTimer(SmoothLandingTimerHandle, this, &URobotMovementComponent::OnSmoothLandingTimerExpired, SmoothLandingTime);
   }
 }
 
 void URobotMovementComponent::OnLandingTimerExpired()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnLandingTimerExpired"), *GetName());
+  UE_LOG(LogMovement, Log, TEXT("%s::OnLandingTimerExpired"), *GetName());
 //  MovementState = ERobotMovementState::MOVE_Walk;
   SetRobotMovementState(ERobotMovementState::MOVE_Walk);
   if (RobotChar != nullptr)
@@ -108,7 +107,7 @@ void URobotMovementComponent::OnLandingTimerExpired()
 
 void URobotMovementComponent::OnSmoothLandingTimerExpired()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnSmoothLandingTimerExpired"), *GetName());
+  UE_LOG(LogMovement, Log, TEXT("%s::OnSmoothLandingTimerExpired"), *GetName());
   if (RobotChar != nullptr)
   {
     RobotChar->GetWorldTimerManager().ClearTimer(SmoothLandingTimerHandle);
@@ -119,11 +118,11 @@ void URobotMovementComponent::UpdateRobotMovementState()
 {
   if (RobotChar != nullptr)
   {
-//    UE_LOG(LogTemp, Warning, TEXT("Beginning RobotMovementState: %i"), RobotMovementState);
+//    UE_LOG(LogMovement, Log, TEXT("Beginning RobotMovementState: %i"), RobotMovementState);
     float Speed = RobotChar->GetVelocity().Size();
     if (IsWalking()) 
     {
-//      UE_LOG(LogTemp, Warning, TEXT("anim instance char walking - speed %f"), Speed);
+//      UE_LOG(LogMovement, Log, TEXT("anim instance char walking - speed %f"), Speed);
 // if landing, wait for timer to run out
       if (RobotMovementState != ERobotMovementState::MOVE_Land)
       {
@@ -140,7 +139,7 @@ void URobotMovementComponent::UpdateRobotMovementState()
         }
         else
         {
-//          UE_LOG(LogTemp, Warning, TEXT("anim instance setting MOVE_Idle %i"),ERobotMovementState::MOVE_Idle);
+//          UE_LOG(LogMovement, Log, TEXT("anim instance setting MOVE_Idle %i"),ERobotMovementState::MOVE_Idle);
           SetRobotMovementState(ERobotMovementState::MOVE_Idle);
         }
       }
@@ -153,7 +152,7 @@ void URobotMovementComponent::UpdateRobotMovementState()
       }
       else
       {
-        UE_LOG(LogTemp, Warning, TEXT("landing while falling"));
+        UE_LOG(LogMovement, Log, TEXT("landing while falling"));
       }
     }
     else if (IsFlying())
@@ -161,7 +160,7 @@ void URobotMovementComponent::UpdateRobotMovementState()
       SetRobotMovementState(ERobotMovementState::MOVE_Fly);
     }
   }
-//  UE_LOG(LogTemp, Warning, TEXT("Ending RobotMovementState: %i"), RobotMovementState);
+//  UE_LOG(LogMovement, Log, TEXT("Ending RobotMovementState: %i"), RobotMovementState);
 }
 
 ERobotMovementState URobotMovementComponent::GetRobotMovementState()
@@ -193,7 +192,7 @@ void URobotMovementComponent::UpdateFromRobotStats()
 
 void URobotMovementComponent::SetBoostInput(uint8 bNewBoostInput)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetBoostInput"), *GetName());
+  UE_LOG(LogMovement, Log, TEXT("%s::SetBoostInput"), *GetName());
   bBoostInput = bNewBoostInput; 
 }
 
@@ -211,7 +210,7 @@ void URobotMovementComponent::CheckBoostInput()
         }
         else
         {
-        UE_LOG(LogTemp, Warning, TEXT("%s::CheckBoostInput- Set Timer"), *GetName());
+        UE_LOG(LogMovement, Log, TEXT("%s::CheckBoostInput- Set Timer"), *GetName());
         Char->GetWorld()->GetTimerManager().SetTimer(BoostHoldTimerHandle, this, &URobotMovementComponent::BoostHoldTimerExpired, BoostHoldThresholdTime, false);
         }
       }
@@ -224,7 +223,7 @@ void URobotMovementComponent::CheckBoostInput()
     {
       if (BoostHoldTimerHandle.IsValid() && (Char->GetWorld()->GetTimerManager().GetTimerElapsed(BoostHoldTimerHandle) < BoostHoldThresholdTime))
       {
-        UE_LOG(LogTemp, Warning, TEXT("%s::SetBoosting - Jump"), *GetName());
+        UE_LOG(LogMovement, Log, TEXT("%s::SetBoosting - Jump"), *GetName());
         Char->GetWorld()->GetTimerManager().ClearTimer(BoostHoldTimerHandle);
         DoJump(true);
       }
@@ -246,7 +245,7 @@ void URobotMovementComponent::ClearBoostInput()
 
 void URobotMovementComponent::BoostHoldTimerExpired()
 { 
-  UE_LOG(LogTemp, Warning, TEXT("%s::BoostHoldTimerExpired"), *GetName());
+  UE_LOG(LogMovement, Log, TEXT("%s::BoostHoldTimerExpired"), *GetName());
   if (ACharacter* Char = GetCharacterOwner())
   {
     Char->GetWorld()->GetTimerManager().ClearTimer(BoostHoldTimerHandle);
@@ -326,7 +325,7 @@ float URobotMovementComponent::GetMaxSpeed() const
 
   if (bBoosting)
   {
-//    UE_LOG(LogTemp, Warning, TEXT("%s::GetMaxSpeed - Boost"), *GetName());
+//    UE_LOG(LogMovement, Log, TEXT("%s::GetMaxSpeed - Boost"), *GetName());
     MaxSpeed *= BoostSpeedMultiplier;
   }
 
@@ -339,7 +338,7 @@ float URobotMovementComponent::GetMaxAcceleration() const
 
   if (bBoosting)
   {
-//    UE_LOG(LogTemp, Warning, TEXT("%s::GetMaxAcceleration - Boost"), *GetName());
+//    UE_LOG(LogMovement, Log, TEXT("%s::GetMaxAcceleration - Boost"), *GetName());
     MaxAcceleration *= BoostAccelerationMultiplier;
   }
 

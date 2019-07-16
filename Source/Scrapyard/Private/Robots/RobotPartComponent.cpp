@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotPartComponent.h"
+#include "Scrapyard.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
 #include "Parts/RobotPart.h"
@@ -11,18 +12,18 @@
 void URobotPartComponent::BeginPlay()
 {
   Super::BeginPlay();
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
+  UE_LOG(LogParts, Log, TEXT("%s::BeginPlay"), *GetName());
 }
 
 void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
 {
   if (NewRobotPart != nullptr)
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart"), *GetName());
+    UE_LOG(LogParts, Log, TEXT("%s::SetRobotPart"), *GetName());
     RobotPart = NewRobotPart;
     if (GetOwner() != NULL && GetWorld() != NULL && !(GetWorld()->GetNetMode() == NM_DedicatedServer))
     {
-      UE_LOG(LogTemp, Warning, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
+      UE_LOG(LogParts, Log, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
       SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->GetAsset<USkeletalMesh>(RobotPart->SkeletalMesh));
       SetMaterial(0,UScrapyardGameInstance::AssetsBP->GetAsset<UMaterial>(RobotPart->MajorMaterial));
     }

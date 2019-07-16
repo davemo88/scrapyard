@@ -2,6 +2,7 @@
 
 
 #include "PartAssignment.h"
+#include "Scrapyard.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
@@ -83,7 +84,7 @@ void UPartAssignment::SetDefaultAssignment()
 {
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
+    UE_LOG(LogParts, Log, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
     if (GameInstance->PartSingleton != nullptr)
     {
       SetHead(GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(1000));
@@ -98,7 +99,7 @@ void UPartAssignment::SetDefaultAssignment()
 
 void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetAssignment"), *GetName());
+  UE_LOG(LogParts, Log, TEXT("%s::SetAssignment"), *GetName());
 // TODO: should be possible with incomplete assignments 
   if (NewPartAssignment->IsComplete())
   {
@@ -127,16 +128,16 @@ void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
 
 void UPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
-  UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
-  UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
-  UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
-  UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
-  UE_LOG(LogTemp, Warning, TEXT("Left Handheld PartID: %d"), PartAssignmentIDs.LeftHandheldID);
-  UE_LOG(LogTemp, Warning, TEXT("Right Handheld PartID: %d"), PartAssignmentIDs.RightHandheldID);
-  UE_LOG(LogTemp, Warning, TEXT("First Chip PartID: %d"), PartAssignmentIDs.FirstChipID);
-  UE_LOG(LogTemp, Warning, TEXT("Second Chip PartID: %d"), PartAssignmentIDs.SecondChipID);
-  UE_LOG(LogTemp, Warning, TEXT("Third Chip PartID: %d"), PartAssignmentIDs.ThirdChipID);
+  UE_LOG(LogParts, Log, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
+  UE_LOG(LogParts, Log, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
+  UE_LOG(LogParts, Log, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
+  UE_LOG(LogParts, Log, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
+  UE_LOG(LogParts, Log, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+  UE_LOG(LogParts, Log, TEXT("Left Handheld PartID: %d"), PartAssignmentIDs.LeftHandheldID);
+  UE_LOG(LogParts, Log, TEXT("Right Handheld PartID: %d"), PartAssignmentIDs.RightHandheldID);
+  UE_LOG(LogParts, Log, TEXT("First Chip PartID: %d"), PartAssignmentIDs.FirstChipID);
+  UE_LOG(LogParts, Log, TEXT("Second Chip PartID: %d"), PartAssignmentIDs.SecondChipID);
+  UE_LOG(LogParts, Log, TEXT("Third Chip PartID: %d"), PartAssignmentIDs.ThirdChipID);
 
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
@@ -198,40 +199,40 @@ FPartAssignmentIDs UPartAssignment::GetPartAssignmentIDs() const
   if (IsComplete())
   {
     PartAssignmentIDs.HeadID = Head->PartID;
-    UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
+    UE_LOG(LogParts, Log, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
     PartAssignmentIDs.CoreID = Core->PartID;
-    UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
+    UE_LOG(LogParts, Log, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
     PartAssignmentIDs.ArmsID = Arms->PartID;
-    UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
+    UE_LOG(LogParts, Log, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
     PartAssignmentIDs.LegsID = Legs->PartID;
-    UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+    UE_LOG(LogParts, Log, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
 
 // TODO: need to do null checks for optional parts, maybe all
     if (LeftHandheld != nullptr)
     {
       PartAssignmentIDs.LeftHandheldID = LeftHandheld->PartID;
     }
-    UE_LOG(LogTemp, Warning, TEXT("Left Handheld PartID: %d"), PartAssignmentIDs.LeftHandheldID);
+    UE_LOG(LogParts, Log, TEXT("Left Handheld PartID: %d"), PartAssignmentIDs.LeftHandheldID);
     if (RightHandheld != nullptr)
     {
       PartAssignmentIDs.RightHandheldID = RightHandheld->PartID;
     }
-    UE_LOG(LogTemp, Warning, TEXT("Right Handheld PartID: %d"), PartAssignmentIDs.RightHandheldID);
+    UE_LOG(LogParts, Log, TEXT("Right Handheld PartID: %d"), PartAssignmentIDs.RightHandheldID);
     if (FirstChip != nullptr)
     {
       PartAssignmentIDs.FirstChipID = FirstChip->PartID;
     }
-    UE_LOG(LogTemp, Warning, TEXT("First Chip PartID: %d"), PartAssignmentIDs.FirstChipID);
+    UE_LOG(LogParts, Log, TEXT("First Chip PartID: %d"), PartAssignmentIDs.FirstChipID);
     if (SecondChip != nullptr)
     {
       PartAssignmentIDs.SecondChipID = SecondChip->PartID;
     }
-    UE_LOG(LogTemp, Warning, TEXT("Second Chip PartID: %d"), PartAssignmentIDs.SecondChipID);
+    UE_LOG(LogParts, Log, TEXT("Second Chip PartID: %d"), PartAssignmentIDs.SecondChipID);
     if (ThirdChip != nullptr)
     {
       PartAssignmentIDs.ThirdChipID = ThirdChip->PartID;
     }
-    UE_LOG(LogTemp, Warning, TEXT("Third Chip PartID: %d"), PartAssignmentIDs.ThirdChipID);
+    UE_LOG(LogParts, Log, TEXT("Third Chip PartID: %d"), PartAssignmentIDs.ThirdChipID);
   }
 
   return PartAssignmentIDs;

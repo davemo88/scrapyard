@@ -34,7 +34,6 @@ float UConeTargetingProfile::GetConeRadius(float Distance)
 
 TArray<FVector> UConeTargetingProfile::InitFaceVerts()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::InitFaceVerts"), *GetName());
   TArray<FVector> FaceVerts;
   float FaceRadius = GetConeRadius(Range);
 // 12 points around the circular face of the cone
@@ -45,7 +44,6 @@ TArray<FVector> UConeTargetingProfile::InitFaceVerts()
   for (uint i = 0; i < NumPoints; i++)
   {
     NextVert = FRotator(0, 0, i*RotationIncrement).RotateVector(FVector(Range,0,FaceRadius));
-//    UE_LOG(LogTemp, Warning, TEXT("Next Vert %f - %s"), i*RotationIncrement, *NextVert.ToString());
     FaceVerts.Add(NextVert);
   }
   return FaceVerts;

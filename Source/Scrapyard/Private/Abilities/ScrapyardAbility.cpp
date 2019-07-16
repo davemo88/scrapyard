@@ -2,6 +2,7 @@
 
 
 #include "ScrapyardAbility.h"
+#include "Scrapyard.h"
 #include "Robots/RobotCharacter.h"
 #include "Abilities/AbilityState.h"
 #include "Abilities/AbilityStateActive.h"
@@ -19,7 +20,7 @@ AScrapyardAbility::AScrapyardAbility()
   bAlwaysRelevant = true;
 
 // TODO: virtual function to set up the ability states and targeting profile
-  UE_LOG(LogTemp, Warning, TEXT("%s::AScrapyardAbility"), *GetName());
+  UE_LOG(LogAbilities, Log, TEXT("%s::AScrapyardAbility"), *GetName());
   SetupAbilityStates();
   CurrentState = ActiveState;
 
@@ -42,17 +43,17 @@ void AScrapyardAbility::SetupTargetingProfile()
 
 void AScrapyardAbility::StartFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::StartFire (Scrapyard Ability)"), *GetName());
+  UE_LOG(LogAbilities,Log,TEXT("%s::StartFire (Scrapyard Ability)"), *GetName());
 
   const UEnum* NetRoleEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENetRole"));
-  UE_LOG(LogTemp, Warning, TEXT("%s::StartFire - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
-  UE_LOG(LogTemp, Warning, TEXT("%s::StartFire - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(RobotOwner->GetRemoteRole()) : TEXT("oops")));
+  UE_LOG(LogAbilities, Log, TEXT("%s::StartFire - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
+  UE_LOG(LogAbilities, Log, TEXT("%s::StartFire - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(RobotOwner->GetRemoteRole()) : TEXT("oops")));
 
   bool bClientFired = BeginFiringSequence(FireModeNum, false);
 
   if (Role < ROLE_Authority)
   {
-    UE_LOG(LogTemp,Warning,TEXT("%s::StartFire - Role < ROLE_Authority"), *GetName());
+    UE_LOG(LogAbilities,Log,TEXT("%s::StartFire - Role < ROLE_Authority"), *GetName());
     UAbilityStateFiring* CurrentFiringState = FiringState.IsValidIndex(FireModeNum) ? FiringState[FireModeNum] : nullptr;  
     if (CurrentFiringState)
     {
@@ -62,14 +63,14 @@ void AScrapyardAbility::StartFire(uint8 FireModeNum)
         FireEventIndex = 0;
       }
     }
-    UE_LOG(LogTemp,Warning,TEXT("%s::StartFire - Calling ServerStartFire"), *GetName());
+    UE_LOG(LogAbilities,Log,TEXT("%s::StartFire - Calling ServerStartFire"), *GetName());
     ServerStartFire(FireModeNum, FireEventIndex, bClientFired);
   }
 }
 
 void AScrapyardAbility::StopFire(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::StopFire"), *GetName());
+  UE_LOG(LogAbilities,Log,TEXT("%s::StopFire"), *GetName());
   EndFiringSequence(FireModeNum);
   if (Role < ROLE_Authority)
   {
@@ -112,7 +113,7 @@ void AScrapyardAbility::GotoActiveState()
 
 void AScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 {
- UE_LOG(LogTemp,Warning,TEXT("%s::GotoFireMode"), *GetName());
+ UE_LOG(LogAbilities,Log,TEXT("%s::GotoFireMode"), *GetName());
  if (FiringState.IsValidIndex(NewFireMode))
  {
    CurrentFireMode = NewFireMode;
@@ -122,7 +123,7 @@ void AScrapyardAbility::GotoFireMode(uint8 NewFireMode)
 
 bool AScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::BeginFiringSequence"), *GetName());
+  UE_LOG(LogAbilities,Log,TEXT("%s::BeginFiringSequence"), *GetName());
   if (RobotOwner != NULL)
   {
     RobotOwner->SetPendingFire(FireModeNum, true);
@@ -138,7 +139,7 @@ bool AScrapyardAbility::BeginFiringSequence(uint8 FireModeNum, bool bClientFired
 
 void AScrapyardAbility::EndFiringSequence(uint8 FireModeNum)
 {
-  UE_LOG(LogTemp,Warning,TEXT("%s::EndFiringSequence"), *GetName());
+  UE_LOG(LogAbilities,Log,TEXT("%s::EndFiringSequence"), *GetName());
   if (RobotOwner)
   {
     RobotOwner->SetPendingFire(FireModeNum, false);
@@ -162,7 +163,7 @@ bool AScrapyardAbility::CanFireAgain()
   
 void AScrapyardAbility::FireShot()
 {
-  UE_LOG(LogTemp, Warning, TEXT("AScrapyardAbility::FireShot"));
+  UE_LOG(LogAbilities, Log, TEXT("AScrapyardAbility::FireShot"));
   // can either override this on ability subclasses
   // or override FireProjectile / FireInstantHit etc
 }
@@ -187,12 +188,12 @@ float AScrapyardAbility::GetRefireTime(uint8 FireModeNum)
 
 void AScrapyardAbility::FireInstantHit(bool bDealDamage, FHitResult* OutHit)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::FireInstantHit"), *GetName());
+  UE_LOG(LogAbilities, Log, TEXT("%s::FireInstantHit"), *GetName());
 }
 
 FVector AScrapyardAbility::GetFireStartLoc(uint8 FireMode)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::GetFireStartLoc"), *GetName());
+  UE_LOG(LogAbilities, Log, TEXT("%s::GetFireStartLoc"), *GetName());
   if (FireMode == 255)
   {
     FireMode = CurrentFireMode;
@@ -222,7 +223,7 @@ FRotator AScrapyardAbility::GetBaseFireRotation()
 
 void AScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector& EndTrace, float TraceRadius, FHitResult& Hit, float PredictionTime)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::HitScanTrace"), *GetName());
+  UE_LOG(LogAbilities, Log, TEXT("%s::HitScanTrace"), *GetName());
   const FName TraceTag("MyTraceTag");
   GetWorld()->DebugDrawTraceTag = TraceTag;
 
@@ -233,10 +234,10 @@ void AScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector
   if (TraceRadius <= 0.0f)
   {
     GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndTrace, TraceChannel, QueryParams);
-    UE_LOG(LogTemp, Warning, TEXT("The Hit TraceStart is %s"), *Hit.TraceStart.ToString());
+    UE_LOG(LogAbilities, Log, TEXT("The Hit TraceStart is %s"), *Hit.TraceStart.ToString());
     if (Hit.Actor != NULL)
     {
-      UE_LOG(LogTemp, Warning, TEXT("Hit an Actor!"));
+      UE_LOG(LogAbilities, Log, TEXT("Hit an Actor!"));
     }
   }
   else
@@ -259,14 +260,14 @@ void AScrapyardAbility::HitScanTrace(const FVector& StartLocation, const FVector
 
 void AScrapyardAbility::ServerStartFire_Implementation(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ServerStartFire_Implementation"), *GetName());
+  UE_LOG(LogAbilities, Log, TEXT("%s::ServerStartFire_Implementation"), *GetName());
 
   BeginFiringSequence(FireModeNum, bClientFired);
 }
 
 bool AScrapyardAbility::ServerStartFire_Validate(uint8 FireModeNum, uint8 InFireEventIndex, bool bClientFired)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ServerStartFire_Validate"), *GetName());
+  UE_LOG(LogAbilities, Log, TEXT("%s::ServerStartFire_Validate"), *GetName());
   return true;
 }
 

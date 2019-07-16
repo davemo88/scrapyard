@@ -2,6 +2,7 @@
 
 
 #include "SoloDraftWidget.h"
+#include "Scrapyard.h"
 #include "SoloDraftPlayerController.h"
 #include "UI/YourPartsWidget.h"
 #include "Blueprint/WidgetTree.h"
@@ -14,7 +15,7 @@
 
 void USoloDraftWidget::NativeConstruct()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeConstruct"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 
   UpdatePickCounter();
@@ -29,7 +30,7 @@ void USoloDraftWidget::UpdatePickCounter()
 
 void USoloDraftWidget::DisplayNextPack()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::DisplayNextPack"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::DisplayNextPack"), *GetName());
   ASoloDraftPlayerController* OwningController = Cast<ASoloDraftPlayerController>(GetOwningPlayer());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();

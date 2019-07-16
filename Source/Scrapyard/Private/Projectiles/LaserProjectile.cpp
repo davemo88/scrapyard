@@ -12,7 +12,6 @@ ALaserProjectile::ALaserProjectile()
   
   if (UScrapyardGameInstance::AssetsBP != nullptr)
   {
-    UE_LOG(LogTemp, Warning, TEXT("setting beam"));
     LaserBeam->SetTemplate(UScrapyardGameInstance::AssetsBP->GetAsset<UParticleSystem>(UScrapyardGameInstance::AssetsBP->ProjectileAssetsBP->LaserBeamParticleSystem));
   }
 }

@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MainMenuWidget.h"
+#include "Scrapyard.h"
 #include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "Game/ScrapyardGameInstance.h"
@@ -46,7 +47,7 @@ void UMainMenuWidget::OnJoinButtonClicked()
 
 void UMainMenuWidget::OnQuitButtonClicked()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnQuitButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnQuitButtonClicked"), *GetName());
   FGenericPlatformMisc::RequestExit(false);
   
 }

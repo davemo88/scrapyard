@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Scrapyard.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -134,7 +135,7 @@ public:
 
   inline void SetPendingFire(uint8 InFireMode, bool bNowFiring)
   {
-    UE_LOG(LogTemp, Warning, TEXT("ARobotCharacter::SetPendingFire"));
+    UE_LOG(LogCharacter, Verbose, TEXT("ARobotCharacter::SetPendingFire"));
 // extend the PendingFire Array if it's not big enough
     if (PendingFire.Num() < InFireMode + 1 )
     {

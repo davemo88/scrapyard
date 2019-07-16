@@ -10,14 +10,14 @@
 
 AScrapyardPlayerController::AScrapyardPlayerController()
 {
-  UE_LOG(LogTemp,Warning,TEXT("scrapyard constructor- bDefaultShowMouseCursor is %s"), (bDefaultShowMouseCursor ? TEXT("True") : TEXT("False")));
+//  UE_LOG(LogController,Log,TEXT("scrapyard constructor- bDefaultShowMouseCursor is %s"), (bDefaultShowMouseCursor ? TEXT("True") : TEXT("False")));
   bDefaultShowMouseCursor = false;
   bShowMouseCursor = bDefaultShowMouseCursor;
 }
 
 void AScrapyardPlayerController::BeginPlay()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
   if (IsLocalController())
@@ -41,7 +41,7 @@ void AScrapyardPlayerController::SetupInputComponent()
 
 void AScrapyardPlayerController::ToggleEscapeMenu()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ToggleEscapeMenu"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::ToggleEscapeMenu"), *GetName());
   if (EscapeMenuWidget->IsVisible())
   {
     HideEscapeMenu();
@@ -54,7 +54,7 @@ void AScrapyardPlayerController::ToggleEscapeMenu()
 
 void AScrapyardPlayerController::ShowEscapeMenu()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ShowEscapeMenu"), *StaticClass()->GetFName().ToString());
+  UE_LOG(LogController, Log, TEXT("%s::ShowEscapeMenu"), *StaticClass()->GetFName().ToString());
   EscapeMenuWidget->SetVisibility(ESlateVisibility::Visible);
   ClientIgnoreLookInput(true);
   SetEscapeMenuInputMode();
@@ -65,7 +65,7 @@ void AScrapyardPlayerController::ShowEscapeMenu()
 
 void AScrapyardPlayerController::HideEscapeMenu()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::HideEscapeMenu"), *StaticClass()->GetFName().ToString());
+  UE_LOG(LogController, Log, TEXT("%s::HideEscapeMenu"), *StaticClass()->GetFName().ToString());
   EscapeMenuWidget->SetVisibility(ESlateVisibility::Hidden);
   ClientIgnoreLookInput(false);
   SetDefaultInputMode();

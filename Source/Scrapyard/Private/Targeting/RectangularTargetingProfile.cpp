@@ -18,7 +18,6 @@ bool URectangularTargetingProfile::IsTargeted(ARobotCharacter* Robot, AActor* Ta
   {
     return false;
   }
-//  UE_LOG(LogTemp, Warning, TEXT("%s::IsTargeted"), *GetName());
   FVector TargetRelativeLocation = GetTargetRelativeLocation(GetTargetingLocation(Robot), GetTargetingRotation(Robot), Target->GetActorLocation());
 
   float HorizontalTargetingRange = FMath::Tan(HorizontalAngle) * TargetRelativeLocation.X;

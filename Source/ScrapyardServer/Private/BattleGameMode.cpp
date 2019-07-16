@@ -20,7 +20,7 @@ ABattleGameMode::ABattleGameMode()
 
 void ABattleGameMode::BeginPlay()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
   ABattleGameState* BattleGS = GetGameState<ABattleGameState>();
 //TODO: update this to use specific resolution functions for when certain timers end
@@ -29,7 +29,7 @@ void ABattleGameMode::BeginPlay()
 
 void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::PostLogin"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::PostLogin"), *GetName());
   Super::PostLogin(NewPlayer);
 
   ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(NewPlayer);
@@ -42,12 +42,12 @@ void ABattleGameMode::PostLogin(APlayerController* NewPlayer)
 
 void ABattleGameMode::Logout(AController* Exiting)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::Logout"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::Logout"), *GetName());
   Super::Logout(Exiting);
 
   if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(Exiting))
   {
-    UE_LOG(LogTemp, Warning, TEXT("Logout: UnregisterWithGamestate"));
+    UE_LOG(LogGameMode, Log, TEXT("Logout: UnregisterWithGamestate"));
     if (RobotPC->GetRobotCharacter())
     RobotPC->GetRobotCharacter()->TargetableComponent->UnregisterWithGamestate();
   }
@@ -78,7 +78,7 @@ bool ABattleGameMode::IsGameStateReplicatedToAllClients()
 
 bool ABattleGameMode::ReadyToStartMatch_Implementation()
 {
-//  UE_LOG(LogTemp, Warning, TEXT("%s::ReadyToStartMatch_Implementation"), *GetName());
+//  UE_LOG(LogGameMode, Log, TEXT("%s::ReadyToStartMatch_Implementation"), *GetName());
   ABattleGameState* BattleGS = GetGameState<ABattleGameState>();
   if (GetNumPlayers() >= MinPlayers)
   {
@@ -113,17 +113,17 @@ bool ABattleGameMode::ReadyToEndMatch_Implementation()
 
 void ABattleGameMode::StartMatch()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::StartMatch"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::StartMatch"), *GetName());
   Super::StartMatch();
 }
 
 void ABattleGameMode::RestartPlayer(AController* NewPlayer)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::RestartPlayer"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::RestartPlayer"), *GetName());
   Super::RestartPlayer(NewPlayer);
   if (ARobotCharacter* RobotChar = Cast<ARobotCharacter>(NewPlayer->GetPawn()))
   {
-    UE_LOG(LogTemp, Warning, TEXT("%s::RestartPlayer - RobotChar OK"), *GetName());
+    UE_LOG(LogGameMode, Log, TEXT("%s::RestartPlayer - RobotChar OK"), *GetName());
     RobotChar->ZeroHitPointsDelegate.AddDynamic(this, &ABattleGameMode::OnZeroHitPoints);
   }
 }
@@ -145,13 +145,13 @@ void ABattleGameMode::OnMatchTimerExpired()
 void ABattleGameMode::HandleMatchIsWaitingToStart()
 {
   Super::HandleMatchIsWaitingToStart();
-  UE_LOG(LogTemp, Warning, TEXT("HandleMatchIsWaitingToStart"));
+  UE_LOG(LogGameMode, Log, TEXT("HandleMatchIsWaitingToStart"));
 }
 
 void ABattleGameMode::HandleMatchHasStarted()
 {
   Super::HandleMatchHasStarted();
-  UE_LOG(LogTemp, Warning, TEXT("%s::HandleMatchHasStarted"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::HandleMatchHasStarted"), *GetName());
   if (ABattleGameState* BattleGS = GetGameState<ABattleGameState>())
   {
     BattleGS->MulticastStartMatchTimer(BattleTime);
@@ -162,12 +162,12 @@ void ABattleGameMode::HandleMatchHasStarted()
 
 void ABattleGameMode::HandleMatchAborted()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::HandleMatchAborted"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::HandleMatchAborted"), *GetName());
 }
 
 void ABattleGameMode::HandleMatchHasEnded()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::HandleMatchHasEnded"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::HandleMatchHasEnded"), *GetName());
   if (ABattleGameState* BattleGS = GetGameState<ABattleGameState>())
   {
     BattleGS->MulticastStartMatchTimer(EndCooldownTime);
@@ -178,18 +178,18 @@ void ABattleGameMode::HandleMatchHasEnded()
 
 void ABattleGameMode::HandleLeavingMap()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::HandleLeavingMap"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::HandleLeavingMap"), *GetName());
 }
 
 void ABattleGameMode::HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer)
 {
 //  Super::HandleStartingNewPlayer_Implementation();
-  UE_LOG(LogTemp, Warning, TEXT("HandleStartingNewPlayer"));
+  UE_LOG(LogGameMode, Log, TEXT("HandleStartingNewPlayer"));
 }
 
 void ABattleGameMode::OnBattleTimeExpired()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnBattleTimeExpired"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::OnBattleTimeExpired"), *GetName());
   if (ABattleGameState* BattleGS = GetGameState<ABattleGameState>())
   {
     BattleGS->OnMatchTimerExpiredDelegate.RemoveDynamic(this, &ABattleGameMode::OnBattleTimeExpired);
@@ -199,7 +199,7 @@ void ABattleGameMode::OnBattleTimeExpired()
 
 void ABattleGameMode::OnEndCooldownTimeExpired()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnEndCooldownTimeExpired"), *GetName());
+  UE_LOG(LogGameMode, Log, TEXT("%s::OnEndCooldownTimeExpired"), *GetName());
   if (ABattleGameState* BattleGS = GetGameState<ABattleGameState>())
   {
     BattleGS->OnMatchTimerExpiredDelegate.RemoveDynamic(this, &ABattleGameMode::OnEndCooldownTimeExpired);

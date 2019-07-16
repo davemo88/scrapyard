@@ -17,12 +17,12 @@
 
 ASoloDraftPlayerController::ASoloDraftPlayerController()
 {
-  UE_LOG(LogTemp, Warning, TEXT("ASoloDraftPlayerController::ASoloDraftPlayerController"));
+  UE_LOG(LogController, Log, TEXT("ASoloDraftPlayerController::ASoloDraftPlayerController"));
 }
 
 void ASoloDraftPlayerController::SetupWidget()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->AssetsBP->UIAssetsBP->SoloDraftWidgetBP);
   SoloDraftWidget->YourPartsWidget->CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
@@ -31,13 +31,13 @@ void ASoloDraftPlayerController::SetupWidget()
 
 void ASoloDraftPlayerController::OnNextPack()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnNextPack"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::OnNextPack"), *GetName());
   SoloDraftWidget->DisplayNextPack();
 }
 
 void ASoloDraftPlayerController::OnPartDoubleClicked(URobotPart* RobotPart)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnPartDoubleClicked"), *GetName());  
+  UE_LOG(LogController, Log, TEXT("%s::OnPartDoubleClicked"), *GetName());  
 
   PartDraftedDelegate.Broadcast(RobotPart);
 
@@ -48,5 +48,5 @@ void ASoloDraftPlayerController::OnPartDoubleClicked(URobotPart* RobotPart)
 
 void ASoloDraftPlayerController::OnPartCardHovered(URobotPart* RobotPart)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnPartCardHovered"), *GetName());  
+  UE_LOG(LogController, Log, TEXT("%s::OnPartCardHovered"), *GetName());  
 }

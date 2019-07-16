@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RobotPlayerController.h"
+#include "Scrapyard.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerCameraManager.h"
 #include "Player/RobotPlayerState.h"
@@ -12,14 +13,12 @@
 
 ARobotPlayerController::ARobotPlayerController()
 {
-  UE_LOG(LogTemp, Warning, TEXT("ARobotPlayerController Constructor"));
   PlayerCameraManagerClass = ARobotPlayerCameraManager::StaticClass();
 }
 
 void ARobotPlayerController::BeginPlay()
 {
   Super::BeginPlay();
-  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
 //  UGameViewportClient* ViewportClient = GetWorld()->GetGameInstance()->GetGameViewportClient();
 //  ViewportClient->Viewport->CaptureMouse(true);
 //  ViewportClient->Viewport->SetUserFocus(true);
@@ -49,7 +48,7 @@ void ARobotPlayerController::Tick(float DeltaTime)
 void ARobotPlayerController::OnPossess(APawn* InPawn)
 {
   Super::OnPossess(InPawn);
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnPossess - %s"), *GetName(), *InPawn->GetName());
+  UE_LOG(LogController, Verbose, TEXT("%s::OnPossess - %s"), *GetName(), *InPawn->GetName());
 
 //TODO: should only branch on server i think
   if (ARobotCharacter* RoboChar = Cast<ARobotCharacter>(InPawn))
@@ -60,7 +59,7 @@ void ARobotPlayerController::OnPossess(APawn* InPawn)
     if (ARobotPlayerState* RobotPlayerState = GetPlayerState<ARobotPlayerState>())
     {
       RoboChar->Team = RobotPlayerState->GetTeam();
-      UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay - Team %i"), *RoboChar->GetName(), RoboChar->Team);
+      UE_LOG(LogController, Verbose, TEXT("%s::BeginPlay - Team %i"), *RoboChar->GetName(), RoboChar->Team);
     }
 
     if (IsLocalController())
@@ -72,7 +71,7 @@ void ARobotPlayerController::OnPossess(APawn* InPawn)
 
 void ARobotPlayerController::OnFire()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnFire"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::OnFire"), *GetName());
   bFirePressed = true;
   if (GetPawn() != NULL)
   {
@@ -82,7 +81,7 @@ void ARobotPlayerController::OnFire()
 
 void ARobotPlayerController::OnStopFire()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::StopFire"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::StopFire"), *GetName());
   bFirePressed = false;
   if (GetPawn() != NULL)
   {
@@ -104,7 +103,7 @@ bool ARobotPlayerController::HasDeferredFireInputs()
 
 void ARobotPlayerController::ApplyDeferredFireInputs()
 {
-//  UE_LOG(LogTemp,Warning,TEXT("ARobotPlayerController::ApplyDeferredFireInputs"));
+//  UE_LOG(LogController,Log,TEXT("ARobotPlayerController::ApplyDeferredFireInputs"));
   for (FDeferredFireInput Input : DeferredFireInputs)
   {
     if (Input.bStartFire)
@@ -163,18 +162,18 @@ bool ARobotPlayerController::ServerSetPartAssignmentIDs_Validate(FPartAssignment
 
 void ARobotPlayerController::ServerSetPartAssignmentIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ServerSetPartAssignment_Implementation"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::ServerSetPartAssignment_Implementation"), *GetName());
   PartAssignmentIDs = NewPartAssignmentIDs;
-  UE_LOG(LogTemp, Warning, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
-  UE_LOG(LogTemp, Warning, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
-  UE_LOG(LogTemp, Warning, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
-  UE_LOG(LogTemp, Warning, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+  UE_LOG(LogController, Log, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
+  UE_LOG(LogController, Log, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
+  UE_LOG(LogController, Log, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
+  UE_LOG(LogController, Log, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
 
 }
 
 void ARobotPlayerController::ClientGetPartAssignmentIDs_Implementation()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ClientGetPartAssignment_Implementation"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::ClientGetPartAssignment_Implementation"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   if (GameInstance->PartAssignment != NULL)
   {
@@ -234,14 +233,14 @@ bool ARobotPlayerController::ServerSetNewTune_Validate(FRobotTuneParams TunePara
 
 void ARobotPlayerController::ApplyTuneParams(FRobotTuneParams TuneParams)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ApplyTuneParams"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::ApplyTuneParams"), *GetName());
   if (RobotCharacter)
   {
     if (URobotMovementComponent* RobotMovementComp = Cast<URobotMovementComponent>(RobotCharacter->GetMovementComponent()))
     {
-      UE_LOG(LogTemp, Warning, TEXT("New GroundFriction: %s"), *TuneParams.GroundFriction);
+      UE_LOG(LogController, Log, TEXT("New GroundFriction: %s"), *TuneParams.GroundFriction);
       RobotMovementComp->GroundFriction = FCString::Atof(*TuneParams.GroundFriction);
-      UE_LOG(LogTemp, Warning, TEXT("New BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
+      UE_LOG(LogController, Log, TEXT("New BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
       RobotMovementComp->BoostHoldThresholdTime= FCString::Atof(*TuneParams.BoostHoldThresholdTime);
     }
   }

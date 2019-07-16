@@ -25,7 +25,7 @@ AGaragePlayerController::AGaragePlayerController()
 
 void AGaragePlayerController::SetupWidget()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::SetupWidget"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->AssetsBP->UIAssetsBP->GarageWidgetBP);
   GarageWidget->YourPartsWidget->CurrentDraft = GameInstance->SoloDraft;
@@ -53,7 +53,7 @@ void AGaragePlayerController::SetupWidget()
 
 void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnNewCardReady"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::OnNewCardReady"), *GetName());
   
 //  CardWidget->RobotPart->GetSkeletalMesh();
 //  CardWidget->RobotPart->GetMajorMaterial();
@@ -64,20 +64,20 @@ void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
 
 void AGaragePlayerController::OnCardDoubleClicked(URobotPart* RobotPart)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardDoubleClicked"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::OnCardDoubleClicked"), *GetName());
   RobotPart->Assign(PartAssignment);
   RobotPart->Assign(NewValueAssignment);
 }
 
 void AGaragePlayerController::OnCardMouseEntered(URobotPart* RobotPart)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardMouseEntered"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::OnCardMouseEntered"), *GetName());
   RobotPart->Assign(NewValueAssignment);
 //  NewValueAssignment->GetPartAssignmentIDs();
 }
 void AGaragePlayerController::OnCardMouseLeft(URobotPart* RobotPart)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::OnCardMouseLeft"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::OnCardMouseLeft"), *GetName());
   NewValueAssignment->SetAssignment(PartAssignment);
 //  NewValueAssignment->GetPartAssignmentIDs();
 }
@@ -89,7 +89,7 @@ void AGaragePlayerController::GotoGarageTestLevel()
 
 void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::EndPlay"), *GetName());
+  UE_LOG(LogController, Log, TEXT("%s::EndPlay"), *GetName());
 //TODO: this is just here to print some stuff to logs i guess
   PartAssignment->GetPartAssignmentIDs();
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();

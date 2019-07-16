@@ -2,13 +2,14 @@
 //
 
 #include "EscapeMenuWidget.h"
+#include "Scrapyard.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "UI/RobotTunerWidget.h"
 #include "Kismet/GameplayStatics.h"
 
 void UEscapeMenuWidget::NativeConstruct()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeConstruct"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 
   OptionsButton->OnClicked.AddDynamic(this, &UEscapeMenuWidget::Options);
@@ -22,19 +23,19 @@ void UEscapeMenuWidget::NativeConstruct()
 
 void UEscapeMenuWidget::NativeOnInitialized()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::NativeOnInitialized"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnInitialized"), *GetName());
   Super::NativeOnInitialized();
   
 }
 
 void UEscapeMenuWidget::Options()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::Options"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::Options"), *GetName());
 }
 	
 void UEscapeMenuWidget::QuitToMainMenu()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::QuitToMainMenu"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::QuitToMainMenu"), *GetName());
   UWorld* World = GetWorld();
   UGameplayStatics::OpenLevel(World, "/Game/Levels/DebugMainLevel");
   
@@ -42,13 +43,13 @@ void UEscapeMenuWidget::QuitToMainMenu()
 
 void UEscapeMenuWidget::QuitToDesktop()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::QuitToDesktop"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::QuitToDesktop"), *GetName());
   FGenericPlatformMisc::RequestExit(false);
 }
 
 void UEscapeMenuWidget::ShowTunerWidget()
 {
-  UE_LOG(LogTemp, Warning, TEXT("%s::ShowTunerWidget"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::ShowTunerWidget"), *GetName());
   ARobotCharacter* RobotChar = Cast<ARobotCharacter>(GetOwningPlayer()->GetPawn());
   if (TunerWidget->RobotChar != nullptr && TunerWidget->RobotChar->IsLocallyControlled())
   {
