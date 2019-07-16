@@ -39,21 +39,21 @@ FReply UPartCardWidget::NativeOnMouseButtonDoubleClick(const FGeometry & InGeome
 
 void UPartCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseEnter"), *GetName());
+  UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseEnter"), *GetName());
   CardMouseEnteredDelegate.Broadcast(RobotPart);
   Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }
 
 void UPartCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseLeave"), *GetName());
+  UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseLeave"), *GetName());
   CardMouseLeftDelegate.Broadcast(RobotPart);
   Super::NativeOnMouseLeave(InMouseEvent);
 }
 
 void UPartCardWidget::AddStatsText()
 {
-  UE_LOG(LogUI, Log, TEXT("%s::AddStatsText"), *GetName());
+  UE_LOG(LogUI, VeryVerbose, TEXT("%s::AddStatsText"), *GetName());
   TArray<FStatText> StatsText = RobotPart->GetStatsText();
   for (int32 i = 0; i < StatsText.Num(); ++i)
   {
@@ -63,7 +63,7 @@ void UPartCardWidget::AddStatsText()
 
 void UPartCardWidget::AddStatLine(FStatText StatText)
 {
-  UE_LOG(LogUI, Log, TEXT("%s::AddStatLine"), *GetName());
+  UE_LOG(LogUI, VeryVerbose, TEXT("%s::AddStatLine"), *GetName());
   APlayerController* OwningPlayer = GetOwningPlayer();
   UScrapyardGameInstance* GameInstance = OwningPlayer->GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   UStatLineWidget* StatLine = CreateWidget<UStatLineWidget>(OwningPlayer, GameInstance->AssetsBP->UIAssetsBP->StatLineWidgetBP);

@@ -46,8 +46,8 @@ void USoloDraftWidget::DisplayNextPack()
     Card->SetRobotPart(NextPack[i]);
     Card->CardMouseEnteredDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartCardHovered);
     Card->CardDoubleClickedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDoubleClicked);
-    Card->CardSizeBox->SetWidthOverride(240);
-    Card->CardSizeBox->SetHeightOverride(330);
+    Card->CardSizeBox->SetWidthOverride(360);
+    Card->CardSizeBox->SetHeightOverride(495);
     PackDisplayPanel->AddChild(Card);
     if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))
     {

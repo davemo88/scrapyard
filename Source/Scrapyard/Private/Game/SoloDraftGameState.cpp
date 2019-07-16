@@ -18,7 +18,6 @@ ASoloDraftGameState::ASoloDraftGameState()
   CurrentDraft = CreateDefaultSubobject<USoloDraft>(TEXT("CurrentDraft"));
 }
 
-// Called when the game starts or when spawned
 void ASoloDraftGameState::BeginPlay()
 {
   UE_LOG(LogGameState, Log, TEXT("%s::BeginPlay"), *GetName());
