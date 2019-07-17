@@ -31,7 +31,7 @@ public:
   void OnPartCardHovered(URobotPart* RobotPart);
 
   UFUNCTION()
-  void OnPartDoubleClicked(URobotPart* RobotPart);
+  void OnPartDrafted(URobotPart* RobotPart);
 
 protected:
 

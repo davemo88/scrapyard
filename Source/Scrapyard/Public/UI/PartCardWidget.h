@@ -49,10 +49,16 @@ public:
   UPROPERTY(meta=(BindWidget))
   USizeBox* CardSizeBox;
 
+  bool bHoverBorderActive = false;
+
 protected:
 
   FReply NativeOnMouseButtonDown(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
   FReply NativeOnMouseButtonUp(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
+  
+  bool bMouseDownOnCard;
+
+//  FReply NativeOnMouseMove(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent);
 
   void NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 
@@ -75,5 +81,14 @@ protected:
 
   UPROPERTY(meta=(BindWidget))
   UVerticalBox* StatsBox;
+
+  UPROPERTY(meta=(BindWidget))
+  UBorder* HoverBorder;
+
+  UPROPERTY(meta=(BindWidgetAnim))
+  UWidgetAnimation* ShowHoverBorder;
+
+  UPROPERTY(meta=(BindWidgetAnim))
+  UWidgetAnimation* HideHoverBorder;
 
 };

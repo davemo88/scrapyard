@@ -35,9 +35,9 @@ void ASoloDraftPlayerController::OnNextPack()
   SoloDraftWidget->DisplayNextPack();
 }
 
-void ASoloDraftPlayerController::OnPartDoubleClicked(URobotPart* RobotPart)
+void ASoloDraftPlayerController::OnPartDrafted(URobotPart* RobotPart)
 {
-  UE_LOG(LogController, Log, TEXT("%s::OnPartDoubleClicked"), *GetName());  
+  UE_LOG(LogController, Log, TEXT("%s::OnPartDrafted"), *GetName());  
 
   PartDraftedDelegate.Broadcast(RobotPart);
 

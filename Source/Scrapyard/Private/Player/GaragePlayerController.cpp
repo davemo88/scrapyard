@@ -57,12 +57,12 @@ void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
   
 //  CardWidget->RobotPart->GetSkeletalMesh();
 //  CardWidget->RobotPart->GetMajorMaterial();
-  CardWidget->CardDoubleClickedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardDoubleClicked);
+  CardWidget->CardClickedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
   CardWidget->CardMouseEnteredDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseEntered);
   CardWidget->CardMouseLeftDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseLeft);
 }
 
-void AGaragePlayerController::OnCardDoubleClicked(URobotPart* RobotPart)
+void AGaragePlayerController::OnCardAssigned(URobotPart* RobotPart)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnCardDoubleClicked"), *GetName());
   RobotPart->Assign(PartAssignment);

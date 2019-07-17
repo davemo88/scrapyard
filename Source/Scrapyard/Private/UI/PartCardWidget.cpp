@@ -39,17 +39,47 @@ FReply UPartCardWidget::NativeOnMouseButtonDoubleClick(const FGeometry & InGeome
 
 void UPartCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseEnter"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseEnter"), *GetName());
   CardMouseEnteredDelegate.Broadcast(RobotPart);
+  if (bHoverBorderActive)
+  {
+//    UE_LOG(LogTemp, Warning, TEXT("Playing Show Hover Border"), *GetName());
+    PlayAnimation(ShowHoverBorder);
+  }
   Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }
 
 void UPartCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseLeave"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseLeave"), *GetName());
   CardMouseLeftDelegate.Broadcast(RobotPart);
+  if (bHoverBorderActive)
+  {
+    PlayAnimation(HideHoverBorder);
+//    HoverBorder->SetVisibility(ESlateVisibility::Hidden);
+  }
   Super::NativeOnMouseLeave(InMouseEvent);
 }
+
+FReply UPartCardWidget::NativeOnMouseButtonDown(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
+{
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonDown"), *GetName());
+// stops OnMouseLeave event from firing by not calling Super
+  return FReply::Handled();
+}
+
+FReply UPartCardWidget::NativeOnMouseButtonUp(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
+{
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonUp"), *GetName());
+// stops OnMouseEnter event from firing by not calling Super
+  CardClickedDelegate.Broadcast(RobotPart);
+  return FReply::Handled();
+}
+
+//FReply UPartCardWidget::NativeOnMouseLeave(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
+//{
+//
+//}
 
 void UPartCardWidget::AddStatsText()
 {
@@ -70,16 +100,4 @@ void UPartCardWidget::AddStatLine(FStatText StatText)
   StatLine->SetStatLine(StatText);
   StatsBox->AddChild(StatLine);
 
-}
-
-FReply UPartCardWidget::NativeOnMouseButtonDown(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
-{
-// stops OnMouseLeave event from firing by not calling Super
-  return FReply::Handled();
-}
-
-FReply UPartCardWidget::NativeOnMouseButtonUp(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
-{
-// stops OnMouseEnter event from firing by not calling Super
-  return FReply::Handled();
 }
