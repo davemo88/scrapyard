@@ -91,8 +91,6 @@ void ASoloDraftGameState::SamplePack()
       CurrentDraft->CurrentPack.Add(PotentialPart);
     }
   }
-
-  OnNextPackReady.Broadcast();
 }
 
 URobotPart* ASoloDraftGameState::SamplePart(bool Replacement)

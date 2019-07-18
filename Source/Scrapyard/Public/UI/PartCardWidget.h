@@ -19,6 +19,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPa
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseEnteredDelegate, URobotPart*, Part);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseLeftDelegate, URobotPart*, Part);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFadeOutFinishedDelegate, UPartCardWidget*, PartCardWidget);
+
 /**
  * 
  */
@@ -50,6 +52,12 @@ public:
   USizeBox* CardSizeBox;
 
   bool bHoverBorderActive = false;
+
+  UUMGSequencePlayer* PlayFadeOut();
+
+  FFadeOutFinishedDelegate FadeOutFinishedDelegate;
+
+  void OnFadeOutFinished(UUMGSequencePlayer & SequencePlayer);
 
 protected:
 
@@ -90,5 +98,11 @@ protected:
 
   UPROPERTY(meta=(BindWidgetAnim))
   UWidgetAnimation* HideHoverBorder;
+
+  UPROPERTY(meta=(BindWidgetAnim))
+  UWidgetAnimation* DraftCard;
+
+  UPROPERTY(meta=(BindWidgetAnim))
+  UWidgetAnimation* FadeOut;
 
 };

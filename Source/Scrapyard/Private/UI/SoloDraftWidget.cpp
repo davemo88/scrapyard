@@ -12,6 +12,7 @@
 #include "Components/TextBlock.h"
 #include "Components/UniformGridPanel.h"
 #include "Components/UniformGridSlot.h"
+#include "Animation/UMGSequencePlayer.h"
 
 void USoloDraftWidget::NativeConstruct()
 {
@@ -24,23 +25,44 @@ void USoloDraftWidget::NativeConstruct()
 void USoloDraftWidget::UpdatePickCounter()
 {
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
-  FString PickCounterText = FString::Printf(TEXT("%i/%i"), GameState->CurrentDraft->NumPicks, GameState->CurrentDraft->MaxPicks);
+  FString PickCounterText = FString::Printf(TEXT("(%i of %i)"), GameState->CurrentDraft->NumPicks, GameState->CurrentDraft->MaxPicks);
   PickCounter->SetText(FText::FromString(PickCounterText));
+}
+
+void USoloDraftWidget::NextPack()
+{
+  UE_LOG(LogUI, Verbose, TEXT("%s::NextPack"), *GetName());
+  if (PackDisplayPanel->GetAllChildren().Num())
+  {
+    for (UWidget* Child : PackDisplayPanel->GetAllChildren())
+    {
+      if (UPartCardWidget* Card = Cast<UPartCardWidget>(Child))
+      {
+        Card->FadeOutFinishedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardFadedOut);
+        Card->PlayFadeOut()->OnSequenceFinishedPlaying().AddUObject(Card, &UPartCardWidget::OnFadeOutFinished);
+      }
+
+    }
+  }
+  else
+  {
+    DisplayNextPack();
+  }
+
 }
 
 void USoloDraftWidget::DisplayNextPack()
 {
-  UE_LOG(LogUI, Log, TEXT("%s::DisplayNextPack"), *GetName());
+  UE_LOG(LogUI, Verbose, TEXT("%s::DisplayNextPack"), *GetName());
   ASoloDraftPlayerController* OwningController = Cast<ASoloDraftPlayerController>(GetOwningPlayer());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
-
-  PackDisplayPanel->ClearChildren();
-
+  
   TArray<URobotPart*> NextPack = GameState->CurrentDraft->CurrentPack;
 
   for (int32 i = 0; i < NextPack.Num(); ++i)
   {
+
     UPartCardWidget* Card = CreateWidget<UPartCardWidget>(OwningController, GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP);
 
     Card->SetRobotPart(NextPack[i]);
@@ -57,5 +79,14 @@ void USoloDraftWidget::DisplayNextPack()
       Slot->SetColumn(i);
       Slot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
     }
+  }
+}
+
+void USoloDraftWidget::OnCardFadedOut(UPartCardWidget* PartCardWidget)
+{
+  PartCardWidget->RemoveFromParent();
+  if (PackDisplayPanel->GetAllChildren().Num() == 0)
+  {
+    DisplayNextPack();
   }
 }

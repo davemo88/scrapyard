@@ -11,6 +11,7 @@ class UYourPartsWidget;
 class UUniformGridPanel;
 class UHorizontalBox;
 class UTextBlock;
+class UPartCardWidget;
 
 /**
  * 
@@ -39,6 +40,11 @@ public:
   UFUNCTION()
   void UpdatePickCounter();
 
+  void NextPack();
+
   void DisplayNextPack();
+  
+  UFUNCTION()
+  void OnCardFadedOut(UPartCardWidget* PartCardWidget);
   
 };

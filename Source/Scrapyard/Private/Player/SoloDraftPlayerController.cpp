@@ -32,7 +32,7 @@ void ASoloDraftPlayerController::SetupWidget()
 void ASoloDraftPlayerController::OnNextPack()
 {
   UE_LOG(LogController, Log, TEXT("%s::OnNextPack"), *GetName());
-  SoloDraftWidget->DisplayNextPack();
+  SoloDraftWidget->NextPack();
 }
 
 void ASoloDraftPlayerController::OnPartDrafted(URobotPart* RobotPart)
