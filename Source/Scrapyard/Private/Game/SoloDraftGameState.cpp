@@ -82,9 +82,14 @@ void ASoloDraftGameState::SamplePack()
 {
   CurrentDraft->CurrentPack.Empty();
 
-  for (uint32 i = 0; i < NumChoices; ++i)
+  URobotPart* PotentialPart;
+  while (CurrentDraft->CurrentPack.Num() < NumChoices)
   {
-    CurrentDraft->CurrentPack.Add(SamplePart());
+    PotentialPart = SamplePart();
+    if (!CurrentDraft->CurrentPack.Contains(PotentialPart))
+    {
+      CurrentDraft->CurrentPack.Add(PotentialPart);
+    }
   }
 
   OnNextPackReady.Broadcast();
@@ -113,6 +118,7 @@ void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
   UE_LOG(LogGameState, Log, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
   CurrentDraft->NumPicks++;
   RobotPart->Draft(CurrentDraft);
+  RobotPartPool.Remove(RobotPart);
 
   UE_LOG(LogGameState, VeryVerbose, TEXT("num heads %i"), CurrentDraft->DraftedHeads.Num());
   UE_LOG(LogGameState, VeryVerbose, TEXT("num cores %i"), CurrentDraft->DraftedCores.Num());
