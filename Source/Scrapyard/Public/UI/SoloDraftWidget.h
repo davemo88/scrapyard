@@ -46,5 +46,8 @@ public:
   
   UFUNCTION()
   void OnCardFadedOut(UPartCardWidget* PartCardWidget);
+
+  UFUNCTION()
+  void OnCardDragged(UPartCardWidget* PartCardWidget);
   
 };

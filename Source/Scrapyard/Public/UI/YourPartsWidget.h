@@ -12,6 +12,7 @@
 #include "YourPartsWidget.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewPartCardAdded, UPartCardWidget*, PartCard);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardDroppedDelegate, URobotPart*, DroppedPart);
 
 /**
  * 
@@ -37,6 +38,7 @@ public:
   void DisplayAll();
 
   FNewPartCardAdded NewPartCardAdded;
+  FPartCardDroppedDelegate PartCardDroppedDelegate;
 
 protected:
   
@@ -56,6 +58,8 @@ protected:
   UScrollBox* DisplayedCards;
 
   void NativeConstruct() override;
+
+  bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation);
 
   UFUNCTION()
   void OnAllFilterButtonClicked();

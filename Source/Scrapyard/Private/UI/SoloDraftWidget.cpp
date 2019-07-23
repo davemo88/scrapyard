@@ -20,6 +20,12 @@ void USoloDraftWidget::NativeConstruct()
   Super::NativeConstruct();
 
   UpdatePickCounter();
+
+  if (ASoloDraftPlayerController* OwningController = Cast<ASoloDraftPlayerController>(GetOwningPlayer()))
+  {
+    UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct - OwningController ok"), *GetName());
+    YourPartsWidget->PartCardDroppedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDrafted);
+  }
 }
 
 void USoloDraftWidget::UpdatePickCounter()
@@ -39,6 +45,8 @@ void USoloDraftWidget::NextPack()
       if (UPartCardWidget* Card = Cast<UPartCardWidget>(Child))
       {
         Card->FadeOutFinishedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardFadedOut);
+// NOTE: the visibility is updated in the animation itself
+//        Card->SetVisibility(ESlateVisibility::HitTestInvisible);
         Card->PlayFadeOut()->OnSequenceFinishedPlaying().AddUObject(Card, &UPartCardWidget::OnFadeOutFinished);
       }
 
@@ -68,10 +76,12 @@ void USoloDraftWidget::DisplayNextPack()
     Card->SetRobotPart(NextPack[i]);
     Card->CardMouseEnteredDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartCardHovered);
     Card->CardClickedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDrafted);
+    Card->CardDraggedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDragged);
 //TODO: render scale or make a bigger version
     Card->CardSizeBox->SetWidthOverride(360);
     Card->CardSizeBox->SetHeightOverride(495);
     Card->bHoverBorderActive = true;
+    Card->bCanBeDragged = true;
 //    Card->SetRenderScale(FVector2D(1.5,1.5));
     PackDisplayPanel->AddChild(Card);
     if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))
@@ -89,4 +99,10 @@ void USoloDraftWidget::OnCardFadedOut(UPartCardWidget* PartCardWidget)
   {
     DisplayNextPack();
   }
+}
+
+void USoloDraftWidget::OnCardDragged(UPartCardWidget* PartCardWidget)
+{
+//  PartCardWidget->Slot
+//  PartCardWidget->SetVisibility(ESlateVisibility::Hidden);
 }

@@ -41,6 +41,14 @@ void AGaragePlayerController::SetupWidget()
 //then the existing part assignment / draft should be loaded when the garage loads
   PartAssignment = RobotCharacter->PartAssignment;
 
+  GarageWidget->SetInstalledParts(PartAssignment);
+
+  PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledHeadWidget, &UInstalledPartWidget::SetInstalledPart);
+  PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledCoreWidget, &UInstalledPartWidget::SetInstalledPart);
+  PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledArmsWidget, &UInstalledPartWidget::SetInstalledPart);
+  PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledLegsWidget, &UInstalledPartWidget::SetInstalledPart);
+  PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledRightHandheldWidget, &UInstalledPartWidget::SetInstalledPart);
+
   GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
   GarageWidget->RobotStatsWidget->SetNewValueStats(NewValueStats);
 
@@ -48,6 +56,8 @@ void AGaragePlayerController::SetupWidget()
 
   NewValueAssignment->SetAssignment(PartAssignment);
   NewValueStats->SetPartAssignment(NewValueAssignment);
+
+
 
 }
 

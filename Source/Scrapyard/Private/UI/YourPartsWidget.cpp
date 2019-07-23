@@ -4,9 +4,11 @@
 #include "YourPartsWidget.h"
 #include "Scrapyard.h"
 #include "UI/PartCardWidget.h"
+#include "UI/PartCardDragDropOperation.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
 #include "Game/ScrapyardAssets.h"
+
 
 void UYourPartsWidget::NativeConstruct()
 {
@@ -20,6 +22,17 @@ void UYourPartsWidget::NativeConstruct()
   ArmsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnArmsFilterButtonClicked);
   LegsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnLegsFilterButtonClicked);
   HandheldFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnHandheldFilterButtonClicked);
+} 
+
+bool UYourPartsWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
+{
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnDrop"), *GetName());
+  if (UPartCardWidget* PartCard = Cast<UPartCardWidget>(InOperation->DefaultDragVisual))
+  {
+    UE_LOG(LogUI, Log, TEXT("Part Card Dropped: %s"), *PartCard->RobotPart->PartName.ToString());
+    PartCardDroppedDelegate.Broadcast(PartCard->RobotPart);  
+  }
+  return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
 
 void UYourPartsWidget::ClearDisplayedCards()
