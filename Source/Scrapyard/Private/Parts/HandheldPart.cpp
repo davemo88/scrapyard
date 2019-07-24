@@ -25,11 +25,6 @@ UHandheldPart* UHandheldPart::NewHandheld(uint32 NewPartID, FText NewPartName, U
   return NewPart;
 }
 
-void UHandheldPart::Draft(USoloDraft* SoloDraft)
-{
-  SoloDraft->DraftedHandhelds.AddUnique(this);
-}
-
 //TODO: handle right vs left
 void UHandheldPart::Assign(UPartAssignment* PartAssignment)
 {

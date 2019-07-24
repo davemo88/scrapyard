@@ -26,12 +26,8 @@ public:
 
   FPartDraftedDelegate PartDraftedDelegate;
 
-//TODO: move to gamestate
   UFUNCTION()
-  void OnPartCardHovered(URobotPart* RobotPart);
-
-  UFUNCTION()
-  void OnPartDrafted(URobotPart* RobotPart);
+  void OnCardDrafted(UPartCardWidget* DraftedCard);
 
 protected:
 

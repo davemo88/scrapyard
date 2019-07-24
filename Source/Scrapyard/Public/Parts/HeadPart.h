@@ -23,8 +23,6 @@ public:
   UPROPERTY()
   uint32 ChipSlots;
 
-  void Draft(USoloDraft* SoloDraft) override;
-
   void Assign(UPartAssignment* PartAssignment) override;
 
   UTexture2D* GetPartTypeIcon() const override;

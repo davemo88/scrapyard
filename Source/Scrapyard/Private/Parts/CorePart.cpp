@@ -30,11 +30,6 @@ UCorePart* UCorePart::NewCore(uint32 NewPartID, FText NewPartName, UManufacturer
 
 }
 
-void UCorePart::Draft(USoloDraft* SoloDraft)
-{
-  SoloDraft->DraftedCores.AddUnique(this);
-}
-
 void UCorePart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetCore(this);

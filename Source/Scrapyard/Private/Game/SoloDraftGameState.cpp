@@ -27,9 +27,9 @@ void ASoloDraftGameState::BeginPlay()
 
   ASoloDraftPlayerController* PC = Cast<ASoloDraftPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 
-  OnNextPackReady.AddDynamic(PC, &ASoloDraftPlayerController::OnNextPack);
+//  OnNextPackReady.AddDynamic(PC, &ASoloDraftPlayerController::OnNextPack);
 
-  PC->PartDraftedDelegate.AddDynamic(this, &ASoloDraftGameState::ServerDraftPart);
+//  PC->PartDraftedDelegate.AddDynamic(this, &ASoloDraftGameState::ServerDraftPart);
 
   if (CurrentDraft->CurrentPack.Num() == 0)
   {
@@ -105,16 +105,10 @@ bool ASoloDraftGameState::ServerDraftPart_Validate(URobotPart* RobotPart)
 void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
 {
   UE_LOG(LogGameState, Log, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
-  CurrentDraft->Pick++;
-  RobotPart->Draft(CurrentDraft);
+  CurrentDraft->DraftPart(RobotPart);
   RobotPartPool.Remove(RobotPart);
 
-  UE_LOG(LogGameState, VeryVerbose, TEXT("num heads %i"), CurrentDraft->DraftedHeads.Num());
-  UE_LOG(LogGameState, VeryVerbose, TEXT("num cores %i"), CurrentDraft->DraftedCores.Num());
-  UE_LOG(LogGameState, VeryVerbose, TEXT("num arms %i"), CurrentDraft->DraftedArms.Num());
-  UE_LOG(LogGameState, VeryVerbose, TEXT("num legs %i"), CurrentDraft->DraftedLegs.Num());
-
-  if (CurrentDraft->Pick <= CurrentDraft->TotalPicks)
+  if (CurrentDraft->DraftedParts.Num() < CurrentDraft->TotalPicks)
   {
     NextPack();
   }

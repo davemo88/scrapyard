@@ -26,8 +26,6 @@ public:
   UPROPERTY() 
   uint32 WeaponDexterity;
 
-  void Draft(USoloDraft* SoloDraft) override;
-
   void Assign(UPartAssignment* PartAssignment) override;
 
   UTexture2D* GetPartTypeIcon() const override;

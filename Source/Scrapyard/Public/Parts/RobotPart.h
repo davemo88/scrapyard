@@ -66,8 +66,6 @@ public:
 
   virtual TArray<FStatText> GetStatsText() const;
 
-  virtual void Draft(USoloDraft* SoloDraft) {};
-
   virtual void Assign(UPartAssignment* PartAssignment) {};
 
 };

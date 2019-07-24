@@ -19,14 +19,7 @@ void USoloDraftWidget::NativeConstruct()
   UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 
-  UpdatePickCounter();
-}
-
-void USoloDraftWidget::UpdatePickCounter()
-{
-  ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
-  FString PickCounterText = FString::Printf(TEXT("(%i of %i)"), GameState->CurrentDraft->NumPicks, GameState->CurrentDraft->MaxPicks);
-  PickCounter->SetText(FText::FromString(PickCounterText));
+  YourPartsWidget->PartCardDroppedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDrafted);
 }
 
 void USoloDraftWidget::NextPack()
@@ -68,8 +61,7 @@ void USoloDraftWidget::DisplayNextPack()
     UPartCardWidget* Card = CreateWidget<UPartCardWidget>(OwningController, GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP);
 
     Card->SetRobotPart(NextPack[i]);
-    Card->CardMouseEnteredDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartCardHovered);
-    Card->CardClickedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDrafted);
+    Card->CardClickedDelegate.AddDynamic(this, &USoloDraftWidget::OnPartDrafted);
     Card->CardDraggedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDragged);
 //TODO: render scale or make a bigger version
     Card->CardSizeBox->SetWidthOverride(360);
@@ -84,6 +76,14 @@ void USoloDraftWidget::DisplayNextPack()
       Slot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
     }
   }
+  UpdatePickCounter();
+}
+
+void USoloDraftWidget::UpdatePickCounter()
+{
+  ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
+  FString PickCounterText = FString::Printf(TEXT("(%i of %i)"), GameState->CurrentDraft->DraftedParts.Num(), GameState->CurrentDraft->MaxPicks);
+  PickCounter->SetText(FText::FromString(PickCounterText));
 }
 
 void USoloDraftWidget::OnCardFadedOut(UPartCardWidget* PartCardWidget)
@@ -100,4 +100,10 @@ void USoloDraftWidget::OnCardDragged(UPartCardWidget* PartCardWidget)
 {
 //  PartCardWidget->Slot
 //  PartCardWidget->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void USoloDraftWidget::OnCardDrafted(UPartCardWidget* Card)
+{
+  YourPartsWidget->AddDisplayedPart(RobotPart);
+  CardDraftedDelegate.Broadcast(Card->RobotPart);
 }

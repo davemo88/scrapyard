@@ -13,6 +13,7 @@ class UHorizontalBox;
 class UTextBlock;
 class UPartCardWidget;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDraftedDelegate, UPartCardWidget*, Card);
 /**
  * 
  */
@@ -20,10 +21,6 @@ UCLASS()
 class SCRAPYARD_API USoloDraftWidget : public UUserWidget
 {
   GENERATED_BODY()
-
-protected:
-
-  void NativeConstruct() override;
 
 public:
 
@@ -49,5 +46,13 @@ public:
 
   UFUNCTION()
   void OnCardDragged(UPartCardWidget* PartCardWidget);
+
+  FCardDraftedDelegate CardDraftedDelegate;
+
+protected:
+
+  void NativeConstruct() override;
+
+  void OnCardDrafted(UPartCardWidget* Card);
   
 };

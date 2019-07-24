@@ -25,8 +25,6 @@ public:
   UPROPERTY()
   uint32 Stability;
 
-  void Draft(USoloDraft* SoloDraft) override;
-
   void Assign(UPartAssignment* PartAssignment) override;
 
   virtual TArray<FStatText> GetStatsText() const override;

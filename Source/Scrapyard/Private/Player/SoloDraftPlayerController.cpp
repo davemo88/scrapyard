@@ -26,29 +26,24 @@ void ASoloDraftPlayerController::SetupWidget()
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->AssetsBP->UIAssetsBP->SoloDraftWidgetBP);
   SoloDraftWidget->YourPartsWidget->CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
-  SoloDraftWidget->YourPartsWidget->PartCardDroppedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDrafted);
+  SoloDraftWidget->CardDraftedDelegate.AddDynamic(this, &ASoloDraftPlayerController::OnCardDrafted);
+  
+  if (ASoloDraftGameState* SoloDraftGS = GetGameState<ASoloDraftGameState>())
+  {
+    SoloDraftGS->OnNextPackReady.AddDynamic(SoloDraftWidget, &USoloDraftWidget::NextPack)
+  }
+
   SoloDraftWidget->AddToViewport();
   SoloDraftWidget->NextPack();
 }
 
-void ASoloDraftPlayerController::OnNextPack()
-{
-  UE_LOG(LogController, Log, TEXT("%s::OnNextPack"), *GetName());
-  SoloDraftWidget->NextPack();
-}
-
-void ASoloDraftPlayerController::OnPartDrafted(URobotPart* RobotPart)
+void ASoloDraftPlayerController::OnCardDrafted(UPartCardWidget* DraftedCard)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnPartDrafted"), *GetName());  
 
-  PartDraftedDelegate.Broadcast(RobotPart);
+  if (ASoloDraftGameState* SoloDraftGS = GetGameState<ASoloDraftGameState>())
+  {
+    SoloDraftGS->ServerDraftPart(DraftedCard->RobotPart);
+  }
 
-  SoloDraftWidget->YourPartsWidget->AddDisplayedPart(RobotPart);
-
-  SoloDraftWidget->UpdatePickCounter();
-}
-
-void ASoloDraftPlayerController::OnPartCardHovered(URobotPart* RobotPart)
-{
-  UE_LOG(LogController, Log, TEXT("%s::OnPartCardHovered"), *GetName());  
 }

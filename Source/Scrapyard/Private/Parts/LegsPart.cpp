@@ -29,11 +29,6 @@ ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer
 
 }
 
-void ULegsPart::Draft(USoloDraft* SoloDraft)
-{
-  SoloDraft->DraftedLegs.AddUnique(this);
-}
-
 void ULegsPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetLegs(this);

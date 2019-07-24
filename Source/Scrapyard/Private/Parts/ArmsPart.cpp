@@ -26,11 +26,6 @@ UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer
   return NewPart;
 }
 
-void UArmsPart::Draft(USoloDraft* SoloDraft)
-{
-  SoloDraft->DraftedArms.AddUnique(this);
-}
-
 void UArmsPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetArms(this);

@@ -65,13 +65,7 @@ void UYourPartsWidget::DisplayParts(TArray<URobotPart*> Parts)
 
 void UYourPartsWidget::DisplayAll()
 {
-  TArray<URobotPart*> AllParts; 
-  AllParts.Append(CurrentDraft->DraftedHeads);
-  AllParts.Append(CurrentDraft->DraftedCores);
-  AllParts.Append(CurrentDraft->DraftedArms);
-  AllParts.Append(CurrentDraft->DraftedLegs);
-  AllParts.Append(CurrentDraft->DraftedHandhelds);
-  DisplayParts(AllParts);
+  DisplayParts(CurrentDraft->DraftedParts);
 }
 
 void UYourPartsWidget::OnAllFilterButtonClicked()
@@ -83,30 +77,30 @@ void UYourPartsWidget::OnAllFilterButtonClicked()
 void UYourPartsWidget::OnHeadFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHeadFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedHeads);
+  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UHeadPart>(Part) != nullptr;});
 }
 
 void UYourPartsWidget::OnCoreFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCoreFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedCores);
+  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UCorePart>(Part) != nullptr;});
 }
 
 void UYourPartsWidget::OnArmsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnArmsFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedArms);
+  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UArmsPart>(Part) != nullptr;});
 }
 
 void UYourPartsWidget::OnLegsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedLegs);
+  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<ULegsPart>(Part) != nullptr;});
 }
 
 void UYourPartsWidget::OnHandheldFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedHandhelds);
+  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UHandheldPart>(Part) != nullptr;});
 }
 

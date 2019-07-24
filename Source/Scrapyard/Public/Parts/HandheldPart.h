@@ -25,8 +25,6 @@ public:
   UPROPERTY(EditAnywhere)
   float Cooldown = 0.0f;
 
-  virtual void Draft(USoloDraft* SoloDraft) override;
-
   virtual void Assign(UPartAssignment* PartAssignment) override;
 
   UTexture2D* GetPartTypeIcon() const override;

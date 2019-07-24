@@ -27,11 +27,6 @@ UHeadPart* UHeadPart::NewHead(uint32 NewPartID, FText NewPartName, UManufacturer
   return NewPart;
 }
 
-void UHeadPart::Draft(USoloDraft* SoloDraft)
-{
-  SoloDraft->DraftedHeads.AddUnique(this);
-}
-
 void UHeadPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetHead(this);

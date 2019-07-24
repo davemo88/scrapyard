@@ -31,27 +31,8 @@ public:
   UPROPERTY()
   int32 TotalPicks = 10;
 
-// TODO: which pick you're on
-  UPROPERTY()
-  int32 Pick = 1;
-
   UPROPERTY()
   int32 ChoicesPerPick = 3;
-
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedHeads;
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedCores;
-  UPROPERTY(BlueprintReadOnly)
-e TArray<URobotPart*> DraftedArms;
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedLegs;
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedHandhelds;
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedBoosters;
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedChips;
   
   virtual void DraftPart(URobotPart* Part);
 
