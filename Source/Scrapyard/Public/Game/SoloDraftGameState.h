@@ -26,6 +26,9 @@ public:
   UPROPERTY()
   USoloDraft* CurrentDraft;
 
+  UFUNCTION(Server, reliable, WithValidation)
+  void ServerDraftPart(URobotPart* RobotPart);
+
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
@@ -37,10 +40,7 @@ protected:
 
   void SamplePack();
 
-  URobotPart* SamplePart(bool Replacement = true);
-
-  UFUNCTION(Server, reliable, WithValidation)
-  void ServerDraftPart(URobotPart* RobotPart);
+  URobotPart* SamplePart();
 
   void SetupRobotPartPool();
   

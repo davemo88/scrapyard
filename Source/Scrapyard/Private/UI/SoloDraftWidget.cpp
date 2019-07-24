@@ -61,7 +61,7 @@ void USoloDraftWidget::DisplayNextPack()
     UPartCardWidget* Card = CreateWidget<UPartCardWidget>(OwningController, GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP);
 
     Card->SetRobotPart(NextPack[i]);
-    Card->CardClickedDelegate.AddDynamic(this, &USoloDraftWidget::OnPartDrafted);
+    Card->CardClickedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDrafted);
     Card->CardDraggedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDragged);
 //TODO: render scale or make a bigger version
     Card->CardSizeBox->SetWidthOverride(360);
@@ -82,7 +82,7 @@ void USoloDraftWidget::DisplayNextPack()
 void USoloDraftWidget::UpdatePickCounter()
 {
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
-  FString PickCounterText = FString::Printf(TEXT("(%i of %i)"), GameState->CurrentDraft->DraftedParts.Num(), GameState->CurrentDraft->MaxPicks);
+  FString PickCounterText = FString::Printf(TEXT("(%i of %i)"), GameState->CurrentDraft->DraftedParts.Num(), GameState->CurrentDraft->TotalPicks);
   PickCounter->SetText(FText::FromString(PickCounterText));
 }
 
@@ -104,6 +104,6 @@ void USoloDraftWidget::OnCardDragged(UPartCardWidget* PartCardWidget)
 
 void USoloDraftWidget::OnCardDrafted(UPartCardWidget* Card)
 {
-  YourPartsWidget->AddDisplayedPart(RobotPart);
-  CardDraftedDelegate.Broadcast(Card->RobotPart);
+  YourPartsWidget->AddDisplayedPart(Card->RobotPart);
+  CardDraftedDelegate.Broadcast(Card);
 }

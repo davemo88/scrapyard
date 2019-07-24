@@ -30,7 +30,7 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 void UPartCardWidget::OnPartCardClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnPartCardClicked"), *GetName());
-  CardClickedDelegate.Broadcast(RobotPart);
+  CardClickedDelegate.Broadcast(this);
 }
 
 FReply UPartCardWidget::NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
@@ -84,7 +84,7 @@ FReply UPartCardWidget::NativeOnMouseButtonUp(const FGeometry & InGeometry, cons
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonUp"), *GetName());
 // stops OnMouseEnter event from firing by not calling Super
-  CardClickedDelegate.Broadcast(RobotPart);
+  CardClickedDelegate.Broadcast(this);
 //  return Super::NativeOnMouseButtonUp(InGeometry, InMouseEvent);
   return FReply::Handled();
 }

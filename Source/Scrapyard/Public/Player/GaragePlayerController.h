@@ -46,7 +46,7 @@ protected:
   void OnNewCardReady(UPartCardWidget* CardWidget);
 
   UFUNCTION()
-  void OnCardAssigned(URobotPart* RobotPart);
+  void OnCardAssigned(UPartCardWidget* Card);
   UFUNCTION()
   void OnCardMouseEntered(URobotPart* RobotPart);
   UFUNCTION()

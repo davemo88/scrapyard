@@ -37,6 +37,7 @@ public:
   UFUNCTION()
   void UpdatePickCounter();
 
+  UFUNCTION()
   void NextPack();
 
   void DisplayNextPack();
@@ -53,6 +54,7 @@ protected:
 
   void NativeConstruct() override;
 
+  UFUNCTION()
   void OnCardDrafted(UPartCardWidget* Card);
   
 };

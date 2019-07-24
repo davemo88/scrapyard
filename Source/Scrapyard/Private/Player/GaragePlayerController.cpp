@@ -72,11 +72,11 @@ void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
   CardWidget->CardMouseLeftDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseLeft);
 }
 
-void AGaragePlayerController::OnCardAssigned(URobotPart* RobotPart)
+void AGaragePlayerController::OnCardAssigned(UPartCardWidget* Card)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnCardDoubleClicked"), *GetName());
-  RobotPart->Assign(PartAssignment);
-  RobotPart->Assign(NewValueAssignment);
+  Card->RobotPart->Assign(PartAssignment);
+  Card->RobotPart->Assign(NewValueAssignment);
 }
 
 void AGaragePlayerController::OnCardMouseEntered(URobotPart* RobotPart)

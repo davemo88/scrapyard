@@ -28,9 +28,9 @@ void ASoloDraftPlayerController::SetupWidget()
   SoloDraftWidget->YourPartsWidget->CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
   SoloDraftWidget->CardDraftedDelegate.AddDynamic(this, &ASoloDraftPlayerController::OnCardDrafted);
   
-  if (ASoloDraftGameState* SoloDraftGS = GetGameState<ASoloDraftGameState>())
+  if (ASoloDraftGameState* SoloDraftGS = GetWorld()->GetGameState<ASoloDraftGameState>())
   {
-    SoloDraftGS->OnNextPackReady.AddDynamic(SoloDraftWidget, &USoloDraftWidget::NextPack)
+    SoloDraftGS->OnNextPackReady.AddDynamic(SoloDraftWidget, &USoloDraftWidget::NextPack);
   }
 
   SoloDraftWidget->AddToViewport();
@@ -41,7 +41,7 @@ void ASoloDraftPlayerController::OnCardDrafted(UPartCardWidget* DraftedCard)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnPartDrafted"), *GetName());  
 
-  if (ASoloDraftGameState* SoloDraftGS = GetGameState<ASoloDraftGameState>())
+  if (ASoloDraftGameState* SoloDraftGS = GetWorld()->GetGameState<ASoloDraftGameState>())
   {
     SoloDraftGS->ServerDraftPart(DraftedCard->RobotPart);
   }

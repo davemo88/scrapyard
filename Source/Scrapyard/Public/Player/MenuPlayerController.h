@@ -24,7 +24,7 @@ public:
 
   virtual void SetupWidget() {};
 
-  FOnWidgetReadyDelegate OnWidgetReadyDelegate;
+//  FOnWidgetReadyDelegate OnWidgetReadyDelegate;
 
   virtual void ShowEscapeMenu() override;
   virtual void HideEscapeMenu() override;

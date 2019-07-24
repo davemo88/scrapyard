@@ -8,6 +8,11 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
 #include "Game/ScrapyardAssets.h"
+#include "Parts/HeadPart.h"
+#include "Parts/CorePart.h"
+#include "Parts/ArmsPart.h"
+#include "Parts/LegsPart.h"
+#include "Parts/HandheldPart.h"
 
 
 void UYourPartsWidget::NativeConstruct()
@@ -30,7 +35,7 @@ bool UYourPartsWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDro
   if (UPartCardWidget* PartCard = Cast<UPartCardWidget>(InOperation->DefaultDragVisual))
   {
     UE_LOG(LogUI, Log, TEXT("Part Card Dropped: %s"), *PartCard->RobotPart->PartName.ToString());
-    PartCardDroppedDelegate.Broadcast(PartCard->RobotPart);  
+    PartCardDroppedDelegate.Broadcast(PartCard);  
   }
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
@@ -77,30 +82,30 @@ void UYourPartsWidget::OnAllFilterButtonClicked()
 void UYourPartsWidget::OnHeadFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHeadFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UHeadPart>(Part) != nullptr;});
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UHeadPart>(Part) != nullptr;}));
 }
 
 void UYourPartsWidget::OnCoreFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCoreFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UCorePart>(Part) != nullptr;});
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UCorePart>(Part) != nullptr;}));
 }
 
 void UYourPartsWidget::OnArmsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnArmsFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UArmsPart>(Part) != nullptr;});
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UArmsPart>(Part) != nullptr;}));
 }
 
 void UYourPartsWidget::OnLegsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<ULegsPart>(Part) != nullptr;});
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<ULegsPart>(Part) != nullptr;}));
 }
 
 void UYourPartsWidget::OnHandheldFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts, [](URobotPart* Part){Cast<UHandheldPart>(Part) != nullptr;});
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UHandheldPart>(Part) != nullptr;}));
 }
 

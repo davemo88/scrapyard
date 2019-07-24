@@ -12,7 +12,7 @@
 #include "YourPartsWidget.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewPartCardAdded, UPartCardWidget*, PartCard);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardDroppedDelegate, URobotPart*, DroppedPart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardDroppedDelegate, UPartCardWidget*, DroppedCard);
 
 /**
  * 
