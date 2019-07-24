@@ -175,10 +175,10 @@ void ARobotPlayerController::ClientGetPartAssignmentIDs_Implementation()
 {
   UE_LOG(LogController, Log, TEXT("%s::ClientGetPartAssignment_Implementation"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  if (GameInstance->PartAssignment != NULL)
+  if (GameInstance->SoloDraft != NULL)
   {
 //TODO: replication or no?
-    PartAssignmentIDs = GameInstance->PartAssignment->GetPartAssignmentIDs();
+    PartAssignmentIDs = GameInstance->SoloDraft->PartAssignment->GetPartAssignmentIDs();
     ServerSetPartAssignmentIDs(PartAssignmentIDs);
   }
 }

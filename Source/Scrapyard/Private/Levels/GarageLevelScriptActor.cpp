@@ -31,9 +31,9 @@ void AGarageLevelScriptActor::SpawnRobotCharacter()
   RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(300.0f, 180.0f, 150.0f), FRotator(-10.0f, 200.0f, 0.f), FActorSpawnParameters());
   RobotCharacter->RobotBodyComponent->SetEnableGravity(false);
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  if (GameInstance->PartAssignment != nullptr)
+  if (GameInstance->SoloDraft != nullptr)
   {
-    RobotCharacter->PartAssignment->SetAssignment(GameInstance->PartAssignment); 
+    RobotCharacter->PartAssignment->SetAssignment(GameInstance->SoloDraft->PartAssignment); 
   }
 }
 

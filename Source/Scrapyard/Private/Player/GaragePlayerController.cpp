@@ -103,7 +103,7 @@ void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 //TODO: this is just here to print some stuff to logs i guess
   PartAssignment->GetPartAssignmentIDs();
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  GameInstance->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
+  GameInstance->SoloDraft->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
   Super::EndPlay(EndPlayReason);
 }
 

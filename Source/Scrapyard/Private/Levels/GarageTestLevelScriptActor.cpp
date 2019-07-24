@@ -12,13 +12,13 @@ void AGarageTestLevelScriptActor::BeginPlay()
   Super::BeginPlay(); 
 
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  if (GameInstance->PartAssignment != NULL)
+  if (GameInstance->SoloDraft != NULL)
   {
     APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();   
     ARobotCharacter* Char = Cast<ARobotCharacter>(PlayerController->GetPawn());
-    if (Char != nullptr && GameInstance->PartAssignment->IsComplete())
+    if (Char != nullptr && GameInstance->SoloDraft->PartAssignment->IsComplete())
     {
-      Char->PartAssignment->SetAssignment(GameInstance->PartAssignment);
+      Char->PartAssignment->SetAssignment(GameInstance->SoloDraft->PartAssignment);
     }
   }
 
