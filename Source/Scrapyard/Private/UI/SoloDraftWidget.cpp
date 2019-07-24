@@ -19,7 +19,7 @@ void USoloDraftWidget::NativeConstruct()
   UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 
-  YourPartsWidget->PartCardDroppedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDrafted);
+  YourPartsWidget->PartCardDroppedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDroppedInYourParts);
 }
 
 void USoloDraftWidget::NextPack()
@@ -106,4 +106,13 @@ void USoloDraftWidget::OnCardDrafted(UPartCardWidget* Card)
 {
   YourPartsWidget->AddDisplayedPart(Card->RobotPart);
   CardDraftedDelegate.Broadcast(Card);
+}
+
+void USoloDraftWidget::OnCardDroppedInYourParts(UPartCardWidget* Card)
+{
+  if (PackDisplayPanel->HasChild(Card))
+  {
+    OnCardDrafted(Card);
+  }
+//  else if (YourPartsWidget->HasChild(Card))
 }

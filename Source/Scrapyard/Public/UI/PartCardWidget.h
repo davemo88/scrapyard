@@ -21,6 +21,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseLeftDelegate, URobotPart*,
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFadeOutFinishedDelegate, UPartCardWidget*, PartCardWidget);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDraggedDelegate, UPartCardWidget*, PartCardWidget);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCardDroppedDelegate, UPartCardWidget*, PartCardWidget, UDragDropOperation*, DragDropOp);
 
 /**
  * 
@@ -60,6 +61,7 @@ public:
 
   FFadeOutFinishedDelegate FadeOutFinishedDelegate;
   FCardDraggedDelegate CardDraggedDelegate;
+  FCardDroppedDelegate CardDroppedDelegate;
 
   void OnFadeOutFinished(UUMGSequencePlayer & SequencePlayer);
 
@@ -79,6 +81,8 @@ protected:
   FReply NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 
   void NativeOnDragDetected(const FGeometry & InGeometry, const FPointerEvent & InDragDropEvent, UDragDropOperation *& OutOperation) override;
+
+  bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
 
   void AddStatsText();
 

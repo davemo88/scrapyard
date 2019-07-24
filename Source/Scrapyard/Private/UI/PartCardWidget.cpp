@@ -98,6 +98,13 @@ void UPartCardWidget::NativeOnDragDetected(const FGeometry & InGeometry, const F
   CardDraggedDelegate.Broadcast(this);
 }
 
+bool UPartCardWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
+{
+  UE_LOG(LogUI, Log, TEXT("%s::NativeOnDrop"), *GetName());
+  CardDroppedDelegate.Broadcast(this,InOperation);
+  return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
+}
+
 //void UPartCardWidget::
 
 void UPartCardWidget::AddStatsText()

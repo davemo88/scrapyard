@@ -57,9 +57,12 @@ protected:
   UPROPERTY(meta=(BindWidget))   
   UScrollBox* DisplayedCards;
 
+  UFUNCTION()
+  void ReorderCards(UPartCardWidget* DroppedOnCard, UDragDropOperation* DragDropOp);
+
   void NativeConstruct() override;
 
-  bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation);
+  bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
 
   UFUNCTION()
   void OnAllFilterButtonClicked();

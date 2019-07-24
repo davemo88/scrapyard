@@ -40,6 +40,29 @@ bool UYourPartsWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDro
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
 
+void UYourPartsWidget::ReorderCards(UPartCardWidget* DroppedOnCard, UDragDropOperation* DragDropOp)
+{
+  UE_LOG(LogUI, Log, TEXT("%s::ReorderCards"), *GetName());
+  if (UPartCardWidget* DroppedCard = Cast<UPartCardWidget>(DragDropOp->DefaultDragVisual))
+  {
+    if (DisplayedCards->HasChild(DroppedCard) && DisplayedCards->HasChild(DroppedOnCard))
+    { 
+      int32 DroppedIndex = DisplayedCards->GetChildIndex(DroppedCard);
+      int32 DroppedOnIndex = DisplayedCards->GetChildIndex(DroppedOnCard);
+      UE_LOG(LogUI, Log, TEXT("%s::ReorderCards - %i dropped on %i"), *GetName(), DroppedIndex, DroppedOnIndex);
+      TArray<UWidget*> CurrentOrder = DisplayedCards->GetAllChildren();
+      CurrentOrder.RemoveAt(DroppedIndex);
+      CurrentOrder.Insert(DroppedCard, DroppedOnIndex);
+      DisplayedCards->ClearChildren();
+      for (UWidget* Card : CurrentOrder)
+      {
+        DisplayedCards->AddChild(Card);
+      }
+    }
+  }
+
+}
+
 void UYourPartsWidget::ClearDisplayedCards()
 {
   DisplayedCards->ClearChildren();
@@ -54,6 +77,8 @@ void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
   UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
+  Card->bCanBeDragged = true;
+  Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
   Card->SetRobotPart(RobotPart);
   AddDisplayedCard(Card);
   NewPartCardAdded.Broadcast(Card);

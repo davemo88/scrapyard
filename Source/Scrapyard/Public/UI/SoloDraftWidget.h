@@ -56,5 +56,8 @@ protected:
 
   UFUNCTION()
   void OnCardDrafted(UPartCardWidget* Card);
+
+  UFUNCTION()
+  void OnCardDroppedInYourParts(UPartCardWidget* Card);
   
 };
