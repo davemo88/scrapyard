@@ -26,7 +26,9 @@ void ASoloDraftPlayerController::SetupWidget()
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
   SoloDraftWidget = CreateWidget<USoloDraftWidget>(this, GameInstance->AssetsBP->UIAssetsBP->SoloDraftWidgetBP);
   SoloDraftWidget->YourPartsWidget->CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
+  SoloDraftWidget->YourPartsWidget->PartCardDroppedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDrafted);
   SoloDraftWidget->AddToViewport();
+  SoloDraftWidget->NextPack();
 }
 
 void ASoloDraftPlayerController::OnNextPack()

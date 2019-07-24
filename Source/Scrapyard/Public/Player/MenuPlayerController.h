@@ -7,8 +7,6 @@
 #include "Player/ScrapyardPlayerController.h"
 #include "MenuPlayerController.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWidgetReadyDelegate);
-
 /**
  * 
  */

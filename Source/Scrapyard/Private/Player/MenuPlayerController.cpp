@@ -29,8 +29,6 @@ void AMenuPlayerController::BeginPlay()
   SetIgnoreMoveInput(true);
 
   SetupWidget();
-
-  OnWidgetReadyDelegate.Broadcast();
 }
 
 void AMenuPlayerController::ShowEscapeMenu()

@@ -20,12 +20,6 @@ void USoloDraftWidget::NativeConstruct()
   Super::NativeConstruct();
 
   UpdatePickCounter();
-
-  if (ASoloDraftPlayerController* OwningController = Cast<ASoloDraftPlayerController>(GetOwningPlayer()))
-  {
-    UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct - OwningController ok"), *GetName());
-    YourPartsWidget->PartCardDroppedDelegate.AddDynamic(OwningController, &ASoloDraftPlayerController::OnPartDrafted);
-  }
 }
 
 void USoloDraftWidget::UpdatePickCounter()
@@ -95,6 +89,7 @@ void USoloDraftWidget::DisplayNextPack()
 void USoloDraftWidget::OnCardFadedOut(UPartCardWidget* PartCardWidget)
 {
   PartCardWidget->RemoveFromParent();
+//TODO: this could be a lot better
   if (PackDisplayPanel->GetAllChildren().Num() == 0)
   {
     DisplayNextPack();

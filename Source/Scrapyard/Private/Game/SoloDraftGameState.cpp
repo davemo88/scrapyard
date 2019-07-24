@@ -29,15 +29,13 @@ void ASoloDraftGameState::BeginPlay()
 
   OnNextPackReady.AddDynamic(PC, &ASoloDraftPlayerController::OnNextPack);
 
-  PC->OnWidgetReadyDelegate.AddDynamic(this, &ASoloDraftGameState::OnSoloDraftWidgetReady);
   PC->PartDraftedDelegate.AddDynamic(this, &ASoloDraftGameState::ServerDraftPart);
 
-}
+  if (CurrentDraft->CurrentPack.Num() == 0)
+  {
+    NextPack();
+  }
 
-void ASoloDraftGameState::OnSoloDraftWidgetReady()
-{
-  UE_LOG(LogGameState, Log, TEXT("%s::OnSoloDraftWidgetReady"), *GetName());
-  NextPack();
 }
 
 void ASoloDraftGameState::SetupRobotPartPool()
@@ -83,7 +81,7 @@ void ASoloDraftGameState::SamplePack()
   CurrentDraft->CurrentPack.Empty();
 
   URobotPart* PotentialPart;
-  while (CurrentDraft->CurrentPack.Num() < NumChoices)
+  while (CurrentDraft->CurrentPack.Num() < CurrentDraft->ChoicesPerPick)
   {
     PotentialPart = SamplePart();
     if (!CurrentDraft->CurrentPack.Contains(PotentialPart))
@@ -93,16 +91,9 @@ void ASoloDraftGameState::SamplePack()
   }
 }
 
-URobotPart* ASoloDraftGameState::SamplePart(bool Replacement)
+URobotPart* ASoloDraftGameState::SamplePart()
 {
-  URobotPart* RobotPart = nullptr;
-  int Index = FMath::RandRange(0, RobotPartPool.Num() - 1);
-  RobotPart = RobotPartPool[Index];
-  if (!Replacement)
-  {
-    RobotPartPool.RemoveAt(Index);
-  }
-  return RobotPart;
+  return RobotPartPool[FMath::RandRange(0, RobotPartPool.Num() - 1)];
 }
 
 bool ASoloDraftGameState::ServerDraftPart_Validate(URobotPart* RobotPart)
@@ -114,7 +105,7 @@ bool ASoloDraftGameState::ServerDraftPart_Validate(URobotPart* RobotPart)
 void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
 {
   UE_LOG(LogGameState, Log, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
-  CurrentDraft->NumPicks++;
+  CurrentDraft->Pick++;
   RobotPart->Draft(CurrentDraft);
   RobotPartPool.Remove(RobotPart);
 
@@ -123,7 +114,7 @@ void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
   UE_LOG(LogGameState, VeryVerbose, TEXT("num arms %i"), CurrentDraft->DraftedArms.Num());
   UE_LOG(LogGameState, VeryVerbose, TEXT("num legs %i"), CurrentDraft->DraftedLegs.Num());
 
-  if (CurrentDraft->NumPicks <= CurrentDraft->MaxPicks)
+  if (CurrentDraft->Pick <= CurrentDraft->TotalPicks)
   {
     NextPack();
   }

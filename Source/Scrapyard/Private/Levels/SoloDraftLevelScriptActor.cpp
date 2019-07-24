@@ -3,8 +3,3 @@
 
 #include "SoloDraftLevelScriptActor.h"
 
-void ASoloDraftLevelScriptActor::BeginPlay()
-{
-  Super::BeginPlay();
-}
-

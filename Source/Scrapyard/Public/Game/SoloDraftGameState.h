@@ -31,9 +31,6 @@ protected:
   virtual void BeginPlay() override;
 
   UPROPERTY()
-  uint32 NumChoices = 3;
-
-  UPROPERTY()
   TArray<URobotPart*> RobotPartPool;
 
   void NextPack();
@@ -44,9 +41,6 @@ protected:
 
   UFUNCTION(Server, reliable, WithValidation)
   void ServerDraftPart(URobotPart* RobotPart);
-  
-  UFUNCTION()
-  void OnSoloDraftWidgetReady();
 
   void SetupRobotPartPool();
   

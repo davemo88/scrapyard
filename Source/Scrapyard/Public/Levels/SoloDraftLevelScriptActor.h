@@ -14,6 +14,4 @@ class SCRAPYARD_API ASoloDraftLevelScriptActor : public AScrapyardLevelScriptAct
 {
   GENERATED_BODY()
   
-  void BeginPlay() override; 
-  
 };

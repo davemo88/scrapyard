@@ -29,21 +29,21 @@ public:
   USoloDraft();
 
   UPROPERTY()
-  int32 MaxPicks = 10;
+  int32 TotalPicks = 10;
 
 // TODO: which pick you're on
   UPROPERTY()
-  int32 NumPicks = 1;
+  int32 Pick = 1;
 
   UPROPERTY()
-  int32 NumChoicesPerPick = 3;
+  int32 ChoicesPerPick = 3;
 
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> DraftedHeads;
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> DraftedCores;
   UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedArms;
+e TArray<URobotPart*> DraftedArms;
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> DraftedLegs;
   UPROPERTY(BlueprintReadOnly)
@@ -52,10 +52,16 @@ public:
   TArray<URobotPart*> DraftedBoosters;
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> DraftedChips;
+  
+  virtual void DraftPart(URobotPart* Part);
 
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> CurrentPack;
 
+  UPROPERTY(BlueprintReadOnly)
+  TArray<URobotPart*> DraftedParts;
+
+// for garage
   UPROPERTY(BlueprintReadOnly)
   UPartAssignment* PartAssignment;
 
