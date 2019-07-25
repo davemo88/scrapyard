@@ -11,11 +11,11 @@ void UGarageWidget::NativeConstruct()
 {
   Super::NativeConstruct();
 
-  InstalledHeadWidget->InstalledPartType = UHeadPart::StaticClass();
-  InstalledCoreWidget->InstalledPartType = UCorePart::StaticClass();
-  InstalledArmsWidget->InstalledPartType = UArmsPart::StaticClass();
-  InstalledLegsWidget->InstalledPartType = ULegsPart::StaticClass();
-  InstalledRightHandheldWidget->InstalledPartType = UHandheldPart::StaticClass();
+  InstalledHeadWidget->SetInstalledPartType(UHeadPart::StaticClass());
+  InstalledCoreWidget->SetInstalledPartType(UCorePart::StaticClass());
+  InstalledArmsWidget->SetInstalledPartType(UArmsPart::StaticClass());
+  InstalledLegsWidget->SetInstalledPartType(ULegsPart::StaticClass());
+  InstalledRightHandheldWidget->SetInstalledPartType(UHandheldPart::StaticClass());
 }
 
 void UGarageWidget::SetInstalledParts(UPartAssignment* PartAssignment)

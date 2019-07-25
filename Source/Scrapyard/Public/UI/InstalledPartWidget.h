@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
 #include "InstalledPartWidget.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartUninstalledDelegate, URobotPart*, UninstalledPart);
@@ -22,9 +23,10 @@ class SCRAPYARD_API UInstalledPartWidget : public UUserWidget
 public:
 
   UFUNCTION()
-  void SetInstalledPart(URobotPart* NewInstalledPart);
+  void SetInstalledPartType(TSubclassOf<URobotPart> NewInstalledPartType);
 
-  TSubclassOf<URobotPart> InstalledPartType;
+  UFUNCTION()
+  void SetInstalledPart(URobotPart* NewInstalledPart);
 
   FPartUninstalledDelegate PartUninstalledDelegate;
   FCompatibleCardDroppedDelegate CompatibleCardDroppedDelegate;
@@ -39,6 +41,9 @@ protected:
   void OnUninstallButtonClicked();
 
   UPROPERTY()
+  TSubclassOf<URobotPart> InstalledPartType;
+
+  UPROPERTY()
   URobotPart* InstalledPart;
 
   UPROPERTY(meta=(BindWidget))
@@ -46,5 +51,8 @@ protected:
 
   UPROPERTY(meta=(BindWidget))
   UButton* UninstallButton;
+
+  UPROPERTY(meta=(BindWidget))
+  UImage* PartTypeIcon;
   
 };

@@ -107,30 +107,30 @@ void UYourPartsWidget::OnAllFilterButtonClicked()
 void UYourPartsWidget::OnHeadFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHeadFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UHeadPart>(Part) != nullptr;}));
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UHeadPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnCoreFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCoreFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UCorePart>(Part) != nullptr;}));
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UCorePart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnArmsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnArmsFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UArmsPart>(Part) != nullptr;}));
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UArmsPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnLegsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<ULegsPart>(Part) != nullptr;}));
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(ULegsPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnHandheldFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
-  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Cast<UHandheldPart>(Part) != nullptr;}));
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UHandheldPart::StaticClass());}));
 }
 

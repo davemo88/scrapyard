@@ -43,4 +43,11 @@ void UInstalledPartWidget::SetInstalledPart(URobotPart* NewInstalledPart)
   PartName->SetText(InstalledPart->PartName);
 }
 
+void UInstalledPartWidget::SetInstalledPartType(TSubclassOf<URobotPart> NewInstalledPartType)
+{
+  InstalledPartType = NewInstalledPartType;
+  URobotPart* Part = NewObject<URobotPart>(this, NewInstalledPartType);
+  PartTypeIcon->SetBrushFromTexture(Part->GetPartTypeIcon());
+}
+
 
