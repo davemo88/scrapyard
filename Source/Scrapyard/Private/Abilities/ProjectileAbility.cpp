@@ -13,12 +13,12 @@ void AProjectileAbility::FireShot()
 
 }
 
-void SetupTargetingProfile()
+void AProjectileAbility::SetupTargetingProfile()
 {
 
 }
 
-void ShowAbilityEffects(FAbilityEffectParams AbilityEffectParams)
+void AProjectileAbility::ShowAbilityEffects(FAbilityEffectParams AbilityEffectParams)
 {
 
 }

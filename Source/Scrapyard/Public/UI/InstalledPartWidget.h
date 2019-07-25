@@ -9,6 +9,8 @@
 #include "InstalledPartWidget.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartUninstalledDelegate, URobotPart*, UninstalledPart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCompatibleCardDroppedDelegate, UPartCardWidget*, Card);
+
 /**
  * 
  */
@@ -22,11 +24,16 @@ public:
   UFUNCTION()
   void SetInstalledPart(URobotPart* NewInstalledPart);
 
+  TSubclassOf<URobotPart> InstalledPartType;
+
   FPartUninstalledDelegate PartUninstalledDelegate;
+  FCompatibleCardDroppedDelegate CompatibleCardDroppedDelegate;
 
 protected:
 
   virtual void NativeConstruct() override;
+
+  bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
 
   UFUNCTION()
   void OnUninstallButtonClicked();

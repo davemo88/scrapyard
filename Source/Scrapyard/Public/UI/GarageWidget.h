@@ -22,7 +22,7 @@ class SCRAPYARD_API UGarageWidget : public UUserWidget
 
 public:
 
-    void SetInstalledParts(UPartAssignment* PartAssignment);
+  void SetInstalledParts(UPartAssignment* PartAssignment);
 
 //TODO: maybe proper methods to modify these?  
   UPROPERTY(meta=(BindWidget))
@@ -52,5 +52,8 @@ public:
   UPROPERTY(meta=(BindWidget))
   UInstalledPartWidget* InstalledRightHandheldWidget;
 
+protected:
+
+  virtual void NativeConstruct() override;
 
 };

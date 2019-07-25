@@ -49,6 +49,12 @@ void AGaragePlayerController::SetupWidget()
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledLegsWidget, &UInstalledPartWidget::SetInstalledPart);
   PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledRightHandheldWidget, &UInstalledPartWidget::SetInstalledPart);
 
+  GarageWidget->InstalledHeadWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+  GarageWidget->InstalledCoreWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+  GarageWidget->InstalledArmsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+  GarageWidget->InstalledLegsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+  GarageWidget->InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+
   GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
   GarageWidget->RobotStatsWidget->SetNewValueStats(NewValueStats);
 
