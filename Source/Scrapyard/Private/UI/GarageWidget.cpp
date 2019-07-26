@@ -6,6 +6,7 @@
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
 #include "Parts/HandheldPart.h"
+#include "UI/YourPartsWidget.h"
 
 void UGarageWidget::NativeConstruct()
 {

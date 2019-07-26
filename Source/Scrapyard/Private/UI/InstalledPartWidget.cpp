@@ -9,7 +9,7 @@
 
 void UInstalledPartWidget::NativeConstruct()
 {
-  UninstallButton->OnClicked.AddDynamic(this, &UInstalledPartWidget::OnUninstallButtonClicked);
+  ResetButton->OnClicked.AddDynamic(this, &UInstalledPartWidget::OnResetButtonClicked);
 }
 
 bool UInstalledPartWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
@@ -28,13 +28,9 @@ bool UInstalledPartWidget::NativeOnDrop(const FGeometry & InGeometry, const FDra
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
 
-void UInstalledPartWidget::OnUninstallButtonClicked()
+void UInstalledPartWidget::OnResetButtonClicked()
 {
-  PartUninstalledDelegate.Broadcast(InstalledPart);
-// NOTE:
-// handle actual uninstallation elsewhere?
-// InstalledPart = nullptr;
-//
+  ResetButtonClickedDelegate.Broadcast();
 }
 
 void UInstalledPartWidget::SetInstalledPart(URobotPart* NewInstalledPart)
@@ -49,5 +45,3 @@ void UInstalledPartWidget::SetInstalledPartType(TSubclassOf<URobotPart> NewInsta
   URobotPart* Part = NewObject<URobotPart>(this, NewInstalledPartType);
   PartTypeIcon->SetBrushFromTexture(Part->GetPartTypeIcon());
 }
-
-

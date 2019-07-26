@@ -30,6 +30,7 @@ public:
   void ClearDisplayedCards();
 
   void AddDisplayedCard(UPartCardWidget* Card);
+  void RemoveDisplayedCard(UPartCardWidget* Card);
 
   void AddDisplayedPart(URobotPart* RobotPart);
 

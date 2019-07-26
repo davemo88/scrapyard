@@ -9,7 +9,8 @@
 #include "Components/Image.h"
 #include "InstalledPartWidget.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartUninstalledDelegate, URobotPart*, UninstalledPart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FResetButtonClickedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartReplacedDelegate, URobotPart*, ReplacedPart);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCompatibleCardDroppedDelegate, UPartCardWidget*, Card);
 
 /**
@@ -28,7 +29,8 @@ public:
   UFUNCTION()
   void SetInstalledPart(URobotPart* NewInstalledPart);
 
-  FPartUninstalledDelegate PartUninstalledDelegate;
+  FPartReplacedDelegate PartReplacedDelegate;
+  FResetButtonClickedDelegate ResetButtonClickedDelegate;
   FCompatibleCardDroppedDelegate CompatibleCardDroppedDelegate;
 
 protected:
@@ -38,7 +40,7 @@ protected:
   bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
 
   UFUNCTION()
-  void OnUninstallButtonClicked();
+  void OnResetButtonClicked();
 
   UPROPERTY()
   TSubclassOf<URobotPart> InstalledPartType;
@@ -50,7 +52,7 @@ protected:
   UTextBlock* PartName;
 
   UPROPERTY(meta=(BindWidget))
-  UButton* UninstallButton;
+  UButton* ResetButton;
 
   UPROPERTY(meta=(BindWidget))
   UImage* PartTypeIcon;

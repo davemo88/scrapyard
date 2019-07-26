@@ -81,6 +81,7 @@ void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
 void AGaragePlayerController::OnCardAssigned(UPartCardWidget* Card)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnCardDoubleClicked"), *GetName());
+//  GarageWidget->YourPartsWidget->RemoveDisplayedCard(Card);
   Card->RobotPart->Assign(PartAssignment);
   Card->RobotPart->Assign(NewValueAssignment);
 }
@@ -112,4 +113,3 @@ void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
   GameInstance->SoloDraft->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
   Super::EndPlay(EndPlayReason);
 }
-

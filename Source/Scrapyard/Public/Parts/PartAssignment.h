@@ -122,6 +122,4 @@ protected:
   UPROPERTY(BlueprintReadOnly)
   UChipPart* ThirdChip;
 
-  void SavePartAssignment();
-
 };

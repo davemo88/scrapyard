@@ -73,6 +73,12 @@ void UYourPartsWidget::AddDisplayedCard(UPartCardWidget* Card)
   DisplayedCards->AddChild(Card);
 }
 
+void UYourPartsWidget::RemoveDisplayedCard(UPartCardWidget* Card)
+{
+  DisplayedCards->RemoveChild(Card);
+
+}
+
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
