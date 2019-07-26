@@ -22,7 +22,7 @@ class SCRAPYARD_API UGarageWidget : public UUserWidget
 
 public:
 
-  void SetInstalledParts(UPartAssignment* PartAssignment);
+  void SetSoloDraft(USoloDraft* NewSoloDraft);
 
 //TODO: maybe proper methods to modify these?  
   UPROPERTY(meta=(BindWidget))
@@ -56,4 +56,12 @@ protected:
 
   virtual void NativeConstruct() override;
 
-};
+  USoloDraft* SoloDraft;
+
+  UPROPERTY()
+  UPartAssignment* NewValueAssignment;
+  UPROPERTY()
+  URobotStats* NewValueStats;
+
+}
+

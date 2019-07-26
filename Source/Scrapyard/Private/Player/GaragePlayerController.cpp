@@ -19,8 +19,7 @@
 
 AGaragePlayerController::AGaragePlayerController()
 {
-  NewValueAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("NewValueAssignment"));
-  NewValueStats = CreateDefaultSubobject<URobotStats>(TEXT("NewValueStats"));
+
 }
 
 void AGaragePlayerController::SetupWidget()
@@ -41,22 +40,14 @@ void AGaragePlayerController::SetupWidget()
 //then the existing part assignment / draft should be loaded when the garage loads
   PartAssignment = RobotCharacter->PartAssignment;
 
-  GarageWidget->SetInstalledParts(PartAssignment);
+//  GarageWidget->InstalledHeadWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+//  GarageWidget->InstalledCoreWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+//  GarageWidget->InstalledArmsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+//  GarageWidget->InstalledLegsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
+//  GarageWidget->InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
 
-  PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledHeadWidget, &UInstalledPartWidget::SetInstalledPart);
-  PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledCoreWidget, &UInstalledPartWidget::SetInstalledPart);
-  PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledArmsWidget, &UInstalledPartWidget::SetInstalledPart);
-  PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledLegsWidget, &UInstalledPartWidget::SetInstalledPart);
-  PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledRightHandheldWidget, &UInstalledPartWidget::SetInstalledPart);
-
-  GarageWidget->InstalledHeadWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-  GarageWidget->InstalledCoreWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-  GarageWidget->InstalledArmsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-  GarageWidget->InstalledLegsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-  GarageWidget->InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-
-  GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
-  GarageWidget->RobotStatsWidget->SetNewValueStats(NewValueStats);
+//  GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
+//  GarageWidget->RobotStatsWidget->SetNewValueStats(NewValueStats);
 
   GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
 
@@ -71,8 +62,6 @@ void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnNewCardReady"), *GetName());
   
-//  CardWidget->RobotPart->GetSkeletalMesh();
-//  CardWidget->RobotPart->GetMajorMaterial();
   CardWidget->CardClickedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
   CardWidget->CardMouseEnteredDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseEntered);
   CardWidget->CardMouseLeftDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseLeft);
@@ -90,13 +79,11 @@ void AGaragePlayerController::OnCardMouseEntered(URobotPart* RobotPart)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnCardMouseEntered"), *GetName());
   RobotPart->Assign(NewValueAssignment);
-//  NewValueAssignment->GetPartAssignmentIDs();
 }
 void AGaragePlayerController::OnCardMouseLeft(URobotPart* RobotPart)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnCardMouseLeft"), *GetName());
   NewValueAssignment->SetAssignment(PartAssignment);
-//  NewValueAssignment->GetPartAssignmentIDs();
 }
 
 void AGaragePlayerController::GotoGarageTestLevel()
@@ -107,8 +94,6 @@ void AGaragePlayerController::GotoGarageTestLevel()
 void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
   UE_LOG(LogController, Log, TEXT("%s::EndPlay"), *GetName());
-//TODO: this is just here to print some stuff to logs i guess
-  PartAssignment->GetPartAssignmentIDs();
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
   GameInstance->SoloDraft->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
   Super::EndPlay(EndPlayReason);

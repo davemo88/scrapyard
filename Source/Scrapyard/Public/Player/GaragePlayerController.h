@@ -33,11 +33,6 @@ protected:
   UPROPERTY()
   UPartAssignment* PartAssignment;
 
-  UPROPERTY()
-  UPartAssignment* NewValueAssignment;
-  UPROPERTY()
-  URobotStats* NewValueStats;
-
   UGarageWidget* GarageWidget;
 
   virtual void SetupWidget() override;

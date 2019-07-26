@@ -17,13 +17,32 @@ void UGarageWidget::NativeConstruct()
   InstalledArmsWidget->SetInstalledPartType(UArmsPart::StaticClass());
   InstalledLegsWidget->SetInstalledPartType(ULegsPart::StaticClass());
   InstalledRightHandheldWidget->SetInstalledPartType(UHandheldPart::StaticClass());
+
+  NewValueAssignment = NewObject<UPartAssignment>();
+  NewValueStats = NewObject<URobotStats>();
 }
 
-void UGarageWidget::SetInstalledParts(UPartAssignment* PartAssignment)
+void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
 {
-  InstalledHeadWidget->SetInstalledPart(PartAssignment->GetHead());
-  InstalledCoreWidget->SetInstalledPart(PartAssignment->GetCore());
-  InstalledArmsWidget->SetInstalledPart(PartAssignment->GetArms());
-  InstalledLegsWidget->SetInstalledPart(PartAssignment->GetLegs());
-  InstalledRightHandheldWidget->SetInstalledPart(PartAssignment->GetRightHandheld());
+  SoloDraft = NewSoloDraft;
+  YourPartsWidget->SoloDraft = SoloDraft;
+
+  if (SoloDraft != nullptr)
+  {
+    InstalledHeadWidget->SetInstalledPart(SoloDraft->PartAssignment->GetHead());
+    InstalledCoreWidget->SetInstalledPart(SoloDraft->PartAssignment->GetCore());
+    InstalledArmsWidget->SetInstalledPart(SoloDraft->PartAssignment->GetArms());
+    InstalledLegsWidget->SetInstalledPart(SoloDraft->PartAssignment->GetLegs());
+    InstalledRightHandheldWidget->SetInstalledPart(SoloDraft->PartAssignment->GetRightHandheld());
+
+    SoloDraft->PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledHeadWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledCoreWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledArmsWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledLegsWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(GarageWidget->InstalledRightHandheldWidget, &UInstalledPartWidget::SetInstalledPart);
+  }
+
+  NewValueAssignment->SetAssignment(PartAssignment);
+  NewValueStats->SetPartAssignment(NewValueAssignment);
+
 }
