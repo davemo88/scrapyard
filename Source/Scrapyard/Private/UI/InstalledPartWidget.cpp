@@ -36,7 +36,10 @@ void UInstalledPartWidget::OnResetButtonClicked()
 void UInstalledPartWidget::SetInstalledPart(URobotPart* NewInstalledPart)
 {
   InstalledPart = NewInstalledPart;
-  PartName->SetText(InstalledPart->PartName);
+  if (InstalledPart != nullptr)
+  {
+    PartName->SetText(InstalledPart->PartName);
+  }
 }
 
 void UInstalledPartWidget::SetInstalledPartType(TSubclassOf<URobotPart> NewInstalledPartType)

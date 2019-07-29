@@ -21,17 +21,13 @@ public:
 
   void BeginPlay() override;
 
-  USoloDraft* GetCurrentSoloDraft() const;
+  ARobotCharacter* GetRobotCharacter();
+
+protected:
 
   void SpawnRobotCharacter();
 
-  USoloDraft* SoloDraft;
-
-//  UFUNCTION()
-//  void AssignPart(URobotPart* Part);
-
+  UPROPERTY()
   ARobotCharacter* RobotCharacter;
-
-  ARobotCharacter* GetRobotCharacter() const;
 
 };

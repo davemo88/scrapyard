@@ -7,7 +7,11 @@
 #include "Components/Button.h"
 #include "UI/InstalledPartWidget.h"
 #include "Parts/PartAssignment.h"
+#include "Parts/RobotPart.h"
+#include "Robots/RobotStats.h"
 #include "GarageWidget.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartAssignedDelegate, URobotPart*, RobotPart);
 
 class UYourPartsWidget;
 class URobotStatsWidget;
@@ -52,6 +56,8 @@ public:
   UPROPERTY(meta=(BindWidget))
   UInstalledPartWidget* InstalledRightHandheldWidget;
 
+  FPartAssignedDelegate PartAssignedDelegate;
+
 protected:
 
   virtual void NativeConstruct() override;
@@ -63,5 +69,15 @@ protected:
   UPROPERTY()
   URobotStats* NewValueStats;
 
-}
+  UFUNCTION()
+  void OnNewCardReady(UPartCardWidget* CardWidget);
 
+  UFUNCTION()
+  void OnCardMouseEntered(URobotPart* RobotPart);
+  UFUNCTION()
+  void OnCardMouseLeft(URobotPart* RobotPart);
+
+  UFUNCTION()
+  void OnCardAssigned(UPartCardWidget* CardWidget);
+
+};

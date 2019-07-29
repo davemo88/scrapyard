@@ -39,9 +39,6 @@ public:
   UPROPERTY()
   UPartSingleton* PartSingleton;
 
-//  UPROPERTY()
-//  UPartAssignment* PartAssignment;
-
   UPROPERTY()
   USoloDraft* SoloDraft;
 

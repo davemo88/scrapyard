@@ -24,66 +24,25 @@ AGaragePlayerController::AGaragePlayerController()
 
 void AGaragePlayerController::SetupWidget()
 {
-  UE_LOG(LogController, Log, TEXT("%s::SetupWidget"), *GetName());
+  UE_LOG(LogTemp, Log, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+
   GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->AssetsBP->UIAssetsBP->GarageWidgetBP);
-  GarageWidget->YourPartsWidget->CurrentDraft = GameInstance->SoloDraft;
-  
-  GarageWidget->YourPartsWidget->NewPartCardAdded.AddDynamic(this, &AGaragePlayerController::OnNewCardReady);
-   
-  GarageWidget->YourPartsWidget->DisplayAll();
   GarageWidget->AddToViewport();
+  GarageWidget->SetSoloDraft(GameInstance->SoloDraft);
 
-  AGarageLevelScriptActor* GarageActor = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor());
-  ARobotCharacter* RobotCharacter = GarageActor->GetRobotCharacter();
-//TODO: need to keep track of part assignment after leaving garage, e.g. if you go to testing or battling
-//then the existing part assignment / draft should be loaded when the garage loads
-  PartAssignment = RobotCharacter->PartAssignment;
-
-//  GarageWidget->InstalledHeadWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-//  GarageWidget->InstalledCoreWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-//  GarageWidget->InstalledArmsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-//  GarageWidget->InstalledLegsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-//  GarageWidget->InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-
-//  GarageWidget->RobotStatsWidget->SetRobotStats(RobotCharacter->RobotStats);
-//  GarageWidget->RobotStatsWidget->SetNewValueStats(NewValueStats);
+  PartAssignment = DuplicateObject<UPartAssignment>(GameInstance->SoloDraft->PartAssignment, nullptr);
 
   GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
 
-  NewValueAssignment->SetAssignment(PartAssignment);
-  NewValueStats->SetPartAssignment(NewValueAssignment);
-
-
+  GarageWidget->PartAssignedDelegate.AddDynamic(this, &AGaragePlayerController::OnPartAssigned);
 
 }
 
-void AGaragePlayerController::OnNewCardReady(UPartCardWidget* CardWidget)
-{
-  UE_LOG(LogController, Log, TEXT("%s::OnNewCardReady"), *GetName());
-  
-  CardWidget->CardClickedDelegate.AddDynamic(this, &AGaragePlayerController::OnCardAssigned);
-  CardWidget->CardMouseEnteredDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseEntered);
-  CardWidget->CardMouseLeftDelegate.AddDynamic(this, &AGaragePlayerController::OnCardMouseLeft);
-}
-
-void AGaragePlayerController::OnCardAssigned(UPartCardWidget* Card)
+void AGaragePlayerController::OnPartAssigned(URobotPart* Part)
 {
   UE_LOG(LogController, Log, TEXT("%s::OnCardDoubleClicked"), *GetName());
-//  GarageWidget->YourPartsWidget->RemoveDisplayedCard(Card);
-  Card->RobotPart->Assign(PartAssignment);
-  Card->RobotPart->Assign(NewValueAssignment);
-}
-
-void AGaragePlayerController::OnCardMouseEntered(URobotPart* RobotPart)
-{
-  UE_LOG(LogController, Log, TEXT("%s::OnCardMouseEntered"), *GetName());
-  RobotPart->Assign(NewValueAssignment);
-}
-void AGaragePlayerController::OnCardMouseLeft(URobotPart* RobotPart)
-{
-  UE_LOG(LogController, Log, TEXT("%s::OnCardMouseLeft"), *GetName());
-  NewValueAssignment->SetAssignment(PartAssignment);
+  Part->Assign(PartAssignment);
 }
 
 void AGaragePlayerController::GotoGarageTestLevel()
@@ -95,6 +54,6 @@ void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
   UE_LOG(LogController, Log, TEXT("%s::EndPlay"), *GetName());
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  GameInstance->SoloDraft->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, NULL);
+  GameInstance->SoloDraft->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, nullptr);
   Super::EndPlay(EndPlayReason);
 }

@@ -38,6 +38,10 @@ public:
   TSoftObjectPtr<USkeletalMesh> LegsPart_Default_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HandheldPart_Default_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> BoosterPart_Default_SkeletalMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<USkeletalMesh> ChipPart_Default_SkeletalMesh;
 
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UMaterial> DefaultMaterial;
@@ -73,6 +77,8 @@ public:
   TSoftObjectPtr<UTexture2D> LegsCardIcon;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> HandheldCardIcon;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> BoosterCardIcon;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> ChipCardIcon;
 
@@ -130,5 +136,6 @@ public:
   TSoftObjectPtr<USkeletalMesh> LegsPart_Purple_SkeletalMesh;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<USkeletalMesh> HandheldPart_Purple_SkeletalMesh;
+
 };
 

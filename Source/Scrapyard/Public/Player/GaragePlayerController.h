@@ -38,12 +38,5 @@ protected:
   virtual void SetupWidget() override;
 
   UFUNCTION()
-  void OnNewCardReady(UPartCardWidget* CardWidget);
-
-  UFUNCTION()
-  void OnCardAssigned(UPartCardWidget* Card);
-  UFUNCTION()
-  void OnCardMouseEntered(URobotPart* RobotPart);
-  UFUNCTION()
-  void OnCardMouseLeft(URobotPart* RobotPart);
+  void OnPartAssigned(URobotPart* Part);
 };

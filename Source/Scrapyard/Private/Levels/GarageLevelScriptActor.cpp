@@ -2,27 +2,18 @@
 
 
 #include "GarageLevelScriptActor.h"
-#include "Game/ScrapyardGameInstance.h"
+#include "Game/GarageGameState.h"
 #include "Robots/RobotCharacter.h"
-#include "Parts/RobotPart.h"
 #include "Engine/World.h"
 #include "Parts/PartAssignment.h"
-#include "Robots/RobotBodyComponent.h"
+#include "Drafting/SoloDraft.h"
 
 
 void AGarageLevelScriptActor::BeginPlay()
 {
   Super::BeginPlay();
 
-  SoloDraft = GetCurrentSoloDraft();
-
   SpawnRobotCharacter();
-}
-
-USoloDraft* AGarageLevelScriptActor::GetCurrentSoloDraft() const
-{
-  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  return GameInstance->SoloDraft;
 }
 
 void AGarageLevelScriptActor::SpawnRobotCharacter()
@@ -30,14 +21,14 @@ void AGarageLevelScriptActor::SpawnRobotCharacter()
   UWorld* World = GetWorld();
   RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(300.0f, 180.0f, 150.0f), FRotator(-10.0f, 200.0f, 0.f), FActorSpawnParameters());
   RobotCharacter->RobotBodyComponent->SetEnableGravity(false);
-  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  if (GameInstance->SoloDraft != nullptr)
+  
+  if (AGarageGameState* GarageGS = World->GetGameState<AGarageGameState>())
   {
-    RobotCharacter->PartAssignment->SetAssignment(GameInstance->SoloDraft->PartAssignment); 
+    RobotCharacter->PartAssignment->SetAssignment(GarageGS->CurrentDraft->PartAssignment); 
   }
 }
 
-ARobotCharacter* AGarageLevelScriptActor::GetRobotCharacter() const
+ARobotCharacter* AGarageLevelScriptActor::GetRobotCharacter()
 {
   return RobotCharacter;
 }

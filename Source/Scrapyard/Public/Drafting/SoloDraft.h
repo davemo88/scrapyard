@@ -42,7 +42,6 @@ public:
   UPROPERTY(BlueprintReadOnly)
   TArray<URobotPart*> DraftedParts;
 
-// for garage
   UPROPERTY(BlueprintReadOnly)
   UPartAssignment* PartAssignment;
 
