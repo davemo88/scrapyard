@@ -22,10 +22,11 @@ public:
   UPROPERTY()
   USoloDraft* CurrentDraft;
 
+  void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 protected:
   
   void SetCurrentDraft();
-  
   
   
 };

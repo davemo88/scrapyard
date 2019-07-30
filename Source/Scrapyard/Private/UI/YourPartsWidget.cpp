@@ -71,12 +71,13 @@ void UYourPartsWidget::ClearDisplayedCards()
 void UYourPartsWidget::AddDisplayedCard(UPartCardWidget* Card)
 {
   DisplayedCards->AddChild(Card);
+  Card->CardSizeBox->SetWidthOverride(188);
+  Card->CardSizeBox->SetHeightOverride(258);
 }
 
 void UYourPartsWidget::RemoveDisplayedCard(UPartCardWidget* Card)
 {
   DisplayedCards->RemoveChild(Card);
-
 }
 
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)

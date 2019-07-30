@@ -9,6 +9,7 @@
 #include "Components/Button.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
+#include "Game/GarageGameState.h"
 #include "Levels/GarageLevelScriptActor.h"
 #include "Parts/RobotPart.h"
 #include "Robots/RobotCharacter.h"
@@ -19,7 +20,19 @@
 
 AGaragePlayerController::AGaragePlayerController()
 {
-
+  if (GetWorld())
+  {
+    if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
+    {
+      if (ARobotCharacter* RobotChar = GarageLSA->GetRobotCharacter())
+      {
+        if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())
+        {
+          RobotChar->PartAssignment = GarageGS->CurrentDraft->PartAssignment;
+        }
+      }
+    }
+  }
 }
 
 void AGaragePlayerController::SetupWidget()
@@ -31,8 +44,6 @@ void AGaragePlayerController::SetupWidget()
   GarageWidget->AddToViewport();
   GarageWidget->SetSoloDraft(GameInstance->SoloDraft);
 
-  PartAssignment = DuplicateObject<UPartAssignment>(GameInstance->SoloDraft->PartAssignment, nullptr);
-
   GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
 
   GarageWidget->PartAssignedDelegate.AddDynamic(this, &AGaragePlayerController::OnPartAssigned);
@@ -41,19 +52,17 @@ void AGaragePlayerController::SetupWidget()
 
 void AGaragePlayerController::OnPartAssigned(URobotPart* Part)
 {
-  UE_LOG(LogController, Log, TEXT("%s::OnCardDoubleClicked"), *GetName());
-  Part->Assign(PartAssignment);
+  UE_LOG(LogController, Log, TEXT("%s::OnPartAssigned"), *GetName());
+  if (GetWorld())
+  {
+    if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())
+    {
+      Part->Assign(GarageGS->CurrentDraft->PartAssignment);
+    }
+  }
 }
 
 void AGaragePlayerController::GotoGarageTestLevel()
 {
   UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageTestLevel");
-}
-
-void AGaragePlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
-{
-  UE_LOG(LogController, Log, TEXT("%s::EndPlay"), *GetName());
-  UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  GameInstance->SoloDraft->PartAssignment = DuplicateObject<UPartAssignment>(PartAssignment, nullptr);
-  Super::EndPlay(EndPlayReason);
 }

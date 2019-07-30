@@ -63,12 +63,8 @@ void USoloDraftWidget::DisplayNextPack()
     Card->SetRobotPart(NextPack[i]);
     Card->CardClickedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDrafted);
     Card->CardDraggedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDragged);
-//TODO: render scale or make a bigger version
-    Card->CardSizeBox->SetWidthOverride(360);
-    Card->CardSizeBox->SetHeightOverride(495);
     Card->bHoverBorderActive = true;
     Card->bCanBeDragged = true;
-//    Card->SetRenderScale(FVector2D(1.5,1.5));
     PackDisplayPanel->AddChild(Card);
     if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))
     {

@@ -63,7 +63,7 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
   RobotStatsWidget->SetRobotStats(RobotStats);
   RobotStatsWidget->SetNewValueStats(NewValueStats);
 
-//  YourPartsWidget->DisplayAll();
+  YourPartsWidget->DisplayAll();
 }
 
 void UGarageWidget::OnNewCardReady(UPartCardWidget* CardWidget)
@@ -88,5 +88,6 @@ void UGarageWidget::OnCardMouseLeft(URobotPart* RobotPart)
 
 void UGarageWidget::OnCardAssigned(UPartCardWidget* Card)
 {
+  UE_LOG(LogController, Log, TEXT("%s::OnCardAssigned"), *GetName());
   PartAssignedDelegate.Broadcast(Card->RobotPart);
 }

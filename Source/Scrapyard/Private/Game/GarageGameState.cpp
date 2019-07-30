@@ -25,4 +25,13 @@ void AGarageGameState::SetCurrentDraft()
   }
 }
 
+void AGarageGameState::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+  UE_LOG(LogGameState, Log, TEXT("%s::EndPlay"), *GetName());
+  if (UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>())
+  {
+    GameInstance->SoloDraft = DuplicateObject<USoloDraft>(CurrentDraft, nullptr);
+  }
+  Super::EndPlay(EndPlayReason);
+}
 
