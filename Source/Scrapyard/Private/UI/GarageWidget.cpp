@@ -68,7 +68,7 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
 
 void UGarageWidget::OnNewCardReady(UPartCardWidget* CardWidget)
 {
-  UE_LOG(LogController, Log, TEXT("%s::OnNewCardReady"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnNewCardReady"), *GetName());
   
   CardWidget->CardClickedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   CardWidget->CardMouseEnteredDelegate.AddDynamic(this, &UGarageWidget::OnCardMouseEntered);
@@ -77,17 +77,18 @@ void UGarageWidget::OnNewCardReady(UPartCardWidget* CardWidget)
 
 void UGarageWidget::OnCardMouseEntered(URobotPart* RobotPart)
 {
-  UE_LOG(LogController, Log, TEXT("%s::OnCardMouseEntered"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnCardMouseEntered"), *GetName());
   RobotPart->Assign(NewValueAssignment);
 }
 void UGarageWidget::OnCardMouseLeft(URobotPart* RobotPart)
 {
-  UE_LOG(LogController, Log, TEXT("%s::OnCardMouseLeft"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnCardMouseLeft"), *GetName());
   NewValueAssignment->SetAssignment(SoloDraft->PartAssignment);
 }
 
 void UGarageWidget::OnCardAssigned(UPartCardWidget* Card)
 {
-  UE_LOG(LogController, Log, TEXT("%s::OnCardAssigned"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned"), *GetName());
+//  UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned - %s"), *GetName(), *Card->RobotPart->PartName.ToString());
   PartAssignedDelegate.Broadcast(Card->RobotPart);
 }

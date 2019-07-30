@@ -40,6 +40,8 @@ public:
 
   void SetupRobotHUDWidget();
 
+  void SetPartAssignment(UPartAssignment* NewPartAssignment);
+
   UPROPERTY()
   UPartAssignment* PartAssignment;
 
@@ -52,16 +54,12 @@ public:
   UPROPERTY(EditAnywhere)
   UTargetableComponent* TargetableComponent;
 
-//  UPROPERTY(Replicated)
-//  bool bTargetAcquired;
-
   bool IsTargetAcquired();
 
 // stats
   UPROPERTY()
   URobotStats* RobotStats;
 
-//  UPROPERTY(Replicated)
   UPROPERTY(ReplicatedUsing=OnRep_HitPoints)
   int32 HitPoints = 0;
   UPROPERTY(ReplicatedUsing=OnRep_Power)

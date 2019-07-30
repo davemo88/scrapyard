@@ -27,12 +27,6 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
   AddStatsText();
 }
 
-void UPartCardWidget::OnPartCardClicked()
-{
-  UE_LOG(LogUI, Log, TEXT("%s::OnPartCardClicked"), *GetName());
-  CardClickedDelegate.Broadcast(this);
-}
-
 FReply UPartCardWidget::NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonDoubleClick"), *GetName());

@@ -83,7 +83,7 @@ void UYourPartsWidget::RemoveDisplayedCard(UPartCardWidget* Card)
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
+  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->MiniCardWidgetBP); 
   Card->bCanBeDragged = true;
   Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
   Card->SetRobotPart(RobotPart);

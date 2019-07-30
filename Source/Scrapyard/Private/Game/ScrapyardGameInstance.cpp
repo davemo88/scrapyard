@@ -16,9 +16,8 @@ UScrapyardAssets* UScrapyardGameInstance::AssetsBP = nullptr;
 UScrapyardGameInstance::UScrapyardGameInstance()
 {
 //TODO: LOL look at this hack
+// this is a static member
   GameInstance = this;
-// TODO: find the right place for these
-  SoloDraft = CreateDefaultSubobject<USoloDraft>(TEXT("SoloDraft"));
 
   PartSingleton = CreateDefaultSubobject<UPartSingleton>(TEXT("PartSingleton"));
 };

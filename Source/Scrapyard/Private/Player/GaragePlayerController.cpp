@@ -20,19 +20,7 @@
 
 AGaragePlayerController::AGaragePlayerController()
 {
-  if (GetWorld())
-  {
-    if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
-    {
-      if (ARobotCharacter* RobotChar = GarageLSA->GetRobotCharacter())
-      {
-        if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())
-        {
-          RobotChar->PartAssignment = GarageGS->CurrentDraft->PartAssignment;
-        }
-      }
-    }
-  }
+
 }
 
 void AGaragePlayerController::SetupWidget()
@@ -40,19 +28,22 @@ void AGaragePlayerController::SetupWidget()
   UE_LOG(LogTemp, Log, TEXT("%s::SetupWidget"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
 
-  GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->AssetsBP->UIAssetsBP->GarageWidgetBP);
-  GarageWidget->AddToViewport();
-  GarageWidget->SetSoloDraft(GameInstance->SoloDraft);
-
-  GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
-
-  GarageWidget->PartAssignedDelegate.AddDynamic(this, &AGaragePlayerController::OnPartAssigned);
+  if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())
+  {
+    GarageWidget = CreateWidget<UGarageWidget>(this, GameInstance->AssetsBP->UIAssetsBP->GarageWidgetBP);
+    GarageWidget->AddToViewport();
+    GarageWidget->SetSoloDraft(GarageGS->CurrentDraft);
+  
+    GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
+  
+    GarageWidget->PartAssignedDelegate.AddDynamic(this, &AGaragePlayerController::OnPartAssigned);
+  }
 
 }
 
 void AGaragePlayerController::OnPartAssigned(URobotPart* Part)
 {
-  UE_LOG(LogController, Log, TEXT("%s::OnPartAssigned"), *GetName());
+  UE_LOG(LogTemp, Log, TEXT("%s::OnPartAssigned"), *GetName());
   if (GetWorld())
   {
     if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())

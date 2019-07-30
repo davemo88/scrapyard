@@ -22,7 +22,9 @@ public:
   UPROPERTY()
   USoloDraft* CurrentDraft;
 
-  void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+  virtual void BeginPlay() override;
+
+  virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 protected:
   

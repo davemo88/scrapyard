@@ -11,6 +11,7 @@
 
 void AGarageLevelScriptActor::BeginPlay()
 {
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
   SpawnRobotCharacter();
@@ -21,11 +22,6 @@ void AGarageLevelScriptActor::SpawnRobotCharacter()
   UWorld* World = GetWorld();
   RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(300.0f, 180.0f, 150.0f), FRotator(-10.0f, 200.0f, 0.f), FActorSpawnParameters());
   RobotCharacter->RobotBodyComponent->SetEnableGravity(false);
-  
-  if (AGarageGameState* GarageGS = World->GetGameState<AGarageGameState>())
-  {
-    RobotCharacter->PartAssignment->SetAssignment(GarageGS->CurrentDraft->PartAssignment); 
-  }
 }
 
 ARobotCharacter* AGarageLevelScriptActor::GetRobotCharacter()

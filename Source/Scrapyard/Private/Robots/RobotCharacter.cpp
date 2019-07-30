@@ -34,6 +34,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   bAlwaysRelevant = true;
 
   PartAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("PartAssignment"));
+  PartAssignment->SetDefaultAssignment();
 
   SetupCamera();
   SetupBody();
@@ -190,7 +191,7 @@ void ARobotCharacter::SetupBody()
 // seems like the sketetal mesh is not set up correctly
   RobotBodyComponent->SetRelativeRotation(FRotator(0.0f,-90.0f,0.f));
 
-  PartAssignment->SetDefaultAssignment();
+  RobotBodyComponent->SetPartAssignment(PartAssignment);
 
 }
 
@@ -461,7 +462,6 @@ void ARobotCharacter::GetLifetimeReplicatedProps(TArray <FLifetimeProperty > & O
   DOREPLIFETIME(ARobotCharacter, WeaponAbility);
   DOREPLIFETIME(ARobotCharacter, HitPoints);
   DOREPLIFETIME(ARobotCharacter, Power);
-//  DOREPLIFETIME(ARobotCharacter, bTargetAcquired);
 
 }
 
@@ -485,6 +485,17 @@ bool ARobotCharacter::IsTargetAcquired()
 bool ARobotCharacter::IsTargetableBy(ARobotCharacter* Robot)
 {
   return Team != Robot->Team;
+}
+
+void ARobotCharacter::SetPartAssignment(UPartAssignment* NewPartAssignment)
+{
+  PartAssignment = NewPartAssignment;
+  RobotStats->SetPartAssignment(PartAssignment);
+  RobotBodyComponent->SetPartAssignment(PartAssignment);
+  if (HasAuthority())
+  {
+    SetupAbilities();
+  }
 }
 
 void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)

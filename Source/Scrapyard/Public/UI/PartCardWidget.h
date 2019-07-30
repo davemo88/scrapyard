@@ -88,9 +88,6 @@ protected:
 
   void AddStatLine(FStatText StatText);
 
-  UFUNCTION()
-  void OnPartCardClicked();
-
   UPROPERTY(meta=(BindWidget))
   UBorder* CardBackground;
 

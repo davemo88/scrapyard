@@ -3,25 +3,41 @@
 
 #include "GarageGameState.h"
 #include "Game/ScrapyardGameInstance.h"
+#include "Levels/GarageLevelScriptActor.h"
+#include "Robots/RobotCharacter.h"
 
 AGarageGameState::AGarageGameState()
 {
+
+}
+
+void AGarageGameState::BeginPlay()
+{
+  UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
+  Super::BeginPlay();
   SetCurrentDraft();
 }
 
 void AGarageGameState::SetCurrentDraft()
 {
-  if (GetWorld())
+  UE_LOG(LogTemp, Warning, TEXT("%s::SetCurrentDraft"), *GetName());
+  if (UScrapyardGameInstance* GameInstance = GetGameInstance<UScrapyardGameInstance>())
   {
-    UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-    if (GameInstance != nullptr && GameInstance->SoloDraft != nullptr)
+    if (GameInstance->SoloDraft != nullptr)
     {
+      UE_LOG(LogTemp, Log, TEXT("%s::SetCurrentDraft - loading draft from game instance"), *GetName());
       CurrentDraft = DuplicateObject<USoloDraft>(GameInstance->SoloDraft, nullptr);
     }
     else
     {
+      UE_LOG(LogTemp, Log, TEXT("%s::SetCurrentDraft - creating fresh draft"), *GetName());
       CurrentDraft = NewObject<USoloDraft>();
     }
+  }
+
+  if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
+  {
+    GarageLSA->GetRobotCharacter()->SetPartAssignment(CurrentDraft->PartAssignment);
   }
 }
 
