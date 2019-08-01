@@ -12,7 +12,9 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
+#include "Parts/ChipPart.h"
 
 
 void UYourPartsWidget::NativeConstruct()
@@ -135,9 +137,21 @@ void UYourPartsWidget::OnLegsFilterButtonClicked()
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(ULegsPart::StaticClass());}));
 }
 
+void UYourPartsWidget::OnBoosterFilterButtonClicked()
+{
+  UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UBoosterPart::StaticClass());}));
+}
+
 void UYourPartsWidget::OnHandheldFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UHandheldPart::StaticClass());}));
+}
+
+void UYourPartsWidget::OnChipFilterButtonClicked()
+{
+  UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
+  DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UChipPart::StaticClass());}));
 }
 

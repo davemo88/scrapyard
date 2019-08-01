@@ -16,16 +16,12 @@ class SCRAPYARD_API UCorePart : public URobotPart
 
 public:
   
-  static UCorePart* NewCore(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewKineticDefense, uint32 NewElectricDefense, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerSupply, uint32 NewBoosterThrust, uint32 NewBoosterPowerDrain);
+  static UCorePart* NewCore(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewKineticDefense, uint32 NewElectricDefense, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewPowerSupply);
 
   UPROPERTY()
   uint32 MaxWeight;
   UPROPERTY()
   uint32 PowerSupply;
-  UPROPERTY()
-  uint32 BoosterThrust;
-  UPROPERTY()
-  uint32 BoosterPowerDrain;
 
   void Assign(UPartAssignment* PartAssignment) override;
 

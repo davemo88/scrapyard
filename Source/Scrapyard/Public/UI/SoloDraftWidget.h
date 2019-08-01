@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Drafting/SoloDraft.h"
 #include "SoloDraftWidget.generated.h"
 
 class UUserWidget;
@@ -23,6 +24,8 @@ class SCRAPYARD_API USoloDraftWidget : public UUserWidget
   GENERATED_BODY()
 
 public:
+
+  void SetCurrentDraft(USoloDraft* NewDraft);
 
 //TODO: clean up interface to this widget
   UPROPERTY(meta=(BindWidget))
@@ -59,5 +62,8 @@ protected:
 
   UFUNCTION()
   void OnCardDroppedInYourParts(UPartCardWidget* Card);
+
+  UPROPERTY()
+  USoloDraft* CurrentDraft;
   
 };

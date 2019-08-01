@@ -10,6 +10,7 @@ class UHeadPart;
 class UCorePart;
 class UArmsPart;
 class ULegsPart;
+class UBoosterPart;
 class UHandheldPart;
 class UChipPart;
 
@@ -26,6 +27,8 @@ struct FPartAssignmentIDs
   uint32 ArmsID;
   UPROPERTY()
   uint32 LegsID;
+  UPROPERTY()
+  uint32 BoosterID;
   UPROPERTY()
   uint32 LeftHandheldID;
   UPROPERTY()
@@ -45,6 +48,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeadAssignmentChangedDelegate, URob
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAssignmentChangedDelegate, URobotPart*, NewCore);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FArmsAssignmentChangedDelegate, URobotPart*, NewArms);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLegsAssignmentChangedDelegate, URobotPart*, NewLegs);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoosterAssignmentChangedDelegate, URobotPart*, NewBooster);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLeftHandheldAssignmentChangedDelegate, URobotPart*, NewHandheld);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRightHandheldAssignmentChangedDelegate, URobotPart*, NewHandheld);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFirstChipAssignmentChangedDelegate, URobotPart*, NewChip);
@@ -67,6 +71,7 @@ public:
   void SetCore(UCorePart* NewCore);
   void SetArms(UArmsPart* NewArms);
   void SetLegs(ULegsPart* NewLegs);
+  void SetBooster(UBoosterPart* NewBooster);
   void SetLeftHandheld(UHandheldPart* NewLeftHandheld);
   void SetRightHandheld(UHandheldPart* NewRightHandheld);
   void SetFirstChip(UChipPart* NewFirstChip);
@@ -84,6 +89,7 @@ public:
   UCorePart* GetCore() const;
   UArmsPart* GetArms() const;
   ULegsPart* GetLegs() const;
+  UBoosterPart* GetBooster() const;
   UHandheldPart* GetLeftHandheld() const;
   UHandheldPart* GetRightHandheld() const;
   UChipPart* GetFirstChip() const;
@@ -95,6 +101,7 @@ public:
   FCoreAssignmentChangedDelegate CoreAssignmentChangedDelegate;
   FArmsAssignmentChangedDelegate ArmsAssignmentChangedDelegate;
   FLegsAssignmentChangedDelegate LegsAssignmentChangedDelegate;
+  FBoosterAssignmentChangedDelegate BoosterAssignmentChangedDelegate;
   FLeftHandheldAssignmentChangedDelegate LeftHandheldAssignmentChangedDelegate;
   FRightHandheldAssignmentChangedDelegate RightHandheldAssignmentChangedDelegate;
   FFirstChipAssignmentChangedDelegate FirstChipAssignmentChangedDelegate;
@@ -111,6 +118,8 @@ protected:
   UArmsPart* Arms;
   UPROPERTY(BlueprintReadOnly)
   ULegsPart* Legs;
+  UPROPERTY(BlueprintReadOnly)
+  UBoosterPart* Booster;
   UPROPERTY(BlueprintReadOnly)
   UHandheldPart* LeftHandheld;
   UPROPERTY(BlueprintReadOnly)

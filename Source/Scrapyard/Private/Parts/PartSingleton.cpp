@@ -10,6 +10,7 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
 #include "Abilities/HitscanAbility.h"
 #include "Parts/Manufacturer.h"
@@ -94,9 +95,7 @@ void UPartSingleton::InitDefaultParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Default_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
       1000,
-      500,
-      500,
-      3));
+      500));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3000,
@@ -129,8 +128,21 @@ void UPartSingleton::InitDefaultParts()
       500,
       10));
   PartDB.AddPart(
-    UHandheldPart::NewHandheld(
+    UBoosterPart::NewBooster(
       5000,
+      NSLOCTEXT("SY", "DefaultBoosterName", "Default Booster"),
+      DefaultManufacturer,
+      nullptr,
+      100,
+      25,
+      100,
+      4,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      6000,
       NSLOCTEXT("SY", "DefaultHandheldName", "Default Handheld"),
       DefaultManufacturer,
       nullptr,
@@ -176,9 +188,7 @@ void UPartSingleton::InitRedParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Red_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
       1500,
-      400,
-      400,
-      4));
+      400));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3001,
@@ -211,8 +221,21 @@ void UPartSingleton::InitRedParts()
       300,
       20));
   PartDB.AddPart(
-    UHandheldPart::NewHandheld(
+    UBoosterPart::NewBooster(
       5001,
+      NSLOCTEXT("SY", "RedBoosterName", "Red Booster"),
+      RedManufacturer,
+      nullptr,
+      100,
+      25,
+      100,
+      4,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      6001,
       NSLOCTEXT("SY", "RedHandheldName", "Red Handheld"),
       RedManufacturer,
       nullptr,
@@ -258,9 +281,7 @@ void UPartSingleton::InitBlueParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Blue_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
       1000,
-      500,
-      500,
-      3));
+      500));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3002,
@@ -293,8 +314,21 @@ void UPartSingleton::InitBlueParts()
       500,
       10));
   PartDB.AddPart(
-    UHandheldPart::NewHandheld(
+    UBoosterPart::NewBooster(
       5002,
+      NSLOCTEXT("SY", "BlueBoosterName", "Blue Booster"),
+      BlueManufacturer,
+      nullptr,
+      100,
+      25,
+      100,
+      4,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      6002,
       NSLOCTEXT("SY", "BlueHandheldName", "Blue Handheld"),
       BlueManufacturer,
       nullptr,
@@ -340,9 +374,7 @@ void UPartSingleton::InitGreenParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Green_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
       1000,
-      500,
-      500,
-      3));
+      500));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3003,
@@ -375,8 +407,21 @@ void UPartSingleton::InitGreenParts()
       500,
       10));
   PartDB.AddPart(
-    UHandheldPart::NewHandheld(
+    UBoosterPart::NewBooster(
       5003,
+      NSLOCTEXT("SY", "GreenBoosterName", "Green Booster"),
+      GreenManufacturer,
+      nullptr,
+      100,
+      25,
+      100,
+      4,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      6003,
       NSLOCTEXT("SY", "GreenHandheldName", "Green Handheld"),
       GreenManufacturer,
       nullptr,
@@ -422,9 +467,7 @@ void UPartSingleton::InitOrangeParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Orange_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
       1000,
-      500,
-      500,
-      3));
+      500));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3004,
@@ -457,8 +500,21 @@ void UPartSingleton::InitOrangeParts()
       500,
       10));
   PartDB.AddPart(
-    UHandheldPart::NewHandheld(
+    UBoosterPart::NewBooster(
       5004,
+      NSLOCTEXT("SY", "OrangeBoosterName", "Orange Booster"),
+      OrangeManufacturer,
+      nullptr,
+      100,
+      25,
+      100,
+      4,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      6004,
       NSLOCTEXT("SY", "OrangeHandheldName", "Orange Handheld"),
       OrangeManufacturer,
       nullptr,
@@ -504,9 +560,7 @@ void UPartSingleton::InitPurpleParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
       1000,
-      500,
-      500,
-      3));
+      500));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3005,
@@ -539,8 +593,21 @@ void UPartSingleton::InitPurpleParts()
       500,
       10));
   PartDB.AddPart(
-    UHandheldPart::NewHandheld(
+    UBoosterPart::NewBooster(
       5005,
+      NSLOCTEXT("SY", "PurpleBoosterName", "Purple Booster"),
+      PurpleManufacturer,
+      nullptr,
+      100,
+      25,
+      100,
+      4,
+      nullptr,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial));
+  PartDB.AddPart(
+    UHandheldPart::NewHandheld(
+      6005,
       NSLOCTEXT("SY", "PurpleHandheldName", "Purple Handheld"),
       PurpleManufacturer,
       nullptr,

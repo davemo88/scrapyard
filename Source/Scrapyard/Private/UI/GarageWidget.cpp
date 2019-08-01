@@ -6,6 +6,7 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
 #include "UI/YourPartsWidget.h"
 #include "UI/RobotStatsWidget.h"
@@ -19,12 +20,14 @@ void UGarageWidget::NativeConstruct()
   InstalledCoreWidget->SetInstalledPartType(UCorePart::StaticClass());
   InstalledArmsWidget->SetInstalledPartType(UArmsPart::StaticClass());
   InstalledLegsWidget->SetInstalledPartType(ULegsPart::StaticClass());
+  InstalledBoosterWidget->SetInstalledPartType(UBoosterPart::StaticClass());
   InstalledRightHandheldWidget->SetInstalledPartType(UHandheldPart::StaticClass());
 
   InstalledHeadWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledCoreWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledArmsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledLegsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
+  InstalledBoosterWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
 
   YourPartsWidget->NewPartCardAdded.AddDynamic(this, &UGarageWidget::OnNewCardReady);
@@ -43,12 +46,14 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
     InstalledCoreWidget->SetInstalledPart(SoloDraft->PartAssignment->GetCore());
     InstalledArmsWidget->SetInstalledPart(SoloDraft->PartAssignment->GetArms());
     InstalledLegsWidget->SetInstalledPart(SoloDraft->PartAssignment->GetLegs());
+    InstalledBoosterWidget->SetInstalledPart(SoloDraft->PartAssignment->GetBooster());
     InstalledRightHandheldWidget->SetInstalledPart(SoloDraft->PartAssignment->GetRightHandheld());
 
     SoloDraft->PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(InstalledHeadWidget, &UInstalledPartWidget::SetInstalledPart);
     SoloDraft->PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(InstalledCoreWidget, &UInstalledPartWidget::SetInstalledPart);
     SoloDraft->PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(InstalledArmsWidget, &UInstalledPartWidget::SetInstalledPart);
     SoloDraft->PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(InstalledLegsWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->BoosterAssignmentChangedDelegate.AddDynamic(InstalledBoosterWidget, &UInstalledPartWidget::SetInstalledPart);
     SoloDraft->PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(InstalledRightHandheldWidget, &UInstalledPartWidget::SetInstalledPart);
   }
 

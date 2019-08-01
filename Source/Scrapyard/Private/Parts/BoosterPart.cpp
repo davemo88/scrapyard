@@ -6,7 +6,7 @@
 #include "Game/ScrapyardAssets.h"
 #include "Parts/PartAssets.h"
 
-UBoosterPart* UBoosterPart::NewBooster(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewThrust, uint32 NewThrustPowerConsumption, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
+UBoosterPart* UBoosterPart::NewBooster(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewPowerDrain, uint32 NewThrust, uint32 NewThrustPowerConsumption, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
 {
   UBoosterPart* NewPart = NewObject<UBoosterPart>();
   NewPart->PartID = NewPartID;
@@ -14,7 +14,6 @@ UBoosterPart* UBoosterPart::NewBooster(uint32 NewPartID, FText NewPartName, UMan
   NewPart->Manufacturer = NewManufacturer;
   NewPart->Rarity = NewRarity;
   NewPart->Mass = NewMass;
-  NewPart->HitPoints = NewHitPoints;
   NewPart->PowerDrain = NewPowerDrain;
   NewPart->Thrust = NewThrust;
   NewPart->ThrustPowerConsumption = NewThrustPowerConsumption;
@@ -27,7 +26,7 @@ UBoosterPart* UBoosterPart::NewBooster(uint32 NewPartID, FText NewPartName, UMan
 
 void UBoosterPart::Assign(UPartAssignment* PartAssignment)
 {
-//  PartAssignment->SetBooster(this);
+  PartAssignment->SetBooster(this);
 }
 
 UTexture2D* UBoosterPart::GetPartTypeIcon() const
@@ -44,6 +43,4 @@ TArray<FStatText> UBoosterPart::GetStatsText() const
   StatsText.Add(FStatText(NSLOCTEXT("SY", "ThrustPowerDrainStatText","Thrust Power Consumption"),FText::AsNumber(ThrustPowerConsumption)));
   return StatsText;
 }
-
-
 

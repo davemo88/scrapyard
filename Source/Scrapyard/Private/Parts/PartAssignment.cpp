@@ -9,6 +9,7 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/BoosterPart.h"
 #include "Parts/ChipPart.h"
 #include "Parts/HandheldPart.h"
 
@@ -43,6 +44,13 @@ void UPartAssignment::SetLegs(ULegsPart* NewLegs)
   Legs = NewLegs;
   PartAssignmentChangedDelegate.Broadcast();
   LegsAssignmentChangedDelegate.Broadcast(NewLegs);
+}
+
+void UPartAssignment::SetBooster(UBoosterPart* NewBooster)
+{
+  Booster = NewBooster;
+  PartAssignmentChangedDelegate.Broadcast();
+  BoosterAssignmentChangedDelegate.Broadcast(NewBooster);
 }
 
 void UPartAssignment::SetLeftHandheld(UHandheldPart* NewHandheld)
@@ -84,15 +92,15 @@ void UPartAssignment::SetDefaultAssignment()
 {
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
-    UE_LOG(LogParts, Log, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
+//    UE_LOG(LogParts, Log, TEXT("%s::SetDefaultAssignment - GameInstance OK"), *GetName());
     if (GameInstance->PartSingleton != nullptr)
     {
       SetHead(GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(1000));
       SetCore(GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(2000));
       SetArms(GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(3000));
       SetLegs(GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(4000));
-//      SetLeftHandheld(GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(5000));
-      SetRightHandheld(GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(5000));
+      SetBooster(GameInstance->PartSingleton->PartDB.GetPart<UBoosterPart>(5000));
+      SetRightHandheld(GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(6000));
     }
   }
 }
@@ -107,6 +115,7 @@ void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
     Core = NewPartAssignment->Core;
     Arms = NewPartAssignment->Arms;
     Legs = NewPartAssignment->Legs;
+    Booster = NewPartAssignment->Booster;
     LeftHandheld = NewPartAssignment->LeftHandheld;
     RightHandheld = NewPartAssignment->RightHandheld;
     FirstChip = NewPartAssignment->FirstChip;
@@ -116,6 +125,7 @@ void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
     CoreAssignmentChangedDelegate.Broadcast(Core);
     ArmsAssignmentChangedDelegate.Broadcast(Arms);
     LegsAssignmentChangedDelegate.Broadcast(Legs);
+    BoosterAssignmentChangedDelegate.Broadcast(Booster);
 //TODO: could be null so need to handle that
     LeftHandheldAssignmentChangedDelegate.Broadcast(LeftHandheld);
     RightHandheldAssignmentChangedDelegate.Broadcast(RightHandheld);
@@ -128,16 +138,17 @@ void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
 
 void UPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
 {
-  UE_LOG(LogParts, Log, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
-  UE_LOG(LogParts, Log, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
-  UE_LOG(LogParts, Log, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
-  UE_LOG(LogParts, Log, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
-  UE_LOG(LogParts, Log, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
-  UE_LOG(LogParts, Log, TEXT("Left Handheld PartID: %d"), PartAssignmentIDs.LeftHandheldID);
-  UE_LOG(LogParts, Log, TEXT("Right Handheld PartID: %d"), PartAssignmentIDs.RightHandheldID);
-  UE_LOG(LogParts, Log, TEXT("First Chip PartID: %d"), PartAssignmentIDs.FirstChipID);
-  UE_LOG(LogParts, Log, TEXT("Second Chip PartID: %d"), PartAssignmentIDs.SecondChipID);
-  UE_LOG(LogParts, Log, TEXT("Third Chip PartID: %d"), PartAssignmentIDs.ThirdChipID);
+  UE_LOG(LogParts, Verbose, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
+  UE_LOG(LogParts, Verbose, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
+  UE_LOG(LogParts, Verbose, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
+  UE_LOG(LogParts, Verbose, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
+  UE_LOG(LogParts, Verbose, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+  UE_LOG(LogParts, Verbose, TEXT("Booster PartID: %d"), PartAssignmentIDs.BoosterID);
+  UE_LOG(LogParts, Verbose, TEXT("Left Handheld PartID: %d"), PartAssignmentIDs.LeftHandheldID);
+  UE_LOG(LogParts, Verbose, TEXT("Right Handheld PartID: %d"), PartAssignmentIDs.RightHandheldID);
+  UE_LOG(LogParts, Verbose, TEXT("First Chip PartID: %d"), PartAssignmentIDs.FirstChipID);
+  UE_LOG(LogParts, Verbose, TEXT("Second Chip PartID: %d"), PartAssignmentIDs.SecondChipID);
+  UE_LOG(LogParts, Verbose, TEXT("Third Chip PartID: %d"), PartAssignmentIDs.ThirdChipID);
 
   if (UScrapyardGameInstance* GameInstance = UScrapyardGameInstance::GameInstance)
   {
@@ -160,6 +171,11 @@ void UPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
     {
       Legs = NewLegs;
       LegsAssignmentChangedDelegate.Broadcast(Legs);
+    }
+    if (UBoosterPart* NewBooster = GameInstance->PartSingleton->PartDB.GetPart<UBoosterPart>(PartAssignmentIDs.BoosterID))
+    {
+      Booster = NewBooster;
+      BoosterAssignmentChangedDelegate.Broadcast(Booster);
     }
     if (UHandheldPart* NewHandheld = GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(PartAssignmentIDs.LeftHandheldID))
     {
@@ -206,6 +222,8 @@ FPartAssignmentIDs UPartAssignment::GetPartAssignmentIDs() const
     UE_LOG(LogParts, Log, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);
     PartAssignmentIDs.LegsID = Legs->PartID;
     UE_LOG(LogParts, Log, TEXT("Legs PartID: %d"), PartAssignmentIDs.LegsID);
+    PartAssignmentIDs.BoosterID = Booster->PartID;
+    UE_LOG(LogParts, Log, TEXT("Booster PartID: %d"), PartAssignmentIDs.BoosterID);
 
 // TODO: need to do null checks for optional parts, maybe all
     if (LeftHandheld != nullptr)
@@ -256,6 +274,11 @@ UArmsPart* UPartAssignment::GetArms() const
 ULegsPart* UPartAssignment::GetLegs() const
 {
   return Legs;
+}
+
+UBoosterPart* UPartAssignment::GetBooster() const
+{
+  return Booster;
 }
 
 UHandheldPart* UPartAssignment::GetLeftHandheld() const

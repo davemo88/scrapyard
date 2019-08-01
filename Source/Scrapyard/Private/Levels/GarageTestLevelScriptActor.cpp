@@ -4,6 +4,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Player/RobotPlayerController.h"
 #include "Robots/RobotCharacter.h"
+#include "Drafting/SoloDraft.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -12,13 +13,13 @@ void AGarageTestLevelScriptActor::BeginPlay()
   Super::BeginPlay(); 
 
   UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>();
-  if (GameInstance->SoloDraft != NULL)
+  if (GameInstance->CurrentDraft != NULL)
   {
     APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();   
     ARobotCharacter* Char = Cast<ARobotCharacter>(PlayerController->GetPawn());
-    if (Char != nullptr && GameInstance->SoloDraft->PartAssignment->IsComplete())
+    if (Char != nullptr && GameInstance->CurrentDraft->PartAssignment->IsComplete())
     {
-      Char->PartAssignment->SetAssignment(GameInstance->SoloDraft->PartAssignment);
+      Char->PartAssignment->SetAssignment(GameInstance->CurrentDraft->PartAssignment);
     }
   }
 

@@ -112,3 +112,10 @@ void USoloDraftWidget::OnCardDroppedInYourParts(UPartCardWidget* Card)
   }
 //  else if (YourPartsWidget->HasChild(Card))
 }
+
+void USoloDraftWidget::SetCurrentDraft(USoloDraft* NewDraft)
+{
+  CurrentDraft = NewDraft;
+
+  YourPartsWidget->CurrentDraft = CurrentDraft;
+}

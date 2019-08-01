@@ -54,7 +54,11 @@ protected:
   UPROPERTY(meta=(BindWidget))   
   UButton* LegsFilterButton;
   UPROPERTY(meta=(BindWidget))   
+  UButton* BoosterFilterButton;
+  UPROPERTY(meta=(BindWidget))   
   UButton* HandheldFilterButton;
+  UPROPERTY(meta=(BindWidget))   
+  UButton* ChipFilterButton;
   UPROPERTY(meta=(BindWidget))   
   UScrollBox* DisplayedCards;
 
@@ -81,6 +85,12 @@ protected:
   void OnLegsFilterButtonClicked();
 
   UFUNCTION()
+  void OnBoosterFilterButtonClicked();
+
+  UFUNCTION()
   void OnHandheldFilterButtonClicked();
+
+  UFUNCTION()
+  void OnChipFilterButtonClicked();
   
 };

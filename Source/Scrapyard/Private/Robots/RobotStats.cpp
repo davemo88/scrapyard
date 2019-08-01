@@ -6,6 +6,7 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/BoosterPart.h"
 
 void URobotStats::SetPartAssignment(UPartAssignment* NewPartAssignment)
 {
@@ -39,9 +40,6 @@ void URobotStats::UpdateStats()
     ElectricDefense += Core->ElectricDefense;
     PowerDrain += Core->PowerDrain;
     PowerSupply = Core->PowerSupply;
-    BoosterThrust = Core->BoosterThrust;
-    BoosterPowerDrain = Core->BoosterPowerDrain;
-
   }
   if (UArmsPart* Arms = PartAssignment->GetArms())
   {
@@ -61,6 +59,13 @@ void URobotStats::UpdateStats()
     PowerDrain += Legs->PowerDrain;
     MovementSpeed = Legs->MovementSpeed;
   }
+  if (UBoosterPart* Booster = PartAssignment->GetBooster())
+  {
+    Mass += Booster->Mass;
+    BoosterThrust = Booster->Thrust;
+    BoosterPowerDrain = Booster->ThrustPowerConsumption;
+  }
+
 
   MaxPower = PowerSupply - PowerDrain;
 

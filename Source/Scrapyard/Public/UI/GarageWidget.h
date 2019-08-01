@@ -54,6 +54,9 @@ public:
   UInstalledPartWidget* InstalledLegsWidget;
 
   UPROPERTY(meta=(BindWidget))
+  UInstalledPartWidget* InstalledBoosterWidget;
+
+  UPROPERTY(meta=(BindWidget))
   UInstalledPartWidget* InstalledRightHandheldWidget;
 
   FPartAssignedDelegate PartAssignedDelegate;

@@ -23,10 +23,10 @@ void AGarageGameState::SetCurrentDraft()
   UE_LOG(LogTemp, Warning, TEXT("%s::SetCurrentDraft"), *GetName());
   if (UScrapyardGameInstance* GameInstance = GetGameInstance<UScrapyardGameInstance>())
   {
-    if (GameInstance->SoloDraft != nullptr)
+    if (GameInstance->CurrentDraft != nullptr)
     {
       UE_LOG(LogTemp, Log, TEXT("%s::SetCurrentDraft - loading draft from game instance"), *GetName());
-      CurrentDraft = DuplicateObject<USoloDraft>(GameInstance->SoloDraft, nullptr);
+      CurrentDraft = DuplicateObject<USoloDraft>(GameInstance->CurrentDraft, nullptr);
     }
     else
     {
@@ -46,7 +46,7 @@ void AGarageGameState::EndPlay(const EEndPlayReason::Type EndPlayReason)
   UE_LOG(LogGameState, Log, TEXT("%s::EndPlay"), *GetName());
   if (UScrapyardGameInstance* GameInstance = GetWorld()->GetGameInstance<UScrapyardGameInstance>())
   {
-    GameInstance->SoloDraft = DuplicateObject<USoloDraft>(CurrentDraft, nullptr);
+    GameInstance->CurrentDraft = DuplicateObject<USoloDraft>(CurrentDraft, nullptr);
   }
   Super::EndPlay(EndPlayReason);
 }

@@ -47,6 +47,8 @@ public:
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* LegsComponent;
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
+  URobotPartComponent* BoosterComponent;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* LeftHandheldComponent;
   UPROPERTY(EditAnywhere, BlueprintReadOnly)
   URobotPartComponent* RightHandheldComponent;

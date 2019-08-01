@@ -5,6 +5,7 @@
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotPlayerCameraManager.h"
 #include "Player/RobotPlayerState.h"
+#include "Drafting/SoloDraft.h"
 #include "Game/ScrapyardAssets.h"
 #include "Game/RobotGameState.h"
 #include "GameFramework/PlayerController.h"
@@ -175,10 +176,10 @@ void ARobotPlayerController::ClientGetPartAssignmentIDs_Implementation()
 {
   UE_LOG(LogController, Log, TEXT("%s::ClientGetPartAssignment_Implementation"), *GetName());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-  if (GameInstance->SoloDraft != NULL)
+  if (GameInstance->CurrentDraft != NULL)
   {
 //TODO: replication or no?
-    PartAssignmentIDs = GameInstance->SoloDraft->PartAssignment->GetPartAssignmentIDs();
+    PartAssignmentIDs = GameInstance->CurrentDraft->PartAssignment->GetPartAssignmentIDs();
     ServerSetPartAssignmentIDs(PartAssignmentIDs);
   }
 }

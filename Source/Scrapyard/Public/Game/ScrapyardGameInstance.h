@@ -40,7 +40,7 @@ public:
   UPartSingleton* PartSingleton;
 
   UPROPERTY()
-  USoloDraft* SoloDraft;
+  USoloDraft* CurrentDraft;
 
 protected:
 

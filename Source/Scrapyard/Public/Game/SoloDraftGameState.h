@@ -21,6 +21,11 @@ public:
 
   ASoloDraftGameState();
 
+  // Called when the game starts or when spawned
+  virtual void BeginPlay() override;
+
+  virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
   FOnNextPackReadyDelegate OnNextPackReady;
   
   UPROPERTY()
@@ -30,8 +35,8 @@ public:
   void ServerDraftPart(URobotPart* RobotPart);
 
 protected:
-  // Called when the game starts or when spawned
-  virtual void BeginPlay() override;
+
+  void SetCurrentDraft();
 
   UPROPERTY()
   TArray<URobotPart*> RobotPartPool;

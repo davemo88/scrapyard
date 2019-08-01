@@ -10,13 +10,13 @@
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
 #include "Parts/LegsPart.h"
+#include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
 #include "Parts/PartAssets.h"
 #include "Robots/RobotCharacter.h"
 #include "Components/SceneComponent.h"
 #include "ConstructorHelpers.h"
 #include "Animation/AnimBlueprintGeneratedClass.h"
-
 
 // Sets default values for this component's properties
 URobotBodyComponent::URobotBodyComponent()
@@ -37,6 +37,7 @@ URobotBodyComponent::URobotBodyComponent()
   CoreComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("CoreComponent"));
   ArmsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("ArmsComponent"));
   LegsComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("LegsComponent"));
+  BoosterComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("BoosterComponent"));
   LeftHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("LeftHandheldComponent"));
   RightHandheldComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("RightHandheldComponent"));
   FirstChipComponent = CreateDefaultSubobject<URobotPartComponent>(TEXT("FirstChipComponent"));
@@ -47,13 +48,16 @@ URobotBodyComponent::URobotBodyComponent()
   CoreComponent->SetupAttachment(this);
   ArmsComponent->SetupAttachment(this);
   LegsComponent->SetupAttachment(this);
+  BoosterComponent->SetupAttachment(this);
 
   HeadComponent->SetMasterPoseComponent(this);
   CoreComponent->SetMasterPoseComponent(this);
   ArmsComponent->SetMasterPoseComponent(this);
   LegsComponent->SetMasterPoseComponent(this);
+  BoosterComponent->SetMasterPoseComponent(this);
 
 // TODO: do these need the master pose? or are they socketed to the other parts?
+// i think socketed
   LeftHandheldComponent->SetupAttachment(this);
   LeftHandheldComponent->SetRelativeLocation(FVector(70,120,70));
 
@@ -107,6 +111,10 @@ void URobotBodyComponent::SetPartAssignment(UPartAssignment* NewPartAssignment)
   {
     LegsComponent->SetRobotPart(PartAssignment->GetLegs());    
   }
+  if (PartAssignment->GetBooster())
+  {
+    BoosterComponent->SetRobotPart(PartAssignment->GetBooster());    
+  }
   if (PartAssignment->GetRightHandheld())
   {
     RightHandheldComponent->SetRobotPart(PartAssignment->GetRightHandheld());    
@@ -116,6 +124,7 @@ void URobotBodyComponent::SetPartAssignment(UPartAssignment* NewPartAssignment)
   PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->BoosterAssignmentChangedDelegate.AddDynamic(BoosterComponent, &URobotPartComponent::SetRobotPart);
 
   PartAssignment->LeftHandheldAssignmentChangedDelegate.AddDynamic(LeftHandheldComponent, &URobotPartComponent::SetRobotPart);
   PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(RightHandheldComponent, &URobotPartComponent::SetRobotPart);
