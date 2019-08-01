@@ -8,6 +8,7 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
 #include "Game/ScrapyardAssets.h"
+#include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
@@ -21,7 +22,6 @@ void UYourPartsWidget::NativeConstruct()
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
-//  CurrentDraft = GetWorld()->GetGameState<ASoloDraftGameState>()->CurrentDraft;
 
   AllFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnAllFilterButtonClicked);
   HeadFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnHeadFilterButtonClicked);
@@ -29,6 +29,9 @@ void UYourPartsWidget::NativeConstruct()
   ArmsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnArmsFilterButtonClicked);
   LegsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnLegsFilterButtonClicked);
   HandheldFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnHandheldFilterButtonClicked);
+
+  DisplayedCards->SetAlwaysShowScrollbar(true);
+
 } 
 
 bool UYourPartsWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
@@ -73,8 +76,8 @@ void UYourPartsWidget::ClearDisplayedCards()
 void UYourPartsWidget::AddDisplayedCard(UPartCardWidget* Card)
 {
   DisplayedCards->AddChild(Card);
-  Card->CardSizeBox->SetWidthOverride(188);
-  Card->CardSizeBox->SetHeightOverride(258);
+//  Card->CardSizeBox->SetWidthOverride(188);
+//  Card->CardSizeBox->SetHeightOverride(258);
 }
 
 void UYourPartsWidget::RemoveDisplayedCard(UPartCardWidget* Card)
@@ -85,7 +88,7 @@ void UYourPartsWidget::RemoveDisplayedCard(UPartCardWidget* Card)
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->MiniCardWidgetBP); 
+  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
   Card->bCanBeDragged = true;
   Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
   Card->SetRobotPart(RobotPart);
@@ -105,6 +108,7 @@ void UYourPartsWidget::DisplayParts(TArray<URobotPart*> Parts)
 void UYourPartsWidget::DisplayAll()
 {
   DisplayParts(CurrentDraft->DraftedParts);
+//  SortByType();
 }
 
 void UYourPartsWidget::OnAllFilterButtonClicked()
@@ -153,5 +157,44 @@ void UYourPartsWidget::OnChipFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UChipPart::StaticClass());}));
+}
+
+void UYourPartsWidget::OnSortButtonClicked()
+{
+
+}
+
+void UYourPartsWidget::SortByUserOrder()
+{
+
+}
+
+void UYourPartsWidget::SortByType()
+{
+  TArray<TSubclassOf<URobotPart>> TypeOrder;
+  TypeOrder.Add(UHeadPart::StaticClass());
+  TypeOrder.Add(UCorePart::StaticClass());
+  TypeOrder.Add(UArmsPart::StaticClass());
+  TypeOrder.Add(ULegsPart::StaticClass());
+  TypeOrder.Add(UBoosterPart::StaticClass());
+  TypeOrder.Add(UHandheldPart::StaticClass());
+  TypeOrder.Add(UChipPart::StaticClass());
+
+  auto NewOrder = TArray<URobotPart*>(CurrentDraft->DraftedParts);
+
+  Algo::Sort(NewOrder, [TypeOrder](URobotPart* Part1, URobotPart* Part2)
+      {bool pred = TypeOrder.Find(Part1->GetClass()) < TypeOrder.Find(Part2->GetClass());
+       UE_LOG(LogTemp, Warning, TEXT("%s"), *Part1->GetClass()->GetName());
+       UE_LOG(LogTemp, Warning, TEXT("%s"), *Part2->GetClass()->GetName());
+       UE_LOG(LogTemp, Warning, TEXT("%s vs %s - %i"), *Part1->PartName.ToString(), *Part2->PartName.ToString(), pred);
+       return pred;});
+   
+  DisplayParts(NewOrder);  
+
+}
+
+void UYourPartsWidget::SortByColor()
+{
+
 }
 

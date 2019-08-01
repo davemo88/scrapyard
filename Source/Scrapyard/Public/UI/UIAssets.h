@@ -42,9 +42,6 @@ public:
   TSubclassOf<class UPartCardWidget> PartCardWidgetBP;
 
   UPROPERTY(EditDefaultsOnly)
-  TSubclassOf<class UPartCardWidget> MiniCardWidgetBP;
-
-  UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class URobotHUDWidget> RobotHUDWidgetBP;
 
   UPROPERTY(EditDefaultsOnly)

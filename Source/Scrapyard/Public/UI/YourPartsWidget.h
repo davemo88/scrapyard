@@ -59,6 +59,7 @@ protected:
   UButton* HandheldFilterButton;
   UPROPERTY(meta=(BindWidget))   
   UButton* ChipFilterButton;
+
   UPROPERTY(meta=(BindWidget))   
   UScrollBox* DisplayedCards;
 
@@ -92,5 +93,11 @@ protected:
 
   UFUNCTION()
   void OnChipFilterButtonClicked();
+
+  UFUNCTION()
+  void OnSortButtonClicked();
+  void SortByUserOrder();
+  void SortByType();
+  void SortByColor();
   
 };
