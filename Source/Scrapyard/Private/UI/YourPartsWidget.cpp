@@ -16,6 +16,7 @@
 #include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
 #include "Parts/ChipPart.h"
+//#include "Components/ScrollBoxSlot.h"
 
 
 void UYourPartsWidget::NativeConstruct()
@@ -28,9 +29,8 @@ void UYourPartsWidget::NativeConstruct()
   CoreFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnCoreFilterButtonClicked);
   ArmsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnArmsFilterButtonClicked);
   LegsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnLegsFilterButtonClicked);
+  BoosterFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnBoosterFilterButtonClicked);
   HandheldFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnHandheldFilterButtonClicked);
-
-  DisplayedCards->SetAlwaysShowScrollbar(true);
 
 } 
 
@@ -58,7 +58,7 @@ void UYourPartsWidget::ReorderCards(UPartCardWidget* DroppedOnCard, UDragDropOpe
       TArray<UWidget*> CurrentOrder = DisplayedCards->GetAllChildren();
       CurrentOrder.RemoveAt(DroppedIndex);
       CurrentOrder.Insert(DroppedCard, DroppedOnIndex);
-      DisplayedCards->ClearChildren();
+      ClearDisplayedCards();
       for (UWidget* Card : CurrentOrder)
       {
         DisplayedCards->AddChild(Card);
@@ -76,7 +76,7 @@ void UYourPartsWidget::ClearDisplayedCards()
 void UYourPartsWidget::AddDisplayedCard(UPartCardWidget* Card)
 {
   DisplayedCards->AddChild(Card);
-//  Card->CardSizeBox->SetWidthOverride(188);
+  Card->CardSizeBox->SetWidthOverride(200);
 //  Card->CardSizeBox->SetHeightOverride(258);
 }
 
@@ -183,11 +183,7 @@ void UYourPartsWidget::SortByType()
   auto NewOrder = TArray<URobotPart*>(CurrentDraft->DraftedParts);
 
   Algo::Sort(NewOrder, [TypeOrder](URobotPart* Part1, URobotPart* Part2)
-      {bool pred = TypeOrder.Find(Part1->GetClass()) < TypeOrder.Find(Part2->GetClass());
-       UE_LOG(LogTemp, Warning, TEXT("%s"), *Part1->GetClass()->GetName());
-       UE_LOG(LogTemp, Warning, TEXT("%s"), *Part2->GetClass()->GetName());
-       UE_LOG(LogTemp, Warning, TEXT("%s vs %s - %i"), *Part1->PartName.ToString(), *Part2->PartName.ToString(), pred);
-       return pred;});
+      { return TypeOrder.Find(Part1->GetClass()) < TypeOrder.Find(Part2->GetClass()); });
    
   DisplayParts(NewOrder);  
 
