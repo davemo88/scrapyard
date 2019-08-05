@@ -22,70 +22,70 @@ void UPartAssignment::SetHead(UHeadPart* NewHead)
 {
   Head = NewHead;
   PartAssignmentChangedDelegate.Broadcast();
-  HeadAssignmentChangedDelegate.Broadcast(NewHead);
+  HeadAssignedDelegate.Broadcast(NewHead);
 }
 
 void UPartAssignment::SetCore(UCorePart* NewCore)
 {
   Core = NewCore;
   PartAssignmentChangedDelegate.Broadcast();
-  CoreAssignmentChangedDelegate.Broadcast(NewCore);
+  CoreAssignedDelegate.Broadcast(NewCore);
 }
 
 void UPartAssignment::SetArms(UArmsPart* NewArms)
 {
   Arms = NewArms;
   PartAssignmentChangedDelegate.Broadcast();
-  ArmsAssignmentChangedDelegate.Broadcast(NewArms);
+  ArmsAssignedDelegate.Broadcast(NewArms);
 }
 
 void UPartAssignment::SetLegs(ULegsPart* NewLegs)
 {
   Legs = NewLegs;
   PartAssignmentChangedDelegate.Broadcast();
-  LegsAssignmentChangedDelegate.Broadcast(NewLegs);
+  LegsAssignedDelegate.Broadcast(NewLegs);
 }
 
 void UPartAssignment::SetBooster(UBoosterPart* NewBooster)
 {
   Booster = NewBooster;
   PartAssignmentChangedDelegate.Broadcast();
-  BoosterAssignmentChangedDelegate.Broadcast(NewBooster);
+  BoosterAssignedDelegate.Broadcast(NewBooster);
 }
 
 void UPartAssignment::SetLeftHandheld(UHandheldPart* NewHandheld)
 {
   LeftHandheld = NewHandheld;
   PartAssignmentChangedDelegate.Broadcast();
-  LeftHandheldAssignmentChangedDelegate.Broadcast(NewHandheld);
+  LeftHandheldAssignedDelegate.Broadcast(NewHandheld);
 }
 
 void UPartAssignment::SetRightHandheld(UHandheldPart* NewHandheld)
 {
   RightHandheld = NewHandheld;
   PartAssignmentChangedDelegate.Broadcast();
-  RightHandheldAssignmentChangedDelegate.Broadcast(NewHandheld);
+  RightHandheldAssignedDelegate.Broadcast(NewHandheld);
 }
 
 void UPartAssignment::SetFirstChip(UChipPart* NewChip)
 {
   FirstChip = NewChip;
   PartAssignmentChangedDelegate.Broadcast();
-  FirstChipAssignmentChangedDelegate.Broadcast(NewChip);
+  FirstChipAssignedDelegate.Broadcast(NewChip);
 }
 
 void UPartAssignment::SetSecondChip(UChipPart* NewChip)
 {
   SecondChip = NewChip;
   PartAssignmentChangedDelegate.Broadcast();
-  SecondChipAssignmentChangedDelegate.Broadcast(NewChip);
+  SecondChipAssignedDelegate.Broadcast(NewChip);
 }
 
 void UPartAssignment::SetThirdChip(UChipPart* NewChip)
 {
   ThirdChip = NewChip;
   PartAssignmentChangedDelegate.Broadcast();
-  ThirdChipAssignmentChangedDelegate.Broadcast(NewChip);
+  ThirdChipAssignedDelegate.Broadcast(NewChip);
 }
 
 void UPartAssignment::SetDefaultAssignment()
@@ -121,17 +121,17 @@ void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
     FirstChip = NewPartAssignment->FirstChip;
     SecondChip = NewPartAssignment->SecondChip;
     ThirdChip = NewPartAssignment->ThirdChip;
-    HeadAssignmentChangedDelegate.Broadcast(Head);
-    CoreAssignmentChangedDelegate.Broadcast(Core);
-    ArmsAssignmentChangedDelegate.Broadcast(Arms);
-    LegsAssignmentChangedDelegate.Broadcast(Legs);
-    BoosterAssignmentChangedDelegate.Broadcast(Booster);
+    HeadAssignedDelegate.Broadcast(Head);
+    CoreAssignedDelegate.Broadcast(Core);
+    ArmsAssignedDelegate.Broadcast(Arms);
+    LegsAssignedDelegate.Broadcast(Legs);
+    BoosterAssignedDelegate.Broadcast(Booster);
 //TODO: could be null so need to handle that
-    LeftHandheldAssignmentChangedDelegate.Broadcast(LeftHandheld);
-    RightHandheldAssignmentChangedDelegate.Broadcast(RightHandheld);
-    FirstChipAssignmentChangedDelegate.Broadcast(FirstChip);
-    SecondChipAssignmentChangedDelegate.Broadcast(SecondChip);
-    ThirdChipAssignmentChangedDelegate.Broadcast(ThirdChip);
+    LeftHandheldAssignedDelegate.Broadcast(LeftHandheld);
+    RightHandheldAssignedDelegate.Broadcast(RightHandheld);
+    FirstChipAssignedDelegate.Broadcast(FirstChip);
+    SecondChipAssignedDelegate.Broadcast(SecondChip);
+    ThirdChipAssignedDelegate.Broadcast(ThirdChip);
     PartAssignmentChangedDelegate.Broadcast();
   }
 }
@@ -155,52 +155,52 @@ void UPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
     if (UHeadPart* NewHead = GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(PartAssignmentIDs.HeadID))
     {
       Head = NewHead;
-      HeadAssignmentChangedDelegate.Broadcast(Head);
+      HeadAssignedDelegate.Broadcast(Head);
     }
     if (UCorePart* NewCore = GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(PartAssignmentIDs.CoreID))
     {
       Core = NewCore;
-      CoreAssignmentChangedDelegate.Broadcast(Core);
+      CoreAssignedDelegate.Broadcast(Core);
     }
     if (UArmsPart* NewArms = GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(PartAssignmentIDs.ArmsID))
     {
       Arms = NewArms;
-      ArmsAssignmentChangedDelegate.Broadcast(Arms);
+      ArmsAssignedDelegate.Broadcast(Arms);
     }
     if (ULegsPart* NewLegs = GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(PartAssignmentIDs.LegsID))
     {
       Legs = NewLegs;
-      LegsAssignmentChangedDelegate.Broadcast(Legs);
+      LegsAssignedDelegate.Broadcast(Legs);
     }
     if (UBoosterPart* NewBooster = GameInstance->PartSingleton->PartDB.GetPart<UBoosterPart>(PartAssignmentIDs.BoosterID))
     {
       Booster = NewBooster;
-      BoosterAssignmentChangedDelegate.Broadcast(Booster);
+      BoosterAssignedDelegate.Broadcast(Booster);
     }
     if (UHandheldPart* NewHandheld = GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(PartAssignmentIDs.LeftHandheldID))
     {
       LeftHandheld = NewHandheld;
-      LeftHandheldAssignmentChangedDelegate.Broadcast(LeftHandheld);
+      LeftHandheldAssignedDelegate.Broadcast(LeftHandheld);
     }
     if (UHandheldPart* NewHandheld = GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(PartAssignmentIDs.RightHandheldID))
     {
       RightHandheld = NewHandheld;
-      RightHandheldAssignmentChangedDelegate.Broadcast(RightHandheld);
+      RightHandheldAssignedDelegate.Broadcast(RightHandheld);
     }
     if (UChipPart* NewChip = GameInstance->PartSingleton->PartDB.GetPart<UChipPart>(PartAssignmentIDs.FirstChipID))
     {
       FirstChip = NewChip;
-      FirstChipAssignmentChangedDelegate.Broadcast(FirstChip);
+      FirstChipAssignedDelegate.Broadcast(FirstChip);
     }
     if (UChipPart* NewChip = GameInstance->PartSingleton->PartDB.GetPart<UChipPart>(PartAssignmentIDs.SecondChipID))
     {
       SecondChip = NewChip;
-      SecondChipAssignmentChangedDelegate.Broadcast(SecondChip);
+      SecondChipAssignedDelegate.Broadcast(SecondChip);
     }
     if (UChipPart* NewChip = GameInstance->PartSingleton->PartDB.GetPart<UChipPart>(PartAssignmentIDs.ThirdChipID))
     {
       ThirdChip = NewChip;
-      ThirdChipAssignmentChangedDelegate.Broadcast(ThirdChip);
+      ThirdChipAssignedDelegate.Broadcast(ThirdChip);
     }
   }
 

@@ -9,7 +9,7 @@
 
 void UInstalledPartWidget::NativeConstruct()
 {
-  ResetButton->OnClicked.AddDynamic(this, &UInstalledPartWidget::OnResetButtonClicked);
+  UninstallButton->OnClicked.AddDynamic(this, &UInstalledPartWidget::OnUninstallButtonClicked);
 }
 
 bool UInstalledPartWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
@@ -28,17 +28,26 @@ bool UInstalledPartWidget::NativeOnDrop(const FGeometry & InGeometry, const FDra
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
 
-void UInstalledPartWidget::OnResetButtonClicked()
+void UInstalledPartWidget::OnUninstallButtonClicked()
 {
-  ResetButtonClickedDelegate.Broadcast();
+  UninstallButtonClickedDelegate.Broadcast();
 }
 
 void UInstalledPartWidget::SetInstalledPart(URobotPart* NewInstalledPart)
 {
+  if (InstalledPart != nullptr)
+  {
+    UE_LOG(LogUI, Log, TEXT("%s::SetInstalledPart - broadcasting uninstalled part"), *GetName());
+    PartUninstalledDelegate.Broadcast(InstalledPart);
+  }
   InstalledPart = NewInstalledPart;
   if (InstalledPart != nullptr)
   {
     PartName->SetText(InstalledPart->PartName);
+  }
+  else
+  {
+    PartName->SetText(FText());
   }
 }
 

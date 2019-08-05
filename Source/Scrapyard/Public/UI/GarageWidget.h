@@ -11,7 +11,7 @@
 #include "Robots/RobotStats.h"
 #include "GarageWidget.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartAssignedDelegate, URobotPart*, RobotPart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGarageWidgetPartAssignedDelegate, URobotPart*, RobotPart);
 
 class UYourPartsWidget;
 class URobotStatsWidget;
@@ -59,7 +59,7 @@ public:
   UPROPERTY(meta=(BindWidget))
   UInstalledPartWidget* InstalledRightHandheldWidget;
 
-  FPartAssignedDelegate PartAssignedDelegate;
+  FGarageWidgetPartAssignedDelegate PartAssignedDelegate;
 
 protected:
 

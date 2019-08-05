@@ -29,9 +29,13 @@ public:
 
   void ClearDisplayedCards();
 
+  UFUNCTION()
   void AddDisplayedCard(UPartCardWidget* Card);
+
+  UFUNCTION()
   void RemoveDisplayedCard(UPartCardWidget* Card);
 
+  UFUNCTION()
   void AddDisplayedPart(URobotPart* RobotPart);
 
   void DisplayParts(TArray<URobotPart*> RobotParts);

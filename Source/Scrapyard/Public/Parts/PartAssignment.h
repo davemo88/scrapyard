@@ -43,18 +43,9 @@ struct FPartAssignmentIDs
 
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPartAssignmentChangedDelegate);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHeadAssignmentChangedDelegate, URobotPart*, NewHead);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAssignmentChangedDelegate, URobotPart*, NewCore);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FArmsAssignmentChangedDelegate, URobotPart*, NewArms);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLegsAssignmentChangedDelegate, URobotPart*, NewLegs);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBoosterAssignmentChangedDelegate, URobotPart*, NewBooster);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLeftHandheldAssignmentChangedDelegate, URobotPart*, NewHandheld);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRightHandheldAssignmentChangedDelegate, URobotPart*, NewHandheld);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFirstChipAssignmentChangedDelegate, URobotPart*, NewChip);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSecondChipAssignmentChangedDelegate, URobotPart*, NewChip);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FThirdChipAssignmentChangedDelegate, URobotPart*, NewChip);
-//
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FNoParamAssignmentChangedDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAssignmentChangedDelegate, URobotPart*, NewPart);
+
 /**
  * 
  */
@@ -96,17 +87,19 @@ public:
   UChipPart* GetSecondChip() const;
   UChipPart* GetThirdChip() const;
   
-  FPartAssignmentChangedDelegate PartAssignmentChangedDelegate;
-  FHeadAssignmentChangedDelegate HeadAssignmentChangedDelegate;
-  FCoreAssignmentChangedDelegate CoreAssignmentChangedDelegate;
-  FArmsAssignmentChangedDelegate ArmsAssignmentChangedDelegate;
-  FLegsAssignmentChangedDelegate LegsAssignmentChangedDelegate;
-  FBoosterAssignmentChangedDelegate BoosterAssignmentChangedDelegate;
-  FLeftHandheldAssignmentChangedDelegate LeftHandheldAssignmentChangedDelegate;
-  FRightHandheldAssignmentChangedDelegate RightHandheldAssignmentChangedDelegate;
-  FFirstChipAssignmentChangedDelegate FirstChipAssignmentChangedDelegate;
-  FSecondChipAssignmentChangedDelegate SecondChipAssignmentChangedDelegate;
-  FThirdChipAssignmentChangedDelegate ThirdChipAssignmentChangedDelegate;
+  FNoParamAssignmentChangedDelegate PartAssignmentChangedDelegate;
+
+//TODO: rename
+  FAssignmentChangedDelegate HeadAssignedDelegate;
+  FAssignmentChangedDelegate CoreAssignedDelegate;
+  FAssignmentChangedDelegate ArmsAssignedDelegate;
+  FAssignmentChangedDelegate LegsAssignedDelegate;
+  FAssignmentChangedDelegate BoosterAssignedDelegate;
+  FAssignmentChangedDelegate LeftHandheldAssignedDelegate;
+  FAssignmentChangedDelegate RightHandheldAssignedDelegate;
+  FAssignmentChangedDelegate FirstChipAssignedDelegate;
+  FAssignmentChangedDelegate SecondChipAssignedDelegate;
+  FAssignmentChangedDelegate ThirdChipAssignedDelegate;
 
 protected:
   

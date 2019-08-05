@@ -120,15 +120,15 @@ void URobotBodyComponent::SetPartAssignment(UPartAssignment* NewPartAssignment)
     RightHandheldComponent->SetRobotPart(PartAssignment->GetRightHandheld());    
   }
 
-  PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(HeadComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->BoosterAssignmentChangedDelegate.AddDynamic(BoosterComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->HeadAssignedDelegate.AddDynamic(HeadComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->CoreAssignedDelegate.AddDynamic(CoreComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->ArmsAssignedDelegate.AddDynamic(ArmsComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->LegsAssignedDelegate.AddDynamic(LegsComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->BoosterAssignedDelegate.AddDynamic(BoosterComponent, &URobotPartComponent::SetRobotPart);
 
-  PartAssignment->LeftHandheldAssignmentChangedDelegate.AddDynamic(LeftHandheldComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(RightHandheldComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->FirstChipAssignmentChangedDelegate.AddDynamic(FirstChipComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->SecondChipAssignmentChangedDelegate.AddDynamic(SecondChipComponent, &URobotPartComponent::SetRobotPart);
-  PartAssignment->ThirdChipAssignmentChangedDelegate.AddDynamic(ThirdChipComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->LeftHandheldAssignedDelegate.AddDynamic(LeftHandheldComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->RightHandheldAssignedDelegate.AddDynamic(RightHandheldComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->FirstChipAssignedDelegate.AddDynamic(FirstChipComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->SecondChipAssignedDelegate.AddDynamic(SecondChipComponent, &URobotPartComponent::SetRobotPart);
+  PartAssignment->ThirdChipAssignedDelegate.AddDynamic(ThirdChipComponent, &URobotPartComponent::SetRobotPart);
 }

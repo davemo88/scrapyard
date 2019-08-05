@@ -30,6 +30,13 @@ void UGarageWidget::NativeConstruct()
   InstalledBoosterWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
 
+  InstalledHeadWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
+  InstalledCoreWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
+  InstalledArmsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
+  InstalledLegsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
+  InstalledBoosterWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
+  InstalledRightHandheldWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
+
   YourPartsWidget->NewPartCardAdded.AddDynamic(this, &UGarageWidget::OnNewCardReady);
 }
 
@@ -49,12 +56,12 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
     InstalledBoosterWidget->SetInstalledPart(SoloDraft->PartAssignment->GetBooster());
     InstalledRightHandheldWidget->SetInstalledPart(SoloDraft->PartAssignment->GetRightHandheld());
 
-    SoloDraft->PartAssignment->HeadAssignmentChangedDelegate.AddDynamic(InstalledHeadWidget, &UInstalledPartWidget::SetInstalledPart);
-    SoloDraft->PartAssignment->CoreAssignmentChangedDelegate.AddDynamic(InstalledCoreWidget, &UInstalledPartWidget::SetInstalledPart);
-    SoloDraft->PartAssignment->ArmsAssignmentChangedDelegate.AddDynamic(InstalledArmsWidget, &UInstalledPartWidget::SetInstalledPart);
-    SoloDraft->PartAssignment->LegsAssignmentChangedDelegate.AddDynamic(InstalledLegsWidget, &UInstalledPartWidget::SetInstalledPart);
-    SoloDraft->PartAssignment->BoosterAssignmentChangedDelegate.AddDynamic(InstalledBoosterWidget, &UInstalledPartWidget::SetInstalledPart);
-    SoloDraft->PartAssignment->RightHandheldAssignmentChangedDelegate.AddDynamic(InstalledRightHandheldWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->HeadAssignedDelegate.AddDynamic(InstalledHeadWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->CoreAssignedDelegate.AddDynamic(InstalledCoreWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->ArmsAssignedDelegate.AddDynamic(InstalledArmsWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->LegsAssignedDelegate.AddDynamic(InstalledLegsWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->BoosterAssignedDelegate.AddDynamic(InstalledBoosterWidget, &UInstalledPartWidget::SetInstalledPart);
+    SoloDraft->PartAssignment->RightHandheldAssignedDelegate.AddDynamic(InstalledRightHandheldWidget, &UInstalledPartWidget::SetInstalledPart);
   }
 
   NewValueAssignment = NewObject<UPartAssignment>();
@@ -96,4 +103,5 @@ void UGarageWidget::OnCardAssigned(UPartCardWidget* Card)
   UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned"), *GetName());
 //  UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned - %s"), *GetName(), *Card->RobotPart->PartName.ToString());
   PartAssignedDelegate.Broadcast(Card->RobotPart);
+  YourPartsWidget->RemoveDisplayedCard(Card);
 }

@@ -87,6 +87,8 @@ void UYourPartsWidget::RemoveDisplayedCard(UPartCardWidget* Card)
 
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
+  UE_LOG(LogUI, Log, TEXT("%s::AddDisplayedPart"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::AddDisplayedPart - %s"), *GetName(), *RobotPart->PartName.ToString());
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
   UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
   Card->bCanBeDragged = true;
