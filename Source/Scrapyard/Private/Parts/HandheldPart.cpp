@@ -31,6 +31,11 @@ void UHandheldPart::Assign(UPartAssignment* PartAssignment)
   PartAssignment->SetRightHandheld(this);
 }
 
+bool UHandheldPart::IsAssignedTo(UPartAssignment* PartAssignment)
+{
+  return (PartAssignment->GetRightHandheld() == this) || (PartAssignment->GetLeftHandheld() == this);
+}
+
 UTexture2D* UHandheldPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

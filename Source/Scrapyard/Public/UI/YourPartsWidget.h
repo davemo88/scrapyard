@@ -30,9 +30,6 @@ public:
   void ClearDisplayedCards();
 
   UFUNCTION()
-  void AddDisplayedCard(UPartCardWidget* Card);
-
-  UFUNCTION()
   void RemoveDisplayedCard(UPartCardWidget* Card);
 
   UFUNCTION()
@@ -46,6 +43,9 @@ public:
   FPartCardDroppedDelegate PartCardDroppedDelegate;
 
 protected:
+
+  UFUNCTION()
+  void AddDisplayedCard(UPartCardWidget* Card);
   
   UPROPERTY(meta=(BindWidget))   
   UButton* AllFilterButton;
@@ -63,6 +63,9 @@ protected:
   UButton* HandheldFilterButton;
   UPROPERTY(meta=(BindWidget))   
   UButton* ChipFilterButton;
+
+  UPROPERTY(meta=(BindWidget))
+  UButton* DefaultPartsFilterButton;
 
   UPROPERTY(meta=(BindWidget))   
   UScrollBox* DisplayedCards;
@@ -97,6 +100,11 @@ protected:
 
   UFUNCTION()
   void OnChipFilterButtonClicked();
+
+  UFUNCTION()
+  void OnDefaultPartsFilterButtonClicked();
+
+  bool bDisplayDefaultParts;
 
   UFUNCTION()
   void OnSortButtonClicked();

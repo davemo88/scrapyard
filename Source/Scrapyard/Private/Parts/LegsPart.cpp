@@ -34,6 +34,11 @@ void ULegsPart::Assign(UPartAssignment* PartAssignment)
   PartAssignment->SetLegs(this);
 }
 
+bool ULegsPart::IsAssignedTo(UPartAssignment* PartAssignment)
+{
+  return PartAssignment->GetLegs() == this;
+}
+
 UTexture2D* ULegsPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

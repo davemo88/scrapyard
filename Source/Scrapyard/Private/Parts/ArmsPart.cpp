@@ -31,6 +31,11 @@ void UArmsPart::Assign(UPartAssignment* PartAssignment)
   PartAssignment->SetArms(this);
 }
 
+bool UArmsPart::IsAssignedTo(UPartAssignment* PartAssignment)
+{
+  return PartAssignment->GetArms() == this;
+}
+
 UTexture2D* UArmsPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

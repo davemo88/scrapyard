@@ -68,5 +68,9 @@ public:
 
   virtual void Assign(UPartAssignment* PartAssignment) {};
 
+  virtual bool IsAssignedTo(UPartAssignment* PartAssignment) { return false; };
+
+  bool IsDefaultPart();
+
 };
 

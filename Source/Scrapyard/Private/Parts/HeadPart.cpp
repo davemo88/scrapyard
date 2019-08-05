@@ -32,6 +32,11 @@ void UHeadPart::Assign(UPartAssignment* PartAssignment)
   PartAssignment->SetHead(this);
 }
 
+bool UHeadPart::IsAssignedTo(UPartAssignment* PartAssignment)
+{
+  return PartAssignment->GetHead() == this;
+}
+
 UTexture2D* UHeadPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

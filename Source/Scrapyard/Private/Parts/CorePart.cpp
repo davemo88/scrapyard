@@ -33,6 +33,11 @@ void UCorePart::Assign(UPartAssignment* PartAssignment)
   PartAssignment->SetCore(this);
 }
 
+bool UCorePart::IsAssignedTo(UPartAssignment* PartAssignment)
+{
+  return PartAssignment->GetCore() == this;
+}
+
 UTexture2D* UCorePart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

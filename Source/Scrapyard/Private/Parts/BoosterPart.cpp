@@ -29,6 +29,11 @@ void UBoosterPart::Assign(UPartAssignment* PartAssignment)
   PartAssignment->SetBooster(this);
 }
 
+bool UBoosterPart::IsAssignedTo(UPartAssignment* PartAssignment)
+{
+  return PartAssignment->GetBooster() == this;
+}
+
 UTexture2D* UBoosterPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

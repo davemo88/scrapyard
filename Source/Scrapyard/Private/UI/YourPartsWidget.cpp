@@ -31,6 +31,7 @@ void UYourPartsWidget::NativeConstruct()
   LegsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnLegsFilterButtonClicked);
   BoosterFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnBoosterFilterButtonClicked);
   HandheldFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnHandheldFilterButtonClicked);
+  DefaultPartsFilterButton->OnClicked.AddDynamic(this, &UYourPartsWidget::OnDefaultPartsFilterButtonClicked);
 
 } 
 
@@ -87,15 +88,28 @@ void UYourPartsWidget::RemoveDisplayedCard(UPartCardWidget* Card)
 
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
-  UE_LOG(LogUI, Log, TEXT("%s::AddDisplayedPart"), *GetName());
-  UE_LOG(LogUI, Log, TEXT("%s::AddDisplayedPart - %s"), *GetName(), *RobotPart->PartName.ToString());
-  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
-  Card->bCanBeDragged = true;
-  Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
-  Card->SetRobotPart(RobotPart);
-  AddDisplayedCard(Card);
-  NewPartCardAdded.Broadcast(Card);
+  UE_LOG(LogUI, Verbose, TEXT("%s::AddDisplayedPart"), *GetName());
+  UE_LOG(LogUI, VeryVerbose, TEXT("%s::AddDisplayedPart - %s"), *GetName(), *RobotPart->PartName.ToString());
+
+// if showing the default parts and non-default part is added
+// then stop showing the defaults and show everything else
+  if (bDisplayDefaultParts && !RobotPart->IsDefaultPart())
+  {
+    bDisplayDefaultParts = false;
+    DisplayAll();
+  }
+// don't display cards that are currently assigned to the robot
+  else if (!RobotPart->IsAssignedTo(CurrentDraft->PartAssignment))
+  {
+    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
+    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
+    Card->bCanBeDragged = true;
+    Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
+    Card->SetRobotPart(RobotPart);
+    AddDisplayedCard(Card);
+    NewPartCardAdded.Broadcast(Card);
+  }
+
 }
 
 void UYourPartsWidget::DisplayParts(TArray<URobotPart*> Parts)
@@ -116,49 +130,73 @@ void UYourPartsWidget::DisplayAll()
 void UYourPartsWidget::OnAllFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnAllFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayAll();
 }
 
 void UYourPartsWidget::OnHeadFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHeadFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UHeadPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnCoreFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCoreFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UCorePart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnArmsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnArmsFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UArmsPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnLegsFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(ULegsPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnBoosterFilterButtonClicked()
 {
-  UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnBoosterFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UBoosterPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnHandheldFilterButtonClicked()
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnHandheldFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UHandheldPart::StaticClass());}));
 }
 
 void UYourPartsWidget::OnChipFilterButtonClicked()
 {
-  UE_LOG(LogUI, Log, TEXT("%s::OnLegsFilterButtonClicked"), *GetName());
+  UE_LOG(LogUI, Log, TEXT("%s::OnChipFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = false;
   DisplayParts(CurrentDraft->DraftedParts.FilterByPredicate([](URobotPart* Part){return Part->IsA(UChipPart::StaticClass());}));
+}
+
+void UYourPartsWidget::OnDefaultPartsFilterButtonClicked()
+{
+  UE_LOG(LogUI, Log, TEXT("%s::OnDefaultPartsFilterButtonClicked"), *GetName());
+
+  bDisplayDefaultParts = true;
+  DisplayParts(CurrentDraft->GetDefaultParts());
 }
 
 void UYourPartsWidget::OnSortButtonClicked()

@@ -24,3 +24,9 @@ TArray<FStatText> URobotPart::GetStatsText() const
   StatsText.Add(FStatText(NSLOCTEXT("SY", "ElectricDefenseStatText", "Electric Defense"),FText::AsNumber(ElectricDefense)));
   return StatsText;
 }
+
+bool URobotPart::IsDefaultPart()
+{
+// default parts have IDs divisible by 1000
+  return (PartID % 1000) == 0;
+}

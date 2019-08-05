@@ -45,4 +45,6 @@ public:
   UPROPERTY(BlueprintReadOnly)
   UPartAssignment* PartAssignment;
 
+  TArray<URobotPart*> GetDefaultParts(); 
+
 };
