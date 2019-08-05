@@ -14,9 +14,6 @@
 #include "Parts/RobotPart.h"
 #include "Robots/RobotCharacter.h"
 #include "UI/GarageWidget.h"
-#include "UI/YourPartsWidget.h"
-#include "UI/PartCardWidget.h"
-#include "UI/RobotStatsWidget.h"
 
 AGaragePlayerController::AGaragePlayerController()
 {
@@ -34,6 +31,7 @@ void AGaragePlayerController::SetupWidget()
     GarageWidget->AddToViewport();
     GarageWidget->SetSoloDraft(GarageGS->CurrentDraft);
   
+//TODO: setup proper event for this
     GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
   
     GarageWidget->PartAssignedDelegate.AddDynamic(this, &AGaragePlayerController::OnPartAssigned);

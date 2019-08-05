@@ -8,7 +8,6 @@
 
 class USoloDraftWidget;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartDraftedDelegate, URobotPart*, DraftedPart);
 /**
  * 
  */
@@ -24,10 +23,8 @@ public:
   UFUNCTION()
   void OnNextPack();
 
-  FPartDraftedDelegate PartDraftedDelegate;
-
   UFUNCTION()
-  void OnCardDrafted(UPartCardWidget* DraftedCard);
+  void OnPartDrafted(URobotPart* DraftedPart);
 
 protected:
 

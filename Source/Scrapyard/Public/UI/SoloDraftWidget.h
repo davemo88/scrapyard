@@ -14,7 +14,7 @@ class UHorizontalBox;
 class UTextBlock;
 class UPartCardWidget;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDraftedDelegate, UPartCardWidget*, Card);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartDraftedDelegate, URobotPart*, DraftedPart);
 /**
  * 
  */
@@ -51,7 +51,7 @@ public:
   UFUNCTION()
   void OnCardDragged(UPartCardWidget* PartCardWidget);
 
-  FCardDraftedDelegate CardDraftedDelegate;
+  FPartDraftedDelegate PartDraftedDelegate;
 
 protected:
 
