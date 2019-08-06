@@ -109,31 +109,28 @@ void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
 {
   UE_LOG(LogParts, Log, TEXT("%s::SetAssignment"), *GetName());
 // TODO: should be possible with incomplete assignments 
-  if (NewPartAssignment->IsComplete())
-  {
-    Head = NewPartAssignment->Head;
-    Core = NewPartAssignment->Core;
-    Arms = NewPartAssignment->Arms;
-    Legs = NewPartAssignment->Legs;
-    Booster = NewPartAssignment->Booster;
-    LeftHandheld = NewPartAssignment->LeftHandheld;
-    RightHandheld = NewPartAssignment->RightHandheld;
-    FirstChip = NewPartAssignment->FirstChip;
-    SecondChip = NewPartAssignment->SecondChip;
-    ThirdChip = NewPartAssignment->ThirdChip;
-    HeadAssignedDelegate.Broadcast(Head);
-    CoreAssignedDelegate.Broadcast(Core);
-    ArmsAssignedDelegate.Broadcast(Arms);
-    LegsAssignedDelegate.Broadcast(Legs);
-    BoosterAssignedDelegate.Broadcast(Booster);
+  Head = NewPartAssignment->Head;
+  Core = NewPartAssignment->Core;
+  Arms = NewPartAssignment->Arms;
+  Legs = NewPartAssignment->Legs;
+  Booster = NewPartAssignment->Booster;
+  LeftHandheld = NewPartAssignment->LeftHandheld;
+  RightHandheld = NewPartAssignment->RightHandheld;
+  FirstChip = NewPartAssignment->FirstChip;
+  SecondChip = NewPartAssignment->SecondChip;
+  ThirdChip = NewPartAssignment->ThirdChip;
+  HeadAssignedDelegate.Broadcast(Head);
+  CoreAssignedDelegate.Broadcast(Core);
+  ArmsAssignedDelegate.Broadcast(Arms);
+  LegsAssignedDelegate.Broadcast(Legs);
+  BoosterAssignedDelegate.Broadcast(Booster);
 //TODO: could be null so need to handle that
-    LeftHandheldAssignedDelegate.Broadcast(LeftHandheld);
-    RightHandheldAssignedDelegate.Broadcast(RightHandheld);
-    FirstChipAssignedDelegate.Broadcast(FirstChip);
-    SecondChipAssignedDelegate.Broadcast(SecondChip);
-    ThirdChipAssignedDelegate.Broadcast(ThirdChip);
-    PartAssignmentChangedDelegate.Broadcast();
-  }
+  LeftHandheldAssignedDelegate.Broadcast(LeftHandheld);
+  RightHandheldAssignedDelegate.Broadcast(RightHandheld);
+  FirstChipAssignedDelegate.Broadcast(FirstChip);
+  SecondChipAssignedDelegate.Broadcast(SecondChip);
+  ThirdChipAssignedDelegate.Broadcast(ThirdChip);
+  PartAssignmentChangedDelegate.Broadcast();
 }
 
 void UPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)

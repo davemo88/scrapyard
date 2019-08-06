@@ -15,6 +15,7 @@
 USoloDraft::USoloDraft()
 {
   PartAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("PartAssignment"));  
+  PartAssignment->SetDefaultAssignment();
 }
 
 void USoloDraft::DraftPart(URobotPart* Part)

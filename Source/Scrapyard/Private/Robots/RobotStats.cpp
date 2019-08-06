@@ -74,7 +74,6 @@ void URobotStats::UpdateStats()
 
 void URobotStats::ZeroStats()
 {
-// TODO: zero them all
   Mass = 0;
   HitPoints = 0;
   MaxPower = 0;
@@ -82,6 +81,11 @@ void URobotStats::ZeroStats()
   PowerDrain = 0;
   KineticDefense = 0;
   ElectricDefense = 0;
+  BoosterThrust = 0;
+  BoosterPowerDrain = 0;
+  MovementSpeed = 0;
+  WeaponDexterity = 0;
+  TargetingAbility = 0;
 }
 
 FStatText URobotStats::GetHitPointsStatText()

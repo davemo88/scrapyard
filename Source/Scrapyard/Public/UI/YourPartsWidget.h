@@ -46,26 +46,6 @@ protected:
 
   UFUNCTION()
   void AddDisplayedCard(UPartCardWidget* Card);
-  
-  UPROPERTY(meta=(BindWidget))   
-  UButton* AllFilterButton;
-  UPROPERTY(meta=(BindWidget))   
-  UButton* HeadFilterButton;
-  UPROPERTY(meta=(BindWidget))   
-  UButton* CoreFilterButton;
-  UPROPERTY(meta=(BindWidget))   
-  UButton* ArmsFilterButton;
-  UPROPERTY(meta=(BindWidget))   
-  UButton* LegsFilterButton;
-  UPROPERTY(meta=(BindWidget))   
-  UButton* BoosterFilterButton;
-  UPROPERTY(meta=(BindWidget))   
-  UButton* HandheldFilterButton;
-  UPROPERTY(meta=(BindWidget))   
-  UButton* ChipFilterButton;
-
-  UPROPERTY(meta=(BindWidget))
-  UButton* DefaultPartsFilterButton;
 
   UPROPERTY(meta=(BindWidget))   
   UScrollBox* DisplayedCards;
@@ -73,38 +53,9 @@ protected:
   UFUNCTION()
   void ReorderCards(UPartCardWidget* DroppedOnCard, UDragDropOperation* DragDropOp);
 
-  void NativeConstruct() override;
+  virtual void NativeConstruct() override;
 
-  bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
-
-  UFUNCTION()
-  void OnAllFilterButtonClicked();
-
-  UFUNCTION()
-  void OnHeadFilterButtonClicked();
-
-  UFUNCTION()
-  void OnCoreFilterButtonClicked();
-
-  UFUNCTION()
-  void OnArmsFilterButtonClicked();
-
-  UFUNCTION()
-  void OnLegsFilterButtonClicked();
-
-  UFUNCTION()
-  void OnBoosterFilterButtonClicked();
-
-  UFUNCTION()
-  void OnHandheldFilterButtonClicked();
-
-  UFUNCTION()
-  void OnChipFilterButtonClicked();
-
-  UFUNCTION()
-  void OnDefaultPartsFilterButtonClicked();
-
-  bool bDisplayDefaultParts;
+  virtual bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
 
   UFUNCTION()
   void OnSortButtonClicked();
