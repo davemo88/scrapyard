@@ -36,6 +36,11 @@ bool UHandheldPart::IsAssignedTo(UPartAssignment* PartAssignment)
   return (PartAssignment->GetRightHandheld() == this) || (PartAssignment->GetLeftHandheld() == this);
 }
 
+void UHandheldPart::Draft(UDraftBase* CurrentDraft)
+{
+  CurrentDraft->DraftedHandhelds.Add(this);
+}
+
 UTexture2D* UHandheldPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

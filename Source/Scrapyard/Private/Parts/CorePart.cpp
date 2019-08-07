@@ -38,6 +38,11 @@ bool UCorePart::IsAssignedTo(UPartAssignment* PartAssignment)
   return PartAssignment->GetCore() == this;
 }
 
+void UCorePart::Draft(UDraftBase* CurrentDraft)
+{
+  CurrentDraft->DraftedCores.Add(this);
+}
+
 UTexture2D* UCorePart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

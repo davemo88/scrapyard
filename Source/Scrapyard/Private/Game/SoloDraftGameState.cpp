@@ -99,7 +99,7 @@ void ASoloDraftGameState::SamplePack()
   CurrentDraft->CurrentPack.Empty();
 
   URobotPart* PotentialPart;
-  while (CurrentDraft->CurrentPack.Num() < CurrentDraft->ChoicesPerPick)
+  while (CurrentDraft->CurrentPack.Num() < CurrentDraft->PackSize)
   {
     PotentialPart = SamplePart();
     if (!CurrentDraft->CurrentPack.Contains(PotentialPart))
@@ -123,10 +123,11 @@ bool ASoloDraftGameState::ServerDraftPart_Validate(URobotPart* RobotPart)
 void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
 {
   UE_LOG(LogDraft, Log, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
-  CurrentDraft->DraftPart(RobotPart);
+  RobotPart->Draft(CurrentDraft);
   RobotPartPool.Remove(RobotPart);
+  CurrentDraft->CurrentPick++;
 
-  if (CurrentDraft->DraftedParts.Num() < CurrentDraft->TotalPicks)
+  if (CurrentDraft->CurrentPick < CurrentDraft->TotalPicks)
   {
     NextPack();
   }

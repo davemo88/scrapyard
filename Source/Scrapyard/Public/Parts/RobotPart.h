@@ -7,6 +7,7 @@
 #include "Parts/PartAssets.h"
 #include "Parts/PartAssignment.h"
 #include "Parts/Manufacturer.h"
+#include "Drafting/DraftBase.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
@@ -70,6 +71,9 @@ public:
 
   virtual bool IsAssignedTo(UPartAssignment* PartAssignment) { return false; };
 
+  virtual void Draft(UDraftBase* CurrentDraft) {};
+
+//TODO: placeholder parts instead of default
   bool IsDefaultPart();
 
 };

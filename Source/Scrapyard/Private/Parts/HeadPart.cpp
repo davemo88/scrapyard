@@ -37,6 +37,11 @@ bool UHeadPart::IsAssignedTo(UPartAssignment* PartAssignment)
   return PartAssignment->GetHead() == this;
 }
 
+void UHeadPart::Draft(UDraftBase* CurrentDraft)
+{
+  CurrentDraft->DraftedHeads.Add(this);
+}
+
 UTexture2D* UHeadPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

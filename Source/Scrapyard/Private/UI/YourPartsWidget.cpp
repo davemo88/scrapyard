@@ -2,8 +2,6 @@
 
 
 #include "YourPartsWidget.h"
-#include "Scrapyard.h"
-#include "UI/PartCardDragDropOperation.h"
 #include "UI/PartCardWidget.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
@@ -16,25 +14,6 @@
 #include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
 #include "Parts/ChipPart.h"
-
-
-void UYourPartsWidget::NativeConstruct()
-{
-  UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
-  Super::NativeConstruct();
-
-} 
-
-bool UYourPartsWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
-{
-  UE_LOG(LogUI, Log, TEXT("%s::NativeOnDrop"), *GetName());
-  if (UCardWidgetBase* PartCard = Cast<UCardWidgetBase>(InOperation->DefaultDragVisual))
-  {
-    UE_LOG(LogUI, Log, TEXT("Part Card Dropped: %s"), *PartCard->RobotPart->PartName.ToString());
-    CardDroppedInYourPartsDelegate.Broadcast(PartCard);  
-  }
-  return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
-}
 
 void UYourPartsWidget::ReorderCards(UCardWidgetBase* DroppedOnCard, UDragDropOperation* DragDropOp)
 {
@@ -64,11 +43,6 @@ void UYourPartsWidget::ClearDisplayedCards()
   DisplayedCards->ClearChildren();
 }
 
-void UYourPartsWidget::RemoveDisplayedCard(UCardWidgetBase* Card)
-{
-  DisplayedCards->RemoveChild(Card);
-}
-
 void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
 {
   UE_LOG(LogUI, Verbose, TEXT("%s::AddDisplayedPart"), *GetName());
@@ -86,7 +60,7 @@ void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
     Card->SetRobotPart(RobotPart);
     DisplayedCards->AddChild(Card);
     Card->CardSizeBox->SetWidthOverride(200);
-    NewCardAdded.Broadcast(Card);
+    NewCardAddedDelegate.Broadcast(Card);
   }
 
 }
@@ -102,16 +76,20 @@ void UYourPartsWidget::DisplayParts(TArray<URobotPart*> Parts)
 
 void UYourPartsWidget::DisplayAll()
 {
-  DisplayParts(CurrentDraft->DraftedParts);
+  TArray<URobotPart*> AllParts;
+  AllParts.Append(CurrentDraft->DraftedHeads);
+  AllParts.Append(CurrentDraft->DraftedCores);
+  AllParts.Append(CurrentDraft->DraftedArms);
+  AllParts.Append(CurrentDraft->DraftedLegs);
+  AllParts.Append(CurrentDraft->DraftedBoosters);
+  AllParts.Append(CurrentDraft->DraftedHandhelds);
+  AllParts.Append(CurrentDraft->DraftedChips);
+
+  DisplayParts(AllParts);
 //  SortByType();
 }
 
 void UYourPartsWidget::OnSortButtonClicked()
-{
-
-}
-
-void UYourPartsWidget::SortByUserOrder()
 {
 
 }
@@ -127,17 +105,12 @@ void UYourPartsWidget::SortByType()
   TypeOrder.Add(UHandheldPart::StaticClass());
   TypeOrder.Add(UChipPart::StaticClass());
 
-  auto NewOrder = TArray<URobotPart*>(CurrentDraft->DraftedParts);
-
-  Algo::Sort(NewOrder, [TypeOrder](URobotPart* Part1, URobotPart* Part2)
-      { return TypeOrder.Find(Part1->GetClass()) < TypeOrder.Find(Part2->GetClass()); });
-   
-  DisplayParts(NewOrder);  
-
-}
-
-void UYourPartsWidget::SortByColor()
-{
+//  auto NewOrder = TArray<URobotPart*>(CurrentDraft->DraftedParts);
+//
+//  Algo::Sort(NewOrder, [TypeOrder](URobotPart* Part1, URobotPart* Part2)
+//      { return TypeOrder.Find(Part1->GetClass()) < TypeOrder.Find(Part2->GetClass()); });
+//   
+//  DisplayParts(NewOrder);  
 
 }
 

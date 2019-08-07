@@ -19,7 +19,7 @@ void UGarageWidget::NativeConstruct()
 
   SetupInstalledPartWidgets();
 
-  YourPartsWidget->NewCardAdded.AddDynamic(this, &UGarageWidget::OnNewCardReady);
+  YourPartsWidget->NewCardAddedDelegate.AddDynamic(this, &UGarageWidget::OnNewCardReady);
 }
 
 void UGarageWidget::SetupInstalledPartWidgets()

@@ -46,6 +46,11 @@ UTexture2D* ULegsPart::GetPartTypeIcon() const
     : nullptr;
 }
 
+void ULegsPart::Draft(UDraftBase* CurrentDraft)
+{
+  CurrentDraft->DraftedLegs.Add(this);
+}
+
 TArray<FStatText> ULegsPart::GetStatsText() const
 {
   TArray<FStatText> StatsText = Super::GetStatsText();

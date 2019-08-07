@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include "Drafting/DraftBase.h"
 #include "SoloDraft.generated.h"
 
 class URobotPart;
@@ -20,29 +20,12 @@ class UPartAssignment;
  * 
  */
 UCLASS(BlueprintType)
-class SCRAPYARD_API USoloDraft : public UObject
+class SCRAPYARD_API USoloDraft : public UDraftBase
 {
   GENERATED_BODY()
   
-  
 public:
+
   USoloDraft();
-
-  UPROPERTY()
-  int32 TotalPicks = 10;
-
-  UPROPERTY()
-  int32 ChoicesPerPick = 3;
-  
-  virtual void DraftPart(URobotPart* Part);
-
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> CurrentPack;
-
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedParts;
-
-  UPROPERTY(BlueprintReadOnly)
-  UPartAssignment* PartAssignment;
 
 };

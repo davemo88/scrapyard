@@ -1,0 +1,41 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
+#include "Scrapyard.h"
+#include "SoloDraft.h"
+#include "Parts/RobotPart.h"
+#include "UI/CardWidgetBase.h"
+#include "UI/PartCardDragDropOperation.h"
+#include "YourPartsWidgetBase.generated.h"
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewCardAddedDelegate, UCardWidgetBase*, NewCard);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDroppedInYourPartsDelegate, UCardWidgetBase*, DroppedCard);
+/**
+ * 
+ */
+UCLASS()
+class SCRAPYARD_API UYourPartsWidgetBase : public UUserWidget
+{
+  GENERATED_BODY()
+
+public:
+
+  UPROPERTY()
+  USoloDraft* CurrentDraft;
+
+  UFUNCTION()
+  virtual void AddDisplayedPart(URobotPart* RobotPart) {};
+
+  UFUNCTION()
+  virtual void RemoveDisplayedCard(UCardWidgetBase* Card);
+
+  FNewCardAddedDelegate NewCardAddedDelegate;
+  FCardDroppedInYourPartsDelegate CardDroppedInYourPartsDelegate;
+
+  virtual bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
+  
+};

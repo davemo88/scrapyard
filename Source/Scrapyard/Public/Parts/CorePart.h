@@ -27,6 +27,8 @@ public:
 
   virtual bool IsAssignedTo(UPartAssignment* PartAssignment) override;
 
+  virtual void Draft(UDraftBase* CurrentDraft) override;
+
   UTexture2D* GetPartTypeIcon() const override;
 
   virtual TArray<FStatText> GetStatsText() const override;

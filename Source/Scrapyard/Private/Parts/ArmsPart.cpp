@@ -36,6 +36,11 @@ bool UArmsPart::IsAssignedTo(UPartAssignment* PartAssignment)
   return PartAssignment->GetArms() == this;
 }
 
+void UArmsPart::Draft(UDraftBase* CurrentDraft)
+{
+  CurrentDraft->DraftedArms.Add(this);
+}
+
 UTexture2D* UArmsPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

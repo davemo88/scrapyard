@@ -79,7 +79,7 @@ void USoloDraftWidget::DisplayNextPack()
 void USoloDraftWidget::UpdatePickCounter()
 {
   ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>();
-  FString PickCounterText = FString::Printf(TEXT("(%i of %i)"), GameState->CurrentDraft->DraftedParts.Num()+1, GameState->CurrentDraft->TotalPicks);
+  FString PickCounterText = FString::Printf(TEXT("(%i of %i)"), GameState->CurrentDraft->CurrentPick+1, GameState->CurrentDraft->TotalPicks);
   PickCounter->SetText(FText::FromString(PickCounterText));
 }
 
