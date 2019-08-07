@@ -2,6 +2,7 @@
 
 #include "GarageWidget.h"
 #include "Scrapyard.h"
+#include "Game/ScrapyardGameInstance.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
@@ -16,12 +17,29 @@ void UGarageWidget::NativeConstruct()
   UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 
+  SetupInstalledPartWidgets();
+
+  YourPartsWidget->NewCardAdded.AddDynamic(this, &UGarageWidget::OnNewCardReady);
+}
+
+void UGarageWidget::SetupInstalledPartWidgets()
+{
   InstalledHeadWidget->SetInstalledPartType(UHeadPart::StaticClass());
   InstalledCoreWidget->SetInstalledPartType(UCorePart::StaticClass());
   InstalledArmsWidget->SetInstalledPartType(UArmsPart::StaticClass());
   InstalledLegsWidget->SetInstalledPartType(ULegsPart::StaticClass());
   InstalledBoosterWidget->SetInstalledPartType(UBoosterPart::StaticClass());
   InstalledRightHandheldWidget->SetInstalledPartType(UHandheldPart::StaticClass());
+
+//  if (UScrapyardGameInstance::GameInstance->PartSingleton != nullptr)
+//  {
+//    InstalledHeadWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(1000));
+//    InstalledCoreWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(2000));
+//    InstalledArmsWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(3000));
+//    InstalledLegsWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(4000));
+//    InstalledBoosterWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UBoosterPart>(5000));
+//    InstalledRightHandheldWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(6000));
+//  }
 
   InstalledHeadWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledCoreWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
@@ -36,8 +54,6 @@ void UGarageWidget::NativeConstruct()
   InstalledLegsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
   InstalledBoosterWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
   InstalledRightHandheldWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
-
-  YourPartsWidget->NewPartCardAdded.AddDynamic(this, &UGarageWidget::OnNewCardReady);
 }
 
 void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
@@ -78,7 +94,7 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
   YourPartsWidget->DisplayAll();
 }
 
-void UGarageWidget::OnNewCardReady(UPartCardWidget* CardWidget)
+void UGarageWidget::OnNewCardReady(UCardWidgetBase* CardWidget)
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnNewCardReady"), *GetName());
   
@@ -98,7 +114,7 @@ void UGarageWidget::OnCardMouseLeft(URobotPart* RobotPart)
   NewValueAssignment->SetAssignment(SoloDraft->PartAssignment);
 }
 
-void UGarageWidget::OnCardAssigned(UPartCardWidget* Card)
+void UGarageWidget::OnCardAssigned(UCardWidgetBase* Card)
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned"), *GetName());
 //  UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned - %s"), *GetName(), *Card->RobotPart->PartName.ToString());

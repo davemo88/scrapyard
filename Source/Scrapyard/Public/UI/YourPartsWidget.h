@@ -6,13 +6,13 @@
 #include "Blueprint/UserWidget.h"
 #include "SoloDraft.h"
 #include "Parts/RobotPart.h"
-#include "UI/PartCardWidget.h"
+#include "UI/CardWidgetBase.h"
 #include "Components/Button.h"
 #include "Components/ScrollBox.h"
 #include "YourPartsWidget.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewPartCardAdded, UPartCardWidget*, PartCard);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartCardDroppedDelegate, UPartCardWidget*, DroppedCard);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewCardAdded, UCardWidgetBase*, NewCard);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDroppedInYourPartsDelegate, UCardWidgetBase*, DroppedCard);
 
 /**
  * 
@@ -30,7 +30,7 @@ public:
   void ClearDisplayedCards();
 
   UFUNCTION()
-  void RemoveDisplayedCard(UPartCardWidget* Card);
+  void RemoveDisplayedCard(UCardWidgetBase* Card);
 
   UFUNCTION()
   void AddDisplayedPart(URobotPart* RobotPart);
@@ -39,19 +39,16 @@ public:
 
   void DisplayAll();
 
-  FNewPartCardAdded NewPartCardAdded;
-  FPartCardDroppedDelegate PartCardDroppedDelegate;
+  FNewCardAdded NewCardAdded;
+  FCardDroppedInYourPartsDelegate CardDroppedInYourPartsDelegate;
 
 protected:
-
-  UFUNCTION()
-  void AddDisplayedCard(UPartCardWidget* Card);
 
   UPROPERTY(meta=(BindWidget))   
   UScrollBox* DisplayedCards;
 
   UFUNCTION()
-  void ReorderCards(UPartCardWidget* DroppedOnCard, UDragDropOperation* DragDropOp);
+  void ReorderCards(UCardWidgetBase* DroppedOnCard, UDragDropOperation* DragDropOp);
 
   virtual void NativeConstruct() override;
 

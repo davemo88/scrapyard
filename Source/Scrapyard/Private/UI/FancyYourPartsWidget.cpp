@@ -99,7 +99,6 @@ void UFancyYourPartsWidget::OnDefaultPartsFilterButtonClicked()
   UE_LOG(LogUI, Log, TEXT("%s::OnDefaultPartsFilterButtonClicked"), *GetName());
 
   bDisplayDefaultParts = true;
-  DisplayParts(CurrentDraft->GetDefaultParts());
 }
 
 

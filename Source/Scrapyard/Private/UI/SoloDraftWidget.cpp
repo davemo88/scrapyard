@@ -5,6 +5,7 @@
 #include "Scrapyard.h"
 #include "SoloDraftPlayerController.h"
 #include "UI/YourPartsWidget.h"
+#include "UI/PartCardWidget.h"
 #include "Blueprint/WidgetTree.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
@@ -19,7 +20,7 @@ void USoloDraftWidget::NativeConstruct()
   UE_LOG(LogUI, Log, TEXT("%s::NativeConstruct"), *GetName());
   Super::NativeConstruct();
 
-  YourPartsWidget->PartCardDroppedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDroppedInYourParts);
+  YourPartsWidget->CardDroppedInYourPartsDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDroppedInYourParts);
 }
 
 void USoloDraftWidget::NextPack()
@@ -92,19 +93,19 @@ void USoloDraftWidget::OnCardFadedOut(UPartCardWidget* PartCardWidget)
   }
 }
 
-void USoloDraftWidget::OnCardDragged(UPartCardWidget* PartCardWidget)
+void USoloDraftWidget::OnCardDragged(UCardWidgetBase* CardWidget)
 {
 //  PartCardWidget->Slot
 //  PartCardWidget->SetVisibility(ESlateVisibility::Hidden);
 }
 
-void USoloDraftWidget::OnCardDrafted(UPartCardWidget* Card)
+void USoloDraftWidget::OnCardDrafted(UCardWidgetBase* Card)
 {
   PartDraftedDelegate.Broadcast(Card->RobotPart);
   YourPartsWidget->AddDisplayedPart(Card->RobotPart);
 }
 
-void USoloDraftWidget::OnCardDroppedInYourParts(UPartCardWidget* Card)
+void USoloDraftWidget::OnCardDroppedInYourParts(UCardWidgetBase* Card)
 {
   if (PackDisplayPanel->HasChild(Card))
   {

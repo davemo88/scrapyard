@@ -3,7 +3,7 @@
 
 #include "InstalledPartWidget.h"
 #include "Scrapyard.h"
-#include "UI/PartCardWidget.h"
+#include "UI/CardWidgetBase.h"
 #include "Blueprint/DragDropOperation.h"
 #include "Parts/RobotPart.h"
 
@@ -15,14 +15,14 @@ void UInstalledPartWidget::NativeConstruct()
 bool UInstalledPartWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeOnDrop"), *GetName());
-  if (UPartCardWidget* PartCard = Cast<UPartCardWidget>(InOperation->DefaultDragVisual))
+  if (UCardWidgetBase* Card = Cast<UCardWidgetBase>(InOperation->DefaultDragVisual))
   {
-    UE_LOG(LogUI, Log, TEXT("Part Card Dropped: %s"), *PartCard->RobotPart->PartName.ToString());
+    UE_LOG(LogUI, Log, TEXT("Part Card Dropped: %s"), *Card->RobotPart->PartName.ToString());
     UE_LOG(LogUI, Log, TEXT("Checking if it's a %s"), *InstalledPartType->GetName());
-    if (PartCard->RobotPart->IsA(InstalledPartType))
+    if (Card->RobotPart->IsA(InstalledPartType))
     {
       UE_LOG(LogUI, Log, TEXT("Yay! it's a %s"), *InstalledPartType->GetName());
-      CompatibleCardDroppedDelegate.Broadcast(PartCard);
+      CompatibleCardDroppedDelegate.Broadcast(Card);
     }
   }
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
@@ -43,11 +43,7 @@ void UInstalledPartWidget::SetInstalledPart(URobotPart* NewInstalledPart)
   InstalledPart = NewInstalledPart;
   if (InstalledPart != nullptr)
   {
-    PartName->SetText(InstalledPart->PartName);
-  }
-  else
-  {
-    PartName->SetText(FText());
+    MiniCard->SetRobotPart(InstalledPart);
   }
 }
 
@@ -55,5 +51,13 @@ void UInstalledPartWidget::SetInstalledPartType(TSubclassOf<URobotPart> NewInsta
 {
   InstalledPartType = NewInstalledPartType;
   URobotPart* Part = NewObject<URobotPart>(this, NewInstalledPartType);
-  PartTypeIcon->SetBrushFromTexture(Part->GetPartTypeIcon());
+//  PartTypeIcon->SetBrushFromTexture(Part->GetPartTypeIcon());
 }
+
+//void UInstalledPartWidget::SetDefaultPart(URobotPart* NewDefaultPart)
+//{
+//  if (NewDefaultPart->IsA(InstalledPartType))
+//  {
+//    DefaultPart = NewDefaultPart;
+//  }
+//}

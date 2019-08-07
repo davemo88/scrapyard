@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Drafting/SoloDraft.h"
+#include "UI/CardWidgetBase.h"
 #include "SoloDraftWidget.generated.h"
 
 class UUserWidget;
@@ -49,7 +50,7 @@ public:
   void OnCardFadedOut(UPartCardWidget* PartCardWidget);
 
   UFUNCTION()
-  void OnCardDragged(UPartCardWidget* PartCardWidget);
+  void OnCardDragged(UCardWidgetBase* CardWidget);
 
   FPartDraftedDelegate PartDraftedDelegate;
 
@@ -58,10 +59,10 @@ protected:
   void NativeConstruct() override;
 
   UFUNCTION()
-  void OnCardDrafted(UPartCardWidget* Card);
+  void OnCardDrafted(UCardWidgetBase* Card);
 
   UFUNCTION()
-  void OnCardDroppedInYourParts(UPartCardWidget* Card);
+  void OnCardDroppedInYourParts(UCardWidgetBase* Card);
 
   UPROPERTY()
   USoloDraft* CurrentDraft;

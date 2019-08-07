@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "UI/InstalledPartWidget.h"
+#include "UI/CardWidgetBase.h"
 #include "Parts/PartAssignment.h"
 #include "Parts/RobotPart.h"
 #include "Robots/RobotStats.h"
@@ -73,7 +74,7 @@ protected:
   URobotStats* NewValueStats;
 
   UFUNCTION()
-  void OnNewCardReady(UPartCardWidget* CardWidget);
+  void OnNewCardReady(UCardWidgetBase* CardWidget);
 
   UFUNCTION()
   void OnCardMouseEntered(URobotPart* RobotPart);
@@ -81,6 +82,8 @@ protected:
   void OnCardMouseLeft(URobotPart* RobotPart);
 
   UFUNCTION()
-  void OnCardAssigned(UPartCardWidget* CardWidget);
+  void OnCardAssigned(UCardWidgetBase* CardWidget);
+
+  void SetupInstalledPartWidgets();
 
 };

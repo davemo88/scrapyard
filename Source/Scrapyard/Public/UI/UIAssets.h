@@ -11,6 +11,7 @@ class UEscapeMenuWidget;
 class UGarageWidget;
 class USoloDraftWidget;
 class UPartCardWidget;
+class UMiniCardWidget;
 class URobotHUDWidget;
 class UStatLineWidget;
 class UMatchStatusWidget;
@@ -40,6 +41,9 @@ public:
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class UPartCardWidget> PartCardWidgetBP;
+
+  UPROPERTY(EditDefaultsOnly)
+  TSubclassOf<class UMiniCardWidget> MiniCardWidgetBP;
 
   UPROPERTY(EditDefaultsOnly)
   TSubclassOf<class URobotHUDWidget> RobotHUDWidgetBP;

@@ -68,6 +68,17 @@ public:
   TSoftObjectPtr<UTexture2D> OrangeCard;
 
   UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> RedMiniCard;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> BlueMiniCard;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> GreenMiniCard;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> PurpleMiniCard;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> OrangeMiniCard;
+
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> HeadCardIcon;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> CoreCardIcon;

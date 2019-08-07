@@ -7,11 +7,12 @@
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
 #include "Components/Image.h"
+#include "UI/MiniCardWidget.h"
 #include "InstalledPartWidget.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUninstallButtonClickedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartUninstalledDelegate, URobotPart*, UninstalledPart);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCompatibleCardDroppedDelegate, UPartCardWidget*, Card);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCompatibleCardDroppedDelegate, UCardWidgetBase*, Card);
 
 /**
  * 
@@ -49,12 +50,9 @@ protected:
   URobotPart* InstalledPart;
 
   UPROPERTY(meta=(BindWidget))
-  UTextBlock* PartName;
-
-  UPROPERTY(meta=(BindWidget))
   UButton* UninstallButton;
 
   UPROPERTY(meta=(BindWidget))
-  UImage* PartTypeIcon;
+  UMiniCardWidget* MiniCard;
   
 };

@@ -20,5 +20,7 @@ public:
   FText ManufacturerName;
   UPROPERTY()
   UTexture2D* Card;
+  UPROPERTY()
+  UTexture2D* MiniCard;
 
 };

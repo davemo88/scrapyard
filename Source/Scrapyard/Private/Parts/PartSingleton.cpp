@@ -30,26 +30,36 @@ void UPartSingleton::InitManufacturers()
   RedManufacturer->ManufacturerName = NSLOCTEXT("SY", "RedCorpName", "Red Corp");
   RedManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedCard);
+  RedManufacturer->MiniCard = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMiniCard);
 
   BlueManufacturer = NewObject<UManufacturer>();
   BlueManufacturer->ManufacturerName = NSLOCTEXT("SY", "BlueCorpName", "Blue Corp");
   BlueManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueCard);
+  BlueManufacturer->MiniCard = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMiniCard);
 
   GreenManufacturer = NewObject<UManufacturer>();
   GreenManufacturer->ManufacturerName = NSLOCTEXT("SY", "GreenCorpName", "Green Corp");
   GreenManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenCard);
+  GreenManufacturer->MiniCard = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMiniCard);
 
   OrangeManufacturer = NewObject<UManufacturer>();
   OrangeManufacturer->ManufacturerName = NSLOCTEXT("SY", "OrangeCorpName", "Orange Corp");
   OrangeManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeCard);
+  OrangeManufacturer->MiniCard = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMiniCard);
 
   PurpleManufacturer = NewObject<UManufacturer>();
   PurpleManufacturer->ManufacturerName = NSLOCTEXT("SY", "PurpleCorpName", "Purple Corp");
   PurpleManufacturer->Card = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleCard);
+  PurpleManufacturer->MiniCard = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMiniCard);
 }
 
 void UPartSingleton::InitPartDB()
