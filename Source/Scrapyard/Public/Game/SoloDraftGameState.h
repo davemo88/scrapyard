@@ -36,8 +36,11 @@ public:
 
 protected:
 
+<<<<<<< HEAD
   void SetCurrentDraft();
 
+=======
+>>>>>>> caecc36df94501247f28bddf555caf2098a5035a
   void NextPack();
 
   UFUNCTION(Server, reliable, WithValidation)

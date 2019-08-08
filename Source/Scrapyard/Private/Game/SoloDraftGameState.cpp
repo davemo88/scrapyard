@@ -24,8 +24,11 @@ void ASoloDraftGameState::BeginPlay()
   UE_LOG(LogDraft, Log, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
 
+<<<<<<< HEAD
   SetCurrentDraft();
 
+=======
+>>>>>>> caecc36df94501247f28bddf555caf2098a5035a
   if (CurrentDraft->CurrentPick == 0)
   {
     NextPack();
@@ -33,6 +36,7 @@ void ASoloDraftGameState::BeginPlay()
 
 }
 
+<<<<<<< HEAD
 void ASoloDraftGameState::SetCurrentDraft()
 {
   UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
@@ -49,6 +53,8 @@ void ASoloDraftGameState::SetCurrentDraft()
   }
 }
 
+=======
+>>>>>>> caecc36df94501247f28bddf555caf2098a5035a
 void ASoloDraftGameState::NextPack()
 {
   CurrentDraft->SamplePack();
