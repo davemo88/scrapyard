@@ -1,40 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-<<<<<<< HEAD
-#include "Drafting/SoloDraft.h"
-#include "Game/ScrapyardGameInstance.h"
-#include "Parts/PartAssignment.h"
-#include "Parts/PartSingleton.h"
-#include "Parts/HeadPart.h"
-#include "Parts/CorePart.h"
-#include "Parts/ArmsPart.h"
-#include "Parts/LegsPart.h"
-#include "Parts/BoosterPart.h"
-#include "Parts/ChipPart.h"
-#include "Parts/HandheldPart.h"
-=======
-<<<<<<< Updated upstream
-#include "SoloDraft.h"
-#include "PartAssignment.h"
->>>>>>> caecc36df94501247f28bddf555caf2098a5035a
-
-USoloDraft::USoloDraft()
-{
-  TotalPicks = 10;
-  PackSize = 3;
-  
-  CurrentPick = 0;
-  InitPickTypes();
-}
-
-// TODO: enum for serialization?
-void USoloDraft::InitPickTypes()
-{
-<<<<<<< HEAD
-=======
-//TODO: idea - doubles level up a part, so 3 makes rare
-  DraftedParts.AddUnique(Part);
-=======
 #include "Drafting/SoloDraft.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Parts/PartAssignment.h"
@@ -56,10 +21,8 @@ USoloDraft::USoloDraft()
   InitPickTypes();
 }
 
-// TODO: enum for serialization?
 void USoloDraft::InitPickTypes()
 {
->>>>>>> caecc36df94501247f28bddf555caf2098a5035a
 // guarantee one pick of only parts of each required type
   PickTypes.Add(UHeadPart::StaticClass());
   PickTypes.Add(UCorePart::StaticClass());
@@ -152,8 +115,4 @@ TSubclassOf<URobotPart> USoloDraft::SamplePickType()
   TSubclassOf<URobotPart> PickType = PickTypes[FMath::RandRange(0, PickTypes.Num() - 1)];
   PickTypes.RemoveSingle(PickType);
   return PickType;
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> caecc36df94501247f28bddf555caf2098a5035a
 }
