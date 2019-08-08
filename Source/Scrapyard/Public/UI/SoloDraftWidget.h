@@ -9,7 +9,7 @@
 #include "SoloDraftWidget.generated.h"
 
 class UUserWidget;
-class UYourPartsWidget;
+class UYourPartsWidgetBase;
 class UUniformGridPanel;
 class UHorizontalBox;
 class UTextBlock;
@@ -33,7 +33,7 @@ public:
   UUniformGridPanel* PackDisplayPanel;
 
   UPROPERTY(meta=(BindWidget))
-  UYourPartsWidget* YourPartsWidget;
+  UYourPartsWidgetBase* YourPartsWidget;
 
   UPROPERTY(meta=(BindWidget))
   UTextBlock* PickCounter;

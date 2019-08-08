@@ -4,7 +4,7 @@
 #include "SoloDraftWidget.h"
 #include "Scrapyard.h"
 #include "SoloDraftPlayerController.h"
-#include "UI/YourPartsWidget.h"
+#include "UI/YourPartsWidgetBase.h"
 #include "UI/PartCardWidget.h"
 #include "Blueprint/WidgetTree.h"
 #include "Game/ScrapyardGameInstance.h"
@@ -117,5 +117,5 @@ void USoloDraftWidget::SetCurrentDraft(USoloDraft* NewDraft)
 {
   CurrentDraft = NewDraft;
 
-  YourPartsWidget->CurrentDraft = CurrentDraft;
+  YourPartsWidget->SetCurrentDraft(CurrentDraft);
 }

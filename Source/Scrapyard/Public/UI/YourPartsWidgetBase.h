@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/PanelWidget.h"
 #include "Scrapyard.h"
-#include "SoloDraft.h"
+#include "Drafting/DraftBase.h"
 #include "Parts/RobotPart.h"
 #include "UI/CardWidgetBase.h"
 #include "UI/PartCardDragDropOperation.h"
@@ -24,8 +25,7 @@ class SCRAPYARD_API UYourPartsWidgetBase : public UUserWidget
 
 public:
 
-  UPROPERTY()
-  USoloDraft* CurrentDraft;
+  void SetCurrentDraft(UDraftBase* NewDraft);
 
   UFUNCTION()
   virtual void AddDisplayedPart(URobotPart* RobotPart) {};
@@ -37,5 +37,19 @@ public:
   FCardDroppedInYourPartsDelegate CardDroppedInYourPartsDelegate;
 
   virtual bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
+
+protected:
+
+  UPROPERTY()
+  UDraftBase* CurrentDraft;
+
+  UPROPERTY(meta=(BindWidget))   
+  UPanelWidget* DisplayedCards;
+
+  void DisplayParts(TArray<URobotPart*> Parts);
+
+  void DisplayAll();
+
+  void ClearDisplayedCards();
   
 };

@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Scrapyard.h"
 #include "UI/CardWidgetBase.h"
+#include "UI/PartCardWidget.h"
 #include "MiniCardWidget.generated.h"
 
 /**
@@ -17,6 +19,18 @@ class SCRAPYARD_API UMiniCardWidget : public UCardWidgetBase
 public:
 
   virtual void SetRobotPart(URobotPart* RobotPart) override;
-  
+
+  bool bShowPartCardOnMouseEnter = true;
+
+  UPROPERTY()
+  UPartCardWidget* PartCardWidget;
+
+protected:
+
+  virtual void NativeConstruct() override;
+
+  virtual void NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
+
+  virtual void NativeOnMouseLeave(const FPointerEvent & InMouseEvent) override;
   
 };

@@ -2,7 +2,41 @@
 
 
 #include "YourPartsWidgetBase.h"
+#include "Parts/RobotPart.h"
+#include "Parts/HeadPart.h"
+#include "Parts/CorePart.h"
+#include "Parts/ArmsPart.h"
+#include "Parts/LegsPart.h"
+#include "Parts/BoosterPart.h"
+#include "Parts/HandheldPart.h"
+#include "Parts/ChipPart.h"
 
+void UYourPartsWidgetBase::SetCurrentDraft(UDraftBase* NewDraft)
+{
+  ClearDisplayedCards();
+  CurrentDraft = NewDraft;
+  DisplayAll();
+}
+
+void UYourPartsWidgetBase::DisplayAll()
+{
+  TArray<URobotPart*> AllParts;
+  AllParts.Append(CurrentDraft->DraftedHeads);
+  AllParts.Append(CurrentDraft->DraftedCores);
+  AllParts.Append(CurrentDraft->DraftedArms);
+  AllParts.Append(CurrentDraft->DraftedLegs);
+  AllParts.Append(CurrentDraft->DraftedBoosters);
+  AllParts.Append(CurrentDraft->DraftedHandhelds);
+  AllParts.Append(CurrentDraft->DraftedChips);
+
+  DisplayParts(AllParts);
+//  SortByType();
+}
+
+void UYourPartsWidgetBase::ClearDisplayedCards()
+{
+  DisplayedCards->ClearChildren();
+}
 
 void UYourPartsWidgetBase::RemoveDisplayedCard(UCardWidgetBase* Card)
 {
@@ -21,5 +55,13 @@ bool UYourPartsWidgetBase::NativeOnDrop(const FGeometry & InGeometry, const FDra
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
 
+void UYourPartsWidgetBase::DisplayParts(TArray<URobotPart*> Parts)
+{
+  ClearDisplayedCards(); 
+  for (URobotPart* Part : Parts)
+  {
+    AddDisplayedPart(Part);
+  }
+}
 
 

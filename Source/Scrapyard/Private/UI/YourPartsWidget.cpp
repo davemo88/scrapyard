@@ -15,6 +15,27 @@
 #include "Parts/HandheldPart.h"
 #include "Parts/ChipPart.h"
 
+void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
+{
+  UE_LOG(LogUI, Verbose, TEXT("%s::AddDisplayedPart"), *GetName());
+  UE_LOG(LogUI, VeryVerbose, TEXT("%s::AddDisplayedPart - %s"), *GetName(), *RobotPart->PartName.ToString());
+
+// don't display cards that are currently assigned to the robot
+// or default parts
+  if (!RobotPart->IsAssignedTo(CurrentDraft->PartAssignment) && !RobotPart->IsDefaultPart())
+  {
+    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
+//    UCardWidgetBase* Card = CreateWidget<UCardWidgetBase>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->CardWidgetBaseBP); 
+    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
+    Card->bCanBeDragged = true;
+    Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
+    Card->SetRobotPart(RobotPart);
+    DisplayedCards->AddChild(Card);
+    Card->CardSizeBox->SetWidthOverride(200);
+    NewCardAddedDelegate.Broadcast(Card);
+  }
+}
+
 void UYourPartsWidget::ReorderCards(UCardWidgetBase* DroppedOnCard, UDragDropOperation* DragDropOp)
 {
   UE_LOG(LogUI, Log, TEXT("%s::ReorderCards"), *GetName());
@@ -36,57 +57,6 @@ void UYourPartsWidget::ReorderCards(UCardWidgetBase* DroppedOnCard, UDragDropOpe
     }
   }
 
-}
-
-void UYourPartsWidget::ClearDisplayedCards()
-{
-  DisplayedCards->ClearChildren();
-}
-
-void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
-{
-  UE_LOG(LogUI, Verbose, TEXT("%s::AddDisplayedPart"), *GetName());
-  UE_LOG(LogUI, VeryVerbose, TEXT("%s::AddDisplayedPart - %s"), *GetName(), *RobotPart->PartName.ToString());
-
-// don't display cards that are currently assigned to the robot
-// or default parts
-  if (!RobotPart->IsAssignedTo(CurrentDraft->PartAssignment) && !RobotPart->IsDefaultPart())
-  {
-    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-//    UCardWidgetBase* Card = CreateWidget<UCardWidgetBase>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->CardWidgetBaseBP); 
-    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
-    Card->bCanBeDragged = true;
-    Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
-    Card->SetRobotPart(RobotPart);
-    DisplayedCards->AddChild(Card);
-    Card->CardSizeBox->SetWidthOverride(200);
-    NewCardAddedDelegate.Broadcast(Card);
-  }
-
-}
-
-void UYourPartsWidget::DisplayParts(TArray<URobotPart*> Parts)
-{
-  ClearDisplayedCards(); 
-  for (int32 i=0; i<Parts.Num(); ++i)
-  {
-    AddDisplayedPart(Parts[i]);
-  }
-}
-
-void UYourPartsWidget::DisplayAll()
-{
-  TArray<URobotPart*> AllParts;
-  AllParts.Append(CurrentDraft->DraftedHeads);
-  AllParts.Append(CurrentDraft->DraftedCores);
-  AllParts.Append(CurrentDraft->DraftedArms);
-  AllParts.Append(CurrentDraft->DraftedLegs);
-  AllParts.Append(CurrentDraft->DraftedBoosters);
-  AllParts.Append(CurrentDraft->DraftedHandhelds);
-  AllParts.Append(CurrentDraft->DraftedChips);
-
-  DisplayParts(AllParts);
-//  SortByType();
 }
 
 void UYourPartsWidget::OnSortButtonClicked()

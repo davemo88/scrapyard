@@ -3,6 +3,7 @@
 #include "GarageWidget.h"
 #include "Scrapyard.h"
 #include "Game/ScrapyardGameInstance.h"
+#include "Drafting/SoloDraft.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
 #include "Parts/ArmsPart.h"
@@ -60,7 +61,6 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
 {
   UE_LOG(LogUI, Log, TEXT("%s::SetSoloDraft"), *GetName());
   SoloDraft = NewSoloDraft;
-  YourPartsWidget->CurrentDraft = SoloDraft;
 
   if (SoloDraft != nullptr)
   {
@@ -91,7 +91,7 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
   RobotStatsWidget->SetRobotStats(RobotStats);
   RobotStatsWidget->SetNewValueStats(NewValueStats);
 
-  YourPartsWidget->DisplayAll();
+  YourPartsWidget->SetCurrentDraft(SoloDraft);
 }
 
 void UGarageWidget::OnNewCardReady(UCardWidgetBase* CardWidget)

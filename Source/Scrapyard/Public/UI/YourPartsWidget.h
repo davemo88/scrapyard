@@ -17,18 +17,9 @@ class SCRAPYARD_API UYourPartsWidget : public UYourPartsWidgetBase
 
 public:
 
-  void ClearDisplayedCards();
-
   virtual void AddDisplayedPart(URobotPart* RobotPart) override;
 
-  void DisplayParts(TArray<URobotPart*> RobotParts);
-
-  void DisplayAll();
-
 protected:
-
-  UPROPERTY(meta=(BindWidget))   
-  UScrollBox* DisplayedCards;
 
   UFUNCTION()
   void ReorderCards(UCardWidgetBase* DroppedOnCard, UDragDropOperation* DragDropOp);
