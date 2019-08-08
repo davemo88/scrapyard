@@ -28,6 +28,7 @@ class SCRAPYARD_API USoloDraft : public UObject
 public:
   USoloDraft();
 
+<<<<<<< Updated upstream
   UPROPERTY()
   int32 TotalPicks = 10;
 
@@ -45,5 +46,26 @@ public:
 // for garage
   UPROPERTY(BlueprintReadOnly)
   UPartAssignment* PartAssignment;
+=======
+  TArray<TSubclassOf<URobotPart>> GetPickTypes();
+  
+  URobotPart* SamplePart(TSubclassOf<URobotPart> PickType);
+
+  TArray<URobotPart*> SamplePack();
+
+protected:
+
+  UPROPERTY()
+  TArray<TSubclassOf<URobotPart>> PickTypes;
+
+  void InitPickTypes();
+
+  TSubclassOf<URobotPart> SamplePickType();
+
+  UPROPERTY()
+  TArray<URobotPart*> RobotPartPool;
+
+  void InitRobotPartPool();
+>>>>>>> Stashed changes
 
 };
