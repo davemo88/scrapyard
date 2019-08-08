@@ -64,4 +64,15 @@ public:
   UPROPERTY()
   UPartAssignment* PartAssignment;
   
+  virtual URobotPart* SamplePart(TSubclassOf<URobotPart> PickType);
+
+  virtual TArray<URobotPart*> SamplePack();
+
+protected:
+
+  UPROPERTY()
+  TArray<URobotPart*> RobotPartPool;
+
+  virtual void InitRobotPartPool();
+  
 };

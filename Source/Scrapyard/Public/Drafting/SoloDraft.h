@@ -26,22 +26,10 @@ class SCRAPYARD_API USoloDraft : public UDraftBase
   
 public:
   USoloDraft();
-
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> CurrentPack;
-
-  UPROPERTY(BlueprintReadOnly)
-  TArray<URobotPart*> DraftedParts;
-
-// for garage
-  UPROPERTY(BlueprintReadOnly)
-  UPartAssignment* PartAssignment;
-
-  TArray<TSubclassOf<URobotPart>> GetPickTypes();
   
-  URobotPart* SamplePart(TSubclassOf<URobotPart> PickType);
+  virtual URobotPart* SamplePart(TSubclassOf<URobotPart> PickType) override;
 
-  TArray<URobotPart*> SamplePack();
+  virtual TArray<URobotPart*> SamplePack() override;
 
 protected:
 
@@ -51,10 +39,5 @@ protected:
   void InitPickTypes();
 
   TSubclassOf<URobotPart> SamplePickType();
-
-  UPROPERTY()
-  TArray<URobotPart*> RobotPartPool;
-
-  void InitRobotPartPool();
 
 };
