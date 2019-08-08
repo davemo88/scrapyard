@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Scrapyard.h"
+#include "Scrapyard.h"
 #include "UObject/NoExportTypes.h"
 #include "Parts/PartAssignment.h"
 #include "DraftBase.generated.h"
@@ -64,9 +66,11 @@ public:
   UPROPERTY()
   UPartAssignment* PartAssignment;
   
-  virtual URobotPart* SamplePart(TSubclassOf<URobotPart> PickType);
+  virtual URobotPart* SamplePart();
 
-  virtual TArray<URobotPart*> SamplePack();
+  virtual void SamplePack();
+
+  virtual void DraftPart(URobotPart* RobotPart);
 
 protected:
 

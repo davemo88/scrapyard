@@ -64,8 +64,9 @@ bool ASoloDraftGameState::ServerDraftPart_Validate(URobotPart* RobotPart)
 void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
 {
   UE_LOG(LogDraft, Log, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
-  RobotPart->Draft(CurrentDraft);
-  RobotPartPool.Remove(RobotPart);
+  CurrentDraft->DraftPart(RobotPart);
+//  RobotPart->Draft(CurrentDraft);
+//  RobotPartPool.Remove(RobotPart);
   CurrentDraft->CurrentPick++;
 
   if (CurrentDraft->CurrentPick < CurrentDraft->TotalPicks)

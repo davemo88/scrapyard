@@ -25,19 +25,18 @@ class SCRAPYARD_API USoloDraft : public UDraftBase
   GENERATED_BODY()
   
 public:
+
   USoloDraft();
   
-  virtual URobotPart* SamplePart(TSubclassOf<URobotPart> PickType) override;
+  virtual URobotPart* SamplePart() override;
 
-  virtual TArray<URobotPart*> SamplePack() override;
+  virtual void DraftPart(URobotPart* RobotPart) override;
 
 protected:
 
   UPROPERTY()
-  TArray<TSubclassOf<URobotPart>> PickTypes;
+  TArray<TSubclassOf<URobotPart>> MissingTypes;
 
-  void InitPickTypes();
-
-  TSubclassOf<URobotPart> SamplePickType();
+  void InitMissingTypes();
 
 };

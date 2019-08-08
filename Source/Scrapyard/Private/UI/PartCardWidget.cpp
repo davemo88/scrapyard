@@ -22,62 +22,6 @@ void UPartCardWidget::SetRobotPart(URobotPart* NewRobotPart)
   AddStatsText();
 }
 
-//FReply UPartCardWidget::NativeOnMouseButtonDoubleClick(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
-//{
-//  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonDoubleClick"), *GetName());
-//  CardDoubleClickedDelegate.Broadcast(RobotPart);
-//  return Super::NativeOnMouseButtonDoubleClick(InGeometry, InMouseEvent);
-//}
-//
-//void UPartCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
-//{
-//  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseEnter"), *GetName());
-//  CardMouseEnteredDelegate.Broadcast(RobotPart);
-//  if (bHoverBorderActive)
-//  {
-////    UE_LOG(LogTemp, Warning, TEXT("Playing Show Hover Border"), *GetName());
-//    PlayAnimation(ShowHoverBorder);
-//  }
-//  Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
-//}
-//
-//void UPartCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
-//{
-//  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseLeave"), *GetName());
-//  CardMouseLeftDelegate.Broadcast(RobotPart);
-//  if (bHoverBorderActive)
-//  {
-//    PlayAnimation(HideHoverBorder);
-////    HoverBorder->SetVisibility(ESlateVisibility::Hidden);
-//  }
-//  Super::NativeOnMouseLeave(InMouseEvent);
-//}
-//
-//FReply UPartCardWidget::NativeOnMouseButtonDown(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
-//{
-//  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonDown"), *GetName());
-//// stops OnMouseLeave event from firing by not calling Super
-////  UDragDropOperation* DragDropOp = UWidgetBlueprintLibrary::CreateDragDropOperation(UPartCardDragDropOperation::StaticClass());
-////
-//  if (bCanBeDragged)
-//  {
-//    return UWidgetBlueprintLibrary::DetectDragIfPressed(InMouseEvent, this, EKeys::LeftMouseButton).NativeReply;
-//  }
-//
-//  return FReply::Handled();
-////  return FReply::Handled().BeginDragDrop(MakeShareable(new FDragDropOperation()));
-////  return Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-//}
-//
-//FReply UPartCardWidget::NativeOnMouseButtonUp(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
-//{
-//  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseButtonUp"), *GetName());
-//// stops OnMouseEnter event from firing by not calling Super
-//  CardClickedDelegate.Broadcast(this);
-////  return Super::NativeOnMouseButtonUp(InGeometry, InMouseEvent);
-//  return FReply::Handled();
-//}
-//
 void UPartCardWidget::NativeOnDragDetected(const FGeometry & InGeometry, const FPointerEvent & InDragDropEvent, UDragDropOperation *& OutOperation)
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeOnDragDetected"), *GetName());

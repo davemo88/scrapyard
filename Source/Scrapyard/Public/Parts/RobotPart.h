@@ -7,7 +7,6 @@
 #include "Parts/PartAssets.h"
 #include "Parts/PartAssignment.h"
 #include "Parts/Manufacturer.h"
-#include "Drafting/DraftBase.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
 
@@ -17,6 +16,7 @@ class UPartAssignment;
 class UPartAssets;
 class UTexture2D;
 class UMaterial;
+class UDraftBase;
 
 USTRUCT()
 struct FStatText {

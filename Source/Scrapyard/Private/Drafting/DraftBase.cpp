@@ -2,10 +2,44 @@
 
 
 #include "DraftBase.h"
+#include "Game/ScrapyardGameInstance.h"
+#include "Game/ScrapyardAssets.h"
+#include "Parts/RobotPart.h"
+#include "Parts/PartSingleton.h"
+#include "Parts/PartAssets.h"
 
 UDraftBase::UDraftBase()
 {
   PartAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("PartAssignment"));  
+
+  InitRobotPartPool();
+}
+
+void UDraftBase::DraftPart(URobotPart* RobotPart)
+{
+  RobotPart->Draft(this);
+  RobotPartPool.Remove(RobotPart);
+}
+
+URobotPart* UDraftBase::SamplePart()
+{
+// random part
+  return RobotPartPool[FMath::RandRange(0, RobotPartPool.Num() - 1)];
+}
+
+void UDraftBase::SamplePack()
+{
+  CurrentPack.Empty();
+
+  URobotPart* PotentialPart;
+  while (CurrentPack.Num() < PackSize)
+  {
+    PotentialPart = SamplePart();
+    if (!CurrentPack.Contains(PotentialPart))
+    {
+      CurrentPack.Add(PotentialPart);
+    }
+  }
 }
 
 void UDraftBase::InitRobotPartPool()
@@ -44,6 +78,4 @@ void UDraftBase::InitRobotPartPool()
     RobotPartPool.Add(GameInstance->PartSingleton->PartDB.GetPart(6005));
   }
 }
-
-
 

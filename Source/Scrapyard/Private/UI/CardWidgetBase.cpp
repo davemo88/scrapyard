@@ -10,10 +10,6 @@ void UCardWidgetBase::SetRobotPart(URobotPart* NewRobotPart)
 {
   RobotPart = NewRobotPart;
   CardTitle->SetText(RobotPart->PartName); 
-//  if (RobotPart->Manufacturer->Card)
-//  {
-//    CardBackground->SetBrushFromTexture(RobotPart->Manufacturer->Card);
-//  }
   if (UTexture2D* CardIcon = RobotPart->GetPartTypeIcon())
   {
     PartTypeIcon->SetBrushFromTexture(CardIcon); 
@@ -29,11 +25,10 @@ FReply UCardWidgetBase::NativeOnMouseButtonDoubleClick(const FGeometry & InGeome
 
 void UCardWidgetBase::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseEnter"), *GetName());
+  UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseEnter"), *GetName());
   CardMouseEnteredDelegate.Broadcast(RobotPart);
   if (bHoverBorderActive)
   {
-//    UE_LOG(LogTemp, Warning, TEXT("Playing Show Hover Border"), *GetName());
     PlayAnimation(ShowHoverBorder);
   }
   Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
@@ -41,12 +36,11 @@ void UCardWidgetBase::NativeOnMouseEnter(const FGeometry & InGeometry, const FPo
 
 void UCardWidgetBase::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
 {
-  UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseLeave"), *GetName());
+  UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseLeave"), *GetName());
   CardMouseLeftDelegate.Broadcast(RobotPart);
   if (bHoverBorderActive)
   {
     PlayAnimation(HideHoverBorder);
-//    HoverBorder->SetVisibility(ESlateVisibility::Hidden);
   }
   Super::NativeOnMouseLeave(InMouseEvent);
 }

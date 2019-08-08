@@ -18,59 +18,40 @@ USoloDraft::USoloDraft()
   PackSize = 3;
   
   CurrentPick = 0;
-  InitPickTypes();
+
+  InitMissingTypes();
 }
 
-void USoloDraft::InitPickTypes()
+URobotPart* USoloDraft::SamplePart()
 {
-// guarantee one pick of only parts of each required type
-  PickTypes.Add(UHeadPart::StaticClass());
-  PickTypes.Add(UCorePart::StaticClass());
-  PickTypes.Add(UArmsPart::StaticClass());
-  PickTypes.Add(ULegsPart::StaticClass());
-  PickTypes.Add(UBoosterPart::StaticClass());
-  PickTypes.Add(UHandheldPart::StaticClass());
-
-  while (PickTypes.Num() < TotalPicks)
+// if the player is in danger of missing a part type, only sample the types they are missing
+  if (MissingTypes.Num() == TotalPicks - CurrentPick)
   {
-    PickTypes.Add(URobotPart::StaticClass());
-  }
-}
+    UE_LOG(LogDraft, VeryVerbose, TEXT("Uh oh! missing %i types! to the rescue!"), MissingTypes.Num());
+    TArray<URobotPart*> EligibleParts = RobotPartPool.FilterByPredicate([this](URobotPart* Part){ return MissingTypes.Contains(Part->GetClass()); }); 
 
-URobotPart* USoloDraft::SamplePart(TSubclassOf<URobotPart> PickType);
-{
-// if a specific part type is given, filter for parts of that type
-  if (PickType != URobotPart::StaticClass())
-  {
-    TArray<URobotPart*> EligibleParts = RobotPartPool.FilterByPredicate([PickType](URobotPart* Part){ return Part->IsA(PickType); }); 
-
-    return EligibleParts[FMath::RandRange(0, RobotPartPool.Num() - 1)];
+    return EligibleParts[FMath::RandRange(0, EligibleParts.Num() - 1)];
   }
 // otherwise return a random part
   return RobotPartPool[FMath::RandRange(0, RobotPartPool.Num() - 1)];
     
 }
 
-TArray<URobotPart*> USoloDraft::SamplePack()
+void USoloDraft::DraftPart(URobotPart* RobotPart)
 {
-  CurrentDraft->CurrentPack.Empty();
-
-  TSubclassOf<URobotPart> PickType = SamplePickType();
-  URobotPart* PotentialPart;
-  while (CurrentDraft->CurrentPack.Num() < CurrentDraft->PackSize)
+  if (MissingTypes.Contains(RobotPart->GetClass()))
   {
-    PotentialPart = SamplePart(PickType);
-    if (!CurrentDraft->CurrentPack.Contains(PotentialPart))
-    {
-      CurrentDraft->CurrentPack.Add(PotentialPart);
-    }
+    MissingTypes.Remove(RobotPart->GetClass());
   }
-
+  Super::DraftPart(RobotPart);
 }
 
-TSubclassOf<URobotPart> USoloDraft::SamplePickType()
+void USoloDraft::InitMissingTypes()
 {
-  TSubclassOf<URobotPart> PickType = PickTypes[FMath::RandRange(0, PickTypes.Num() - 1)];
-  PickTypes.RemoveSingle(PickType);
-  return PickType;
+  MissingTypes.Add(UHeadPart::StaticClass());
+  MissingTypes.Add(UCorePart::StaticClass());
+  MissingTypes.Add(UArmsPart::StaticClass());
+  MissingTypes.Add(ULegsPart::StaticClass());
+  MissingTypes.Add(UBoosterPart::StaticClass());
+  MissingTypes.Add(UHandheldPart::StaticClass());
 }

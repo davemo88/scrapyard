@@ -40,7 +40,4 @@ protected:
 
   void NextPack();
 
-  UFUNCTION(Server, reliable, WithValidation)
-  void ServerDraftPart(URobotPart* RobotPart);
-  
 };
