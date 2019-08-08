@@ -38,15 +38,9 @@ protected:
 
   void SetCurrentDraft();
 
-  UPROPERTY()
-  TArray<URobotPart*> RobotPartPool;
-
   void NextPack();
 
-  void SamplePack();
-
-  URobotPart* SamplePart();
-
-  void SetupRobotPartPool();
+  UFUNCTION(Server, reliable, WithValidation)
+  void ServerDraftPart(URobotPart* RobotPart);
   
 };

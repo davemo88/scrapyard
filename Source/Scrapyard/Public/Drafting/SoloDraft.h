@@ -25,7 +25,36 @@ class SCRAPYARD_API USoloDraft : public UDraftBase
   GENERATED_BODY()
   
 public:
-
   USoloDraft();
+
+  UPROPERTY(BlueprintReadOnly)
+  TArray<URobotPart*> CurrentPack;
+
+  UPROPERTY(BlueprintReadOnly)
+  TArray<URobotPart*> DraftedParts;
+
+// for garage
+  UPROPERTY(BlueprintReadOnly)
+  UPartAssignment* PartAssignment;
+
+  TArray<TSubclassOf<URobotPart>> GetPickTypes();
+  
+  URobotPart* SamplePart(TSubclassOf<URobotPart> PickType);
+
+  TArray<URobotPart*> SamplePack();
+
+protected:
+
+  UPROPERTY()
+  TArray<TSubclassOf<URobotPart>> PickTypes;
+
+  void InitPickTypes();
+
+  TSubclassOf<URobotPart> SamplePickType();
+
+  UPROPERTY()
+  TArray<URobotPart*> RobotPartPool;
+
+  void InitRobotPartPool();
 
 };
