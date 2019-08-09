@@ -7,6 +7,7 @@
 #include "SoloDraftGameState.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNextPackReadyDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDraftCompletedDelegate);
 
 class USoloDraft;
 /**
@@ -27,6 +28,7 @@ public:
   virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
   FOnNextPackReadyDelegate OnNextPackReady;
+  FDraftCompletedDelegate DraftCompletedDelegate;
   
   UPROPERTY()
   USoloDraft* CurrentDraft;
@@ -39,5 +41,10 @@ protected:
   void SetCurrentDraft();
 
   void NextPack();
+
+  UFUNCTION()
+  void GoToGarage();
+
+  FTimerHandle DraftEndedTimerHandle;
 
 };

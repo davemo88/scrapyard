@@ -21,6 +21,11 @@ void USoloDraftWidget::NativeConstruct()
   Super::NativeConstruct();
 
   YourPartsWidget->CardDroppedInYourPartsDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDroppedInYourParts);
+
+  if (ASoloDraftGameState* GameState = GetWorld()->GetGameState<ASoloDraftGameState>())
+  {
+    GameState->DraftCompletedDelegate.AddDynamic(this, &USoloDraftWidget::OnDraftCompleted);
+  }
 }
 
 void USoloDraftWidget::NextPack()
@@ -37,7 +42,6 @@ void USoloDraftWidget::NextPack()
 //        Card->SetVisibility(ESlateVisibility::HitTestInvisible);
         Card->PlayFadeOut()->OnSequenceFinishedPlaying().AddUObject(Card, &UPartCardWidget::OnFadeOutFinished);
       }
-
     }
   }
   else
@@ -102,6 +106,7 @@ void USoloDraftWidget::OnCardDragged(UCardWidgetBase* CardWidget)
 void USoloDraftWidget::OnCardDrafted(UCardWidgetBase* Card)
 {
   PartDraftedDelegate.Broadcast(Card->RobotPart);
+//  YourPartsWidget->DisplayAll();
   YourPartsWidget->AddDisplayedPart(Card->RobotPart);
 }
 
@@ -118,4 +123,15 @@ void USoloDraftWidget::SetCurrentDraft(USoloDraft* NewDraft)
   CurrentDraft = NewDraft;
 
   YourPartsWidget->SetCurrentDraft(CurrentDraft);
+}
+
+void USoloDraftWidget::OnDraftCompleted()
+{
+ for (UWidget* Child : PackDisplayPanel->GetAllChildren())
+ {
+   if (UPartCardWidget* Card = Cast<UPartCardWidget>(Child))
+   {
+     Card->PlayFadeOut();
+   }
+ }
 }

@@ -25,6 +25,8 @@ public:
   UPROPERTY()
   UPartCardWidget* PartCardWidget;
 
+  void RemoveFromParent() override;
+
 protected:
 
   virtual void NativeConstruct() override;

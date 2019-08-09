@@ -66,5 +66,8 @@ protected:
 
   UPROPERTY()
   USoloDraft* CurrentDraft;
+
+  UFUNCTION()
+  void OnDraftCompleted();
   
 };

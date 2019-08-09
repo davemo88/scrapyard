@@ -10,7 +10,7 @@
 #include "Parts/LegsPart.h"
 #include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
-#include "UI/YourPartsWidget.h"
+#include "UI/YourPartsWidgetBase.h"
 #include "UI/RobotStatsWidget.h"
 
 void UGarageWidget::NativeConstruct()
@@ -49,12 +49,12 @@ void UGarageWidget::SetupInstalledPartWidgets()
   InstalledBoosterWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
 
-  InstalledHeadWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
-  InstalledCoreWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
-  InstalledArmsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
-  InstalledLegsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
-  InstalledBoosterWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
-  InstalledRightHandheldWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidget::AddDisplayedPart);
+  InstalledHeadWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
+  InstalledCoreWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
+  InstalledArmsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
+  InstalledLegsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
+  InstalledBoosterWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
+  InstalledRightHandheldWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
 }
 
 void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)

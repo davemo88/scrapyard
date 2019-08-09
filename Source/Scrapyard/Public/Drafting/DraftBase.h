@@ -72,6 +72,8 @@ public:
 
   virtual void DraftPart(URobotPart* RobotPart);
 
+  TArray<URobotPart*> GetAllDraftedParts();
+
 protected:
 
   UPROPERTY()

@@ -52,3 +52,11 @@ void UMiniCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
   }
 }
 
+void UMiniCardWidget::RemoveFromParent()
+{
+  if (PartCardWidget != nullptr && PartCardWidget->IsInViewport())
+  {
+    PartCardWidget->RemoveFromViewport();
+  }
+  Super::RemoveFromParent();
+}

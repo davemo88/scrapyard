@@ -74,16 +74,16 @@ void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
     NextPack();
   }
   else
-// this should be an event
   {
-    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-    if (CurrentDraft != nullptr)
-    {
-      UE_LOG(LogDraft, Verbose, TEXT("draft complete"));
-//      GameInstance->CurrentDraft = DuplicateObject(CurrentDraft, NULL);
-      UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
-    }
+    DraftCompletedDelegate.Broadcast();
+    GetWorld()->GetTimerManager().SetTimer(DraftEndedTimerHandle, this, &ASoloDraftGameState::GoToGarage, 1.0f, false);
+    UE_LOG(LogDraft, Verbose, TEXT("draft complete"));
   }
+}
+
+void ASoloDraftGameState::GoToGarage()
+{
+  UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
 }
 
 void ASoloDraftGameState::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -95,4 +95,3 @@ void ASoloDraftGameState::EndPlay(const EEndPlayReason::Type EndPlayReason)
   }
   Super::EndPlay(EndPlayReason);
 }
-

@@ -14,7 +14,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGarageWidgetPartAssignedDelegate, URobotPart*, RobotPart);
 
-class UYourPartsWidget;
+class UYourPartsWidgetBase;
 class URobotStatsWidget;
 
 /**
@@ -34,7 +34,7 @@ public:
   URobotStatsWidget* RobotStatsWidget;
 
   UPROPERTY(meta=(BindWidget))
-  UYourPartsWidget* YourPartsWidget;
+  UYourPartsWidgetBase* YourPartsWidget;
 
   UPROPERTY(meta=(BindWidget))
   UButton* RobotTestButton;

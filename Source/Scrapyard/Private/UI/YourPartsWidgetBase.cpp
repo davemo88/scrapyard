@@ -20,17 +20,7 @@ void UYourPartsWidgetBase::SetCurrentDraft(UDraftBase* NewDraft)
 
 void UYourPartsWidgetBase::DisplayAll()
 {
-  TArray<URobotPart*> AllParts;
-  AllParts.Append(CurrentDraft->DraftedHeads);
-  AllParts.Append(CurrentDraft->DraftedCores);
-  AllParts.Append(CurrentDraft->DraftedArms);
-  AllParts.Append(CurrentDraft->DraftedLegs);
-  AllParts.Append(CurrentDraft->DraftedBoosters);
-  AllParts.Append(CurrentDraft->DraftedHandhelds);
-  AllParts.Append(CurrentDraft->DraftedChips);
-
-  DisplayParts(AllParts);
-//  SortByType();
+  DisplayParts(CurrentDraft->GetAllDraftedParts());
 }
 
 void UYourPartsWidgetBase::ClearDisplayedCards()
