@@ -28,7 +28,10 @@ public:
   void SetCurrentDraft(UDraftBase* NewDraft);
 
   UFUNCTION()
-  virtual void AddDisplayedPart(URobotPart* RobotPart) {};
+  void DisplayPart(URobotPart* RobotPart);
+
+  UFUNCTION()
+  void DisplayParts(TArray<URobotPart*> NewDisplayedParts);
 
   UFUNCTION()
   virtual void RemoveDisplayedCard(UCardWidgetBase* Card);
@@ -38,18 +41,23 @@ public:
 
   virtual bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
 
+  void DisplayUnassignedParts();
+
 protected:
 
   UPROPERTY()
   UDraftBase* CurrentDraft;
 
   UPROPERTY(meta=(BindWidget))   
-  UPanelWidget* DisplayedCards;
+  UPanelWidget* CardDisplayPanel;
 
-  void DisplayParts(TArray<URobotPart*> Parts);
+  UPROPERTY()
+  TArray<URobotPart*> DisplayedParts;
 
-  void DisplayAll();
+  void SortDisplayedParts();
 
-  void ClearDisplayedCards();
-  
+  void RefreshDisplayedCards();
+
+  virtual UCardWidgetBase* GetCardWidget();
+
 };

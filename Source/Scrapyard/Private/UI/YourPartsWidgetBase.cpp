@@ -2,6 +2,7 @@
 
 
 #include "YourPartsWidgetBase.h"
+#include "UI/CardWidgetBase.h"
 #include "Parts/RobotPart.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
@@ -13,24 +14,36 @@
 
 void UYourPartsWidgetBase::SetCurrentDraft(UDraftBase* NewDraft)
 {
-  ClearDisplayedCards();
   CurrentDraft = NewDraft;
-  DisplayAll();
 }
 
-void UYourPartsWidgetBase::DisplayAll()
+void UYourPartsWidgetBase::DisplayPart(URobotPart* RobotPart)
 {
-  DisplayParts(CurrentDraft->GetAllDraftedParts());
+  UE_LOG(LogUI, Verbose, TEXT("%s::DisplayPart"), *GetName());
+  UE_LOG(LogUI, VeryVerbose, TEXT("%s::DisplayPart - %s"), *GetName(), *RobotPart->PartName.ToString());
+  DisplayedParts.Add(RobotPart);
+  RefreshDisplayedCards();
 }
 
-void UYourPartsWidgetBase::ClearDisplayedCards()
+void UYourPartsWidgetBase::DisplayParts(TArray<URobotPart*> NewDisplayedParts)
 {
-  DisplayedCards->ClearChildren();
+  DisplayedParts = NewDisplayedParts;
+  RefreshDisplayedCards();
+}
+
+void UYourPartsWidgetBase::DisplayUnassignedParts()
+{
+  TArray<URobotPart*> UnassignedParts;
+  if (CurrentDraft != nullptr)
+  {
+    UnassignedParts = CurrentDraft->GetAllDraftedParts().FilterByPredicate([this](URobotPart* Part) { return !Part->IsAssignedTo(CurrentDraft->PartAssignment); }); 
+  }
+  DisplayParts(UnassignedParts);
 }
 
 void UYourPartsWidgetBase::RemoveDisplayedCard(UCardWidgetBase* Card)
 {
-//  DisplayedCards->RemoveChild(Card);
+  DisplayedParts.Remove(Card->RobotPart);
   Card->RemoveFromParent();
 }
 
@@ -45,13 +58,38 @@ bool UYourPartsWidgetBase::NativeOnDrop(const FGeometry & InGeometry, const FDra
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
 
-void UYourPartsWidgetBase::DisplayParts(TArray<URobotPart*> Parts)
+UCardWidgetBase* UYourPartsWidgetBase::GetCardWidget()
 {
-  ClearDisplayedCards(); 
-  for (URobotPart* Part : Parts)
-  {
-    AddDisplayedPart(Part);
-  }
+  return nullptr;
 }
 
+void UYourPartsWidgetBase::SortDisplayedParts()
+{
+  TArray<TSubclassOf<URobotPart>> TypeOrder;
+  TypeOrder.Add(UHeadPart::StaticClass());
+  TypeOrder.Add(UCorePart::StaticClass());
+  TypeOrder.Add(UArmsPart::StaticClass());
+  TypeOrder.Add(ULegsPart::StaticClass());
+  TypeOrder.Add(UBoosterPart::StaticClass());
+  TypeOrder.Add(UHandheldPart::StaticClass());
+  TypeOrder.Add(UChipPart::StaticClass());
 
+  Algo::Sort(DisplayedParts, [TypeOrder](URobotPart* Part1, URobotPart* Part2)
+      { return TypeOrder.Find(Part1->GetClass()) < TypeOrder.Find(Part2->GetClass()); });
+
+}
+
+void UYourPartsWidgetBase::RefreshDisplayedCards()
+{
+  UE_LOG(LogUI, Log, TEXT("%s::RefreshDisplayedCards"), *GetName());
+  CardDisplayPanel->ClearChildren();
+  SortDisplayedParts();
+  for (URobotPart* Part : DisplayedParts)
+  {
+    UCardWidgetBase* Card = GetCardWidget();
+    Card->bCanBeDragged = true;
+    Card->SetRobotPart(Part);
+    CardDisplayPanel->AddChild(Card);
+    NewCardAddedDelegate.Broadcast(Card);
+  }
+}

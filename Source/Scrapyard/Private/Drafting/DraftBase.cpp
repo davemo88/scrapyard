@@ -25,6 +25,7 @@ UDraftBase::UDraftBase()
 void UDraftBase::DraftPart(URobotPart* RobotPart)
 {
   RobotPart->Draft(this);
+  CurrentPick++;
   RobotPartPool.Remove(RobotPart);
 }
 

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "UI/YourPartsWidgetBase.h"
-#include "Components/ScrollBox.h"
 #include "YourPartsWidget.generated.h"
 
 /**
@@ -17,7 +16,7 @@ class SCRAPYARD_API UYourPartsWidget : public UYourPartsWidgetBase
 
 public:
 
-  virtual void AddDisplayedPart(URobotPart* RobotPart) override;
+  virtual UCardWidgetBase* GetCardWidget() override;
 
 protected:
 

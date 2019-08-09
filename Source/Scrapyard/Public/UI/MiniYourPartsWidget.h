@@ -15,7 +15,7 @@ class SCRAPYARD_API UMiniYourPartsWidget : public UYourPartsWidgetBase
   GENERATED_BODY()
 
 public:
-  
-  virtual void AddDisplayedPart(URobotPart* RobotPart) override;
+
+  virtual UCardWidgetBase* GetCardWidget() override;
   
 };

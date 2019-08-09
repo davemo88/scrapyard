@@ -65,9 +65,6 @@ void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
 {
   UE_LOG(LogDraft, Log, TEXT("%s::ServerDraftPart_Implementation"), *GetName());
   CurrentDraft->DraftPart(RobotPart);
-//  RobotPart->Draft(CurrentDraft);
-//  RobotPartPool.Remove(RobotPart);
-  CurrentDraft->CurrentPick++;
 
   if (CurrentDraft->CurrentPick < CurrentDraft->TotalPicks)
   {
@@ -77,7 +74,7 @@ void ASoloDraftGameState::ServerDraftPart_Implementation(URobotPart* RobotPart)
   {
     DraftCompletedDelegate.Broadcast();
     GetWorld()->GetTimerManager().SetTimer(DraftEndedTimerHandle, this, &ASoloDraftGameState::GoToGarage, 1.0f, false);
-    UE_LOG(LogDraft, Verbose, TEXT("draft complete"));
+    UE_LOG(LogDraft, Log, TEXT("draft complete"));
   }
 }
 

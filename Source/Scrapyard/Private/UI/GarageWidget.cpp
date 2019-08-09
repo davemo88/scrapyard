@@ -32,16 +32,6 @@ void UGarageWidget::SetupInstalledPartWidgets()
   InstalledBoosterWidget->SetInstalledPartType(UBoosterPart::StaticClass());
   InstalledRightHandheldWidget->SetInstalledPartType(UHandheldPart::StaticClass());
 
-//  if (UScrapyardGameInstance::GameInstance->PartSingleton != nullptr)
-//  {
-//    InstalledHeadWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UHeadPart>(1000));
-//    InstalledCoreWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UCorePart>(2000));
-//    InstalledArmsWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UArmsPart>(3000));
-//    InstalledLegsWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<ULegsPart>(4000));
-//    InstalledBoosterWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UBoosterPart>(5000));
-//    InstalledRightHandheldWidget->SetDefaultPart(UScrapyardGameInstance::GameInstance->PartSingleton->PartDB.GetPart<UHandheldPart>(6000));
-//  }
-
   InstalledHeadWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledCoreWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledArmsWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
@@ -49,12 +39,12 @@ void UGarageWidget::SetupInstalledPartWidgets()
   InstalledBoosterWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
   InstalledRightHandheldWidget->CompatibleCardDroppedDelegate.AddDynamic(this, &UGarageWidget::OnCardAssigned);
 
-  InstalledHeadWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
-  InstalledCoreWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
-  InstalledArmsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
-  InstalledLegsWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
-  InstalledBoosterWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
-  InstalledRightHandheldWidget->PartUninstalledDelegate.AddDynamic(YourPartsWidget, &UYourPartsWidgetBase::AddDisplayedPart);
+  InstalledHeadWidget->PartUninstalledDelegate.AddDynamic(this, &UGarageWidget::OnPartUninstalled);
+  InstalledCoreWidget->PartUninstalledDelegate.AddDynamic(this, &UGarageWidget::OnPartUninstalled);
+  InstalledArmsWidget->PartUninstalledDelegate.AddDynamic(this, &UGarageWidget::OnPartUninstalled);
+  InstalledLegsWidget->PartUninstalledDelegate.AddDynamic(this, &UGarageWidget::OnPartUninstalled);
+  InstalledBoosterWidget->PartUninstalledDelegate.AddDynamic(this, &UGarageWidget::OnPartUninstalled);
+  InstalledRightHandheldWidget->PartUninstalledDelegate.AddDynamic(this, &UGarageWidget::OnPartUninstalled);
 }
 
 void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
@@ -92,6 +82,7 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
   RobotStatsWidget->SetNewValueStats(NewValueStats);
 
   YourPartsWidget->SetCurrentDraft(SoloDraft);
+  YourPartsWidget->DisplayUnassignedParts();
 }
 
 void UGarageWidget::OnNewCardReady(UCardWidgetBase* CardWidget)
@@ -117,7 +108,15 @@ void UGarageWidget::OnCardMouseLeft(URobotPart* RobotPart)
 void UGarageWidget::OnCardAssigned(UCardWidgetBase* Card)
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned"), *GetName());
-//  UE_LOG(LogUI, Log, TEXT("%s::OnCardAssigned - %s"), *GetName(), *Card->RobotPart->PartName.ToString());
+  UE_LOG(LogUI, VeryVerbose, TEXT("%s::OnCardAssigned - %s"), *GetName(), *Card->RobotPart->PartName.ToString());
   PartAssignedDelegate.Broadcast(Card->RobotPart);
   YourPartsWidget->RemoveDisplayedCard(Card);
+}
+
+void UGarageWidget::OnPartUninstalled(URobotPart* UninstalledPart)
+{
+  if (!UninstalledPart->IsDefaultPart())
+  {
+    YourPartsWidget->DisplayPart(UninstalledPart);  
+  }
 }

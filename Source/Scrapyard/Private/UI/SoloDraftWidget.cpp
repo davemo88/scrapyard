@@ -106,8 +106,7 @@ void USoloDraftWidget::OnCardDragged(UCardWidgetBase* CardWidget)
 void USoloDraftWidget::OnCardDrafted(UCardWidgetBase* Card)
 {
   PartDraftedDelegate.Broadcast(Card->RobotPart);
-//  YourPartsWidget->DisplayAll();
-  YourPartsWidget->AddDisplayedPart(Card->RobotPart);
+  YourPartsWidget->DisplayPart(Card->RobotPart);
 }
 
 void USoloDraftWidget::OnCardDroppedInYourParts(UCardWidgetBase* Card)

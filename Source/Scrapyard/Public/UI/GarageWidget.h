@@ -86,4 +86,7 @@ protected:
 
   void SetupInstalledPartWidgets();
 
+  UFUNCTION()
+  void OnPartUninstalled(URobotPart* UninstalledPart);
+
 };

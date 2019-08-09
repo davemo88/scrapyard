@@ -2,7 +2,6 @@
 
 
 #include "YourPartsWidget.h"
-#include "UI/PartCardWidget.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/SoloDraftGameState.h"
 #include "Game/ScrapyardAssets.h"
@@ -14,26 +13,14 @@
 #include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
 #include "Parts/ChipPart.h"
+#include "UI/CardWidgetBase.h"
+#include "UI/MiniCardWidget.h"
 
-void UYourPartsWidget::AddDisplayedPart(URobotPart* RobotPart)
+UCardWidgetBase* UYourPartsWidget::GetCardWidget()
 {
-  UE_LOG(LogUI, Verbose, TEXT("%s::AddDisplayedPart"), *GetName());
-  UE_LOG(LogUI, VeryVerbose, TEXT("%s::AddDisplayedPart - %s"), *GetName(), *RobotPart->PartName.ToString());
-
-// don't display cards that are currently assigned to the robot
-// or default parts
-  if (!RobotPart->IsAssignedTo(CurrentDraft->PartAssignment) && !RobotPart->IsDefaultPart())
-  {
-    UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetWorld()->GetGameInstance());
-//    UCardWidgetBase* Card = CreateWidget<UCardWidgetBase>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->CardWidgetBaseBP); 
-    UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
-    Card->bCanBeDragged = true;
-    Card->CardDroppedDelegate.AddDynamic(this, &UYourPartsWidget::ReorderCards);
-    Card->SetRobotPart(RobotPart);
-    DisplayedCards->AddChild(Card);
-    Card->CardSizeBox->SetWidthOverride(200);
-    NewCardAddedDelegate.Broadcast(Card);
-  }
+  UPartCardWidget* Card = CreateWidget<UPartCardWidget>(GetOwningPlayer(), UScrapyardGameInstance::GameInstance->AssetsBP->UIAssetsBP->PartCardWidgetBP); 
+  Card->CardSizeBox->SetWidthOverride(200);
+  return Card;
 }
 
 void UYourPartsWidget::ReorderCards(UCardWidgetBase* DroppedOnCard, UDragDropOperation* DragDropOp)
@@ -41,18 +28,18 @@ void UYourPartsWidget::ReorderCards(UCardWidgetBase* DroppedOnCard, UDragDropOpe
   UE_LOG(LogUI, Log, TEXT("%s::ReorderCards"), *GetName());
   if (UCardWidgetBase* DroppedCard = Cast<UCardWidgetBase>(DragDropOp->DefaultDragVisual))
   {
-    if (DisplayedCards->HasChild(DroppedCard) && DisplayedCards->HasChild(DroppedOnCard))
+    if (CardDisplayPanel->HasChild(DroppedCard) && CardDisplayPanel->HasChild(DroppedOnCard))
     { 
-      int32 DroppedIndex = DisplayedCards->GetChildIndex(DroppedCard);
-      int32 DroppedOnIndex = DisplayedCards->GetChildIndex(DroppedOnCard);
+      int32 DroppedIndex = CardDisplayPanel->GetChildIndex(DroppedCard);
+      int32 DroppedOnIndex = CardDisplayPanel->GetChildIndex(DroppedOnCard);
       UE_LOG(LogUI, Log, TEXT("%s::ReorderCards - %i dropped on %i"), *GetName(), DroppedIndex, DroppedOnIndex);
-      TArray<UWidget*> CurrentOrder = DisplayedCards->GetAllChildren();
+      TArray<UWidget*> CurrentOrder = CardDisplayPanel->GetAllChildren();
       CurrentOrder.RemoveAt(DroppedIndex);
       CurrentOrder.Insert(DroppedCard, DroppedOnIndex);
-      ClearDisplayedCards();
+      CardDisplayPanel->ClearChildren();
       for (UWidget* Card : CurrentOrder)
       {
-        DisplayedCards->AddChild(Card);
+        CardDisplayPanel->AddChild(Card);
       }
     }
   }
