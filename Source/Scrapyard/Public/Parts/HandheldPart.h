@@ -18,6 +18,8 @@ public:
 
   static UHandheldPart* NewHandheld(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewPowerDrain, uint32 NewAttack, float NewCooldown, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
 
+  UHandheldPart();
+
   UPROPERTY(EditAnywhere)
   int32 Attack = 0;
 

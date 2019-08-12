@@ -7,8 +7,23 @@
 #include "Parts/PartAssets.h"
 #include "Parts/PartAssignment.h"
 #include "Parts/Manufacturer.h"
+#include "Drafting/DraftBase.h"
 #include "Abilities/ScrapyardAbility.h"
 #include "RobotPart.generated.h"
+
+UENUM()
+enum class ERobotPartType: uint8
+{
+  None          UMETA(DisplayName="None"),
+  Head          UMETA(DisplayName="Head"),
+  Core          UMETA(DisplayName="Core"),
+  Arms          UMETA(DisplayName="Arms"),
+  Legs          UMETA(DisplayName="Legs"),
+  Booster       UMETA(DisplayName="Booster"),
+  Handheld      UMETA(DisplayName="Handled"),
+  Chip          UMETA(DisplayName="Chip")
+};
+
 
 class URarity;
 class USoloDraft;
@@ -16,7 +31,6 @@ class UPartAssignment;
 class UPartAssets;
 class UTexture2D;
 class UMaterial;
-class UDraftBase;
 
 USTRUCT()
 struct FStatText {
@@ -75,6 +89,9 @@ public:
 
 //TODO: placeholder parts instead of default
   bool IsDefaultPart();
+
+  UPROPERTY()
+  ERobotPartType PartType;
 
 };
 

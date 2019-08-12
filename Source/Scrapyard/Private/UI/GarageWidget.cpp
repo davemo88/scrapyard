@@ -94,12 +94,12 @@ void UGarageWidget::OnNewCardReady(UCardWidgetBase* CardWidget)
   CardWidget->CardMouseLeftDelegate.AddDynamic(this, &UGarageWidget::OnCardMouseLeft);
 }
 
-void UGarageWidget::OnCardMouseEntered(URobotPart* RobotPart)
+void UGarageWidget::OnCardMouseEntered(UCardWidgetBase* Card)
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCardMouseEntered"), *GetName());
-  RobotPart->Assign(NewValueAssignment);
+  Card->RobotPart->Assign(NewValueAssignment);
 }
-void UGarageWidget::OnCardMouseLeft(URobotPart* RobotPart)
+void UGarageWidget::OnCardMouseLeft(UCardWidgetBase* Card)
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCardMouseLeft"), *GetName());
   NewValueAssignment->SetAssignment(SoloDraft->PartAssignment);

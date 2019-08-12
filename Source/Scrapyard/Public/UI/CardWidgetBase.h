@@ -14,8 +14,8 @@ struct FStatText;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardClickedDelegate, UCardWidgetBase*, Card);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPart*, Part);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseEnteredDelegate, URobotPart*, Part);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseLeftDelegate, URobotPart*, Part);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseEnteredDelegate, UCardWidgetBase*, Card);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseLeftDelegate, UCardWidgetBase*, Card);
 
 //DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFadeOutFinishedDelegate, UPartCardWidget*, PartCardWidget);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDraggedDelegate, UCardWidgetBase*, CardWidget);

@@ -3,6 +3,11 @@
 
 #include "ChipPart.h"
 
+UChipPart::UChipPart()
+{
+  PartType = ERobotPartType::Chip; 
+}
+
 
 
 

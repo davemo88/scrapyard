@@ -12,9 +12,10 @@
 UCLASS()
 class SCRAPYARD_API UChipPart : public URobotPart
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+  GENERATED_BODY()
+  
+public:
+
+  UChipPart();
+  
 };

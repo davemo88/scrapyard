@@ -26,6 +26,11 @@ UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer
   return NewPart;
 }
 
+UArmsPart::UArmsPart()
+{
+  PartType = ERobotPartType::Arms;
+}
+
 void UArmsPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetArms(this);

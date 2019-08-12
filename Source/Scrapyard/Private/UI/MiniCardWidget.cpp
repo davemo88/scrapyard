@@ -28,18 +28,16 @@ void UMiniCardWidget::NativeConstruct()
 void UMiniCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseEnter"), *GetName());
-  Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
   if (bShowPartCardOnMouseEnter && PartCardWidget != nullptr)
   {
     PartCardWidget->AddToViewport();
     float MouseX;
     float MouseY;
     GetOwningPlayer()->GetMousePosition(MouseX, MouseY);
-// move it over by half the card width  
     PartCardWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
-//    PartCardWidget->SetPositionInViewport(FVector2D(MouseX-180, MouseY));
     PartCardWidget->SetPositionInViewport(FVector2D(MouseX, MouseY));
   }
+  Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }
 
 void UMiniCardWidget::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)

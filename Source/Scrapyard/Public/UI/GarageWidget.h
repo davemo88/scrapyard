@@ -77,9 +77,9 @@ protected:
   void OnNewCardReady(UCardWidgetBase* CardWidget);
 
   UFUNCTION()
-  void OnCardMouseEntered(URobotPart* RobotPart);
+  void OnCardMouseEntered(UCardWidgetBase* Card);
   UFUNCTION()
-  void OnCardMouseLeft(URobotPart* RobotPart);
+  void OnCardMouseLeft(UCardWidgetBase* Card);
 
   UFUNCTION()
   void OnCardAssigned(UCardWidgetBase* CardWidget);

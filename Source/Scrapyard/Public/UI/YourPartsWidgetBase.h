@@ -54,6 +54,7 @@ protected:
   UPROPERTY()
   TArray<URobotPart*> DisplayedParts;
 
+  UFUNCTION()
   void SortDisplayedParts();
 
   void RefreshDisplayedCards();

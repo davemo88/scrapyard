@@ -28,6 +28,11 @@ UCorePart* UCorePart::NewCore(uint32 NewPartID, FText NewPartName, UManufacturer
 
 }
 
+UCorePart::UCorePart()
+{
+  PartType = ERobotPartType::Core;
+}
+
 void UCorePart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetCore(this);

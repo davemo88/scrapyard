@@ -16,6 +16,16 @@ class SCRAPYARD_API UMiniYourPartsWidget : public UYourPartsWidgetBase
 
 public:
 
+  UFUNCTION()
+  void OnNewCardAdded(UCardWidgetBase* Card);
+
+  UFUNCTION()
+  void OnCardMouseEntered(UCardWidgetBase* Card);
+
   virtual UCardWidgetBase* GetCardWidget() override;
+
+protected:
+
+  void NativeConstruct() override;
   
 };

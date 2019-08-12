@@ -18,6 +18,8 @@ public:
   
   static UBoosterPart* NewBooster(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewPowerDrain, uint32 NewThrust, uint32 NewThrustPowerConsumption, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
 
+  UBoosterPart();
+
   UPROPERTY()
   uint32 Thrust;
   UPROPERTY()

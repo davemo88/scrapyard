@@ -24,6 +24,11 @@ UBoosterPart* UBoosterPart::NewBooster(uint32 NewPartID, FText NewPartName, UMan
   return NewPart;
 }
 
+UBoosterPart::UBoosterPart()
+{
+  PartType = ERobotPartType::Booster;
+}
+
 void UBoosterPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetBooster(this);

@@ -99,9 +99,9 @@ void USoloDraftWidget::OnCardFadedOut(UPartCardWidget* PartCardWidget)
 
 void USoloDraftWidget::OnCardDragged(UCardWidgetBase* CardWidget)
 {
-//  PartCardWidget->Slot
-//  PartCardWidget->SetVisibility(ESlateVisibility::Hidden);
+
 }
+
 
 void USoloDraftWidget::OnCardDrafted(UCardWidgetBase* Card)
 {
@@ -111,10 +111,7 @@ void USoloDraftWidget::OnCardDrafted(UCardWidgetBase* Card)
 
 void USoloDraftWidget::OnCardDroppedInYourParts(UCardWidgetBase* Card)
 {
-  if (PackDisplayPanel->HasChild(Card))
-  {
-    OnCardDrafted(Card);
-  }
+  OnCardDrafted(Card);
 }
 
 void USoloDraftWidget::SetCurrentDraft(USoloDraft* NewDraft)

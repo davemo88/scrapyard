@@ -26,7 +26,7 @@ FReply UCardWidgetBase::NativeOnMouseButtonDoubleClick(const FGeometry & InGeome
 void UCardWidgetBase::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
   UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseEnter"), *GetName());
-  CardMouseEnteredDelegate.Broadcast(RobotPart);
+  CardMouseEnteredDelegate.Broadcast(this);
   if (bHoverBorderActive)
   {
     PlayAnimation(ShowHoverBorder);
@@ -37,7 +37,7 @@ void UCardWidgetBase::NativeOnMouseEnter(const FGeometry & InGeometry, const FPo
 void UCardWidgetBase::NativeOnMouseLeave(const FPointerEvent & InMouseEvent)
 {
   UE_LOG(LogUI, Verbose, TEXT("%s::NativeOnMouseLeave"), *GetName());
-  CardMouseLeftDelegate.Broadcast(RobotPart);
+  CardMouseLeftDelegate.Broadcast(this);
   if (bHoverBorderActive)
   {
     PlayAnimation(HideHoverBorder);

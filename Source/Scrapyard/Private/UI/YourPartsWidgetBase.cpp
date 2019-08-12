@@ -44,7 +44,10 @@ void UYourPartsWidgetBase::DisplayUnassignedParts()
 void UYourPartsWidgetBase::RemoveDisplayedCard(UCardWidgetBase* Card)
 {
   DisplayedParts.Remove(Card->RobotPart);
+// BUG: sometimes this not getting removed from parent?
+// oh this is because it's not removing the one from the yourpartswidget, just the installed part widget ?
   Card->RemoveFromParent();
+  RefreshDisplayedCards();
 }
 
 bool UYourPartsWidgetBase::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
@@ -65,18 +68,14 @@ UCardWidgetBase* UYourPartsWidgetBase::GetCardWidget()
 
 void UYourPartsWidgetBase::SortDisplayedParts()
 {
-  TArray<TSubclassOf<URobotPart>> TypeOrder;
-  TypeOrder.Add(UHeadPart::StaticClass());
-  TypeOrder.Add(UCorePart::StaticClass());
-  TypeOrder.Add(UArmsPart::StaticClass());
-  TypeOrder.Add(ULegsPart::StaticClass());
-  TypeOrder.Add(UBoosterPart::StaticClass());
-  TypeOrder.Add(UHandheldPart::StaticClass());
-  TypeOrder.Add(UChipPart::StaticClass());
-
-  Algo::Sort(DisplayedParts, [TypeOrder](URobotPart* Part1, URobotPart* Part2)
-      { return TypeOrder.Find(Part1->GetClass()) < TypeOrder.Find(Part2->GetClass()); });
-
+  Algo::Sort(DisplayedParts, [](URobotPart* Part1, URobotPart* Part2)
+    { 
+      if (Part1->PartType == Part2->PartType)
+      {
+        return Part1->PartName.ToString() < Part2->PartName.ToString();
+      }
+      return Part1->PartType < Part2->PartType;
+    });
 }
 
 void UYourPartsWidgetBase::RefreshDisplayedCards()

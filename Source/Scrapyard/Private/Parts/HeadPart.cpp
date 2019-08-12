@@ -27,6 +27,11 @@ UHeadPart* UHeadPart::NewHead(uint32 NewPartID, FText NewPartName, UManufacturer
   return NewPart;
 }
 
+UHeadPart::UHeadPart()
+{
+  PartType = ERobotPartType::Head;
+}
+
 void UHeadPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetHead(this);

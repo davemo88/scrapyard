@@ -25,6 +25,11 @@ UHandheldPart* UHandheldPart::NewHandheld(uint32 NewPartID, FText NewPartName, U
   return NewPart;
 }
 
+UHandheldPart::UHandheldPart()
+{
+  PartType = ERobotPartType::Handheld;
+}
+
 //TODO: handle right vs left
 void UHandheldPart::Assign(UPartAssignment* PartAssignment)
 {

@@ -29,6 +29,11 @@ ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer
 
 }
 
+ULegsPart::ULegsPart()
+{
+  PartType = ERobotPartType::Legs;
+}
+
 void ULegsPart::Assign(UPartAssignment* PartAssignment)
 {
   PartAssignment->SetLegs(this);

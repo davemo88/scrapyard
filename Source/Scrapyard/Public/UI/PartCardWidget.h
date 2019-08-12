@@ -9,14 +9,7 @@
 #include "Components/ScaleBox.h"
 #include "PartCardWidget.generated.h"
 
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardClickedDelegate, UPartCardWidget*, Card);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDoubleClickedDelegate, URobotPart*, Part);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseEnteredDelegate, URobotPart*, Part);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardMouseLeftDelegate, URobotPart*, Part);
-
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FFadeOutFinishedDelegate, UPartCardWidget*, PartCardWidget);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCardDraggedDelegate, UPartCardWidget*, PartCardWidget);
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCardDroppedDelegate, UPartCardWidget*, PartCardWidget, UDragDropOperation*, DragDropOp);
 
 /**
  * 
@@ -29,27 +22,9 @@ class SCRAPYARD_API UPartCardWidget : public UCardWidgetBase
 public:
 
   virtual void SetRobotPart(URobotPart* RobotPart) override;
-//
-//  UPROPERTY(BlueprintReadOnly)
-//  URobotPart* RobotPart;
-//
-//  FCardClickedDelegate CardClickedDelegate;
-//  FCardDoubleClickedDelegate CardDoubleClickedDelegate;
-//  FCardMouseEnteredDelegate CardMouseEnteredDelegate;
-//  FCardMouseEnteredDelegate CardMouseLeftDelegate;
 
-//  UPROPERTY(meta=(BindWidget))
-//  UScaleBox* CardScaleBox;
-//
   UPROPERTY(meta=(BindWidget))
   USizeBox* CardSizeBox;
-
-//  bool bHoverBorderActive = false;
-//
-//  bool bCanBeDragged = false;
-//
-//  FCardDraggedDelegate CardDraggedDelegate;
-//  FCardDroppedDelegate CardDroppedDelegate;
 
   UUMGSequencePlayer* PlayFadeOut();
 
@@ -80,23 +55,8 @@ protected:
 
   void AddStatLine(FStatText StatText);
 
-//  UPROPERTY(meta=(BindWidget))
-//  UBorder* CardBackground;
-//
-//  UPROPERTY(meta=(BindWidget))
-//  UImage* PartTypeIcon;
-//
   UPROPERTY(meta=(BindWidget))
   UVerticalBox* StatsBox;
-
-//  UPROPERTY(meta=(BindWidget))
-//  UBorder* HoverBorder;
-//
-//  UPROPERTY(meta=(BindWidgetAnim))
-//  UWidgetAnimation* ShowHoverBorder;
-//
-//  UPROPERTY(meta=(BindWidgetAnim))
-//  UWidgetAnimation* HideHoverBorder;
 
   UPROPERTY(meta=(BindWidgetAnim))
   UWidgetAnimation* DraftCard;
