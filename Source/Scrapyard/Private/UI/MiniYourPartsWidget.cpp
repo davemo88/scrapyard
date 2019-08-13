@@ -37,9 +37,6 @@ void UMiniYourPartsWidget::OnCardMouseEntered(UCardWidgetBase* Card)
     {
       UGameViewportClient* ViewportClient = GetWorld()->GetGameViewport();
       const FVector2D ViewSize = ViewportClient->Viewport->GetSizeXY();
-      float MouseX;
-      float MouseY;
-      GetOwningPlayer()->GetMousePosition(MouseX, MouseY);
       const FVector2D YourPartsSize = GetCachedGeometry().GetAbsoluteSize();
       const FVector2D LocalYourPartsSize = GetCachedGeometry().GetLocalSize();
       const float ApparentScalingFactor = YourPartsSize.X / LocalYourPartsSize.X;
@@ -56,14 +53,13 @@ void UMiniYourPartsWidget::OnCardMouseEntered(UCardWidgetBase* Card)
 
       const float AdjustedY = MiniCardPosition.Y+PartCardSize.Y > ViewSize.Y ? MiniCardPosition.Y - PartCardSize.Y + MiniCardSize.Y : MiniCardPosition.Y;
 
-//      const float AdjustedY = MouseY+PartCardSize.Y > ViewSize.Y ? MouseY - PartCardSize.Y : MouseY;
-      UE_LOG(LogTemp, Warning, TEXT("Viewport Size %s"), *ViewSize.ToString());
-      UE_LOG(LogTemp, Warning, TEXT("YourParts Size %s"), *YourPartsSize.ToString());
-      UE_LOG(LogTemp, Warning, TEXT("ApparentScalingFactor %f"), ApparentScalingFactor);
-      UE_LOG(LogTemp, Warning, TEXT("PartCard Size %s"), *PartCardSize.ToString());
-      UE_LOG(LogTemp, Warning, TEXT("Adjusted X coordinate %f"), AdjustedX);
-      UE_LOG(LogTemp, Warning, TEXT("OriginAbsolute %s"), *ViewportOriginAbsolute.ToString());
-      UE_LOG(LogTemp, Warning, TEXT("MiniCardPosition %s"), *MiniCardPosition.ToString());
+//      UE_LOG(LogTemp, Warning, TEXT("Viewport Size %s"), *ViewSize.ToString());
+//      UE_LOG(LogTemp, Warning, TEXT("YourParts Size %s"), *YourPartsSize.ToString());
+//      UE_LOG(LogTemp, Warning, TEXT("ApparentScalingFactor %f"), ApparentScalingFactor);
+//      UE_LOG(LogTemp, Warning, TEXT("PartCard Size %s"), *PartCardSize.ToString());
+//      UE_LOG(LogTemp, Warning, TEXT("Adjusted X coordinate %f"), AdjustedX);
+//      UE_LOG(LogTemp, Warning, TEXT("OriginAbsolute %s"), *ViewportOriginAbsolute.ToString());
+//      UE_LOG(LogTemp, Warning, TEXT("MiniCardPosition %s"), *MiniCardPosition.ToString());
       MiniCard->PartCardWidget->SetPositionInViewport(FVector2D(AdjustedX, AdjustedY));
     }
   }
