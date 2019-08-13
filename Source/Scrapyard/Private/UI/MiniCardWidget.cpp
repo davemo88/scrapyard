@@ -18,6 +18,7 @@ void UMiniCardWidget::SetRobotPart(URobotPart* NewRobotPart)
 
 void UMiniCardWidget::NativeConstruct()
 {
+  bShowPartCardOnMouseEnter = true;
   PartCardWidget = CreateWidget<UPartCardWidget>(GetOwningPlayer(), UScrapyardGameInstance::AssetsBP->UIAssetsBP->PartCardWidgetBP);
   if (RobotPart != nullptr)
   {
@@ -34,8 +35,8 @@ void UMiniCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPo
     float MouseX;
     float MouseY;
     GetOwningPlayer()->GetMousePosition(MouseX, MouseY);
-    PartCardWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
     PartCardWidget->SetPositionInViewport(FVector2D(MouseX, MouseY));
+    PartCardWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
   }
   Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }

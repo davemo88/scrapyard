@@ -20,7 +20,7 @@ public:
 
   virtual void SetRobotPart(URobotPart* RobotPart) override;
 
-  bool bShowPartCardOnMouseEnter = true;
+  bool bShowPartCardOnMouseEnter;
 
   UPROPERTY()
   UPartCardWidget* PartCardWidget;
