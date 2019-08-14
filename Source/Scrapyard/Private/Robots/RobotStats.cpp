@@ -86,6 +86,7 @@ void URobotStats::ZeroStats()
   MovementSpeed = 0;
   WeaponDexterity = 0;
   TargetingAbility = 0;
+  ChipSlots = 0;
 }
 
 FStatText URobotStats::GetHitPointsStatText()
