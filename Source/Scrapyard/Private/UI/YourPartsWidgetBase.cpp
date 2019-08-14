@@ -53,10 +53,10 @@ void UYourPartsWidgetBase::RemoveDisplayedCard(UCardWidgetBase* Card)
 bool UYourPartsWidgetBase::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeOnDrop"), *GetName());
-  if (UCardWidgetBase* PartCard = Cast<UCardWidgetBase>(InOperation->DefaultDragVisual))
+  if (UCardWidgetBase* Card = Cast<UCardWidgetBase>(InOperation->DefaultDragVisual))
   {
-    UE_LOG(LogUI, Log, TEXT("Part Card Dropped: %s"), *PartCard->RobotPart->PartName.ToString());
-    CardDroppedInYourPartsDelegate.Broadcast(PartCard);  
+    UE_LOG(LogUI, Log, TEXT("Part Card Dropped: %s"), *Card->RobotPart->PartName.ToString());
+    CardDroppedInYourPartsDelegate.Broadcast(Card);  
   }
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }

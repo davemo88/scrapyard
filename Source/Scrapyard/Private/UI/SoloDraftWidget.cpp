@@ -75,6 +75,7 @@ void USoloDraftWidget::DisplayNextPack()
     {
       Slot->SetColumn(i);
       Slot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
+      Slot->SetVerticalAlignment(EVerticalAlignment::VAlign_Center);
     }
   }
   UpdatePickCounter();

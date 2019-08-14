@@ -61,3 +61,43 @@ void UInstalledPartWidget::SetInstalledPartType(TSubclassOf<URobotPart> NewInsta
 //    DefaultPart = NewDefaultPart;
 //  }
 //}
+//
+
+//void UInstalledPartWidget::OnCardMouseEntered(UCardWidgetBase* Card)
+//{
+//// https://answers.unrealengine.com/questions/110422/what-is-the-best-way-to-get-size-of-widget-in-view.html
+//// this will update the desired size of the part card widget since it's 0x0 until it actually ticks to render
+//    PartCardWidget->ForceLayoutPrepass();
+//    if (UCanvasPanelSlot* PartCardSlot = UWidgetLayoutLibrary::SlotAsCanvasSlot(PartCardWidget))
+//    {
+//      if (PartCardSlot->Parent != nullptr)
+//      {
+//        const FVector2D ViewportOriginAbsolute = PartCardSlot->Parent->GetCachedGeometry().LocalToAbsolute(FVector2D(0,0));
+//        UE_LOG(LogTemp, Warning, TEXT("OriginAbsolute %s"), *ViewportOriginAbsolute.ToString());
+//      }
+//    }
+//
+//    const FVector2D AbsoluteSize = GetCachedGeometry().GetAbsoluteSize();
+//    const FVector2D LocalSize = GetCachedGeometry().GetLocalSize();
+//    const float ScalingFactor = AbsoluteSize.X / LocalSize.X;
+//    const FVector2D PartCardSize = PartCardWidget->GetDesiredSize() * ScalingFactor;
+//
+//    const UGameViewportClient* ViewportClient = GetWorld()->GetGameViewport();
+//    const FVector2D ViewSize = ViewportClient->Viewport->GetSizeXY();
+//
+//    const FVector2D ViewportPosition = GetCachedGeometry().GetAbsolutePosition();// - ViewportOriginAbsolute;
+//
+//    const float Padding = 10 * ScalingFactor;
+//    const float LeftAdjustedX = ViewportPosition.X - PartCardSize.X - Padding;
+//    const float RightAdjustedX = ViewportPosition.X + AbsoluteSize.X + Padding;
+//    const float AdjustedX = LeftAdjustedX > 0 ? LeftAdjustedX : RightAdjustedX;
+//
+//    const float AdjustedY = ViewportPosition.Y + PartCardSize.Y > ViewSize.Y ? ViewportPosition.Y - PartCardSize.Y : ViewportPosition.Y;
+//
+//    UE_LOG(LogTemp, Warning, TEXT("Viewport Size %s"), *ViewSize.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("ScalingFactor %f"), ScalingFactor);
+//    UE_LOG(LogTemp, Warning, TEXT("PartCard Size %s"), *PartCardSize.ToString());
+//    UE_LOG(LogTemp, Warning, TEXT("Adjusted X coordinate %f"), AdjustedX);
+//    UE_LOG(LogTemp, Warning, TEXT("ViewportPosition %s"), *ViewportPosition.ToString());
+//    PartCardWidget->SetPositionInViewport(FVector2D(AdjustedX, AdjustedY));
+//}
