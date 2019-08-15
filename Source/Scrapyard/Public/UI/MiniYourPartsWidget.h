@@ -26,6 +26,6 @@ public:
 
 protected:
 
-  void NativeConstruct() override;
+//  void NativeConstruct() override;
   
 };

@@ -13,12 +13,17 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Engine/GameViewportClient.h"
 
-void UMiniYourPartsWidget::NativeConstruct()
+UCardWidgetBase* UMiniYourPartsWidget::GetCardWidget()
 {
-  UE_LOG(LogUI, Verbose, TEXT("%s::NativeConstruct"), *GetName());
-  Super::NativeConstruct();
-//  NewCardAddedDelegate.AddDynamic(this, &UMiniYourPartsWidget::OnNewCardAdded);
+  return CreateWidget<UMiniCardWidget>(GetOwningPlayer(), UScrapyardGameInstance::GameInstance->AssetsBP->UIAssetsBP->MiniCardWidgetBP); 
 }
+
+//void UMiniYourPartsWidget::NativeConstruct()
+//{
+//  UE_LOG(LogUI, Verbose, TEXT("%s::NativeConstruct"), *GetName());
+//  Super::NativeConstruct();
+//  NewCardAddedDelegate.AddDynamic(this, &UMiniYourPartsWidget::OnNewCardAdded);
+//}
 
 //void UMiniYourPartsWidget::OnNewCardAdded(UCardWidgetBase* Card)
 //{
@@ -64,8 +69,3 @@ void UMiniYourPartsWidget::NativeConstruct()
 //    }
 //  }
 //}
-
-UCardWidgetBase* UMiniYourPartsWidget::GetCardWidget()
-{
-  return CreateWidget<UMiniCardWidget>(GetOwningPlayer(), UScrapyardGameInstance::GameInstance->AssetsBP->UIAssetsBP->MiniCardWidgetBP); 
-}
