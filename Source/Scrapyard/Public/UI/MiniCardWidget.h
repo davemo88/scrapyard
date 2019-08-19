@@ -26,6 +26,8 @@ public:
   UPartCardWidget* PartCardWidget;
 
   void RemoveFromParent() override;
+  
+  FTimerHandle HoverTimerHandle;
 
 protected:
 
@@ -34,5 +36,8 @@ protected:
   virtual void NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent) override;
 
   virtual void NativeOnMouseLeave(const FPointerEvent & InMouseEvent) override;
+
+  UFUNCTION()
+  virtual void ShowPartCard();
   
 };
