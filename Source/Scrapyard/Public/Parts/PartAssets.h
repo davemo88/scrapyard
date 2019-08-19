@@ -68,6 +68,9 @@ public:
   TSoftObjectPtr<UTexture2D> OrangeCard;
 
   UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UTexture2D> DefaultMiniCard;
+
+  UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> RedMiniCard;
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UTexture2D> BlueMiniCard;

@@ -18,6 +18,7 @@
 UDraftBase::UDraftBase()
 {
   PartAssignment = CreateDefaultSubobject<UPartAssignment>(TEXT("PartAssignment"));  
+  PartAssignment->SetDefaultAssignment();
 
   InitRobotPartPool();
 }

@@ -24,7 +24,9 @@ void UPartSingleton::Init()
 void UPartSingleton::InitManufacturers()
 {
   DefaultManufacturer = NewObject<UManufacturer>();
-  DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Default Corp");
+  DefaultManufacturer->ManufacturerName = NSLOCTEXT("SY", "DefaultCorpName", "Corp");
+  DefaultManufacturer->MiniCard = UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMiniCard);
 
   RedManufacturer = NewObject<UManufacturer>();
   RedManufacturer->ManufacturerName = NSLOCTEXT("SY", "RedCorpName", "Red Corp");
@@ -77,7 +79,7 @@ void UPartSingleton::InitDefaultParts()
   PartDB.AddPart(
     UHeadPart::NewHead(
       1000,
-      NSLOCTEXT("SY", "DefaultHeadName", "Default Head"),
+      NSLOCTEXT("SY", "DefaultHeadName", "Head"),
       DefaultManufacturer,
       nullptr,
       100,
@@ -93,7 +95,7 @@ void UPartSingleton::InitDefaultParts()
   PartDB.AddPart(
     UCorePart::NewCore(
       2000,
-      NSLOCTEXT("SY", "DefaultCoreName", "Default Core"),
+      NSLOCTEXT("SY", "DefaultCoreName", "Core"),
       DefaultManufacturer,
       nullptr,
       100,
@@ -109,7 +111,7 @@ void UPartSingleton::InitDefaultParts()
   PartDB.AddPart(
     UArmsPart::NewArms(
       3000,
-      NSLOCTEXT("SY", "DefaultArmsName", "Default Arms"),
+      NSLOCTEXT("SY", "DefaultArmsName", "Arms"),
       DefaultManufacturer,
       nullptr,
       100,
@@ -123,7 +125,7 @@ void UPartSingleton::InitDefaultParts()
   PartDB.AddPart(
     ULegsPart::NewLegs(
       4000,
-      NSLOCTEXT("SY", "DefaultLegsName", "Default Legs"),
+      NSLOCTEXT("SY", "DefaultLegsName", "Legs"),
       DefaultManufacturer,
       nullptr,
       100,
@@ -140,7 +142,7 @@ void UPartSingleton::InitDefaultParts()
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5000,
-      NSLOCTEXT("SY", "DefaultBoosterName", "Default Booster"),
+      NSLOCTEXT("SY", "DefaultBoosterName", "Booster"),
       DefaultManufacturer,
       nullptr,
       100,
@@ -153,7 +155,7 @@ void UPartSingleton::InitDefaultParts()
   PartDB.AddPart(
     UHandheldPart::NewHandheld(
       6000,
-      NSLOCTEXT("SY", "DefaultHandheldName", "Default Handheld"),
+      NSLOCTEXT("SY", "DefaultHandheldName", "Handheld"),
       DefaultManufacturer,
       nullptr,
       120,
