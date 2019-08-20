@@ -20,7 +20,7 @@ void AGarageLevelScriptActor::BeginPlay()
 void AGarageLevelScriptActor::SpawnRobotCharacter()
 {
   UWorld* World = GetWorld();
-  RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(175.0f, 190.0f, 100.0f), FRotator(-10.0f, 200.0f, 0.f), FActorSpawnParameters());
+  RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(175.0f, 180.0f, 70.0f), FRotator(-10.0f, 200.0f, 0.f), FActorSpawnParameters());
   RobotCharacter->RobotBodyComponent->SetEnableGravity(false);
 }
 

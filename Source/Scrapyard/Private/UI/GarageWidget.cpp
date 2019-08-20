@@ -14,6 +14,7 @@
 #include "Parts/HandheldPart.h"
 #include "UI/YourPartsWidgetBase.h"
 #include "UI/RobotStatsWidget.h"
+#include "UI/InstalledPartWidget.h"
 
 void UGarageWidget::NativeConstruct()
 {

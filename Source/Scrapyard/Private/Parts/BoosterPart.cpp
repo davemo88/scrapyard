@@ -55,7 +55,7 @@ TArray<FStatText> UBoosterPart::GetStatsText() const
 {
   TArray<FStatText> StatsText = Super::GetStatsText();
   StatsText.Add(FStatText(NSLOCTEXT("SY", "ThrustStatText","Thrust"),FText::AsNumber(Thrust)));
-  StatsText.Add(FStatText(NSLOCTEXT("SY", "ThrustPowerDrainStatText","Thrust Power Consumption"),FText::AsNumber(ThrustPowerConsumption)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "ThrustPowerDrainStatText","Thrust Power Drain"),FText::AsNumber(ThrustPowerConsumption)));
   return StatsText;
 }
 

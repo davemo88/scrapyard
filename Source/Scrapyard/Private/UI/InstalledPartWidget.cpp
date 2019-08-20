@@ -9,7 +9,7 @@
 
 void UInstalledPartWidget::NativeConstruct()
 {
-  UninstallButton->OnClicked.AddDynamic(this, &UInstalledPartWidget::OnUninstallButtonClicked);
+//  UninstallButton->OnClicked.AddDynamic(this, &UInstalledPartWidget::OnUninstallButtonClicked);
 }
 
 bool UInstalledPartWidget::NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation)
@@ -28,10 +28,10 @@ bool UInstalledPartWidget::NativeOnDrop(const FGeometry & InGeometry, const FDra
   return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }
 
-void UInstalledPartWidget::OnUninstallButtonClicked()
-{
-  UninstallButtonClickedDelegate.Broadcast();
-}
+//void UInstalledPartWidget::OnUninstallButtonClicked()
+//{
+//  UninstallButtonClickedDelegate.Broadcast();
+//}
 
 void UInstalledPartWidget::SetInstalledPart(URobotPart* NewInstalledPart)
 {

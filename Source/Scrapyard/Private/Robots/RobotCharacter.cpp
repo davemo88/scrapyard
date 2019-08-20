@@ -240,7 +240,8 @@ void ARobotCharacter::OnStatsUpdated()
   UE_LOG(LogCharacter, Log, TEXT("Power: %i"), RobotStats->MaxPower);
 
 //TODO: functions to do these
-//TODO: why aren't these updated on replication?
+//TODO: Q: why aren't these updated on replication?
+//A: because the event isn't broadcast on the client via an RPC
   HitPoints = RobotStats->HitPoints;
   HitPointsChangedDelegate.Broadcast();
   Power = RobotStats->MaxPower;

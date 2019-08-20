@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Parts/RobotPart.h"
+#include "Parts/BodyPart.h"
 #include "CorePart.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARD_API UCorePart : public URobotPart
+class SCRAPYARD_API UCorePart : public UBodyPart
 {
   GENERATED_BODY()
 
@@ -24,6 +24,8 @@ public:
   uint32 MaxWeight;
   UPROPERTY()
   uint32 PowerSupply;
+  UPROPERTY()
+  uint32 ChipSlots;
 
   void Assign(UPartAssignment* PartAssignment) override;
 

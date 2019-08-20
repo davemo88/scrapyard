@@ -64,12 +64,12 @@ public:
   uint32 Mass;
   UPROPERTY()
   uint32 PowerDrain;
-  UPROPERTY()
-  uint32 HitPoints;
-  UPROPERTY()
-  uint32 KineticDefense;
-  UPROPERTY()
-  uint32 ElectricDefense;
+//  UPROPERTY()
+//  uint32 HitPoints;
+//  UPROPERTY()
+//  uint32 KineticDefense;
+//  UPROPERTY()
+//  uint32 ElectricDefense;
   UPROPERTY()
   TSubclassOf<AScrapyardAbility> AbilityClass;
   UPROPERTY()
@@ -87,7 +87,6 @@ public:
 
   virtual void Draft(UDraftBase* CurrentDraft) {};
 
-//TODO: placeholder parts instead of default
   bool IsDefaultPart();
 
   UPROPERTY()

@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Parts/RobotPart.h"
+#include "Parts/BodyPart.h"
 #include "LegsPart.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SCRAPYARD_API ULegsPart : public URobotPart
+class SCRAPYARD_API ULegsPart : public UBodyPart
 {
   GENERATED_BODY()
 

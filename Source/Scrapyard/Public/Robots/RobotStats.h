@@ -25,31 +25,31 @@ public:
   UFUNCTION()
   void UpdateStats();
   
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 Mass = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 HitPoints = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 MaxPower = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 PowerDrain = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 KineticDefense = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 ElectricDefense = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 TargetingAbility = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 ChipSlots = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 WeaponDexterity = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 PowerSupply = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 BoosterThrust = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 BoosterPowerDrain = 0;
-  UPROPERTY(EditAnywhere, BlueprintReadWrite)
+  UPROPERTY(EditAnywhere)
   int32 MovementSpeed = 0;
 
   FStatText GetMassStatText();

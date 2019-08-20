@@ -66,7 +66,6 @@ void URobotStats::UpdateStats()
     BoosterPowerDrain = Booster->ThrustPowerConsumption;
   }
 
-
   MaxPower = PowerSupply - PowerDrain;
 
   RobotStatsUpdatedDelegate.Broadcast();

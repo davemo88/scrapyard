@@ -10,7 +10,7 @@
 #include "UI/MiniCardWidget.h"
 #include "InstalledPartWidget.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUninstallButtonClickedDelegate);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUninstallButtonClickedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPartUninstalledDelegate, URobotPart*, UninstalledPart);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCompatibleCardDroppedDelegate, UCardWidgetBase*, Card);
 
@@ -30,8 +30,8 @@ public:
   UFUNCTION()
   void SetInstalledPart(URobotPart* NewInstalledPart);
 
+//  FUninstallButtonClickedDelegate UninstallButtonClickedDelegate;
   FPartUninstalledDelegate PartUninstalledDelegate;
-  FUninstallButtonClickedDelegate UninstallButtonClickedDelegate;
   FCompatibleCardDroppedDelegate CompatibleCardDroppedDelegate;
 
 protected:
@@ -40,8 +40,8 @@ protected:
 
   bool NativeOnDrop(const FGeometry & InGeometry, const FDragDropEvent & InDragDropEvent, UDragDropOperation * InOperation) override;
 
-  UFUNCTION()
-  void OnUninstallButtonClicked();
+//  UFUNCTION()
+//  void OnUninstallButtonClicked();
 
   UPROPERTY()
   TSubclassOf<URobotPart> InstalledPartType;
@@ -49,8 +49,8 @@ protected:
   UPROPERTY()
   URobotPart* InstalledPart;
 
-  UPROPERTY(meta=(BindWidget))
-  UButton* UninstallButton;
+//  UPROPERTY(meta=(BindWidget))
+//  UButton* UninstallButton;
 
   UPROPERTY(meta=(BindWidget))
   UMiniCardWidget* MiniCard;

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Parts/RobotPart.h"
+#include "Parts/BodyPart.h"
 #include "ArmsPart.generated.h"
 
 class UPartAssignment;
@@ -11,7 +11,7 @@ class UPartAssignment;
  * 
  */
 UCLASS()
-class SCRAPYARD_API UArmsPart : public URobotPart
+class SCRAPYARD_API UArmsPart : public UBodyPart
 {
   GENERATED_BODY()
 

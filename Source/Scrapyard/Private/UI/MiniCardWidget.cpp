@@ -36,7 +36,7 @@ void UMiniCardWidget::NativeConstruct()
 void UMiniCardWidget::NativeOnMouseEnter(const FGeometry & InGeometry, const FPointerEvent & InMouseEvent)
 {
   UE_LOG(LogUI, Log, TEXT("%s::NativeOnMouseEnter"), *GetName());
-  if (bShowPartCardOnMouseEnter && PartCardWidget != nullptr && GetWorld())
+  if (bShowPartCardOnMouseEnter && !RobotPart->IsDefaultPart() && PartCardWidget != nullptr && GetWorld())
   {
     GetWorld()->GetTimerManager().SetTimer(HoverTimerHandle, this, &UMiniCardWidget::ShowPartCard, 0.3f, false);
   }
