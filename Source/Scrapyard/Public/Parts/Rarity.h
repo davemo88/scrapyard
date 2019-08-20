@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataAsset.h"
 #include "Engine/Texture2D.h"
 #include "Rarity.generated.h"
 
@@ -11,7 +10,7 @@
  * 
  */
 UCLASS()
-class SCRAPYARD_API URarity : public UDataAsset
+class SCRAPYARD_API URarity : public UObject
 {
   GENERATED_BODY()
   

@@ -24,8 +24,6 @@ public:
   uint32 MaxWeight;
   UPROPERTY()
   uint32 PowerSupply;
-  UPROPERTY()
-  uint32 ChipSlots;
 
   void Assign(UPartAssignment* PartAssignment) override;
 
