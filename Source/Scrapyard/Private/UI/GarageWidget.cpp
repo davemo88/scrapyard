@@ -3,6 +3,8 @@
 #include "GarageWidget.h"
 #include "Scrapyard.h"
 #include "Game/ScrapyardGameInstance.h"
+#include "Levels/GarageLevelScriptActor.h"
+#include "Robots/RobotCharacter.h"
 #include "Drafting/SoloDraft.h"
 #include "Parts/HeadPart.h"
 #include "Parts/CorePart.h"
@@ -76,9 +78,13 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
   NewValueAssignment->SetAssignment(SoloDraft->PartAssignment);
   NewValueStats->SetPartAssignment(NewValueAssignment);
 
-  URobotStats* RobotStats = NewObject<URobotStats>();
-  RobotStats->SetPartAssignment(SoloDraft->PartAssignment);
-  RobotStatsWidget->SetRobotStats(RobotStats);
+//  URobotStats* RobotStats = NewObject<URobotStats>();
+//  RobotStats->SetPartAssignment(SoloDraft->PartAssignment);
+  if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
+  {
+    RobotStatsWidget->SetRobotStats(GarageLSA->GetRobotCharacter()->RobotStats);
+  }
+
   RobotStatsWidget->SetNewValueStats(NewValueStats);
 
   YourPartsWidget->SetCurrentDraft(SoloDraft);
