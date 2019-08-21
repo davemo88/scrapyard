@@ -12,8 +12,8 @@ void URobotStatsWidget::NativeConstruct()
   MassStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetMassName", "Mass"), FText::AsNumber(0)));
   PowerSupplyStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetPowerSupplyName", "Power Supply"), FText::AsNumber(0)));
   PowerDrainStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetPowerDrainName", "Power Drain"), FText::AsNumber(0)));
-  KineticDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetKineticDefenseName", "Physical Defense"), FText::AsNumber(0)));
-  ElectricDefenseStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetElectricDefenseName", "Energy Defense"), FText::AsNumber(0)));
+  ArmorStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetArmorName", "Physical Defense"), FText::AsNumber(0)));
+  EMShieldStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetEMShieldName", "Energy Defense"), FText::AsNumber(0)));
   TargetingAbilityStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetTargetingAbilityName", "Targeting Ability"), FText::AsNumber(0)));
   ChipSlotsStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetChipSlotsName", "Chip Slots"), FText::AsNumber(0)));
   WeaponDexterityStatLine->SetStatLine(FStatText(NSLOCTEXT("SY", "StatWidgetWeaponDexterityName", "Weapon Dexterity"), FText::AsNumber(0)));
@@ -41,8 +41,8 @@ void URobotStatsWidget::UpdateStats()
   HitPointsStatLine->SetStatLine(RobotStats->GetHitPointsStatText());
   PowerDrainStatLine->SetStatLine(RobotStats->GetPowerDrainStatText());
   PowerSupplyStatLine->SetStatLine(RobotStats->GetPowerSupplyStatText());
-  KineticDefenseStatLine->SetStatLine(RobotStats->GetKineticDefenseStatText());
-  ElectricDefenseStatLine->SetStatLine(RobotStats->GetElectricDefenseStatText());
+  ArmorStatLine->SetStatLine(RobotStats->GetArmorStatText());
+  EMShieldStatLine->SetStatLine(RobotStats->GetEMShieldStatText());
   TargetingAbilityStatLine->SetStatLine(RobotStats->GetTargetingAbilityStatText());
   WeaponDexterityStatLine->SetStatLine(RobotStats->GetWeaponDexterityStatText());
   BoosterThrustStatLine->SetStatLine(RobotStats->GetBoosterThrustStatText());
@@ -57,8 +57,8 @@ void URobotStatsWidget::UpdateNewValues()
   MassStatLine->SetNewValue(NewValueStats->Mass, RobotStats->Mass, [](int32 New, int32 Old){ return New < Old; });
   HitPointsStatLine->SetNewValue(NewValueStats->HitPoints, RobotStats->HitPoints, [](int32 New, int32 Old){ return New > Old; });
   PowerDrainStatLine->SetNewValue(NewValueStats->PowerDrain, RobotStats->PowerDrain, [](int32 New, int32 Old){ return New < Old; });
-  KineticDefenseStatLine->SetNewValue(NewValueStats->KineticDefense, RobotStats->KineticDefense, [](int32 New, int32 Old){ return New > Old; });
-  ElectricDefenseStatLine->SetNewValue(NewValueStats->ElectricDefense, RobotStats->ElectricDefense, [](int32 New, int32 Old){ return New > Old; });
+  ArmorStatLine->SetNewValue(NewValueStats->Armor, RobotStats->Armor, [](int32 New, int32 Old){ return New > Old; });
+  EMShieldStatLine->SetNewValue(NewValueStats->EMShield, RobotStats->EMShield, [](int32 New, int32 Old){ return New > Old; });
   TargetingAbilityStatLine->SetNewValue(NewValueStats->TargetingAbility, RobotStats->TargetingAbility, [](int32 New, int32 Old){ return New > Old; });
   WeaponDexterityStatLine->SetNewValue(NewValueStats->WeaponDexterity, RobotStats->WeaponDexterity, [](int32 New, int32 Old){ return New > Old; });
   BoosterThrustStatLine->SetNewValue(NewValueStats->BoosterThrust, RobotStats->BoosterThrust, [](int32 New, int32 Old){ return New > Old; });

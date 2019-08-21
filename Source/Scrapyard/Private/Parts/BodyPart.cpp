@@ -7,8 +7,8 @@ TArray<FStatText> UBodyPart::GetStatsText() const
 {
   TArray<FStatText> StatsText = Super::GetStatsText();
   StatsText.Add(FStatText(NSLOCTEXT("SY", "HitPointsStatText", "Hit Points"),FText::AsNumber(Mass)));
-  StatsText.Add(FStatText(NSLOCTEXT("SY", "KineticDefenseStatText", "Kinetic Defense"),FText::AsNumber(KineticDefense)));
-  StatsText.Add(FStatText(NSLOCTEXT("SY", "ElectricDefenseStatText", "Electric Defense"),FText::AsNumber(ElectricDefense)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "ArmorStatText", "Armor"),FText::AsNumber(Armor)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "EMShieldStatText", "EM Shield"),FText::AsNumber(EMShield)));
   return StatsText;
 }
 

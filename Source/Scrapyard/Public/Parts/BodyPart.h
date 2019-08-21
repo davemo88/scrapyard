@@ -21,9 +21,9 @@ public:
 //  UPROPERTY()
 //  uint32 PowerDrain;
   UPROPERTY()
-  uint32 KineticDefense;
+  uint32 Armor;
   UPROPERTY()
-  uint32 ElectricDefense;
+  uint32 EMShield;
 
   virtual TArray<FStatText> GetStatsText() const override;
 };

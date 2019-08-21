@@ -6,7 +6,7 @@
 #include "Parts/PartAssignment.h"
 #include "SoloDraft.h"
 
-ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewKineticDefense, uint32 NewElectricDefense, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability)
+ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewArmor, uint32 NewEMShield, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability)
 {
   ULegsPart* NewPart = NewObject<ULegsPart>();
   NewPart->PartID = NewPartID;
@@ -16,8 +16,8 @@ ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer
   NewPart->Mass = NewMass;
   NewPart->HitPoints = NewHitPoints;
   NewPart->PowerDrain = NewPowerDrain;
-  NewPart->KineticDefense = NewKineticDefense;
-  NewPart->ElectricDefense = NewElectricDefense;
+  NewPart->Armor = NewArmor;
+  NewPart->EMShield = NewEMShield;
   NewPart->AbilityClass = NewAbilityClass;
   NewPart->SkeletalMesh = NewSkeletalMesh;
   NewPart->MajorMaterial = NewMajorMaterial;
@@ -49,11 +49,6 @@ UTexture2D* ULegsPart::GetPartTypeIcon() const
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 
     UScrapyardGameInstance::AssetsBP->GetAsset<UTexture2D>(UScrapyardGameInstance::AssetsBP->PartAssetsBP->LegsCardIcon) 
     : nullptr;
-}
-
-void ULegsPart::Draft(UDraftBase* CurrentDraft)
-{
-  CurrentDraft->DraftedLegs.Add(this);
 }
 
 TArray<FStatText> ULegsPart::GetStatsText() const

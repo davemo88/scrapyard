@@ -15,6 +15,7 @@
 void UYourPartsWidgetBase::SetCurrentDraft(UDraftBase* NewDraft)
 {
   CurrentDraft = NewDraft;
+  DisplayParts(CurrentDraft->DraftedParts);
 }
 
 void UYourPartsWidgetBase::DisplayPart(URobotPart* RobotPart)
@@ -36,7 +37,7 @@ void UYourPartsWidgetBase::DisplayUnassignedParts()
   TArray<URobotPart*> UnassignedParts;
   if (CurrentDraft != nullptr)
   {
-    UnassignedParts = CurrentDraft->GetAllDraftedParts().FilterByPredicate([this](URobotPart* Part) { return !Part->IsAssignedTo(CurrentDraft->PartAssignment); }); 
+    UnassignedParts = CurrentDraft->DraftedParts.FilterByPredicate([this](URobotPart* Part) { return !Part->IsAssignedTo(CurrentDraft->PartAssignment); }); 
   }
   DisplayParts(UnassignedParts);
 }

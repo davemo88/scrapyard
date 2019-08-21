@@ -16,7 +16,7 @@ class SCRAPYARD_API ULegsPart : public UBodyPart
 
 public:
 
-  static ULegsPart* NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewKineticDefense, uint32 NewElectricDefense, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability);
+  static ULegsPart* NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewArmor, uint32 NewEMShield, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability);
 
   ULegsPart();
 
@@ -30,8 +30,6 @@ public:
   void Assign(UPartAssignment* PartAssignment) override;
 
   virtual bool IsAssignedTo(UPartAssignment* PartAssignment) override;
-
-  virtual void Draft(UDraftBase* CurrentDraft) override;
 
   virtual TArray<FStatText> GetStatsText() const override;
 

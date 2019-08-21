@@ -25,7 +25,8 @@ UDraftBase::UDraftBase()
 
 void UDraftBase::DraftPart(URobotPart* RobotPart)
 {
-  RobotPart->Draft(this);
+//  RobotPart->Draft(this);
+  DraftedParts.AddUnique(RobotPart);
   CurrentPick++;
   RobotPartPool.Remove(RobotPart);
 }
@@ -86,18 +87,4 @@ void UDraftBase::InitRobotPartPool()
     RobotPartPool.Add(GameInstance->PartSingleton->PartDB.GetPart(5005));
     RobotPartPool.Add(GameInstance->PartSingleton->PartDB.GetPart(6005));
   }
-}
-
-TArray<URobotPart*> UDraftBase::GetAllDraftedParts()
-{
-  TArray<URobotPart*> AllParts;
-  AllParts.Append(DraftedHeads);
-  AllParts.Append(DraftedCores);
-  AllParts.Append(DraftedArms);
-  AllParts.Append(DraftedLegs);
-  AllParts.Append(DraftedBoosters);
-  AllParts.Append(DraftedHandhelds);
-  AllParts.Append(DraftedChips);
-
-  return AllParts;
 }

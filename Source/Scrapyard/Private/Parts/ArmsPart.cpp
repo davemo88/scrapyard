@@ -7,7 +7,7 @@
 #include "Parts/PartAssets.h"
 #include "SoloDraft.h"
 
-UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewKineticDefense, uint32 NewElectricDefense, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
+UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewArmor, uint32 NewEMShield, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)
 {
   UArmsPart* NewPart = NewObject<UArmsPart>();
   NewPart->PartID = NewPartID;
@@ -17,8 +17,8 @@ UArmsPart* UArmsPart::NewArms(uint32 NewPartID, FText NewPartName, UManufacturer
   NewPart->Mass = NewMass;
   NewPart->HitPoints = NewHitPoints;
   NewPart->PowerDrain = NewPowerDrain;
-  NewPart->KineticDefense = NewKineticDefense;
-  NewPart->ElectricDefense = NewElectricDefense;
+  NewPart->Armor = NewArmor;
+  NewPart->EMShield = NewEMShield;
   NewPart->AbilityClass = NewAbilityClass;
   NewPart->SkeletalMesh = NewSkeletalMesh;
   NewPart->MajorMaterial = NewMajorMaterial;
@@ -39,11 +39,6 @@ void UArmsPart::Assign(UPartAssignment* PartAssignment)
 bool UArmsPart::IsAssignedTo(UPartAssignment* PartAssignment)
 {
   return PartAssignment->GetArms() == this;
-}
-
-void UArmsPart::Draft(UDraftBase* CurrentDraft)
-{
-  CurrentDraft->DraftedArms.Add(this);
 }
 
 UTexture2D* UArmsPart::GetPartTypeIcon() const

@@ -17,7 +17,7 @@ class SCRAPYARD_API UArmsPart : public UBodyPart
 
 public:
 
-  static UArmsPart* NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewKineticDefense, uint32 NewElectricDefense, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
+  static UArmsPart* NewArms(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewArmor, uint32 NewEMShield, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial);
 
   UArmsPart();
 
@@ -31,8 +31,6 @@ public:
   void Assign(UPartAssignment* PartAssignment) override;
 
   virtual bool IsAssignedTo(UPartAssignment* PartAssignment) override;
-
-  virtual void Draft(UDraftBase* CurrentDraft) override;
 
   UTexture2D* GetPartTypeIcon() const override;
 

@@ -67,9 +67,9 @@ public:
 //  UPROPERTY()
 //  uint32 HitPoints;
 //  UPROPERTY()
-//  uint32 KineticDefense;
+//  uint32 Armor;
 //  UPROPERTY()
-//  uint32 ElectricDefense;
+//  uint32 EMShield;
   UPROPERTY()
   TSubclassOf<AScrapyardAbility> AbilityClass;
   UPROPERTY()
@@ -84,8 +84,6 @@ public:
   virtual void Assign(UPartAssignment* PartAssignment) {};
 
   virtual bool IsAssignedTo(UPartAssignment* PartAssignment) { return false; };
-
-  virtual void Draft(UDraftBase* CurrentDraft) {};
 
   bool IsDefaultPart();
 

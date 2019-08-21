@@ -26,8 +26,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Head->Mass;
     HitPoints += Head->HitPoints;
-    KineticDefense += Head->KineticDefense;
-    ElectricDefense += Head->ElectricDefense;
+    Armor += Head->Armor;
+    EMShield += Head->EMShield;
     PowerDrain += Head->PowerDrain;
     TargetingAbility = Head->TargetingAbility;
     ChipSlots = Head->ChipSlots;
@@ -36,8 +36,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Core->Mass;
     HitPoints += Core->HitPoints;
-    KineticDefense += Core->KineticDefense;
-    ElectricDefense += Core->ElectricDefense;
+    Armor += Core->Armor;
+    EMShield += Core->EMShield;
     PowerDrain += Core->PowerDrain;
     PowerSupply = Core->PowerSupply;
   }
@@ -45,8 +45,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Arms->Mass;
     HitPoints += Arms->HitPoints;
-    KineticDefense += Arms->KineticDefense;
-    ElectricDefense += Arms->ElectricDefense;
+    Armor += Arms->Armor;
+    EMShield += Arms->EMShield;
     PowerDrain += Arms->PowerDrain;
     WeaponDexterity = Arms->WeaponDexterity;
   }
@@ -54,8 +54,8 @@ void URobotStats::UpdateStats()
   {
     Mass += Legs->Mass;
     HitPoints += Legs->HitPoints;
-    KineticDefense += Legs->KineticDefense;
-    ElectricDefense += Legs->ElectricDefense;
+    Armor += Legs->Armor;
+    EMShield += Legs->EMShield;
     PowerDrain += Legs->PowerDrain;
     MovementSpeed = Legs->MovementSpeed;
   }
@@ -78,8 +78,8 @@ void URobotStats::ZeroStats()
   MaxPower = 0;
   PowerSupply = 0;
   PowerDrain = 0;
-  KineticDefense = 0;
-  ElectricDefense = 0;
+  Armor = 0;
+  EMShield = 0;
   BoosterThrust = 0;
   BoosterPowerDrain = 0;
   MovementSpeed = 0;
@@ -108,14 +108,14 @@ FStatText URobotStats::GetPowerDrainStatText()
   return FStatText(NSLOCTEXT("SY", "StatWidgetPowerDrainName", "Power Drain"), FText::AsNumber(PowerDrain));
 }
 
-FStatText URobotStats::GetKineticDefenseStatText()
+FStatText URobotStats::GetArmorStatText()
 {
-  return FStatText(NSLOCTEXT("SY", "StatWidgetKineticDefenseName", "Kinetic Defense"), FText::AsNumber(KineticDefense));
+  return FStatText(NSLOCTEXT("SY", "StatWidgetArmorName", "Armor"), FText::AsNumber(Armor));
 }
 
-FStatText URobotStats::GetElectricDefenseStatText()
+FStatText URobotStats::GetEMShieldStatText()
 {
-  return FStatText(NSLOCTEXT("SY", "StatWidgetElectricDefenseName", "Electric Defense"), FText::AsNumber(ElectricDefense));
+  return FStatText(NSLOCTEXT("SY", "StatWidgetEMShieldName", "EM Shield"), FText::AsNumber(EMShield));
 }
 
 FStatText URobotStats::GetTargetingAbilityStatText()

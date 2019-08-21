@@ -54,9 +54,9 @@ protected:
   UPROPERTY(meta=(BindWidget))
   URobotStatLineWidget* PowerDrainStatLine;
   UPROPERTY(meta=(BindWidget))
-  URobotStatLineWidget* KineticDefenseStatLine;
+  URobotStatLineWidget* ArmorStatLine;
   UPROPERTY(meta=(BindWidget))
-  URobotStatLineWidget* ElectricDefenseStatLine;
+  URobotStatLineWidget* EMShieldStatLine;
   UPROPERTY(meta=(BindWidget))
   URobotStatLineWidget* TargetingAbilityStatLine;
   UPROPERTY(meta=(BindWidget))

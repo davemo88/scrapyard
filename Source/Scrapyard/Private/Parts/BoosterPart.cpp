@@ -39,11 +39,6 @@ bool UBoosterPart::IsAssignedTo(UPartAssignment* PartAssignment)
   return PartAssignment->GetBooster() == this;
 }
 
-void UBoosterPart::Draft(UDraftBase* CurrentDraft)
-{
-  CurrentDraft->DraftedBoosters.Add(this);
-}
-
 UTexture2D* UBoosterPart::GetPartTypeIcon() const
 {
   return (UScrapyardGameInstance::AssetsBP != NULL) ? 

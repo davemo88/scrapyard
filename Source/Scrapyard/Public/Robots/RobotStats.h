@@ -34,9 +34,9 @@ public:
   UPROPERTY(EditAnywhere)
   int32 PowerDrain = 0;
   UPROPERTY(EditAnywhere)
-  int32 KineticDefense = 0;
+  int32 Armor = 0;
   UPROPERTY(EditAnywhere)
-  int32 ElectricDefense = 0;
+  int32 EMShield = 0;
   UPROPERTY(EditAnywhere)
   int32 TargetingAbility = 0;
   UPROPERTY(EditAnywhere)
@@ -56,8 +56,8 @@ public:
   FStatText GetHitPointsStatText();
   FStatText GetMaxPowerStatText();
   FStatText GetPowerDrainStatText();
-  FStatText GetKineticDefenseStatText();
-  FStatText GetElectricDefenseStatText();
+  FStatText GetArmorStatText();
+  FStatText GetEMShieldStatText();
   FStatText GetTargetingAbilityStatText();
   FStatText GetChipSlotsStatText();
   FStatText GetWeaponDexterityStatText();

@@ -43,25 +43,7 @@ public:
   TArray<URobotPart*> CurrentPack;
 
   UPROPERTY()
-  TArray<UHeadPart*> DraftedHeads;
-
-  UPROPERTY()
-  TArray<UCorePart*> DraftedCores;
-
-  UPROPERTY()
-  TArray<UArmsPart*> DraftedArms;
-
-  UPROPERTY()
-  TArray<ULegsPart*> DraftedLegs;
-
-  UPROPERTY()
-  TArray<UBoosterPart*> DraftedBoosters;
-
-  UPROPERTY()
-  TArray<UHandheldPart*> DraftedHandhelds;
-
-  UPROPERTY()
-  TArray<UChipPart*> DraftedChips;
+  TArray<URobotPart*> DraftedParts;
 
   UPROPERTY()
   UPartAssignment* PartAssignment;
@@ -71,8 +53,6 @@ public:
   virtual void SamplePack();
 
   virtual void DraftPart(URobotPart* RobotPart);
-
-  TArray<URobotPart*> GetAllDraftedParts();
 
 protected:
 
