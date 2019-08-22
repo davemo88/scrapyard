@@ -442,7 +442,7 @@ void UPartSingleton::InitGreenParts()
       91,
       0.5f,
       AHitscanAbility::StaticClass(),
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Green_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial));
 }
 
@@ -535,7 +535,7 @@ void UPartSingleton::InitOrangeParts()
       91,
       0.5f,
       AHitscanAbility::StaticClass(),
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Orange_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial));
 }
 
@@ -628,7 +628,7 @@ void UPartSingleton::InitPurpleParts()
       91,
       0.5f,
       AHitscanAbility::StaticClass(),
-      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
+      UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial));
 }
 
