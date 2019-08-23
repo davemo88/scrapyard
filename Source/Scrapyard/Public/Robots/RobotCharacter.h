@@ -188,4 +188,6 @@ protected:
 
   friend class URobotTunerWidget;
 
+  bool bExperimentalControls;
+
 };

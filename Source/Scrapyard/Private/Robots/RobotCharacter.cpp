@@ -30,6 +30,8 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   PrimaryActorTick.bCanEverTick = true;
 
+  bExperimentalControls = true;
+
   bReplicates = true;
   bAlwaysRelevant = true;
 
@@ -278,71 +280,90 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 //  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
 
-//  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-//  if (PC)
-//  {
-//    float MouseX;
-//    float MouseY;
-//    PC->GetMousePosition(MouseX, MouseY);
-//
-//    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-//    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-//
-////    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
-//
-////    uint32 MaxX = GSystemResolution.ResX;
-//    uint32 CenterX = GSystemResolution.ResX / 2;
-//
-////    UE_LOG(LogCharacter, Log, TEXT("Center X: %i"), CenterX);
-//
-//    float TurnRate = float(MouseX - CenterX) / float(CenterX);
-//
-//    float MaxTurnRate = 1.0f;
-//
-////    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
-//
-//    AddControllerYawInput(TurnRate * MaxTurnRate);
-//
-////    float MaxTargetingAngle = 45.0f;
-////
-////    RobotTargetingComponent->SetRelativeRotation(FRotator(0.0f,TurnRate * MaxTargetingAngle,0.0f));
-//
-//  }
-
-  AddControllerYawInput(AxisValue);
+  if (bExperimentalControls)
+  {
+    ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+    if (PC)
+    {
+      float MouseX;
+      float MouseY;
+      PC->GetMousePosition(MouseX, MouseY);
+  
+      MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+      MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+  
+  //    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+  
+  //    uint32 MaxX = GSystemResolution.ResX;
+      uint32 CenterX = GSystemResolution.ResX / 2;
+  
+  //    UE_LOG(LogCharacter, Log, TEXT("Center X: %i"), CenterX);
+  
+      float TurnRate = float(MouseX - CenterX) / float(CenterX);
+  
+      float MaxTurnRate = 1.0f;
+  
+  //    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
+  
+      AddControllerYawInput(TurnRate * MaxTurnRate);
+  
+  //    float MaxTargetingAngle = 45.0f;
+  //
+  //    RobotTargetingComponent->SetRelativeRotation(FRotator(0.0f,TurnRate * MaxTargetingAngle,0.0f));
+    }
+  }
+  else
+  {
+//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - AxisValue : %f"), AxisValue);
+//  float MaxTurnZ = 1.0f;
+//  float ClampedValue = FMath::Clamp(AxisValue, -MaxTurnZ, MaxTurnZ);
+//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - ClampedValue : %f"), ClampedValue);
+//  AddControllerYawInput(ClampedValue);
+    AddControllerYawInput(AxisValue);
+  }
 }
 
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
-//TODO: create subclass with these weird controls
-//
-//  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
-////  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
-//  ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
-//  if (PC)
-//  {
-//    float MouseX;
-//    float MouseY;
-//    PC->GetMousePosition(MouseX, MouseY);
-//
-//    MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-//    MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-////    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
-//
-//    uint32 CenterY = GSystemResolution.ResY / 2;
-//
-////    UE_LOG(LogCharacter, Log, TEXT("Center Y: %i"), CenterY);
-//
-//    float TurnRate = float(MouseY - CenterY) / float(CenterY);
-//
-//    float MaxTurnRate = 1.0f;
-//
-////    UE_LOG(LogCharacter, Log, TEXT("TurnY rate: %f"), TurnRate);
-//
-//    AddControllerPitchInput(TurnRate * MaxTurnRate);
-//  }
+  if (bExperimentalControls)
+  {
+    float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
+  //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
+    ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
+    if (PC)
+    {
+      float MouseX;
+      float MouseY;
+      PC->GetMousePosition(MouseX, MouseY);
+  
+      MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
+      MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+  //    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+  
+      uint32 CenterY = GSystemResolution.ResY / 2;
+  
+  //    UE_LOG(LogCharacter, Log, TEXT("Center Y: %i"), CenterY);
+  
+      float TurnRate = float(MouseY - CenterY) / float(CenterY);
+  
+      float MaxTurnRate = 1.0f;
+  
+  //    UE_LOG(LogCharacter, Log, TEXT("TurnY rate: %f"), TurnRate);
+  
+      AddControllerPitchInput(TurnRate * MaxTurnRate);
+    }
 
-  AddControllerPitchInput(AxisValue);
+  }
+  else
+  {
+//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - AxisValue : %f"), AxisValue);
+//  float MaxTurnY = 1.0f;
+//  float ClampedValue = FMath::Clamp(AxisValue, -MaxTurnY, MaxTurnY);
+//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - ClampedValue : %f"), ClampedValue);
+//
+//  AddControllerPitchInput(ClampedValue);
+    AddControllerPitchInput(AxisValue);
+  }
 }
 
 void ARobotCharacter::StartBoosting()
