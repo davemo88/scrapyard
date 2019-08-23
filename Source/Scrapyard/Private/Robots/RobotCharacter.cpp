@@ -296,17 +296,31 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
   
   //    uint32 MaxX = GSystemResolution.ResX;
       uint32 CenterX = GSystemResolution.ResX / 2;
+  // rectangular deadzone
+      uint32 DeadZoneHalfWidth = GSystemResolution.ResX / 10;
+      uint32 DeadZoneMin = CenterX - DeadZoneHalfWidth;
+      uint32 DeadZoneMax = CenterX + DeadZoneHalfWidth;
   
   //    UE_LOG(LogCharacter, Log, TEXT("Center X: %i"), CenterX);
+      float TurnRate = 0;
   
-      float TurnRate = float(MouseX - CenterX) / float(CenterX);
+      if (MouseX > DeadZoneMax)
+      {
+        TurnRate = float(MouseX - DeadZoneMax) / float(DeadZoneMin);
+      }
+      else if (MouseX < DeadZoneMin)
+      {
+        TurnRate = float(MouseX - DeadZoneMin) / float(DeadZoneMin);
+      }
+      else
+      {
+        UE_LOG(LogCharacter, Log, TEXT("In the Dead Zone"), TurnRate);
+      }
   
+//      UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
+// maybe set this somewhere  
       float MaxTurnRate = 1.0f;
-  
-  //    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
-  
       AddControllerYawInput(TurnRate * MaxTurnRate);
-  
   //    float MaxTargetingAngle = 45.0f;
   //
   //    RobotTargetingComponent->SetRelativeRotation(FRotator(0.0f,TurnRate * MaxTargetingAngle,0.0f));
@@ -343,11 +357,29 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
       uint32 CenterY = GSystemResolution.ResY / 2;
   
   //    UE_LOG(LogCharacter, Log, TEXT("Center Y: %i"), CenterY);
+  // rectangular deadzone
+      uint32 DeadZoneHalfWidth = GSystemResolution.ResY / 10;
+      uint32 DeadZoneMin = CenterY - DeadZoneHalfWidth;
+      uint32 DeadZoneMax = CenterY + DeadZoneHalfWidth;
+
+      float TurnRate = 0;
   
-      float TurnRate = float(MouseY - CenterY) / float(CenterY);
+      if (MouseY > DeadZoneMax)
+      {
+        TurnRate = float(MouseY - DeadZoneMax) / float(DeadZoneMin);
+      }
+      else if (MouseY < DeadZoneMin)
+      {
+        TurnRate = float(MouseY - DeadZoneMin) / float(DeadZoneMin);
+      }
+      else
+      {
+        UE_LOG(LogCharacter, Log, TEXT("In the Dead Zone"), TurnRate);
+      }
   
+//      UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
+// maybe set this somewhere  
       float MaxTurnRate = 1.0f;
-  
   //    UE_LOG(LogCharacter, Log, TEXT("TurnY rate: %f"), TurnRate);
   
       AddControllerPitchInput(TurnRate * MaxTurnRate);
