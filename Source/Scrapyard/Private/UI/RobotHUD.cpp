@@ -154,8 +154,8 @@ void ARobotHUD::DrawControlEllipse()
 // control ellipse vertical axis
   float b = ViewSize.Y / 10.0f;
 
-  UE_LOG(LogTemp, Warning, TEXT("ViewportSize: %s"), *ViewSize.ToString());
-  UE_LOG(LogTemp, Warning, TEXT("a - %f b - %f "), a, b);
+//  UE_LOG(LogTemp, Warning, TEXT("ViewportSize: %s"), *ViewSize.ToString());
+//  UE_LOG(LogTemp, Warning, TEXT("a - %f b - %f "), a, b);
 
   if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(GetOwningPlayerController()))
   {
@@ -171,7 +171,7 @@ void ARobotHUD::DrawControlEllipse()
       float y2;
       uint32 j;
       uint32 NumPoints = 40;
-      UE_LOG(LogTemp, Warning, TEXT("begin control ellipse draw loop"));
+//      UE_LOG(LogTemp, Warning, TEXT("begin control ellipse draw loop"));
 //      UE_LOG(LogTemp, Warning, TEXT("PI - %f"), PI);
       for (uint32 i = 0; i < NumPoints; ++i)
       {
@@ -183,13 +183,13 @@ void ARobotHUD::DrawControlEllipse()
         FMath::PolarToCartesian(r1, theta1, x1, y1);
         FMath::PolarToCartesian(r2, theta2, x2, y2);
 //        UE_LOG(LogTemp, Warning, TEXT("a - %f b - %f "), a, b);
-        UE_LOG(LogTemp, Warning, TEXT("x1 - %f y1 - %f x2 - %f y2 - %f "), x1, y1, x2, y2);
-        UE_LOG(LogTemp, Warning, TEXT("theta1 - %f theta2 - %f r1 - %f r2 - %f "), theta1, theta2, r1, r2);
+//        UE_LOG(LogTemp, Warning, TEXT("x1 - %f y1 - %f x2 - %f y2 - %f "), x1, y1, x2, y2);
+//        UE_LOG(LogTemp, Warning, TEXT("theta1 - %f theta2 - %f r1 - %f r2 - %f "), theta1, theta2, r1, r2);
         x1 += CenterX;
         y1 += CenterY;
         x2 += CenterX;
         y2 += CenterY;
-        UE_LOG(LogTemp, Warning, TEXT("Centered: x1 - %f y1 - %f x2 - %f y2 - %f "), x1, y1, x2, y2);
+//        UE_LOG(LogTemp, Warning, TEXT("Centered: x1 - %f y1 - %f x2 - %f y2 - %f "), x1, y1, x2, y2);
         DrawLine( x1, y1, x2, y2, FLinearColor::Red, 2); 
       }
     }
