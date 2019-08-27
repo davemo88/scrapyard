@@ -188,6 +188,12 @@ protected:
 
   friend class URobotTunerWidget;
 
+// for experimental movement controls
   bool bExperimentalControls;
+
+  bool IsInControlDeadZone(float MouseX, float MouseY);
+  float GetTurnRate(FVector2D MousePosition);
+
+  FVector2D GetControlEllipseIntersection(FVector2D MousePosition);
 
 };

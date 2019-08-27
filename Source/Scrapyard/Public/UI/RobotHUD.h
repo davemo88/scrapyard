@@ -25,5 +25,11 @@ protected:
   virtual void DrawTargetBox(AActor* Target);
   
   virtual FLinearColor GetTargetingColor();
+
+  virtual void DrawControlEllipse();
+
+  virtual float GetControlEllipseRadius(float theta, float a, float b);
+
+  virtual void DrawTargetingSystem();
   
 };

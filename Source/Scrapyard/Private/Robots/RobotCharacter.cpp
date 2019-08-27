@@ -30,7 +30,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   PrimaryActorTick.bCanEverTick = true;
 
-  bExperimentalControls = true;
+  bExperimentalControls = false;
 
   bReplicates = true;
   bAlwaysRelevant = true;
@@ -314,7 +314,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
       }
       else
       {
-        UE_LOG(LogCharacter, Log, TEXT("In the Dead Zone"), TurnRate);
+        UE_LOG(LogCharacter, Log, TEXT("In the Dead Zone Z"), TurnRate);
       }
   
 //      UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
@@ -354,27 +354,15 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
       MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
   //    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
   
-      uint32 CenterY = GSystemResolution.ResY / 2;
-  
-  //    UE_LOG(LogCharacter, Log, TEXT("Center Y: %i"), CenterY);
-  // rectangular deadzone
-      uint32 DeadZoneHalfWidth = GSystemResolution.ResY / 10;
-      uint32 DeadZoneMin = CenterY - DeadZoneHalfWidth;
-      uint32 DeadZoneMax = CenterY + DeadZoneHalfWidth;
-
       float TurnRate = 0;
   
-      if (MouseY > DeadZoneMax)
+      if (!IsInControlDeadZone(MouseX, MouseY))
       {
-        TurnRate = float(MouseY - DeadZoneMax) / float(DeadZoneMin);
-      }
-      else if (MouseY < DeadZoneMin)
-      {
-        TurnRate = float(MouseY - DeadZoneMin) / float(DeadZoneMin);
+//        TurnRate = 
       }
       else
       {
-        UE_LOG(LogCharacter, Log, TEXT("In the Dead Zone"), TurnRate);
+        UE_LOG(LogCharacter, Log, TEXT("In the Dead Zone Y"), TurnRate);
       }
   
 //      UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
@@ -557,3 +545,45 @@ void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssi
   UE_LOG(LogCharacter, Log, TEXT("%s::MulticastSetPartAssignmentFromIDs_Implementation"), *GetName());
   PartAssignment->SetAssignment(NewPartAssignmentIDs);
 }
+
+bool ARobotCharacter::IsInControlDeadZone(float MouseX, float MouseY)
+{
+  uint32 CenterX = GSystemResolution.ResX / 2;
+  uint32 CenterY = GSystemResolution.ResY / 2;
+  uint32 HoritonzalSemiAxis = GSystemResolution.ResX / 10;
+  uint32 VerticalSemiAxis = GSystemResolution.ResY / 10;
+
+  return FMath::Square(MouseX - CenterX) / FMath::Square(HoritonzalSemiAxis) + (FMath::Square(MouseY - CenterY)) / FMath::Square(VerticalSemiAxis) <= 1;
+
+}
+
+float ARobotCharacter::GetTurnRate(FVector2D MousePosition)
+{
+  FVector2D ControlEllipseIntersection = GetControlEllipseIntersection(MousePosition);
+  return 0.0f;
+}
+
+FVector2D ARobotCharacter::GetControlEllipseIntersection(FVector2D MousePosition)
+{
+  uint32 CenterX = GSystemResolution.ResX / 2;
+  uint32 CenterY = GSystemResolution.ResY / 2;
+  FVector2D CenteredMousePos = FVector2D(MousePosition.X - CenterX, MousePosition.Y - CenterY);
+
+// slope of line from origin to cursor position
+  float m = CenteredMousePos.Y / CenteredMousePos.X;
+
+// control ellipse horizontal axis
+  uint32 a = GSystemResolution.ResX / 10;
+// control ellipse vertical axis
+  uint32 b = GSystemResolution.ResY / 10;
+
+// intersection between line from origin to mouse and ellipse
+  FVector2D CenteredIntersection;
+
+  CenteredIntersection.X = a * b * FMath::Sqrt(1/(FMath::Square(b) + FMath::Square(a * m)));
+  CenteredIntersection.X = CenteredMousePos.X > 0 ? CenteredIntersection.X : -CenteredIntersection.X;
+  CenteredIntersection.Y = m * CenteredIntersection.X;
+
+  return FVector2D(CenteredIntersection.X + CenterX, CenteredIntersection.Y + CenterY);
+}
+
