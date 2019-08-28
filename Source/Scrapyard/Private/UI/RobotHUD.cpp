@@ -190,11 +190,29 @@ void ARobotHUD::DrawControlEllipse()
         x2 += CenterX;
         y2 += CenterY;
 //        UE_LOG(LogTemp, Warning, TEXT("Centered: x1 - %f y1 - %f x2 - %f y2 - %f "), x1, y1, x2, y2);
-        DrawLine( x1, y1, x2, y2, FLinearColor::Red, 2); 
+        float MouseX;
+        float MouseY;
+        RobotPC->GetMousePosition(MouseX, MouseY);
+        bool bIsInDeadZone = RobotCharacter->IsInControlDeadZone(MouseX, MouseY);
+        FLinearColor DrawColor = bIsInDeadZone ? FLinearColor::Green : FLinearColor::Red;
+        
+        DrawRect(DrawColor, MouseX, MouseY, 4, 4);
+        DrawLine(x1, y1, x2, y2, DrawColor, 2); 
+
+        if (!bIsInDeadZone)
+        {
+          FVector2D Intersection = RobotCharacter->GetControlEllipseIntersection(FVector2D(MouseX, MouseY));
+          DrawRect(FLinearColor::Green, Intersection.X, Intersection.Y, 4, 4);
+          DrawLine(CenterX, CenterY, Intersection.X, Intersection.Y, FLinearColor::Green, 2); 
+          DrawLine(Intersection.X, Intersection.Y, MouseX, MouseY, FLinearColor::Red, 2); 
+        }
+        else
+        {
+          DrawLine(CenterX, CenterY, MouseX, MouseY, FLinearColor::Red, 2); 
+        }
       }
     }
   }
-
 }
 
 float ARobotHUD::GetControlEllipseRadius(float theta, float a, float b)

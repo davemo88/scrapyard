@@ -548,10 +548,12 @@ void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssi
 
 bool ARobotCharacter::IsInControlDeadZone(float MouseX, float MouseY)
 {
-  uint32 CenterX = GSystemResolution.ResX / 2;
-  uint32 CenterY = GSystemResolution.ResY / 2;
-  uint32 HoritonzalSemiAxis = GSystemResolution.ResX / 10;
-  uint32 VerticalSemiAxis = GSystemResolution.ResY / 10;
+  const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+
+  float CenterX = ViewSize.X / 2;
+  float CenterY = ViewSize.Y / 2;
+  float HoritonzalSemiAxis = ViewSize.X / 10;
+  float VerticalSemiAxis = ViewSize.Y / 10;
 
   return FMath::Square(MouseX - CenterX) / FMath::Square(HoritonzalSemiAxis) + (FMath::Square(MouseY - CenterY)) / FMath::Square(VerticalSemiAxis) <= 1;
 
