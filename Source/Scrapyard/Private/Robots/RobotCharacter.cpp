@@ -16,6 +16,7 @@
 #include "UI/RobotHUDWidget.h"
 #include "Parts/HandheldPart.h"
 #include "Blueprint/UserWidget.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "DrawDebugHelpers.h"
 #include "UnrealNetwork.h"
 #include "Math/UnrealMathVectorConstants.h"
@@ -567,17 +568,22 @@ float ARobotCharacter::GetTurnRate(FVector2D MousePosition)
 
 FVector2D ARobotCharacter::GetControlEllipseIntersection(FVector2D MousePosition)
 {
-  uint32 CenterX = GSystemResolution.ResX / 2;
-  uint32 CenterY = GSystemResolution.ResY / 2;
+  const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+
+  float CenterX = ViewSize.X / 2;
+  float CenterY = ViewSize.Y / 2;
+  float HoritonzalSemiAxis = ViewSize.X / 10;
+  float VerticalSemiAxis = ViewSize.Y / 10;
+
   FVector2D CenteredMousePos = FVector2D(MousePosition.X - CenterX, MousePosition.Y - CenterY);
 
 // slope of line from origin to cursor position
   float m = CenteredMousePos.Y / CenteredMousePos.X;
 
 // control ellipse horizontal axis
-  uint32 a = GSystemResolution.ResX / 10;
+  uint32 a = ViewSize.X / 10;
 // control ellipse vertical axis
-  uint32 b = GSystemResolution.ResY / 10;
+  uint32 b = ViewSize.Y / 10;
 
 // intersection between line from origin to mouse and ellipse
   FVector2D CenteredIntersection;

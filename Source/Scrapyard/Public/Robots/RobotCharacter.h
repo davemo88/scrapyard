@@ -170,6 +170,10 @@ public:
   virtual bool IsTargetableBy(ARobotCharacter* Robot) override;
 //  virtual bool IsTargetableBy_Implementation(ARobotCharacter* Robot) override;
 
+  bool IsInControlDeadZone(float MouseX, float MouseY);
+  float GetTurnRate(FVector2D MousePosition);
+  FVector2D GetControlEllipseIntersection(FVector2D MousePosition);
+
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
@@ -190,10 +194,5 @@ protected:
 
 // for experimental movement controls
   bool bExperimentalControls;
-
-  bool IsInControlDeadZone(float MouseX, float MouseY);
-  float GetTurnRate(FVector2D MousePosition);
-
-  FVector2D GetControlEllipseIntersection(FVector2D MousePosition);
 
 };

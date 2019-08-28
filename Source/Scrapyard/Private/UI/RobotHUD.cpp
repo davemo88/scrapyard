@@ -190,26 +190,60 @@ void ARobotHUD::DrawControlEllipse()
         x2 += CenterX;
         y2 += CenterY;
 //        UE_LOG(LogTemp, Warning, TEXT("Centered: x1 - %f y1 - %f x2 - %f y2 - %f "), x1, y1, x2, y2);
-        float MouseX;
-        float MouseY;
-        RobotPC->GetMousePosition(MouseX, MouseY);
-        bool bIsInDeadZone = RobotCharacter->IsInControlDeadZone(MouseX, MouseY);
-        FLinearColor DrawColor = bIsInDeadZone ? FLinearColor::Green : FLinearColor::Red;
+//        FLinearColor DrawColor = bIsInDeadZone ? FLinearColor::Red: FLinearColor::Green;
         
-        DrawRect(DrawColor, MouseX, MouseY, 4, 4);
-        DrawLine(x1, y1, x2, y2, DrawColor, 2); 
+//        DrawLine(x1, y1, x2, y2, DrawColor, 2); 
+        DrawLine(x1, y1, x2, y2, FLinearColor::Red, 2); 
 
-        if (!bIsInDeadZone)
-        {
-          FVector2D Intersection = RobotCharacter->GetControlEllipseIntersection(FVector2D(MouseX, MouseY));
-          DrawRect(FLinearColor::Green, Intersection.X, Intersection.Y, 4, 4);
-          DrawLine(CenterX, CenterY, Intersection.X, Intersection.Y, FLinearColor::Green, 2); 
-          DrawLine(Intersection.X, Intersection.Y, MouseX, MouseY, FLinearColor::Red, 2); 
-        }
-        else
-        {
-          DrawLine(CenterX, CenterY, MouseX, MouseY, FLinearColor::Red, 2); 
-        }
+      }
+
+
+      float MouseX;
+      float MouseY;
+      RobotPC->GetMousePosition(MouseX, MouseY);
+
+//      DrawRect(FLinearColor::Green, MouseX, MouseY, 4, 4);
+
+      bool bIsInDeadZone = RobotCharacter->IsInControlDeadZone(MouseX, MouseY);
+      if (!bIsInDeadZone)
+      {
+        FVector2D Intersection = RobotCharacter->GetControlEllipseIntersection(FVector2D(MouseX, MouseY));
+        DrawLine(CenterX, CenterY, Intersection.X, Intersection.Y, FLinearColor::Red, 2); 
+        DrawLine(Intersection.X, Intersection.Y, MouseX, MouseY, FLinearColor::Blue, 2); 
+// treat center of viewport as origin
+        float CenteredMouseX = MouseX - CenterX;
+// top left is 0,0 in viewport space
+        float CenteredMouseY = -(MouseY - CenterY);
+
+        float LeftEdgeX = -CenteredMouseX;
+        float RightEdgeX = CenteredMouseX;
+        float TopEdgeY = CenteredMouseY;
+        float BottomEdgeY = -CenteredMouseY;
+//        FVector2D EdgeIntersection = FVector2D(CenterY / (CenteredMouseY / CenteredMouseX) + CenterY, CenterX * CenteredMouseY / CenteredMouseY + CenterX);
+        float m = CenteredMouseY / CenteredMouseX;
+//        UE_LOG(LogTemp, Warning, TEXT("mouse slope: %f"), m);
+//        float EdgeIntersectionX = CenteredMouseX < 0 
+//          ? FMath::Max(-CenterX, (CenterY / m )) + CenterX
+//          : FMath::Min(CenterX, (CenterY / m )) + CenterX;
+//        float EdgeIntersectionY = CenteredMouseY < 0 
+//          ? FMath::Max(-CenterY, (CenterX * m )) - CenterY
+//          : FMath::Min(CenterY, (CenterX * m )) - CenterY;
+        float EdgeIntersectionX = FMath::Clamp((CenterY / m), -CenterX, CenterX) + CenterX;
+        float EdgeIntersectionY = FMath::Clamp((CenterX * m), -CenterY, CenterY) + CenterY;
+//        float EdgeIntersectionX = FMath::Clamp((CenterY / m), -CenterX, CenterX) + CenterX;
+//        float EdgeIntersectionY = m > 0
+//          ? FMath::Clamp((CenterX * m), -CenterY, CenterY) - CenterY
+//          : FMath::Clamp((CenterX * m), -CenterY, CenterY) + CenterY;
+        UE_LOG(LogTemp, Warning, TEXT("MouseX: %f MouseY: %f"), MouseX, MouseY);
+        UE_LOG(LogTemp, Warning, TEXT("CenteredMouseX: %f CenteredMouseY: %f m: %f"), CenteredMouseX, CenteredMouseY, m);
+        UE_LOG(LogTemp, Warning, TEXT("EdgeIntersectionX: %f EdgeIntersectionY: %f"), EdgeIntersectionX, EdgeIntersectionY);
+//        DrawLine(MouseX, MouseY, EdgeIntersectionX, EdgeIntersectionY, FLinearColor::Red, 2); 
+        DrawLine(MouseX, MouseY, EdgeIntersectionX, EdgeIntersectionY, FLinearColor::Red, 2); 
+        DrawRect(FLinearColor::Green, Intersection.X, Intersection.Y, 4, 4);
+      }
+      else
+      {
+        DrawLine(CenterX, CenterY, MouseX, MouseY, FLinearColor::Red, 2); 
       }
     }
   }
