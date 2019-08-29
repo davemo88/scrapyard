@@ -31,7 +31,7 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
   PrimaryActorTick.bCanEverTick = true;
 
-  bExperimentalControls = false;
+  ControlType = EControlType::CONTROL_Normal;
 
   bReplicates = true;
   bAlwaysRelevant = true;
@@ -281,7 +281,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 //  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
 
-  if (bExperimentalControls)
+  if (ControlType != EControlType::CONTROL_Normal)
   {
     ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController());
     if (PC)
@@ -289,18 +289,16 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
       float MouseX;
       float MouseY;
       PC->GetMousePosition(MouseX, MouseY);
-  
-      MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-      MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
+
+      const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
   
   //    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
   
-  //    uint32 MaxX = GSystemResolution.ResX;
-      uint32 CenterX = GSystemResolution.ResX / 2;
+      float CenterX = ViewSize.X / 2;
   // rectangular deadzone
-      uint32 DeadZoneHalfWidth = GSystemResolution.ResX / 10;
-      uint32 DeadZoneMin = CenterX - DeadZoneHalfWidth;
-      uint32 DeadZoneMax = CenterX + DeadZoneHalfWidth;
+      float DeadZoneHalfWidth = ViewSize.X / 10;
+      float DeadZoneMin = CenterX - DeadZoneHalfWidth;
+      float DeadZoneMax = CenterX + DeadZoneHalfWidth;
   
   //    UE_LOG(LogCharacter, Log, TEXT("Center X: %i"), CenterX);
       float TurnRate = 0;
@@ -340,7 +338,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
-  if (bExperimentalControls)
+  if (ControlType != EControlType::CONTROL_Normal)
   {
     float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
   //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - value: %f time: %f"), AxisValue, realtimeSeconds);
@@ -350,10 +348,9 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
       float MouseX;
       float MouseY;
       PC->GetMousePosition(MouseX, MouseY);
-  
-      MouseX = FMath::Clamp(MouseX, 0.0f, float(GSystemResolution.ResX));
-      MouseY = FMath::Clamp(MouseY, 0.0f, float(GSystemResolution.ResY));
-  //    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
+
+      const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+//      UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
   
       float TurnRate = 0;
   
@@ -553,16 +550,48 @@ bool ARobotCharacter::IsInControlDeadZone(float MouseX, float MouseY)
 
   float CenterX = ViewSize.X / 2;
   float CenterY = ViewSize.Y / 2;
-  float HoritonzalSemiAxis = ViewSize.X / 10;
-  float VerticalSemiAxis = ViewSize.Y / 10;
 
-  return FMath::Square(MouseX - CenterX) / FMath::Square(HoritonzalSemiAxis) + (FMath::Square(MouseY - CenterY)) / FMath::Square(VerticalSemiAxis) <= 1;
+  if (ControlType == EControlType::CONTROL_Ellipse)
+  {
+    float HoritonzalSemiAxis = ViewSize.X / 10;
+    float VerticalSemiAxis = ViewSize.Y / 10;
+  
+    return FMath::Square(MouseX - CenterX) / FMath::Square(HoritonzalSemiAxis) + (FMath::Square(MouseY - CenterY)) / FMath::Square(VerticalSemiAxis) <= 1;
+  }
+  else if (ControlType == EControlType::CONTROL_Rectangle)
+  {
+    float DeadZoneHalfWidth = ViewSize.X / 10;
+    float DeadZoneMin = CenterX - DeadZoneHalfWidth;
+    float DeadZoneMax = CenterX + DeadZoneHalfWidth;
+     
+    return MouseX > DeadZoneMax || MouseX < DeadZoneMin;
+  }
+
+  return true;
 
 }
 
-float ARobotCharacter::GetTurnRate(FVector2D MousePosition)
+float ARobotCharacter::GetTurnRate(float MouseX, float MouseY)
 {
-  FVector2D ControlEllipseIntersection = GetControlEllipseIntersection(MousePosition);
+  const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+
+  float CenterX = ViewSize.X / 2;
+  float CenterY = ViewSize.Y / 2;
+
+  if (ControlType == EControlType::CONTROL_Ellipse)
+  {
+    float HoritonzalSemiAxis = ViewSize.X / 10;
+    float VerticalSemiAxis = ViewSize.Y / 10;
+  
+  }
+  else if (ControlType == EControlType::CONTROL_Rectangle)
+  {
+    float DeadZoneHalfWidth = ViewSize.X / 10;
+    float DeadZoneMin = CenterX - DeadZoneHalfWidth;
+    float DeadZoneMax = CenterX + DeadZoneHalfWidth;
+     
+  }
+  FVector2D ControlEllipseIntersection = GetControlEllipseIntersection(FVector2D(MouseX, MouseY));
   return 0.0f;
 }
 
@@ -572,8 +601,6 @@ FVector2D ARobotCharacter::GetControlEllipseIntersection(FVector2D MousePosition
 
   float CenterX = ViewSize.X / 2;
   float CenterY = ViewSize.Y / 2;
-  float HoritonzalSemiAxis = ViewSize.X / 10;
-  float VerticalSemiAxis = ViewSize.Y / 10;
 
   FVector2D CenteredMousePos = FVector2D(MousePosition.X - CenterX, MousePosition.Y - CenterY);
 
@@ -595,3 +622,7 @@ FVector2D ARobotCharacter::GetControlEllipseIntersection(FVector2D MousePosition
   return FVector2D(CenteredIntersection.X + CenterX, CenteredIntersection.Y + CenterY);
 }
 
+FVector2D ARobotCharacter::GetControlEdgeIntersection(FVector2D MousePosition)
+{
+  
+}

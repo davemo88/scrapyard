@@ -21,6 +21,14 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHitPointsChangedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPowerChangedDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FZeroHitPointsDelegate);
 
+UENUM()
+enum class EControlType : uint8
+{
+  CONTROL_Normal,
+  CONTROL_Rectangle,
+  CONTROL_Ellipse
+};
+
 UCLASS()
 class SCRAPYARD_API ARobotCharacter : public ACharacter, public ITargetableInterface
 {
@@ -170,9 +178,15 @@ public:
   virtual bool IsTargetableBy(ARobotCharacter* Robot) override;
 //  virtual bool IsTargetableBy_Implementation(ARobotCharacter* Robot) override;
 
+// for experimental movement controls
+  EControlType ControlType;
+
   bool IsInControlDeadZone(float MouseX, float MouseY);
-  float GetTurnRate(FVector2D MousePosition);
+
+  float GetTurnRate(float MouseX, float MouseY);
+
   FVector2D GetControlEllipseIntersection(FVector2D MousePosition);
+  FVector2D GetControlEdgeIntersection(FVector2D MousePosition);
 
 protected:
   // Called when the game starts or when spawned
@@ -191,8 +205,5 @@ protected:
   void OnStatsUpdated();
 
   friend class URobotTunerWidget;
-
-// for experimental movement controls
-  bool bExperimentalControls;
 
 };

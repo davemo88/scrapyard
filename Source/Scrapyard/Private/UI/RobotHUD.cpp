@@ -213,31 +213,22 @@ void ARobotHUD::DrawControlEllipse()
 // treat center of viewport as origin
         float CenteredMouseX = MouseX - CenterX;
 // top left is 0,0 in viewport space
-        float CenteredMouseY = -(MouseY - CenterY);
+        float CenteredMouseY = CenterY - MouseY;
 
-        float LeftEdgeX = -CenteredMouseX;
-        float RightEdgeX = CenteredMouseX;
-        float TopEdgeY = CenteredMouseY;
-        float BottomEdgeY = -CenteredMouseY;
-//        FVector2D EdgeIntersection = FVector2D(CenterY / (CenteredMouseY / CenteredMouseX) + CenterY, CenterX * CenteredMouseY / CenteredMouseY + CenterX);
         float m = CenteredMouseY / CenteredMouseX;
-//        UE_LOG(LogTemp, Warning, TEXT("mouse slope: %f"), m);
-//        float EdgeIntersectionX = CenteredMouseX < 0 
-//          ? FMath::Max(-CenterX, (CenterY / m )) + CenterX
-//          : FMath::Min(CenterX, (CenterY / m )) + CenterX;
-//        float EdgeIntersectionY = CenteredMouseY < 0 
-//          ? FMath::Max(-CenterY, (CenterX * m )) - CenterY
-//          : FMath::Min(CenterY, (CenterX * m )) - CenterY;
-        float EdgeIntersectionX = FMath::Clamp((CenterY / m), -CenterX, CenterX) + CenterX;
-        float EdgeIntersectionY = FMath::Clamp((CenterX * m), -CenterY, CenterY) + CenterY;
-//        float EdgeIntersectionX = FMath::Clamp((CenterY / m), -CenterX, CenterX) + CenterX;
-//        float EdgeIntersectionY = m > 0
-//          ? FMath::Clamp((CenterX * m), -CenterY, CenterY) - CenterY
-//          : FMath::Clamp((CenterX * m), -CenterY, CenterY) + CenterY;
-        UE_LOG(LogTemp, Warning, TEXT("MouseX: %f MouseY: %f"), MouseX, MouseY);
-        UE_LOG(LogTemp, Warning, TEXT("CenteredMouseX: %f CenteredMouseY: %f m: %f"), CenteredMouseX, CenteredMouseY, m);
-        UE_LOG(LogTemp, Warning, TEXT("EdgeIntersectionX: %f EdgeIntersectionY: %f"), EdgeIntersectionX, EdgeIntersectionY);
-//        DrawLine(MouseX, MouseY, EdgeIntersectionX, EdgeIntersectionY, FLinearColor::Red, 2); 
+
+        float EdgeIntersectionX = CenteredMouseX > 0 
+          ? FMath::Min(CenterX, FMath::Abs((CenterY / m))) + CenterX
+          : FMath::Max(-CenterX, -FMath::Abs((CenterY / m))) + CenterX;
+        float EdgeIntersectionY = CenteredMouseY > 0 
+          ? CenterY - FMath::Min(CenterY, FMath::Abs(CenterX * m)) 
+          : CenterY - FMath::Max(-CenterY, -FMath::Abs(CenterX * m));
+//        UE_LOG(LogTemp, Warning, TEXT("CenterY / m = %f"), CenterY / m);
+//        UE_LOG(LogTemp, Warning, TEXT("CenterX * m = %f"), CenterX * m);
+//        UE_LOG(LogTemp, Warning, TEXT("MouseX: %f MouseY: %f"), MouseX, MouseY);
+//        UE_LOG(LogTemp, Warning, TEXT("CenterX: %f CenterY: %f"), CenterX, CenterY);
+//        UE_LOG(LogTemp, Warning, TEXT("CenteredMouseX: %f CenteredMouseY: %f m: %f"), CenteredMouseX, CenteredMouseY, m);
+//        UE_LOG(LogTemp, Warning, TEXT("EdgeIntersectionX: %f EdgeIntersectionY: %f"), EdgeIntersectionX, EdgeIntersectionY);
         DrawLine(MouseX, MouseY, EdgeIntersectionX, EdgeIntersectionY, FLinearColor::Red, 2); 
         DrawRect(FLinearColor::Green, Intersection.X, Intersection.Y, 4, 4);
       }
