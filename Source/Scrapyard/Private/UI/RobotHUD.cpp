@@ -14,58 +14,24 @@ ARobotHUD::ARobotHUD()
 void ARobotHUD::DrawHUD()
 {
   Super::DrawHUD();
-//  DrawTargetingSystem();
-  DrawControlEllipse();
-//  DrawLine(20,20,40,40,FLinearColor(FColor::Red),10);
-//  DrawRect(FLinearColor(FColor::Blue),70,60,50,50); 
-//      FVector RelativeCenter = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
-//      FVector WorldCenter = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
-//
-//      FVector RelativeEdge = FVector(RobotCharacter->RobotTargetingComponent->GetRange(),0,0);
-//      FVector WorldEdge = RobotCharacter->GetActorLocation() + RobotCharacter->GetViewRotation().RotateVector(RelativeCenter);
 
-//      FVector2D CenterScreenLoc = Project(WorldCenter);
+  DrawTargetingSystem();
 
+  if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(GetOwningPlayerController()))
+  {
+    if (ARobotCharacter* RobotCharacter = RobotPC->GetRobotCharacter())
+    {
+      switch (RobotCharacter->ControlType) {
+        case EControlType::CONTROL_Rectangle:
+          DrawControlRectangle();
+          break;
+        case EControlType::CONTROL_Ellipse:
+          DrawControlEllipse();
+          break;
+      }
+    }
+  }
 
-//      TArray<FVector> FaceVerts = RoboChar->RobotTargetingComponent->GetBoxFaceVertices();
-////      FRotator TargetingRotation = RoboChar->RobotTargetingComponent->RelativeRotation;
-//      FRotator ViewRotation = RoboChar->GetViewRotation();
-//      FVector CharLoc = RoboChar->GetActorLocation();
-//
-//      TArray<FVector2D> TargetingVerts;
-//
-//      for (FVector Vec : FaceVerts)
-//      {
-//        FVector WorldVec = CharLoc + ViewRotation.RotateVector(Vec);
-//        TargetingVerts.Add(FVector2D(Project(WorldVec)));
-//      }
-//
-//      uint32 j;
-////      for (uint32 i = 0; i < TargetingVerts.Num(); ++i)
-////      far face verts
-//      for (uint32 i = 0; i < 4; i+=2)
-//      {
-//        j = (i+1) % 4;
-//        DrawLine(
-//            TargetingVerts[i].X,
-//            TargetingVerts[i].Y,
-//            TargetingVerts[j].X,
-//            TargetingVerts[j].Y,
-//            GetTargetingColor(),
-//            2);
-//      }
-//// close face verts
-//      for (uint32 i = 4; i < 8; ++i)
-//      {
-//        j = (i) % 4;
-//        DrawLine(
-//            TargetingVerts[i].X,
-//            TargetingVerts[i].Y,
-//            TargetingVerts[j].X,
-//            TargetingVerts[j].Y,
-//            GetTargetingColor(),
-//            2);
-//      }
 }
 
 void ARobotHUD::DrawTargetingSystem()
@@ -142,10 +108,77 @@ void ARobotHUD::DrawTargetBox(AActor* Target)
 
 }
 
+void ARobotHUD::DrawControlRectangle()
+{
+  if (ARobotPlayerController* RobotPC = Cast<ARobotPlayerController>(GetOwningPlayerController()))
+  {
+    if (ARobotCharacter* RobotCharacter = RobotPC->GetRobotCharacter())
+    {
+      FIntPoint MousePoint;
+      GetWorld()->GetGameViewport()->Viewport->GetMousePos(MousePoint);
+      FVector2D Mouse = FVector2D(MousePoint);
+
+      const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+
+      const FVector2D Center = ViewSize / 2;
+      const FVector2D DeadZoneHalfWidth = ViewSize / 10;
+
+      const FVector2D DeadZoneMin = Center - DeadZoneHalfWidth;
+      const FVector2D DeadZoneMax = Center + DeadZoneHalfWidth;
+
+      FLinearColor XDeadZoneColor = FLinearColor::Black; 
+      FLinearColor YDeadZoneColor = FLinearColor::Black; 
+
+      if (!RobotCharacter->IsInXDeadZone(Mouse))
+      {
+        XDeadZoneColor = FLinearColor::Green;
+        if (Mouse.X < Center.X)
+        {
+          DrawLine(DeadZoneMin.X, Mouse.Y, Mouse.X, Mouse.Y, FLinearColor::Blue);
+          DrawLine(0, Mouse.Y, Mouse.X, Mouse.Y, FLinearColor::Black);
+        }
+        else
+        {
+          DrawLine(DeadZoneMax.X, Mouse.Y, Mouse.X, Mouse.Y, FLinearColor::Blue);
+          DrawLine(ViewSize.X, Mouse.Y, Mouse.X, Mouse.Y, FLinearColor::Black);
+        }
+      }
+
+      if (!RobotCharacter->IsInYDeadZone(Mouse))
+      {
+        XDeadZoneColor = FLinearColor::Green;
+        YDeadZoneColor = FLinearColor::Green;
+
+        if (Mouse.Y < Center.Y)
+        {
+          DrawLine(Mouse.X, DeadZoneMin.Y, Mouse.X, Mouse.Y, FLinearColor::Blue);
+          DrawLine(Mouse.X, 0, Mouse.X, Mouse.Y, FLinearColor::Black);
+        }
+        else
+        {
+          DrawLine(Mouse.X, DeadZoneMax.Y, Mouse.X, Mouse.Y, FLinearColor::Blue);
+          DrawLine(Mouse.X, ViewSize.Y, Mouse.X, Mouse.Y, FLinearColor::Black);
+        }
+      }
+
+      DrawLine(DeadZoneMin.X, 0, DeadZoneMin.X, ViewSize.Y, XDeadZoneColor, 2); 
+      DrawLine(DeadZoneMax.X, 0, DeadZoneMax.X, ViewSize.Y, XDeadZoneColor, 2); 
+      DrawLine(0, DeadZoneMin.Y, ViewSize.X, DeadZoneMin.Y, YDeadZoneColor, 2); 
+      DrawLine(0, DeadZoneMax.Y, ViewSize.X, DeadZoneMax.Y, YDeadZoneColor, 2); 
+
+//      const FVector2D XDeadZoneIntersection = FVector2D()
+
+//      DrawLine(0, DeadZoneMin.X, ViewSize.Y, DeadZoneMin.X, FLinearColor::Black, 2); 
+//      DrawLine(0, DeadZoneMax.X, ViewSize.Y, DeadZoneMax.X, FLinearColor::Black, 2); 
+
+      DrawRect(FLinearColor::Green, Mouse.X, Mouse.Y, 4, 4);
+    }
+  }
+}
+
 void ARobotHUD::DrawControlEllipse()
 {
   const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
-
 
   float CenterX = ViewSize.X / 2.0f;
   float CenterY = ViewSize.Y / 2.0f;
@@ -161,10 +194,12 @@ void ARobotHUD::DrawControlEllipse()
   {
     if (ARobotCharacter* RobotCharacter = RobotPC->GetRobotCharacter())
     {
+// polar coordinates
       float theta1;
       float r1;
       float theta2;
       float r2;
+// cartesian
       float x1;
       float y1;
       float x2;
@@ -185,6 +220,7 @@ void ARobotHUD::DrawControlEllipse()
 //        UE_LOG(LogTemp, Warning, TEXT("a - %f b - %f "), a, b);
 //        UE_LOG(LogTemp, Warning, TEXT("x1 - %f y1 - %f x2 - %f y2 - %f "), x1, y1, x2, y2);
 //        UE_LOG(LogTemp, Warning, TEXT("theta1 - %f theta2 - %f r1 - %f r2 - %f "), theta1, theta2, r1, r2);
+// translate to viewport center
         x1 += CenterX;
         y1 += CenterY;
         x2 += CenterX;
@@ -193,7 +229,7 @@ void ARobotHUD::DrawControlEllipse()
 //        FLinearColor DrawColor = bIsInDeadZone ? FLinearColor::Red: FLinearColor::Green;
         
 //        DrawLine(x1, y1, x2, y2, DrawColor, 2); 
-        DrawLine(x1, y1, x2, y2, FLinearColor::Red, 2); 
+        DrawLine(x1, y1, x2, y2, FLinearColor::Black, 2); 
 
       }
 
@@ -201,15 +237,23 @@ void ARobotHUD::DrawControlEllipse()
       float MouseX;
       float MouseY;
       RobotPC->GetMousePosition(MouseX, MouseY);
+      FVector2D Mouse = FVector2D(MouseX, MouseY);
 
 //      DrawRect(FLinearColor::Green, MouseX, MouseY, 4, 4);
 
-      bool bIsInDeadZone = RobotCharacter->IsInControlDeadZone(MouseX, MouseY);
+      bool bIsInDeadZone = RobotCharacter->IsInControlEllipse(Mouse);
       if (!bIsInDeadZone)
       {
         FVector2D Intersection = RobotCharacter->GetControlEllipseIntersection(FVector2D(MouseX, MouseY));
-        DrawLine(CenterX, CenterY, Intersection.X, Intersection.Y, FLinearColor::Red, 2); 
+        DrawLine(CenterX, CenterY, Intersection.X, Intersection.Y, FLinearColor::Black, 2); 
         DrawLine(Intersection.X, Intersection.Y, MouseX, MouseY, FLinearColor::Blue, 2); 
+
+        DrawLine(Intersection.X, Intersection.Y, MouseX, Intersection.Y, FLinearColor::Blue, 2); 
+        DrawLine(MouseX, Intersection.Y, MouseX < CenterX ? 0 : ViewSize.X, Intersection.Y, FLinearColor::Black, 2); 
+
+        DrawLine(Intersection.X, Intersection.Y, Intersection.X, MouseY, FLinearColor::Blue, 2); 
+        DrawLine(Intersection.X, MouseY, Intersection.X, MouseY < CenterY ? 0 : ViewSize.Y, FLinearColor::Black, 2); 
+
 // treat center of viewport as origin
         float CenteredMouseX = MouseX - CenterX;
 // top left is 0,0 in viewport space
@@ -229,12 +273,14 @@ void ARobotHUD::DrawControlEllipse()
 //        UE_LOG(LogTemp, Warning, TEXT("CenterX: %f CenterY: %f"), CenterX, CenterY);
 //        UE_LOG(LogTemp, Warning, TEXT("CenteredMouseX: %f CenteredMouseY: %f m: %f"), CenteredMouseX, CenteredMouseY, m);
 //        UE_LOG(LogTemp, Warning, TEXT("EdgeIntersectionX: %f EdgeIntersectionY: %f"), EdgeIntersectionX, EdgeIntersectionY);
-        DrawLine(MouseX, MouseY, EdgeIntersectionX, EdgeIntersectionY, FLinearColor::Red, 2); 
+        DrawLine(MouseX, MouseY, EdgeIntersectionX, EdgeIntersectionY, FLinearColor::Black, 2); 
         DrawRect(FLinearColor::Green, Intersection.X, Intersection.Y, 4, 4);
+        DrawRect(FLinearColor::Green, MouseX, MouseY, 4, 4);
+
       }
       else
       {
-        DrawLine(CenterX, CenterY, MouseX, MouseY, FLinearColor::Red, 2); 
+        DrawLine(CenterX, CenterY, MouseX, MouseY, FLinearColor::Black, 2); 
       }
     }
   }

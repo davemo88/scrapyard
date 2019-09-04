@@ -181,12 +181,12 @@ public:
 // for experimental movement controls
   EControlType ControlType;
 
-  bool IsInControlDeadZone(float MouseX, float MouseY);
+  FVector2D GetControlEllipseIntersection(FVector2D Mouse);
 
-  float GetTurnRate(float MouseX, float MouseY);
+  bool IsInControlEllipse(FVector2D Mouse);
 
-  FVector2D GetControlEllipseIntersection(FVector2D MousePosition);
-  FVector2D GetControlEdgeIntersection(FVector2D MousePosition);
+  bool IsInXDeadZone(FVector2D Mouse);
+  bool IsInYDeadZone(FVector2D Mouse);
 
 protected:
   // Called when the game starts or when spawned

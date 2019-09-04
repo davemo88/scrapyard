@@ -26,6 +26,8 @@ protected:
   
   virtual FLinearColor GetTargetingColor();
 
+  virtual void DrawControlRectangle();
+
   virtual void DrawControlEllipse();
 
   virtual float GetControlEllipseRadius(float theta, float a, float b);
