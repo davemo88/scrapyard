@@ -181,6 +181,8 @@ public:
 // for experimental movement controls
   EControlType ControlType;
 
+  FVector2D GetDeadZoneHalfWidth();
+
   FVector2D GetControlEllipseIntersection(FVector2D Mouse);
 
   bool IsInControlEllipse(FVector2D Mouse);

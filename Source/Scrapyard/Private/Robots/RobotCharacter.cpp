@@ -324,7 +324,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 
     const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
     const FVector2D Center = ViewSize / 2;
-    const FVector2D DeadZoneHalfWidth = ViewSize / 10;
+    const FVector2D DeadZoneHalfWidth = GetDeadZoneHalfWidth();
 
     if (!IsInXDeadZone(Mouse))
     {
@@ -396,7 +396,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 
     const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
     const FVector2D Center = ViewSize / 2;
-    const FVector2D DeadZoneHalfWidth = ViewSize / 10;
+    const FVector2D DeadZoneHalfWidth = GetDeadZoneHalfWidth();
 
     if (!IsInYDeadZone(Mouse))
     {
@@ -598,9 +598,9 @@ FVector2D ARobotCharacter::GetControlEllipseIntersection(FVector2D Mouse)
   float m = CenteredMousePos.Y / CenteredMousePos.X;
 
 // control ellipse horizontal axis
-  uint32 a = ViewSize.X / 10;
+  float a = GetDeadZoneHalfWidth().X;
 // control ellipse vertical axis
-  uint32 b = ViewSize.Y / 10;
+  float b = GetDeadZoneHalfWidth().Y;
 
 // intersection between line from origin to mouse and ellipse
   FVector2D CenteredIntersection;
@@ -616,7 +616,7 @@ bool ARobotCharacter::IsInControlEllipse(FVector2D Mouse)
 {
   const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
   const FVector2D Center = ViewSize / 2;
-  const FVector2D Axes = ViewSize / 10;
+  const FVector2D Axes = GetDeadZoneHalfWidth();
   
   return FMath::Square(Mouse.X - Center.X) / FMath::Square(Axes.X) + (FMath::Square(Mouse.Y - Center.Y)) / FMath::Square(Axes.Y) <= 1;
 }
@@ -625,7 +625,7 @@ bool ARobotCharacter::IsInXDeadZone(FVector2D Mouse)
 {
   const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
   const FVector2D Center = ViewSize / 2;
-  const FVector2D DeadZoneHalfWidth = ViewSize / 10;
+  const FVector2D DeadZoneHalfWidth = GetDeadZoneHalfWidth();
   const FVector2D DeadZoneMin = Center - DeadZoneHalfWidth;
   const FVector2D DeadZoneMax = Center + DeadZoneHalfWidth;
 
@@ -636,10 +636,15 @@ bool ARobotCharacter::IsInYDeadZone(FVector2D Mouse)
 {
   const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
   const FVector2D Center = ViewSize / 2;
-  const FVector2D DeadZoneHalfWidth = ViewSize / 10;
+  const FVector2D DeadZoneHalfWidth = GetDeadZoneHalfWidth();
   const FVector2D DeadZoneMin = Center - DeadZoneHalfWidth;
   const FVector2D DeadZoneMax = Center + DeadZoneHalfWidth;
 
   return Mouse.Y > DeadZoneMin.Y  && Mouse.Y < DeadZoneMax.Y;
+}
+
+FVector2D ARobotCharacter::GetDeadZoneHalfWidth()
+{
+  return UWidgetLayoutLibrary::GetViewportSize(GetWorld()) / 10;
 }
 
