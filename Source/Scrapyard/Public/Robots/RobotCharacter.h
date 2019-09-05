@@ -207,5 +207,6 @@ protected:
   void OnStatsUpdated();
 
   friend class URobotTunerWidget;
+  void SetControlType(EControlType NewControlType) { ControlType = NewControlType; };
 
 };

@@ -32,8 +32,8 @@ ARobotCharacter::ARobotCharacter(const class FObjectInitializer& ObjectInitializ
   PrimaryActorTick.bCanEverTick = true;
 
 //  ControlType = EControlType::CONTROL_Normal;
-  ControlType = EControlType::CONTROL_Rectangle;
-//  ControlType = EControlType::CONTROL_Ellipse;
+//  ControlType = EControlType::CONTROL_Rectangle;
+  ControlType = EControlType::CONTROL_Ellipse;
 
   bReplicates = true;
   bAlwaysRelevant = true;
@@ -293,7 +293,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
   
       float TurnRate = 0;
   
-      if (!IsInControlEllipse(Mouse))
+      if (Mouse.X != -1 && !IsInControlEllipse(Mouse))
       {
         const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
         const float CenterX = ViewSize.X / 2;
@@ -326,7 +326,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
     const FVector2D Center = ViewSize / 2;
     const FVector2D DeadZoneHalfWidth = GetDeadZoneHalfWidth();
 
-    if (!IsInXDeadZone(Mouse))
+    if (Mouse.X != -1 && !IsInXDeadZone(Mouse))
     {
 //      UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), Mouse.X, Mouse.Y);
       float ControlMax = Center.X - DeadZoneHalfWidth.X;
@@ -365,7 +365,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
   
       float TurnRate = 0;
   
-      if (!IsInControlEllipse(Mouse))
+      if (Mouse.X != -1 && !IsInControlEllipse(Mouse))
       {
         const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
         const float CenterY = ViewSize.Y / 2;
@@ -398,7 +398,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
     const FVector2D Center = ViewSize / 2;
     const FVector2D DeadZoneHalfWidth = GetDeadZoneHalfWidth();
 
-    if (!IsInYDeadZone(Mouse))
+    if (Mouse.X != -1 && !IsInYDeadZone(Mouse))
     {
 //      UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), Mouse.Y, Mouse.Y);
       float ControlMax = Center.Y - DeadZoneHalfWidth.Y;
