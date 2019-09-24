@@ -68,7 +68,7 @@ void USoloDraftWidget::DisplayNextPack()
     Card->SetRobotPart(NextPack[i]);
     Card->CardClickedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDrafted);
     Card->CardDraggedDelegate.AddDynamic(this, &USoloDraftWidget::OnCardDragged);
-    Card->bHoverBorderActive = true;
+//    Card->bHoverBorderActive = true;
     Card->bCanBeDragged = true;
     PackDisplayPanel->AddChild(Card);
     if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))

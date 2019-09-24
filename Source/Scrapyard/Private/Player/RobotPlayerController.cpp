@@ -32,6 +32,12 @@ void ARobotPlayerController::BeginPlay()
 
   SetupMatchStatusWidget();
 
+// start with centered mouse
+  int32 SizeX;
+  int32 SizeY;
+  GetViewportSize(SizeX, SizeY);
+  SetMouseLocation(SizeX/2,SizeY/2);
+
 }
 
 void ARobotPlayerController::Tick(float DeltaTime)
@@ -252,3 +258,28 @@ void ARobotPlayerController::SetDefaultInputMode()
   FInputModeGameOnly InputMode = FInputModeGameOnly();
   SetInputMode(InputMode);
 }
+
+//void ARobotPlayerController::UpdateRotation(float DeltaTime)
+//{
+//  if (Role == ROLE_Authority)
+//  {
+//    UE_LOG(LogTemp, Warning, TEXT("Update Rotation called on the Server"));
+//  }
+//// probably don't want to call super actually
+////  Super::UpdateRotation(DeltaTime);
+//
+//  FRotator DeltaRotation(RotationInput);
+//  FRotator ViewRotation = GetControlRotation();
+//
+//  if (PlayerCameraManager)
+//  {
+//    PlayerCameraManager->ProcessViewRotation(DeltaTime, ViewRotation, DeltaRotation);
+//  }
+//
+//  SetControlRotation(ViewRotation);
+//
+//  if (APawn* const P = GetPawnOrSpectator())
+//  {
+//    P->FaceRotation(ViewRotation, DeltaTime);
+//  }
+//}

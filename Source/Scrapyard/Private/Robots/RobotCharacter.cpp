@@ -283,6 +283,9 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 //  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
 
+// TODO: get from parts
+  float MaxYawRate = 1.0f;
+
   if (ControlType == EControlType::CONTROL_Ellipse)
   {
     if (GetWorld())
@@ -307,10 +310,8 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
       }
   
       UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
-// maybe set this somewhere  
-      float MaxTurnRate = 1.0f;
   
-      AddControllerYawInput(TurnRate * MaxTurnRate);
+      AddControllerYawInput(TurnRate * MaxYawRate);
     }
   }
   else if (ControlType == EControlType::CONTROL_Rectangle)
@@ -337,10 +338,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 
 //    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
 
-//TODO: depends on parts
-    float MaxTurnRate = 1.0f;
-
-    AddControllerYawInput(TurnRate * MaxTurnRate);
+    AddControllerYawInput(TurnRate * MaxYawRate);
   }
   else
   {
@@ -349,12 +347,17 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 //  float ClampedValue = FMath::Clamp(AxisValue, -MaxTurnZ, MaxTurnZ);
 //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - ClampedValue : %f"), ClampedValue);
 //  AddControllerYawInput(ClampedValue);
-    AddControllerYawInput(AxisValue);
+    AddControllerYawInput(FMath::Clamp(AxisValue, -1.0f, 1.0f) * MaxYawRate);
   }
 }
 
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
+
+// TODO: depends on parts
+// TODO: serverside validation of turn rates
+  float MaxPitchRate = 1.0f;
+
   if (ControlType == EControlType::CONTROL_Ellipse)
   {
     if (GetWorld())
@@ -379,10 +382,8 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
       }
   
       UE_LOG(LogCharacter, Log, TEXT("TurnY Rate: %f"), TurnRate);
-// maybe set this somewhere  
-      float MaxTurnRate = 1.0f;
   
-      AddControllerPitchInput(TurnRate * MaxTurnRate);
+      AddControllerPitchInput(TurnRate * MaxPitchRate);
     }
   }
   else if (ControlType == EControlType::CONTROL_Rectangle)
@@ -409,9 +410,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 
 //    UE_LOG(LogCharacter, Log, TEXT("TurnY Rate: %f"), TurnRate);
 
-//TODO: depends on parts
-    float MaxTurnRate = 1.0f;
-    AddControllerPitchInput(TurnRate * MaxTurnRate);
+    AddControllerPitchInput(TurnRate * MaxPitchRate);
   }
   else
   {
@@ -421,7 +420,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - ClampedValue : %f"), ClampedValue);
 //
 //  AddControllerPitchInput(ClampedValue);
-    AddControllerPitchInput(AxisValue);
+    AddControllerPitchInput(FMath::Clamp(AxisValue, -1.0f, 1.0f) * MaxPitchRate);
   }
 }
 
@@ -645,6 +644,6 @@ bool ARobotCharacter::IsInYDeadZone(FVector2D Mouse)
 
 FVector2D ARobotCharacter::GetDeadZoneHalfWidth()
 {
-  return UWidgetLayoutLibrary::GetViewportSize(GetWorld()) / 10;
+  return UWidgetLayoutLibrary::GetViewportSize(GetWorld()) / DeadZoneFactor;
 }
 

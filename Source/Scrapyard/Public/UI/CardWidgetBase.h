@@ -42,7 +42,6 @@ public:
   FCardMouseEnteredDelegate CardMouseLeftDelegate;
 
   bool bHoverBorderActive = false;
-
   bool bCanBeDragged = false;
 
   FCardDraggedDelegate CardDraggedDelegate;

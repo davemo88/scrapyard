@@ -24,9 +24,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FZeroHitPointsDelegate);
 UENUM()
 enum class EControlType : uint8
 {
-  CONTROL_Normal,
-  CONTROL_Rectangle,
-  CONTROL_Ellipse
+  CONTROL_Normal        UMETA(DisplayName="Normal"),
+  CONTROL_Rectangle     UMETA(DisplayName="Rectangle"),
+  CONTROL_Ellipse       UMETA(DisplayName="Ellipse"),
+  CONTROL_Lerp          UMETA(DisplayName="Lerp")
 };
 
 UCLASS()
@@ -179,8 +180,11 @@ public:
 //  virtual bool IsTargetableBy_Implementation(ARobotCharacter* Robot) override;
 
 // for experimental movement controls
+  UPROPERTY(EditAnywhere)
   EControlType ControlType;
 
+  UPROPERTY(EditAnywhere)
+  uint32 DeadZoneFactor = 10;
   FVector2D GetDeadZoneHalfWidth();
 
   FVector2D GetControlEllipseIntersection(FVector2D Mouse);
@@ -207,6 +211,5 @@ protected:
   void OnStatsUpdated();
 
   friend class URobotTunerWidget;
-  void SetControlType(EControlType NewControlType) { ControlType = NewControlType; };
 
 };

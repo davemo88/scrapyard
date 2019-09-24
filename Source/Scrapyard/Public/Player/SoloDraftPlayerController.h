@@ -20,8 +20,8 @@ public:
 
   ASoloDraftPlayerController();
 
-  UFUNCTION()
-  void OnNextPack();
+//  UFUNCTION()
+//  void OnNextPack();
 
   UFUNCTION()
   void OnPartDrafted(URobotPart* DraftedPart);

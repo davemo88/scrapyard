@@ -54,6 +54,7 @@ FRobotTuneParams URobotTunerWidget::GetTuneParams()
 
   TuneParams.GroundFriction = GroundFrictionTextBox->GetText().ToString();
   TuneParams.BoostHoldThresholdTime = BoostHoldThresholdTimeTextBox->GetText().ToString();
+//  TuneParams.ControlType = 
   UE_LOG(LogUI, Log, TEXT("GetTuneParams BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
 
   return TuneParams;

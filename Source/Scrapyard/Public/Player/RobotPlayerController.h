@@ -32,6 +32,14 @@ public:
 
   virtual void Tick(float DeltaTime) override;
 
+//  virtual void ProcessPlayerInput(const float DeltaTime, const bool bGamePaused);
+//  virtual void PreProcessInput(const float DeltaTime, const bool bGamePaused);
+//  virtual void PostProcessInput(const float DeltaTime, const bool bGamePaused);
+
+// here we can limit the rotation of the player
+// called locally in PlayerTick function and in CharacterMovementComponent->ServerMove_Implementation
+//  virtual void UpdateRotation(float DeltaTime);
+
   UPROPERTY()
   URobotHUDWidget* RobotHUDWidget;
 
