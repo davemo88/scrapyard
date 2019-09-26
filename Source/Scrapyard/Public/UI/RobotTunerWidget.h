@@ -24,6 +24,10 @@ struct FRobotTuneParams
 
   UPROPERTY()
   FString ControlType;
+  UPROPERTY()
+  FString DeadZoneSize;
+  UPROPERTY()
+  FString MaxPitchRate;
 };
 
 /**
@@ -50,11 +54,16 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UEditableTextBox* BoostHoldThresholdTimeTextBox;
 
-  UPROPERTY(meta=(BindWidget))
-  UButton* SetNewTuneButton;
-
+// control options
   UPROPERTY(meta=(BindWidget))
   UComboBoxString* ControlTypeComboBox;
+  UPROPERTY(meta=(BindWidget))
+  UEditableTextBox* DeadZoneSizeTextBox;
+  UPROPERTY(meta=(BindWidget))
+  UEditableTextBox* MaxPitchRateTextBox;
+
+  UPROPERTY(meta=(BindWidget))
+  UButton* SetNewTuneButton;
 
   UFUNCTION()
   void SetNewTune();

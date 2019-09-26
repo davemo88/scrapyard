@@ -252,6 +252,9 @@ void ARobotPlayerController::ApplyTuneParams(FRobotTuneParams TuneParams)
     }
     const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EControlType"), true);
     RobotCharacter->ControlType = (EControlType)EnumPtr->GetIndexByNameString(TuneParams.ControlType);
+
+    RobotCharacter->DeadZoneFactor = FCString::Atof(*TuneParams.DeadZoneSize);
+    RobotCharacter->MaxPitchRate = FCString::Atof(*TuneParams.MaxPitchRate);
   }
 }
 

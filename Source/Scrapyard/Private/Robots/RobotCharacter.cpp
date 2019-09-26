@@ -339,9 +339,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 void ARobotCharacter::Axis_TurnY(float AxisValue)
 {
 
-// TODO: depends on parts
 // TODO: serverside validation of turn rates
-  float MaxPitchRate = 1.0f;
   float TurnRate = 0;
 
   if (ControlType == EControlType::CONTROL_Ellipse)

@@ -37,6 +37,8 @@ void URobotTunerWidget::SetRobotChar(ARobotCharacter* NewRobotChar)
 
     const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EControlType"), true);
     ControlTypeComboBox->SetSelectedOption(EnumPtr->GetNameStringByValue((int64)RobotChar->ControlType));
+    DeadZoneSizeTextBox->SetText(FText::AsNumber(RobotChar->DeadZoneFactor));
+    MaxPitchRateTextBox->SetText(FText::AsNumber(RobotChar->MaxPitchRate));
   }
 
   if (RobotMovementComp)
@@ -67,6 +69,8 @@ FRobotTuneParams URobotTunerWidget::GetTuneParams()
   TuneParams.GroundFriction = GroundFrictionTextBox->GetText().ToString();
   TuneParams.BoostHoldThresholdTime = BoostHoldThresholdTimeTextBox->GetText().ToString();
   TuneParams.ControlType = ControlTypeComboBox->GetSelectedOption();
+  TuneParams.DeadZoneSize = DeadZoneSizeTextBox->GetText().ToString();
+  TuneParams.MaxPitchRate = MaxPitchRateTextBox->GetText().ToString();
 //  TuneParams.ControlType = 
   UE_LOG(LogUI, Log, TEXT("GetTuneParams BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
 

@@ -194,6 +194,9 @@ public:
   bool IsInXDeadZone(FVector2D Mouse);
   bool IsInYDeadZone(FVector2D Mouse);
 
+  UPROPERTY(EditAnywhere)
+  float MaxPitchRate = 1.0f;
+
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
