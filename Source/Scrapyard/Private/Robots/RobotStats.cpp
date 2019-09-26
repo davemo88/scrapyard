@@ -58,6 +58,8 @@ void URobotStats::UpdateStats()
     EMShield += Legs->EMShield;
     PowerDrain += Legs->PowerDrain;
     MovementSpeed = Legs->MovementSpeed;
+
+    TurningSpeed = Legs->TurningSpeed / 100.0f;
   }
   if (UBoosterPart* Booster = PartAssignment->GetBooster())
   {
@@ -83,6 +85,7 @@ void URobotStats::ZeroStats()
   BoosterThrust = 0;
   BoosterPowerDrain = 0;
   MovementSpeed = 0;
+  TurningSpeed = 0;
   WeaponDexterity = 0;
   TargetingAbility = 0;
   ChipSlots = 0;

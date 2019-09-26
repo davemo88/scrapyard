@@ -139,7 +139,7 @@ void UPartSingleton::InitDefaultParts()
       1000,
       500,
       10,
-      1));
+      100));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5000,
@@ -233,7 +233,7 @@ void UPartSingleton::InitRedParts()
       1000,
       300,
       20,
-      1));
+      100));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5001,
@@ -327,7 +327,7 @@ void UPartSingleton::InitBlueParts()
       1000,
       500,
       10,
-      1));
+      100));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5002,
@@ -421,7 +421,7 @@ void UPartSingleton::InitGreenParts()
       1000,
       500,
       10,
-      1));
+      100));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5003,
@@ -515,7 +515,7 @@ void UPartSingleton::InitOrangeParts()
       1000,
       500,
       10,
-      1));
+      100));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5004,
@@ -609,7 +609,7 @@ void UPartSingleton::InitPurpleParts()
       1000,
       500,
       10,
-      1));
+      100));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5005,

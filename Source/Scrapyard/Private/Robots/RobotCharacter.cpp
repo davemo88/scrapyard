@@ -283,36 +283,27 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 //  float realtimeSeconds = UGameplayStatics::GetRealTimeSeconds(GetWorld());
 //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - value: %f time: %f"), AxisValue, realtimeSeconds);
 
-// TODO: get from parts
-  float MaxYawRate = 1.0f;
+  float TurnRate = 0;
 
   if (ControlType == EControlType::CONTROL_Ellipse)
   {
-    if (GetWorld())
+    FIntPoint MousePoint;
+    GetWorld()->GetGameViewport()->Viewport->GetMousePos(MousePoint);
+    FVector2D Mouse = FVector2D(MousePoint);
+  
+    if (Mouse.X != -1 && !IsInControlEllipse(Mouse))
     {
-      FIntPoint MousePoint;
-      GetWorld()->GetGameViewport()->Viewport->GetMousePos(MousePoint);
-      FVector2D Mouse = FVector2D(MousePoint);
-  
-      float TurnRate = 0;
-  
-      if (Mouse.X != -1 && !IsInControlEllipse(Mouse))
-      {
-        const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
-        const float CenterX = ViewSize.X / 2;
-        const FVector2D Intersection = GetControlEllipseIntersection(FVector2D(Mouse.X, Mouse.Y));
+      const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+      const float CenterX = ViewSize.X / 2;
+      const FVector2D Intersection = GetControlEllipseIntersection(FVector2D(Mouse.X, Mouse.Y));
 // Y = 0 is the top of the viewport
-        float ControlMax = Mouse.X < CenterX
-          ? Intersection.X
-          : ViewSize.X - Intersection.X;
+      float ControlMax = Mouse.X < CenterX
+        ? Intersection.X
+        : ViewSize.X - Intersection.X;
 
-        TurnRate = (Mouse.X - Intersection.X) / ControlMax;
-      }
-  
-      UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
-  
-      AddControllerYawInput(TurnRate * MaxYawRate);
+      TurnRate = (Mouse.X - Intersection.X) / ControlMax;
     }
+    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
   }
   else if (ControlType == EControlType::CONTROL_Rectangle)
   {
@@ -321,7 +312,6 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
     FVector2D Mouse = FVector2D(MousePoint);
 
 //    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
-    float TurnRate = 0;
 
     const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
     const FVector2D Center = ViewSize / 2;
@@ -335,20 +325,15 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
         ? (Mouse.X - Center.X + DeadZoneHalfWidth.X) / ControlMax
         : (Mouse.X - Center.X - DeadZoneHalfWidth.X) / ControlMax;
     }
-
 //    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
-
-    AddControllerYawInput(TurnRate * MaxYawRate);
   }
   else
   {
 //  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - AxisValue : %f"), AxisValue);
-//  float MaxTurnZ = 1.0f;
-//  float ClampedValue = FMath::Clamp(AxisValue, -MaxTurnZ, MaxTurnZ);
-//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnZ - ClampedValue : %f"), ClampedValue);
-//  AddControllerYawInput(ClampedValue);
-    AddControllerYawInput(FMath::Clamp(AxisValue, -1.0f, 1.0f) * MaxYawRate);
+    TurnRate = FMath::Clamp(AxisValue, -1.0f, 1.0f);
   }
+
+  AddControllerYawInput(TurnRate * RobotStats->TurningSpeed);
 }
 
 void ARobotCharacter::Axis_TurnY(float AxisValue)
@@ -357,34 +342,28 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
 // TODO: depends on parts
 // TODO: serverside validation of turn rates
   float MaxPitchRate = 1.0f;
+  float TurnRate = 0;
 
   if (ControlType == EControlType::CONTROL_Ellipse)
   {
-    if (GetWorld())
-    {
-      FIntPoint MousePoint;
-      GetWorld()->GetGameViewport()->Viewport->GetMousePos(MousePoint);
-      FVector2D Mouse = FVector2D(MousePoint);
-  
-      float TurnRate = 0;
-  
-      if (Mouse.X != -1 && !IsInControlEllipse(Mouse))
-      {
-        const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
-        const float CenterY = ViewSize.Y / 2;
-        const FVector2D Intersection = GetControlEllipseIntersection(FVector2D(Mouse.X, Mouse.Y));
-// Y = 0 is the top of the viewport
-        float ControlMax = Mouse.Y < CenterY
-          ? Intersection.Y
-          : ViewSize.Y - Intersection.Y;
+    FIntPoint MousePoint;
+    GetWorld()->GetGameViewport()->Viewport->GetMousePos(MousePoint);
+    FVector2D Mouse = FVector2D(MousePoint);
 
-        TurnRate = (Mouse.Y - Intersection.Y) / ControlMax;
-      }
-  
-      UE_LOG(LogCharacter, Log, TEXT("TurnY Rate: %f"), TurnRate);
-  
-      AddControllerPitchInput(TurnRate * MaxPitchRate);
+    if (Mouse.X != -1 && !IsInControlEllipse(Mouse))
+    {
+      const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+      const float CenterY = ViewSize.Y / 2;
+      const FVector2D Intersection = GetControlEllipseIntersection(FVector2D(Mouse.X, Mouse.Y));
+// Y = 0 is the top of the viewport
+      float ControlMax = Mouse.Y < CenterY
+        ? Intersection.Y
+        : ViewSize.Y - Intersection.Y;
+
+      TurnRate = (Mouse.Y - Intersection.Y) / ControlMax;
     }
+
+    UE_LOG(LogCharacter, Log, TEXT("TurnY Rate: %f"), TurnRate);
   }
   else if (ControlType == EControlType::CONTROL_Rectangle)
   {
@@ -393,7 +372,6 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
     FVector2D Mouse = FVector2D(MousePoint);
 
 //    UE_LOG(LogCharacter, Log, TEXT("mouse position: %fx %fy"), MouseX, MouseY);
-    float TurnRate = 0;
 
     const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
     const FVector2D Center = ViewSize / 2;
@@ -409,19 +387,13 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
     }
 
 //    UE_LOG(LogCharacter, Log, TEXT("TurnY Rate: %f"), TurnRate);
-
-    AddControllerPitchInput(TurnRate * MaxPitchRate);
   }
   else
   {
-//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - AxisValue : %f"), AxisValue);
-//  float MaxTurnY = 1.0f;
-//  float ClampedValue = FMath::Clamp(AxisValue, -MaxTurnY, MaxTurnY);
-//  UE_LOG(LogCharacter, Log, TEXT("ARobotCharacter::Axis_TurnY - ClampedValue : %f"), ClampedValue);
-//
-//  AddControllerPitchInput(ClampedValue);
-    AddControllerPitchInput(FMath::Clamp(AxisValue, -1.0f, 1.0f) * MaxPitchRate);
+    TurnRate = FMath::Clamp(AxisValue, -1.0f, 1.0f);
   }
+
+  AddControllerPitchInput(TurnRate * MaxPitchRate);
 }
 
 void ARobotCharacter::StartBoosting()
@@ -646,4 +618,3 @@ FVector2D ARobotCharacter::GetDeadZoneHalfWidth()
 {
   return UWidgetLayoutLibrary::GetViewportSize(GetWorld()) / DeadZoneFactor;
 }
-

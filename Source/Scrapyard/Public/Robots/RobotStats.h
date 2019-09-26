@@ -51,6 +51,8 @@ public:
   int32 BoosterPowerDrain = 0;
   UPROPERTY(EditAnywhere)
   int32 MovementSpeed = 0;
+  UPROPERTY(EditAnywhere)
+  float TurningSpeed = 0;
 
   FStatText GetMassStatText();
   FStatText GetHitPointsStatText();

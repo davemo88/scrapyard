@@ -56,5 +56,6 @@ TArray<FStatText> ULegsPart::GetStatsText() const
 {
   TArray<FStatText> StatsText = Super::GetStatsText();
   StatsText.Add(FStatText(NSLOCTEXT("SY", "MovementSpeedStatText","Movement Speed"),FText::AsNumber(MovementSpeed)));
+  StatsText.Add(FStatText(NSLOCTEXT("SY", "TurningSpeedStatText","Turning Speed"),FText::AsNumber(TurningSpeed)));
   return StatsText;
 }
