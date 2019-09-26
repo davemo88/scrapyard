@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/EditableTextBox.h"
 #include "Components/Button.h"
+#include "Components/ComboBoxString.h"
 #include "Blueprint/UserWidget.h"
 #include "Robots/RobotCharacter.h"
 #include "Robots/RobotMovementComponent.h"
@@ -20,6 +21,9 @@ struct FRobotTuneParams
 
   UPROPERTY()
   FString BoostHoldThresholdTime;
+
+  UPROPERTY()
+  FString ControlType;
 };
 
 /**
@@ -48,6 +52,9 @@ protected:
 
   UPROPERTY(meta=(BindWidget))
   UButton* SetNewTuneButton;
+
+  UPROPERTY(meta=(BindWidget))
+  UComboBoxString* ControlTypeComboBox;
 
   UFUNCTION()
   void SetNewTune();

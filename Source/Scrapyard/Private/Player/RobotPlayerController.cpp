@@ -250,6 +250,8 @@ void ARobotPlayerController::ApplyTuneParams(FRobotTuneParams TuneParams)
       UE_LOG(LogController, Log, TEXT("New BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
       RobotMovementComp->BoostHoldThresholdTime= FCString::Atof(*TuneParams.BoostHoldThresholdTime);
     }
+    const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EControlType"), true);
+    RobotCharacter->ControlType = (EControlType)EnumPtr->GetIndexByNameString(TuneParams.ControlType);
   }
 }
 

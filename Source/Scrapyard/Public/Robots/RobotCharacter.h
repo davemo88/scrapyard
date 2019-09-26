@@ -26,8 +26,8 @@ enum class EControlType : uint8
 {
   CONTROL_Normal        UMETA(DisplayName="Normal"),
   CONTROL_Rectangle     UMETA(DisplayName="Rectangle"),
-  CONTROL_Ellipse       UMETA(DisplayName="Ellipse"),
-  CONTROL_Lerp          UMETA(DisplayName="Lerp")
+  CONTROL_Ellipse       UMETA(DisplayName="Ellipse")//,
+//  CONTROL_Lerp          UMETA(DisplayName="Lerp")
 };
 
 UCLASS()
