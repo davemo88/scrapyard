@@ -138,7 +138,8 @@ void UPartSingleton::InitDefaultParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
       1000,
       500,
-      10));
+      10,
+      1));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5000,
@@ -231,7 +232,8 @@ void UPartSingleton::InitRedParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
       1000,
       300,
-      20));
+      20,
+      1));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5001,
@@ -324,7 +326,8 @@ void UPartSingleton::InitBlueParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BlueMaterial,
       1000,
       500,
-      10));
+      10,
+      1));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5002,
@@ -417,7 +420,8 @@ void UPartSingleton::InitGreenParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->GreenMaterial,
       1000,
       500,
-      10));
+      10,
+      1));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5003,
@@ -510,7 +514,8 @@ void UPartSingleton::InitOrangeParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->OrangeMaterial,
       1000,
       500,
-      10));
+      10,
+      1));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5004,
@@ -603,7 +608,8 @@ void UPartSingleton::InitPurpleParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
       1000,
       500,
-      10));
+      10,
+      1));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5005,

@@ -6,7 +6,7 @@
 #include "Parts/PartAssignment.h"
 #include "SoloDraft.h"
 
-ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewArmor, uint32 NewEMShield, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability)
+ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewHitPoints, uint32 NewPowerDrain, uint32 NewArmor, uint32 NewEMShield, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial, uint32 NewMaxWeight, uint32 NewMovementSpeed, uint32 NewStability, uint32 NewTurningSpeed)
 {
   ULegsPart* NewPart = NewObject<ULegsPart>();
   NewPart->PartID = NewPartID;
@@ -24,6 +24,7 @@ ULegsPart* ULegsPart::NewLegs(uint32 NewPartID, FText NewPartName, UManufacturer
   NewPart->MaxWeight = NewMaxWeight;
   NewPart->MovementSpeed = NewMovementSpeed;
   NewPart->Stability = NewStability;
+  NewPart->TurningSpeed = NewTurningSpeed;
 
   return NewPart;
 
