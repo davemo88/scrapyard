@@ -32,7 +32,8 @@ void AGaragePlayerController::SetupWidget()
     GarageWidget->SetSoloDraft(GarageGS->CurrentDraft);
   
 //TODO: setup proper event for this
-    GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::GotoGarageTestLevel);
+    GarageWidget->RobotTestButton->OnClicked.AddDynamic(this, &AGaragePlayerController::OnTestButtonClicked);
+    GarageWidget->BattleButton->OnClicked.AddDynamic(this, &AGaragePlayerController::OnBattleButtonClicked);
   
     GarageWidget->PartAssignedDelegate.AddDynamic(this, &AGaragePlayerController::OnPartAssigned);
   }
@@ -51,7 +52,13 @@ void AGaragePlayerController::OnPartAssigned(URobotPart* Part)
   }
 }
 
-void AGaragePlayerController::GotoGarageTestLevel()
+void AGaragePlayerController::OnTestButtonClicked()
 {
   UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageTestLevel");
+}
+
+void AGaragePlayerController::OnBattleButtonClicked()
+{
+//TODO: use matchmaking service etc
+  ClientTravel("scrapyard.xyz//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
 }

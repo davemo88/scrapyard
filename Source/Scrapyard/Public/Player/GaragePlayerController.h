@@ -22,9 +22,6 @@ public:
 
   AGaragePlayerController();
 
-  UFUNCTION()
-  void GotoGarageTestLevel();
-
 protected:
 
   UPROPERTY()
@@ -36,4 +33,10 @@ protected:
 
   UFUNCTION()
   void OnPartAssigned(URobotPart* Part);
+
+  UFUNCTION()
+  void OnTestButtonClicked();
+
+  UFUNCTION()
+  void OnBattleButtonClicked();
 };

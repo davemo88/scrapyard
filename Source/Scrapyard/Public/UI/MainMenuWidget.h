@@ -18,12 +18,14 @@ class SCRAPYARD_API UMainMenuWidget : public UUserWidget
 {
   GENERATED_BODY()
 
-protected:
-
-  virtual void NativeConstruct() override;
+public:
 
   UPROPERTY(meta=(BindWidget))
   UButton* PlayButton;
+
+protected:
+
+  virtual void NativeConstruct() override;
 
   UPROPERTY(meta=(BindWidget))
   UButton* DraftButton;

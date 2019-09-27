@@ -26,6 +26,7 @@ void ASoloDraftGameState::BeginPlay()
 
   SetCurrentDraft();
 
+// brand new draft
   if (CurrentDraft->CurrentPick == 0)
   {
     NextPack();

@@ -10,8 +10,6 @@ void UMainMenuWidget::NativeConstruct()
 {
   Super::NativeConstruct();
 
-  PlayButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnPlayButtonClicked);
-
   DraftButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnDraftButtonClicked);
   GarageButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnGarageButtonClicked);
   HostButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnHostButtonClicked);

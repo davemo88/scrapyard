@@ -37,7 +37,13 @@ void AGarageGameState::SetCurrentDraft()
 
   if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
   {
-    GarageLSA->GetRobotCharacter()->SetPartAssignment(CurrentDraft->PartAssignment);
+    if (ARobotCharacter* RobotChar = GarageLSA->GetRobotCharacter())
+    {
+      if (CurrentDraft != nullptr)
+      {
+        RobotChar->SetPartAssignment(CurrentDraft->PartAssignment);
+      }
+    }
   }
 }
 

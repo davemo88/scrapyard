@@ -27,4 +27,6 @@ protected:
   virtual void ShowEscapeMenu() override;
   virtual void HideEscapeMenu() override;
   
+  UFUNCTION()
+  void OnPlayButtonClicked();
 };
