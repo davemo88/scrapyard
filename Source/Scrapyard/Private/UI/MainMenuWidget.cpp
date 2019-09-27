@@ -10,6 +10,8 @@ void UMainMenuWidget::NativeConstruct()
 {
   Super::NativeConstruct();
 
+  PlayButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnPlayButtonClicked);
+
   DraftButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnDraftButtonClicked);
   GarageButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnGarageButtonClicked);
   HostButton->OnClicked.AddDynamic(this, &UMainMenuWidget::OnHostButtonClicked);
@@ -19,6 +21,14 @@ void UMainMenuWidget::NativeConstruct()
 
   HostEntryWidget->SetVisibility(ESlateVisibility::Hidden);
 
+}
+
+void UMainMenuWidget::OnPlayButtonClicked()
+{
+  APlayerController* Player = GetOwningPlayer();
+  UE_LOG(LogUI, Log, TEXT("%s::OnPlayButtonClicked"), *GetName());
+  FString TravelString = "scrapyard.xyz//Game/Levels/BattleLevel";
+  Player->ClientTravel(TravelString, ETravelType::TRAVEL_Absolute);
 }
 
 void UMainMenuWidget::OnDraftButtonClicked()

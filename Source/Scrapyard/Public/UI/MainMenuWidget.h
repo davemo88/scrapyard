@@ -23,6 +23,9 @@ protected:
   virtual void NativeConstruct() override;
 
   UPROPERTY(meta=(BindWidget))
+  UButton* PlayButton;
+
+  UPROPERTY(meta=(BindWidget))
   UButton* DraftButton;
   UPROPERTY(meta=(BindWidget))
   UButton* GarageButton;
@@ -35,6 +38,9 @@ protected:
 
   UPROPERTY(meta=(BindWidget))
   UHostEntryWidget* HostEntryWidget;
+
+  UFUNCTION()
+  void OnPlayButtonClicked();
 
 //TODO: get rid of blueprint logic
   UFUNCTION()

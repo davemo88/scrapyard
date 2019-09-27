@@ -217,6 +217,7 @@ bool ARobotPlayerController::IsGameStateReplicated()
 
 void ARobotPlayerController::SetNewTune(FRobotTuneParams TuneParams)
 {
+// BUG: why do this? to set on client and server without using replication?
   ApplyTuneParams(TuneParams);
 
   if (!HasAuthority())
@@ -250,8 +251,11 @@ void ARobotPlayerController::ApplyTuneParams(FRobotTuneParams TuneParams)
       UE_LOG(LogController, Log, TEXT("New BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
       RobotMovementComp->BoostHoldThresholdTime= FCString::Atof(*TuneParams.BoostHoldThresholdTime);
     }
-    const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EControlType"), true);
-    RobotCharacter->ControlType = (EControlType)EnumPtr->GetIndexByNameString(TuneParams.ControlType);
+
+    if (const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EControlType"), true))
+    {
+      RobotCharacter->ControlType = (EControlType)EnumPtr->GetIndexByNameString(TuneParams.ControlType);
+    }
 
     RobotCharacter->DeadZoneFactor = FCString::Atof(*TuneParams.DeadZoneSize);
     RobotCharacter->MaxPitchRate = FCString::Atof(*TuneParams.MaxPitchRate);

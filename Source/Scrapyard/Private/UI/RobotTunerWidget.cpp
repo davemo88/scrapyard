@@ -15,10 +15,13 @@ void URobotTunerWidget::NativeConstruct()
 
 // https://wiki.unrealengine.com/Enums_For_Both_C%2B%2B_and_BP
   const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EControlType"), true);
-  ControlTypeComboBox->AddOption(EnumPtr->GetNameStringByValue((int64)EControlType::CONTROL_Normal));
-  ControlTypeComboBox->AddOption(EnumPtr->GetNameStringByValue((int64)EControlType::CONTROL_Rectangle));
-  ControlTypeComboBox->AddOption(EnumPtr->GetNameStringByValue((int64)EControlType::CONTROL_Ellipse));
-  ControlTypeComboBox->RefreshOptions();
+  if (EnumPtr)
+  {
+    ControlTypeComboBox->AddOption(EnumPtr->GetNameStringByValue((int64)EControlType::CONTROL_Normal));
+    ControlTypeComboBox->AddOption(EnumPtr->GetNameStringByValue((int64)EControlType::CONTROL_Rectangle));
+    ControlTypeComboBox->AddOption(EnumPtr->GetNameStringByValue((int64)EControlType::CONTROL_Ellipse));
+    ControlTypeComboBox->RefreshOptions();
+  }
 
   if (APlayerController* PC = GetOwningPlayer())
   {
@@ -36,7 +39,11 @@ void URobotTunerWidget::SetRobotChar(ARobotCharacter* NewRobotChar)
     RobotMovementComp = Cast<URobotMovementComponent>(RobotChar->GetMovementComponent());
 
     const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("EControlType"), true);
-    ControlTypeComboBox->SetSelectedOption(EnumPtr->GetNameStringByValue((int64)RobotChar->ControlType));
+    if (EnumPtr)
+    {
+      ControlTypeComboBox->SetSelectedOption(EnumPtr->GetNameStringByValue((int64)RobotChar->ControlType));
+    }
+
     DeadZoneSizeTextBox->SetText(FText::AsNumber(RobotChar->DeadZoneFactor));
     MaxPitchRateTextBox->SetText(FText::AsNumber(RobotChar->MaxPitchRate));
   }
@@ -71,8 +78,8 @@ FRobotTuneParams URobotTunerWidget::GetTuneParams()
   TuneParams.ControlType = ControlTypeComboBox->GetSelectedOption();
   TuneParams.DeadZoneSize = DeadZoneSizeTextBox->GetText().ToString();
   TuneParams.MaxPitchRate = MaxPitchRateTextBox->GetText().ToString();
-//  TuneParams.ControlType = 
-  UE_LOG(LogUI, Log, TEXT("GetTuneParams BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
+
+//  UE_LOG(LogUI, Log, TEXT("GetTuneParams BoostHoldThresholdTime: %s"), *TuneParams.BoostHoldThresholdTime);
 
   return TuneParams;
 }
