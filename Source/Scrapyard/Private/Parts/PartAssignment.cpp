@@ -15,7 +15,7 @@
 
 bool UPartAssignment::IsComplete() const
 {
-  return (Head != NULL) && (Core != NULL) && (Arms != NULL) && (Legs != NULL);
+  return (Head != nullptr) && (Core != nullptr) && (Arms != nullptr) && (Legs != nullptr);
 }
 
 void UPartAssignment::SetHead(UHeadPart* NewHead)

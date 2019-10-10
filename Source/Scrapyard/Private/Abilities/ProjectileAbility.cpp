@@ -5,7 +5,9 @@
 
 AProjectileAbility::AProjectileAbility()
 {
-
+//  AbilityName = TEXT("ProjectileAbility");
+//  AbilityRange = 3000;
+//  SetActorTickEnabled(false);
 }
 
 void AProjectileAbility::FireShot() 

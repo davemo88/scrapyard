@@ -13,7 +13,6 @@ URobotMovementComponent::URobotMovementComponent()
 // slipperiness
   GroundFriction = 2.0f;
   BrakingDecelerationWalking = 555.0f;
-
   
 // boosting
   BoostSpeedMultiplier = 2.0f;
@@ -24,7 +23,7 @@ URobotMovementComponent::URobotMovementComponent()
   bPrevBoostInput = false;
   bBoosting = false;
 
-  MassNormalizer = 500.0f;
+  MassNormalizer = 1000.0f;
   LandingSpeedThreshold = -600.0f;
   LandingTime = 1.0f;
 
@@ -319,14 +318,17 @@ void URobotMovementComponent::HandleBoosting()
 
 float URobotMovementComponent::GetMaxSpeed() const
 {
-  float MaxSpeed = Super::GetMaxSpeed();
+//  float MaxSpeed = Super::GetMaxSpeed();
+
+// TODO: handle movement modes
+  float MaxSpeed = RobotChar->RobotStats->MovementSpeed;
 
   MaxSpeed *=  MassNormalizer / float(RobotChar->RobotStats->Mass);
 
   if (bBoosting)
   {
 //    UE_LOG(LogMovement, Log, TEXT("%s::GetMaxSpeed - Boost"), *GetName());
-    MaxSpeed *= BoostSpeedMultiplier;
+    MaxSpeed *= float(RobotChar->RobotStats->BoosterThrust) / 1000.0f; 
   }
 
   return MaxSpeed;
