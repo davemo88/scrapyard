@@ -66,7 +66,7 @@ public:
   bool IsTargetAcquired();
 
 // stats
-  UPROPERTY()
+  UPROPERTY(EditAnywhere)
   URobotStats* RobotStats;
 
   UPROPERTY(ReplicatedUsing=OnRep_HitPoints)

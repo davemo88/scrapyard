@@ -218,6 +218,7 @@ void ARobotCharacter::SetupAbilities()
   {
     WeaponAbility = GetWorld()->SpawnActor<AScrapyardAbility>(PartAssignment->GetRightHandheld()->AbilityClass, FActorSpawnParameters());
 
+    UE_LOG(LogCharacter, Log, TEXT("Weapon Name: %s"), *PartAssignment->GetRightHandheld()->PartName.ToString());
     UE_LOG(LogCharacter, Log, TEXT("Weapon Ability Class Name: %s"), *PartAssignment->GetRightHandheld()->AbilityClass->GetName());
 
 // TODO: why do we have RobotOwner if we can just the real Owner?
@@ -303,7 +304,7 @@ void ARobotCharacter::Axis_TurnZ(float AxisValue)
 
       TurnRate = (Mouse.X - Intersection.X) / ControlMax;
     }
-    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
+//    UE_LOG(LogCharacter, Log, TEXT("TurnZ Rate: %f"), TurnRate);
   }
   else if (ControlType == EControlType::CONTROL_Rectangle)
   {
@@ -361,7 +362,7 @@ void ARobotCharacter::Axis_TurnY(float AxisValue)
       TurnRate = (Mouse.Y - Intersection.Y) / ControlMax;
     }
 
-    UE_LOG(LogCharacter, Log, TEXT("TurnY Rate: %f"), TurnRate);
+//    UE_LOG(LogCharacter, Log, TEXT("TurnY Rate: %f"), TurnRate);
   }
   else if (ControlType == EControlType::CONTROL_Rectangle)
   {
@@ -539,6 +540,7 @@ bool ARobotCharacter::IsTargetableBy(ARobotCharacter* Robot)
 
 void ARobotCharacter::SetPartAssignment(UPartAssignment* NewPartAssignment)
 {
+  UE_LOG(LogCharacter, Log, TEXT("%s::SetPartAssignment"), *GetName());
   PartAssignment = NewPartAssignment;
   RobotStats->SetPartAssignment(PartAssignment);
   RobotBodyComponent->SetPartAssignment(PartAssignment);

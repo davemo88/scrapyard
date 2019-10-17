@@ -4,7 +4,6 @@
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
 #include "Abilities/ScrapyardAbility.h"
-#include "Abilities/HitscanAbility.h"
 #include "SoloDraft.h"
 
 UHandheldPart* UHandheldPart::NewHandheld(uint32 NewPartID, FText NewPartName, UManufacturer* NewManufacturer, URarity* NewRarity, uint32 NewMass, uint32 NewPowerDrain, uint32 NewAttack, float NewCooldown, TSubclassOf<AScrapyardAbility> NewAbilityClass, TSoftObjectPtr<USkeletalMesh> NewSkeletalMesh, TSoftObjectPtr<UMaterial> NewMajorMaterial)

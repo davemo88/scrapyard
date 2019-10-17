@@ -22,6 +22,11 @@ public:
 
   AGaragePlayerController();
 
+  UFUNCTION(Exec)
+  void SetRedBot();
+  UFUNCTION(Exec)
+  void SetPurpleBot();
+
 protected:
 
   UPROPERTY()

@@ -13,6 +13,7 @@
 #include "Parts/BoosterPart.h"
 #include "Parts/HandheldPart.h"
 #include "Abilities/HitscanAbility.h"
+#include "Abilities/ProjectileAbility.h"
 #include "Parts/Manufacturer.h"
 
 void UPartSingleton::Init()
@@ -257,7 +258,7 @@ void UPartSingleton::InitRedParts()
       50,
       100,
       0.5f,
-      AHitscanAbility::StaticClass(),
+      AProjectileAbility::StaticClass(),
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->HandheldPart_Default_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial));
 }

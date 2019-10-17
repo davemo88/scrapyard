@@ -122,7 +122,8 @@ void UGarageWidget::OnCardAssigned(UCardWidgetBase* Card)
 
 void UGarageWidget::OnPartUninstalled(URobotPart* UninstalledPart)
 {
-  if (!UninstalledPart->IsDefaultPart())
+//  if (!UninstalledPart->IsDefaultPart())
+  if (SoloDraft->DraftedParts.Contains(UninstalledPart))
   {
     YourPartsWidget->DisplayPart(UninstalledPart);  
   }

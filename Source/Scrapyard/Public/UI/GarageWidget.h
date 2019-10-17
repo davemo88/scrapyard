@@ -62,6 +62,11 @@ public:
 
   FGarageWidgetPartAssignedDelegate PartAssignedDelegate;
 
+  UPROPERTY(meta=(BindWidget))
+  UButton* RedButton;
+  UPROPERTY(meta=(BindWidget))
+  UButton* PurpleButton;
+
 protected:
 
   virtual void NativeConstruct() override;
