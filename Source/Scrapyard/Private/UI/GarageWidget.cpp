@@ -106,6 +106,7 @@ void UGarageWidget::OnCardMouseEntered(UCardWidgetBase* Card)
   UE_LOG(LogUI, Log, TEXT("%s::OnCardMouseEntered"), *GetName());
   Card->RobotPart->Assign(NewValueAssignment);
 }
+
 void UGarageWidget::OnCardMouseLeft(UCardWidgetBase* Card)
 {
   UE_LOG(LogUI, Log, TEXT("%s::OnCardMouseLeft"), *GetName());
