@@ -19,7 +19,7 @@ void AGarageTestLevelScriptActor::BeginPlay()
     ARobotCharacter* Char = Cast<ARobotCharacter>(PlayerController->GetPawn());
     if (Char != nullptr && GameInstance->CurrentDraft->PartAssignment->IsComplete())
     {
-      Char->PartAssignment->SetAssignment(GameInstance->CurrentDraft->PartAssignment);
+      Char->SetPartAssignment(GameInstance->CurrentDraft->PartAssignment);
     }
   }
 

@@ -20,6 +20,7 @@ void URobotHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
 // TODO: can do this manually whenever actually using power
     UpdatePowerBar(); 
     UpdateSpeed();
+    UpdateWeaponName();
 //    UpdateTargetingWidget();
   }
 
@@ -30,7 +31,6 @@ void URobotHUDWidget::SetRobotCharacter(ARobotCharacter* NewRobotCharacter)
   RobotCharacter = NewRobotCharacter;
   UpdateHitPoints();
   UpdatePowerBar();
-  UpdateWeaponName();
   RobotCharacter->HitPointsChangedDelegate.AddDynamic(this, &URobotHUDWidget::UpdateHitPoints);
   RobotCharacter->PowerChangedDelegate.AddDynamic(this, &URobotHUDWidget::UpdatePowerBar);
 }
@@ -50,7 +50,6 @@ void URobotHUDWidget::UpdateHitPoints()
 
 void URobotHUDWidget::UpdateSpeed()
 {
-//  SpeedText->SetText(FText::AsNumber(RobotCharacter->GetVelocity().Size()));
   SpeedText->SetText(FText::FromString(FString::Printf(TEXT("%i"), FMath::RoundToInt(RobotCharacter->GetVelocity().Size()))));
 }
 

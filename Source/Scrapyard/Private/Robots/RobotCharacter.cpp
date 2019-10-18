@@ -225,16 +225,8 @@ void ARobotCharacter::SetupAbilities()
 // TODO: why setting owner in two different ways here? seems just wrong
 // BUG: should only set owner on the server
     WeaponAbility->RobotOwner = this;
-    if (WeaponAbility->GetOwner())
-    {
-      UE_LOG(LogCharacter, Log, TEXT("%s::SetupAbilities - WeaponAbility Owner: %s"), *GetName(), *WeaponAbility->GetOwner()->GetName());
-    }
-    else
-    {
-      UE_LOG(LogCharacter, Log, TEXT("%s::SetupAbilities - WeaponAbility Owner: NULL"), *GetName());
-    }
     WeaponAbility->SetOwner(this);
-    UE_LOG(LogCharacter ,Log, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
+    UE_LOG(LogCharacter, Log, TEXT("Weapon Ability Replication: %s"), (WeaponAbility->GetIsReplicated() ? TEXT("True") : TEXT("False")));
   }
 
 }
@@ -553,7 +545,10 @@ void ARobotCharacter::SetPartAssignment(UPartAssignment* NewPartAssignment)
 void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
 {
   UE_LOG(LogCharacter, Log, TEXT("%s::MulticastSetPartAssignmentFromIDs_Implementation"), *GetName());
-  PartAssignment->SetAssignment(NewPartAssignmentIDs);
+  UPartAssignment* NewAssignment = NewObject<UPartAssignment>();
+  NewAssignment->SetAssignment(NewPartAssignmentIDs);
+  SetPartAssignment(NewAssignment);
+//  PartAssignment->SetAssignment(NewPartAssignmentIDs);
 }
 
 FVector2D ARobotCharacter::GetControlEllipseIntersection(FVector2D Mouse)
