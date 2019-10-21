@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Robots/RobotCharacter.h"
 #include "ScrapyardProjectile.generated.h"
 
 UCLASS()
@@ -14,6 +15,9 @@ class SCRAPYARD_API AScrapyardProjectile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AScrapyardProjectile();
+
+        UPROPERTY()
+        ARobotCharacter* RobotOwner;
 
 protected:
 	// Called when the game starts or when spawned

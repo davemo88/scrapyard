@@ -70,15 +70,16 @@ void ARobotCharacter::BeginPlay()
   UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - Role: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(Role) : TEXT("oops")));
   UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - RemoteRole: %s"), *GetName(), *(NetRoleEnum ? NetRoleEnum->GetNameStringByIndex(GetRemoteRole()) : TEXT("oops")));
 
+//TODO: this shouldn't be here
   if (ARobotPlayerController* PC = Cast<ARobotPlayerController>(GetController()))
   {
     UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - PC ok"), *GetName());
     PC->SetRobotCharacter(this);
-    if (IsLocallyControlled())
-    {
-      UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - Local PC"), *GetName());
-      SetupRobotHUDWidget();
-    }
+//    if (IsLocallyControlled())
+//    {
+//      UE_LOG(LogCharacter, Log, TEXT("%s::BeginPlay - Local PC"), *GetName());
+//      SetupRobotHUDWidget();
+//    }
   }
 }
 
@@ -142,6 +143,16 @@ void ARobotCharacter::Landed(const FHitResult & Hit)
 
   MoveComp->Landed(Hit);
 
+}
+
+void ARobotCharacter::Restart()
+{
+  Super::Restart();
+  UE_LOG(LogCharacter, Log, TEXT("%s::Restart"), *GetName());
+  if (IsLocallyControlled())
+  {
+    SetupRobotHUDWidget();
+  }
 }
 
 void ARobotCharacter::SetupRobotHUDWidget()
@@ -437,6 +448,7 @@ float ARobotCharacter::TakeDamage(float Damage, const FDamageEvent& DamageEvent,
     MulticastShowDamage(Damage, DamageEvent, EventInstigator, DamageCauser, HitInfo);
     HitPoints = FMath::Max(0,HitPoints-(int)Damage);
     UE_LOG(LogCharacter, Log, TEXT("%s::TakeDamage - HitPoints set to %d"), *GetName(), HitPoints);
+    HitPointsChangedDelegate.Broadcast();
 
     if (HitPoints == 0)
     {
@@ -545,6 +557,10 @@ void ARobotCharacter::SetPartAssignment(UPartAssignment* NewPartAssignment)
 void ARobotCharacter::MulticastSetPartAssignmentFromIDs_Implementation(FPartAssignmentIDs NewPartAssignmentIDs)
 {
   UE_LOG(LogCharacter, Log, TEXT("%s::MulticastSetPartAssignmentFromIDs_Implementation"), *GetName());
+  UE_LOG(LogCharacter, Log, TEXT("Head PartID: %d"), NewPartAssignmentIDs.HeadID);
+  UE_LOG(LogCharacter, Log, TEXT("Core PartID: %d"), NewPartAssignmentIDs.CoreID);
+  UE_LOG(LogCharacter, Log, TEXT("Arms PartID: %d"), NewPartAssignmentIDs.ArmsID);
+  UE_LOG(LogCharacter, Log, TEXT("Legs PartID: %d"), NewPartAssignmentIDs.LegsID);
   UPartAssignment* NewAssignment = NewObject<UPartAssignment>();
   NewAssignment->SetAssignment(NewPartAssignmentIDs);
   SetPartAssignment(NewAssignment);

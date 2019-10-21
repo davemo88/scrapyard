@@ -47,6 +47,8 @@ public:
 
   virtual void Landed(const FHitResult & Hit) override;
 
+  virtual void Restart() override;
+
   void SetupRobotHUDWidget();
 
   void SetPartAssignment(UPartAssignment* NewPartAssignment);

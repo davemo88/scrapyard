@@ -18,16 +18,27 @@ public:
 
   ABazookaProjectile();
 
+  UPROPERTY()
   FVector FireDirection;
 
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
 
-  UStaticMeshComponent* StaticMesh;
+  UPROPERTY(EditAnywhere)
+  UStaticMeshComponent* StaticMeshComponent;
+
+  float ProjectileSpeed;
+
+  UPROPERTY(EditAnywhere)
+  UParticleSystem* OnDestroyParticleSystem;
 
 public:	
   // Called every frame
   virtual void Tick(float DeltaTime) override;
 	
+  virtual void LifeSpanExpired() override;
+	
+  virtual void BeginDestroy() override;
+
 };

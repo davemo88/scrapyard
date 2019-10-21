@@ -10,7 +10,7 @@
 
 AProjectileAbility::AProjectileAbility()
 {
-  AbilityName = TEXT("ProjectileAbility");
+  AbilityName = TEXT("Bazooka");
 //  AbilityRange = 3000;
 //  SetActorTickEnabled(false);
 }
@@ -18,6 +18,7 @@ AProjectileAbility::AProjectileAbility()
 void AProjectileAbility::FireShot() 
 {
 // spawn bazooka projectile
+  UE_LOG(LogAbilities,Log,TEXT("%s::FireShot"), *GetName());
   FAbilityEffectParams AbilityEffectParams;
   FHitResult Hit;
   FVector FireDirection;
@@ -35,10 +36,9 @@ void AProjectileAbility::FireShot()
   }
   if (HasAuthority())
   {
-    ABazookaProjectile* Bazooka = GetWorld()->SpawnActor<ABazookaProjectile>(FActorSpawnParameters());
-    Bazooka->SetActorLocation(FireLoc);
+    ABazookaProjectile* Bazooka = GetWorld()->SpawnActor<ABazookaProjectile>(FireLoc, FRotator::ZeroRotator, FActorSpawnParameters());
     Bazooka->FireDirection = FireDirection;
-    Bazooka->SetLifeSpan(2.0f);
+    Bazooka->RobotOwner = RobotOwner;
     Bazooka->SetReplicates(true);
   }
 

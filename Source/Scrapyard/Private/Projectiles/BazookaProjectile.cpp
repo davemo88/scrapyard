@@ -4,28 +4,82 @@
 #include "BazookaProjectile.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Game/ScrapyardAssets.h"
+#include "ScrapyardDamageType.h"
 #include "Projectiles/ProjectileAssets.h"
+#include "Kismet/GameplayStatics.h"
 
 ABazookaProjectile::ABazookaProjectile()
 {
-  StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh")); 
+  StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh")); 
+  SetRootComponent(StaticMeshComponent);
+  SetActorEnableCollision(false);
+
+  ProjectileSpeed = 400.0f;
+
+  PrimaryActorTick.bCanEverTick = true;
+  SetActorTickEnabled(true);
+
+  if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
+  {
+    OnDestroyParticleSystem = AssetsBP->GetAsset<UParticleSystem>(AssetsBP->DroneAssetsBP->DefaultOnDestroyParticleSystem);
+  }
+
 }
 
 void ABazookaProjectile::BeginPlay()
 {
-  if (!HasAuthority())
+  Super::BeginPlay();
+  if (!HasAuthority() || GetNetMode() == ENetMode::NM_Standalone)
   {
     if (UScrapyardGameInstance::AssetsBP != nullptr)
     {
-      StaticMesh->SetStaticMesh(UScrapyardGameInstance::AssetsBP->GetAsset<UStaticMesh>(UScrapyardGameInstance::AssetsBP->ProjectileAssetsBP->BazookaProjectileMesh));
+      StaticMeshComponent->SetStaticMesh(UScrapyardGameInstance::AssetsBP->GetAsset<UStaticMesh>(UScrapyardGameInstance::AssetsBP->ProjectileAssetsBP->BazookaProjectileMesh));
+      StaticMeshComponent->SetMaterial(0, UScrapyardGameInstance::AssetsBP->GetAsset<UMaterial>(UScrapyardGameInstance::AssetsBP->ProjectileAssetsBP->BazookaProjectileMaterial));
     }
   }
+
+  SetLifeSpan(10.0f);
 }
 
 void ABazookaProjectile::Tick(float DeltaTime)
 {
-
+  Super::Tick(DeltaTime);
+  FVector NextLocation = GetActorLocation() + (DeltaTime * ProjectileSpeed * FireDirection);
+  FHitResult OutHit;
+  GetWorld()->SweepSingleByChannel(OutHit, GetActorLocation(), NextLocation, FQuat(), ECollisionChannel::ECC_WorldStatic, FCollisionShape::MakeSphere(50),FCollisionQueryParams());
+  DrawDebugSphere(GetWorld(), NextLocation, 50.0f, 10, FColor::Red, false);
+  if (OutHit.Actor != NULL)
+  {
+    UE_LOG(LogTemp,  Warning, TEXT("%s::Hit an Actor %s"), *GetName(), *OutHit.Actor->GetName());
+    OutHit.Actor->TakeDamage(
+        100.0f,
+        FScrapyardPointDamageEvent(
+          100.0f,
+          OutHit,
+          FVector::ZeroVector,
+          UScrapyardDamageType::StaticClass(),
+          FVector::ZeroVector),
+        RobotOwner->Controller,
+        this);
+    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+    Destroy();
+  }
+  else
+  {
+    SetActorLocation(NextLocation);
+  }
 }
 
+void ABazookaProjectile::LifeSpanExpired()
+{
+  UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+  Super::LifeSpanExpired();
+}
+
+void ABazookaProjectile::BeginDestroy()
+{
+//  UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+  Super::BeginDestroy();
+}
 
 

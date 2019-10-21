@@ -65,6 +65,7 @@ float ADrone::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AC
 
   if (HitPoints == 0)
   {
+// TODO: why not call destroy
     SetLifeSpan(0.001f);
   }
   else

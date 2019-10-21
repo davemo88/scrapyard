@@ -80,9 +80,15 @@ void ABattleGameState::HandleMatchHasEnded()
     ARobotPlayerController* RobotPC = World->GetFirstPlayerController<ARobotPlayerController>();
     if (RobotPC)
     {
-      RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","BattleEndedAccouncement","Battle Has Ended"));
-      RobotPC->MatchStatusWidget->ShowScreenBlocker();
-      RobotPC->RobotHUDWidget->SetVisibility(ESlateVisibility::Hidden);
+      if (RobotPC->MatchStatusWidget)
+      {
+        RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","BattleEndedAccouncement","Battle Has Ended"));
+        RobotPC->MatchStatusWidget->ShowScreenBlocker();
+      }
+      if (RobotPC->RobotHUDWidget)
+      {
+        RobotPC->RobotHUDWidget->SetVisibility(ESlateVisibility::Hidden);
+      }
     }
   }
 }
