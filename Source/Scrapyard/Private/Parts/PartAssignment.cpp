@@ -135,7 +135,7 @@ void UPartAssignment::SetAssignment(UPartAssignment* NewPartAssignment)
 
 void UPartAssignment::SetAssignment(FPartAssignmentIDs PartAssignmentIDs)
 {
-  UE_LOG(LogParts, Verbose, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
+  UE_LOG(LogParts, Log, TEXT("%s::SetFromPartAssignmentIDs"), *GetName());
   UE_LOG(LogParts, Verbose, TEXT("Head PartID: %d"), PartAssignmentIDs.HeadID);
   UE_LOG(LogParts, Verbose, TEXT("Core PartID: %d"), PartAssignmentIDs.CoreID);
   UE_LOG(LogParts, Verbose, TEXT("Arms PartID: %d"), PartAssignmentIDs.ArmsID);

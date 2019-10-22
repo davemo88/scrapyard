@@ -23,6 +23,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+//TODO: why reliable?
+        UFUNCTION(NetMulticast, Unreliable)
+        void MulticastPlayOnDestroyEffects();
+
+        virtual void PlayOnDestroyEffects();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

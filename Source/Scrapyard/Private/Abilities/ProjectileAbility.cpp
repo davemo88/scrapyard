@@ -39,7 +39,7 @@ void AProjectileAbility::FireShot()
     ABazookaProjectile* Bazooka = GetWorld()->SpawnActor<ABazookaProjectile>(FireLoc, FRotator::ZeroRotator, FActorSpawnParameters());
     Bazooka->FireDirection = FireDirection;
     Bazooka->RobotOwner = RobotOwner;
-    Bazooka->SetReplicates(true);
+//    Bazooka->SetReplicates(true);
   }
 
 }

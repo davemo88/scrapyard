@@ -26,3 +26,16 @@ void AScrapyardProjectile::Tick(float DeltaTime)
 
 }
 
+void AScrapyardProjectile::MulticastPlayOnDestroyEffects_Implementation()
+{
+  UE_LOG(LogTemp,  Warning, TEXT("%s::MulticastPlayOnDestroyEffects_Implementation"), *GetName());
+  if (!HasAuthority() || GetNetMode() == ENetMode::NM_Standalone)
+  {
+    PlayOnDestroyEffects(); 
+  }
+}
+
+void AScrapyardProjectile::PlayOnDestroyEffects()
+{
+
+}

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
+#include "Robots/RobotCharacter.h"
 #include "Drafting/SoloDraft.h"
 #include "GarageGameState.generated.h"
 
@@ -25,6 +26,8 @@ public:
   virtual void BeginPlay() override;
 
   virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
+  ARobotCharacter* RobotCharacter;
 
 protected:
   

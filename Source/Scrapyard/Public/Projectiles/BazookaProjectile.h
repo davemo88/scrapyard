@@ -41,4 +41,7 @@ public:
 	
   virtual void BeginDestroy() override;
 
+protected:
+
+  virtual void PlayOnDestroyEffects() override;
 };

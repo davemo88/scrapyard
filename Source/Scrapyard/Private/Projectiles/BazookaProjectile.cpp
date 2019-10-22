@@ -14,10 +14,10 @@ ABazookaProjectile::ABazookaProjectile()
   SetRootComponent(StaticMeshComponent);
   SetActorEnableCollision(false);
 
-  ProjectileSpeed = 400.0f;
+  ProjectileSpeed = 3000.0f;
 
-  PrimaryActorTick.bCanEverTick = true;
-  SetActorTickEnabled(true);
+  SetReplicates(true);
+  SetReplicateMovement(true);
 
   if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
   {
@@ -29,6 +29,15 @@ ABazookaProjectile::ABazookaProjectile()
 void ABazookaProjectile::BeginPlay()
 {
   Super::BeginPlay();
+
+  if (HasAuthority())
+  {
+    PrimaryActorTick.bCanEverTick = true;
+    SetActorTickEnabled(true);
+    SetLifeSpan(10.0f);
+  }
+
+// load assets
   if (!HasAuthority() || GetNetMode() == ENetMode::NM_Standalone)
   {
     if (UScrapyardGameInstance::AssetsBP != nullptr)
@@ -38,7 +47,6 @@ void ABazookaProjectile::BeginPlay()
     }
   }
 
-  SetLifeSpan(10.0f);
 }
 
 void ABazookaProjectile::Tick(float DeltaTime)
@@ -61,7 +69,7 @@ void ABazookaProjectile::Tick(float DeltaTime)
           FVector::ZeroVector),
         RobotOwner->Controller,
         this);
-    UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+    MulticastPlayOnDestroyEffects();
     Destroy();
   }
   else
@@ -72,14 +80,17 @@ void ABazookaProjectile::Tick(float DeltaTime)
 
 void ABazookaProjectile::LifeSpanExpired()
 {
-  UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+  UE_LOG(LogTemp,  Warning, TEXT("%s::LifeSpanExpired"), *GetName());
+  MulticastPlayOnDestroyEffects();
   Super::LifeSpanExpired();
 }
 
 void ABazookaProjectile::BeginDestroy()
 {
-//  UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
   Super::BeginDestroy();
 }
 
-
+void ABazookaProjectile::PlayOnDestroyEffects()
+{
+  UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), OnDestroyParticleSystem, GetActorLocation());
+}
