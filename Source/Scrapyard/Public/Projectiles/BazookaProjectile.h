@@ -14,12 +14,16 @@ class SCRAPYARD_API ABazookaProjectile : public AScrapyardProjectile
 {
   GENERATED_BODY()
 	
-public:
+public:	
 
   ABazookaProjectile();
 
-  UPROPERTY()
-  FVector FireDirection;
+  // Called every frame
+  virtual void Tick(float DeltaTime) override;
+	
+  virtual void LifeSpanExpired() override;
+	
+  virtual void BeginDestroy() override;
 
 protected:
   // Called when the game starts or when spawned
@@ -28,18 +32,8 @@ protected:
   UPROPERTY(EditAnywhere)
   UStaticMeshComponent* StaticMeshComponent;
 
-  float ProjectileSpeed;
-
   UPROPERTY(EditAnywhere)
   UParticleSystem* OnDestroyParticleSystem;
-
-public:	
-  // Called every frame
-  virtual void Tick(float DeltaTime) override;
-	
-  virtual void LifeSpanExpired() override;
-	
-  virtual void BeginDestroy() override;
 
 protected:
 

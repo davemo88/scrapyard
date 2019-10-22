@@ -11,13 +11,10 @@
 ABazookaProjectile::ABazookaProjectile()
 {
   StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh")); 
-  SetRootComponent(StaticMeshComponent);
-  SetActorEnableCollision(false);
+  StaticMeshComponent->SetupAttachment(GetRootComponent());
 
+  ProjectileLifeSpan = 999.0f;
   ProjectileSpeed = 3000.0f;
-
-  SetReplicates(true);
-  SetReplicateMovement(true);
 
   if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
   {
@@ -29,13 +26,6 @@ ABazookaProjectile::ABazookaProjectile()
 void ABazookaProjectile::BeginPlay()
 {
   Super::BeginPlay();
-
-  if (HasAuthority())
-  {
-    PrimaryActorTick.bCanEverTick = true;
-    SetActorTickEnabled(true);
-    SetLifeSpan(10.0f);
-  }
 
 // load assets
   if (!HasAuthority() || GetNetMode() == ENetMode::NM_Standalone)
@@ -52,7 +42,7 @@ void ABazookaProjectile::BeginPlay()
 void ABazookaProjectile::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
-  FVector NextLocation = GetActorLocation() + (DeltaTime * ProjectileSpeed * FireDirection);
+  FVector NextLocation = GetActorLocation() + (DeltaTime * GetVelocity());
   FHitResult OutHit;
   GetWorld()->SweepSingleByChannel(OutHit, GetActorLocation(), NextLocation, FQuat(), ECollisionChannel::ECC_WorldStatic, FCollisionShape::MakeSphere(50),FCollisionQueryParams());
   DrawDebugSphere(GetWorld(), NextLocation, 50.0f, 10, FColor::Red, false);
@@ -71,10 +61,6 @@ void ABazookaProjectile::Tick(float DeltaTime)
         this);
     MulticastPlayOnDestroyEffects();
     Destroy();
-  }
-  else
-  {
-    SetActorLocation(NextLocation);
   }
 }
 

@@ -32,14 +32,14 @@ void AProjectileAbility::FireShot()
   }
   else
   {
-    FireDirection = RobotOwner->GetViewRotation().Vector(); 
+    FireDirection = RobotOwner->GetViewRotation().Vector().GetSafeNormal(); 
   }
+
   if (HasAuthority())
   {
     ABazookaProjectile* Bazooka = GetWorld()->SpawnActor<ABazookaProjectile>(FireLoc, FRotator::ZeroRotator, FActorSpawnParameters());
-    Bazooka->FireDirection = FireDirection;
     Bazooka->RobotOwner = RobotOwner;
-//    Bazooka->SetReplicates(true);
+    Bazooka->Fire(FireDirection);
   }
 
 }
