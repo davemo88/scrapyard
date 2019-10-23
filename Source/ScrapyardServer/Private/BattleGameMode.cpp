@@ -5,12 +5,13 @@
 #include "Robots/RobotCharacter.h"
 #include "Player/RobotPlayerController.h"
 #include "Player/RobotPlayerState.h"
+#include "Game/ScrapyardPlayerStart.h"
 
 ABattleGameMode::ABattleGameMode()
 {
   GameStateClass = ABattleGameState::StaticClass();
 
-  MinPlayers = 1;
+  MinPlayers = 2;
   BattleTime = 99;
   EndCooldownTime = 5;
 
@@ -83,7 +84,7 @@ bool ABattleGameMode::ReadyToStartMatch_Implementation()
   if (GetNumPlayers() >= MinPlayers)
   {
 // NOTE: everything might not be replicated at this point (e.g. gamestate)
-    if (!BattleGS->IsMatchTimerActive() && IsGameStateReplicatedToAllClients() && !BattleGS->IsMatchTimerExpired())
+    if (IsGameStateReplicatedToAllClients() && !BattleGS->IsMatchTimerActive() && !BattleGS->IsMatchTimerExpired())
     {
 // if a client's gamestate hasn't finished replicating yet, then this rpc won't be executed on that client
       BattleGS->MulticastStartMatchTimer(5);
@@ -146,6 +147,7 @@ void ABattleGameMode::HandleMatchIsWaitingToStart()
 {
   Super::HandleMatchIsWaitingToStart();
   UE_LOG(LogGameMode, Log, TEXT("HandleMatchIsWaitingToStart"));
+  ResetPlayerStartAvailability();
 }
 
 void ABattleGameMode::HandleMatchHasStarted()
@@ -157,7 +159,7 @@ void ABattleGameMode::HandleMatchHasStarted()
     BattleGS->MulticastStartMatchTimer(BattleTime);
     BattleGS->OnMatchTimerExpiredDelegate.AddDynamic(this, &ABattleGameMode::OnBattleTimeExpired);
   }
-
+  ResetPlayerStartAvailability();
 }
 
 void ABattleGameMode::HandleMatchAborted()
@@ -206,4 +208,55 @@ void ABattleGameMode::OnEndCooldownTimeExpired()
 //    BattleGS->MulticastBroadcastLeavingMap();
   }
   RestartGame();
+}
+
+AActor* ABattleGameMode::ChoosePlayerStart_Implementation(AController* Player)
+{
+//  UE_LOG(LogGameMode, Log, TEXT("%s::ChoosePlayerStart_Implementation"), *GetName());
+//  return Super::ChoosePlayerStart_Implementation(Player);
+  AScrapyardPlayerStart* ChosenStart = nullptr;
+  TArray<AScrapyardPlayerStart*> AvailableStarts;
+  TArray<AScrapyardPlayerStart*> UnavailableStarts;
+  UWorld* World = GetWorld();
+  for (TActorIterator<APlayerStart> It(World); It; ++It)
+  {
+    AScrapyardPlayerStart* Start = Cast<AScrapyardPlayerStart>(*It);
+
+    if (Start != nullptr && Start->bAvailable)
+    {
+//      UE_LOG(LogTemp, Warning, TEXT("ChoosePlayerStart_Implementation - %s Available"), *GetName());
+      AvailableStarts.Add(Start);
+    }
+    else
+    {
+//////////////////      UE_LOG(LogTemp, Warning, TEXT("ChoosePlayerStart_Implementation - %s Unavailable"), *GetName());
+      UnavailableStarts.Add(Start); 
+    }
+  }
+
+  if (AvailableStarts.Num() > 0)
+  {
+    ChosenStart = AvailableStarts[FMath::RandRange(0, AvailableStarts.Num() - 1)];
+    ChosenStart->bAvailable = false;
+  }
+  else if (UnavailableStarts.Num() > 0)
+  {
+    ChosenStart = UnavailableStarts[FMath::RandRange(0, UnavailableStarts.Num() - 1)];
+  }
+
+//  if (ChosenStart != nullptr)
+//  {
+//    UE_LOG(LogTemp, Warning, TEXT("ChoosePlayerStart_Implementation - Chosen Start - %s"), *ChosenStart->GetName());
+//  }
+  return ChosenStart;
+}
+
+void ABattleGameMode::ResetPlayerStartAvailability()
+{
+  UWorld* World = GetWorld();
+  for (TActorIterator<AScrapyardPlayerStart> It(World); It; ++It)
+  {
+    AScrapyardPlayerStart* Start = *It;
+    Start->bAvailable = true;
+  }
 }

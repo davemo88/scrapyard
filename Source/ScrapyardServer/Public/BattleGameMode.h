@@ -27,6 +27,8 @@ public:
 
   virtual void RestartPlayer(AController* NewPlayer) override;
 
+  virtual AActor* ChoosePlayerStart_Implementation(AController* Player) override;
+
 protected:
 
   uint32 MinPlayers;
@@ -70,5 +72,7 @@ protected:
 
   UFUNCTION()
   void OnMatchTimerExpired();
+
+  void ResetPlayerStartAvailability();
 
 };

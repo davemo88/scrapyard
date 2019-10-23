@@ -8,6 +8,8 @@
 
 ALaserProjectile::ALaserProjectile()
 {
+  PrimaryActorTick.bCanEverTick = false;
+
   LaserBeam = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("LaserBeam"));
   
   if (UScrapyardGameInstance::AssetsBP != nullptr)

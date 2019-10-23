@@ -18,13 +18,6 @@ public:
 
   ABazookaProjectile();
 
-  // Called every frame
-  virtual void Tick(float DeltaTime) override;
-	
-  virtual void LifeSpanExpired() override;
-	
-  virtual void BeginDestroy() override;
-
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;

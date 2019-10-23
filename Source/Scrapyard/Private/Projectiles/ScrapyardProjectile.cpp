@@ -31,7 +31,7 @@ void AScrapyardProjectile::BeginPlay()
 
   if (HasAuthority())
   {
-    SetActorTickEnabled(true);
+    SetActorTickEnabled(PrimaryActorTick.bCanEverTick);
     SetLifeSpan(ProjectileLifeSpan);
   }
   else
@@ -44,6 +44,26 @@ void AScrapyardProjectile::BeginPlay()
 void AScrapyardProjectile::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
+  FVector NextLocation = GetActorLocation() + (DeltaTime * GetVelocity());
+  FHitResult OutHit;
+  GetWorld()->SweepSingleByChannel(OutHit, GetActorLocation(), NextLocation, FQuat(), ECollisionChannel::ECC_WorldStatic, FCollisionShape::MakeSphere(ProjectileSize), FCollisionQueryParams());
+//  DrawDebugSphere(GetWorld(), NextLocation, 50.0f, 10, FColor::Red, false);
+  if (OutHit.Actor != NULL)
+  {
+    UE_LOG(LogTemp,  Warning, TEXT("%s::Hit an Actor %s"), *GetName(), *OutHit.Actor->GetName());
+    OutHit.Actor->TakeDamage(
+        100.0f,
+        FScrapyardPointDamageEvent(
+          100.0f,
+          OutHit,
+          FVector::ZeroVector,
+          UScrapyardDamageType::StaticClass(),
+          FVector::ZeroVector),
+        RobotOwner->Controller,
+        this);
+    MulticastPlayOnDestroyEffects();
+    Destroy();
+  }
 }
 
 void AScrapyardProjectile::Fire(FVector FireDirection)
@@ -65,4 +85,11 @@ void AScrapyardProjectile::MulticastPlayOnDestroyEffects_Implementation()
 void AScrapyardProjectile::PlayOnDestroyEffects()
 {
 
+}
+
+void AScrapyardProjectile::LifeSpanExpired()
+{
+  UE_LOG(LogTemp,  Warning, TEXT("%s::LifeSpanExpired"), *GetName());
+  MulticastPlayOnDestroyEffects();
+  Super::LifeSpanExpired();
 }

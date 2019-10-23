@@ -15,6 +15,7 @@ void ABattleGameState::BeginPlay()
 //BUG: doesn't work when hosting a listen server, e.g. in development
   if (!HasAuthority())
   {
+    UE_LOG(LogGameState, Log, TEXT("!HasAuthority() == true"));    
     UWorld* World = GetWorld();
     ARobotPlayerController* RobotPC = World->GetFirstPlayerController<ARobotPlayerController>();
     if (RobotPC)
@@ -25,7 +26,7 @@ void ABattleGameState::BeginPlay()
 
   }
 // for development testing in editor
-  else if (GetNetMode() == ENetMode::NM_Standalone)
+  else if (GetNetMode() == ENetMode::NM_Standalone || GetNetMode() == ENetMode::NM_Client)
   {
     UE_LOG(LogGameState, Log, TEXT("Local Net Mode"));    
     UWorld* World = GetWorld();

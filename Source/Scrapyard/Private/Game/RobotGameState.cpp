@@ -26,7 +26,7 @@ void ARobotGameState::MulticastStopMatchTimer_Implementation()
 
 void ARobotGameState::MatchTimer()
 {
-  UE_LOG(LogGameState, Log, TEXT("%s::MatchTimer"), *GetName());
+  UE_LOG(LogGameState, VeryVerbose, TEXT("%s::MatchTimer"), *GetName());
   if (MatchTimerSecondsRemaining > 0)
   {
     MatchTimerSecondsRemaining--;

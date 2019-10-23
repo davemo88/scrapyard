@@ -31,7 +31,7 @@ void UMatchStatusWidget::StopMatchTimer()
  
 void UMatchStatusWidget::UpdateMatchTimer() 
 { 
-  UE_LOG(LogUI, Log, TEXT("%s::UpdateMatchTimer"), *GetName()); 
+  UE_LOG(LogUI, VeryVerbose, TEXT("%s::UpdateMatchTimer"), *GetName()); 
   if (ARobotGameState* RobotGS = Cast<ARobotGameState>(GetWorld()->GetGameState())) 
   { 
     MatchTime->SetText(FText::AsNumber(RobotGS->GetMatchTimerSecondsRemaining())); 

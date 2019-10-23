@@ -13,8 +13,9 @@ ABazookaProjectile::ABazookaProjectile()
   StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh")); 
   StaticMeshComponent->SetupAttachment(GetRootComponent());
 
-  ProjectileLifeSpan = 999.0f;
   ProjectileSpeed = 3000.0f;
+  ProjectileSize = 50.0f;
+  ProjectileLifeSpan = 999.0f;
 
   if (UScrapyardAssets* AssetsBP = UScrapyardGameInstance::AssetsBP)
   {
@@ -36,44 +37,6 @@ void ABazookaProjectile::BeginPlay()
       StaticMeshComponent->SetMaterial(0, UScrapyardGameInstance::AssetsBP->GetAsset<UMaterial>(UScrapyardGameInstance::AssetsBP->ProjectileAssetsBP->BazookaProjectileMaterial));
     }
   }
-
-}
-
-void ABazookaProjectile::Tick(float DeltaTime)
-{
-  Super::Tick(DeltaTime);
-  FVector NextLocation = GetActorLocation() + (DeltaTime * GetVelocity());
-  FHitResult OutHit;
-  GetWorld()->SweepSingleByChannel(OutHit, GetActorLocation(), NextLocation, FQuat(), ECollisionChannel::ECC_WorldStatic, FCollisionShape::MakeSphere(50),FCollisionQueryParams());
-  DrawDebugSphere(GetWorld(), NextLocation, 50.0f, 10, FColor::Red, false);
-  if (OutHit.Actor != NULL)
-  {
-    UE_LOG(LogTemp,  Warning, TEXT("%s::Hit an Actor %s"), *GetName(), *OutHit.Actor->GetName());
-    OutHit.Actor->TakeDamage(
-        100.0f,
-        FScrapyardPointDamageEvent(
-          100.0f,
-          OutHit,
-          FVector::ZeroVector,
-          UScrapyardDamageType::StaticClass(),
-          FVector::ZeroVector),
-        RobotOwner->Controller,
-        this);
-    MulticastPlayOnDestroyEffects();
-    Destroy();
-  }
-}
-
-void ABazookaProjectile::LifeSpanExpired()
-{
-  UE_LOG(LogTemp,  Warning, TEXT("%s::LifeSpanExpired"), *GetName());
-  MulticastPlayOnDestroyEffects();
-  Super::LifeSpanExpired();
-}
-
-void ABazookaProjectile::BeginDestroy()
-{
-  Super::BeginDestroy();
 }
 
 void ABazookaProjectile::PlayOnDestroyEffects()

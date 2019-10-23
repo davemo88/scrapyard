@@ -57,7 +57,10 @@ void URobotHUDWidget::UpdateSpeed()
 
 void URobotHUDWidget::UpdateWeaponName()
 {
-  WeaponNameText->SetText(FText::FromString(RobotCharacter->WeaponAbility->AbilityName));
+  if (RobotCharacter->WeaponAbility != nullptr)
+  {
+    WeaponNameText->SetText(FText::FromString(RobotCharacter->WeaponAbility->AbilityName));
+  }
 }
 
 void URobotHUDWidget::UpdateTargetingWidget()

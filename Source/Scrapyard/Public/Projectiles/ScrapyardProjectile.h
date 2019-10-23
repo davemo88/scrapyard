@@ -34,6 +34,8 @@ protected:
 
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;
+	
+  virtual void LifeSpanExpired() override;
 
 //TODO: why reliable?
   UFUNCTION(NetMulticast, Unreliable)
@@ -43,6 +45,9 @@ protected:
 
   UPROPERTY()
   float ProjectileSpeed = 1000.0f;
+
+  UPROPERTY()
+  float ProjectileSize = 10.0f;
 
   UPROPERTY()
   float ProjectileLifeSpan = 1.0f;
