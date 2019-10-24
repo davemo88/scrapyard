@@ -28,6 +28,7 @@ public:
   UPROPERTY(EditAnywhere)
   int32 Mass = 0;
   UPROPERTY(EditAnywhere)
+// TODO: should be MaxHitPoints
   int32 HitPoints = 0;
   UPROPERTY(EditAnywhere)
   int32 MaxPower = 0;

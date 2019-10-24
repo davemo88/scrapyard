@@ -19,6 +19,9 @@ void URobotHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
   {
 // TODO: can do this manually whenever actually using power
     UpdatePowerBar(); 
+    UpdateSpeed();
+    UpdateWeaponName();
+//    UpdateWeaponName();
 //    UpdateTargetingWidget();
   }
 
@@ -42,7 +45,22 @@ void URobotHUDWidget::UpdatePowerBar()
 
 void URobotHUDWidget::UpdateHitPoints()
 {
+  UE_LOG(LogUI, Log, TEXT("%s::UpdateHitPoints - Current: %i Total: %i"), *GetName(), RobotCharacter->HitPoints, RobotCharacter->RobotStats->HitPoints);
   HitPointsText->SetText(FText::AsNumber(RobotCharacter->HitPoints));
+  HitPointsBar->SetPercent((float)RobotCharacter->HitPoints / (float)RobotCharacter->RobotStats->HitPoints);
+}
+
+void URobotHUDWidget::UpdateSpeed()
+{
+  SpeedText->SetText(FText::FromString(FString::Printf(TEXT("%i"), FMath::RoundToInt(RobotCharacter->GetVelocity().Size()))));
+}
+
+void URobotHUDWidget::UpdateWeaponName()
+{
+  if (RobotCharacter->WeaponAbility != nullptr)
+  {
+    WeaponNameText->SetText(FText::FromString(RobotCharacter->WeaponAbility->AbilityName));
+  }
 }
 
 void URobotHUDWidget::UpdateTargetingWidget()

@@ -36,6 +36,9 @@ void AGaragePlayerController::SetupWidget()
     GarageWidget->BattleButton->OnClicked.AddDynamic(this, &AGaragePlayerController::OnBattleButtonClicked);
   
     GarageWidget->PartAssignedDelegate.AddDynamic(this, &AGaragePlayerController::OnPartAssigned);
+
+    GarageWidget->RedButton->OnClicked.AddDynamic(this, &AGaragePlayerController::SetRedBot);
+    GarageWidget->PurpleButton->OnClicked.AddDynamic(this, &AGaragePlayerController::SetPurpleBot);
   }
 
 }
@@ -60,5 +63,36 @@ void AGaragePlayerController::OnTestButtonClicked()
 void AGaragePlayerController::OnBattleButtonClicked()
 {
 //TODO: use matchmaking service etc
-  ClientTravel("scrapyard.xyz//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+//  ClientTravel("scrapyard.xyz//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+  ClientTravel("127.0.0.1//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+}
+
+void AGaragePlayerController::SetRedBot()
+{
+  FPartAssignmentIDs PartIDs;
+  PartIDs.HeadID = 1001;
+  PartIDs.CoreID = 2001;
+  PartIDs.ArmsID = 3001;
+  PartIDs.LegsID = 4001;
+  PartIDs.BoosterID = 5001;
+  PartIDs.RightHandheldID = 6001;
+  if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())
+  {
+    GarageGS->CurrentDraft->PartAssignment->SetAssignment(PartIDs);
+  }
+}
+
+void AGaragePlayerController::SetPurpleBot()
+{
+  FPartAssignmentIDs PartIDs;
+  PartIDs.HeadID = 1005;
+  PartIDs.CoreID = 2005;
+  PartIDs.ArmsID = 3005;
+  PartIDs.LegsID = 4005;
+  PartIDs.BoosterID = 5005;
+  PartIDs.RightHandheldID = 6005;
+  if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())
+  {
+    GarageGS->CurrentDraft->PartAssignment->SetAssignment(PartIDs);
+  }
 }

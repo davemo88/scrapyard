@@ -68,11 +68,6 @@ void ARobotPlayerController::OnPossess(APawn* InPawn)
       RoboChar->Team = RobotPlayerState->GetTeam();
       UE_LOG(LogController, Verbose, TEXT("%s::BeginPlay - Team %i"), *RoboChar->GetName(), RoboChar->Team);
     }
-
-    if (IsLocalController())
-    {
-      RoboChar->SetupRobotHUDWidget();
-    }
   }
 }
 

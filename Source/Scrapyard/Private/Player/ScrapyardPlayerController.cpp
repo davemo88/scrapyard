@@ -5,7 +5,6 @@
 #include "Game/ScrapyardAssets.h"
 #include "UI/EscapeMenuWidget.h"
 #include "Robots/RobotCharacter.h"
-#include "UI/RobotHUDWidget.h"
 #include "GameFramework/PlayerController.h"
 
 AScrapyardPlayerController::AScrapyardPlayerController()

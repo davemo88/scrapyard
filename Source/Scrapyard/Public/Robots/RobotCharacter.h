@@ -47,6 +47,8 @@ public:
 
   virtual void Landed(const FHitResult & Hit) override;
 
+  virtual void Restart() override;
+
   void SetupRobotHUDWidget();
 
   void SetPartAssignment(UPartAssignment* NewPartAssignment);
@@ -66,7 +68,7 @@ public:
   bool IsTargetAcquired();
 
 // stats
-  UPROPERTY()
+  UPROPERTY(EditAnywhere)
   URobotStats* RobotStats;
 
   UPROPERTY(ReplicatedUsing=OnRep_HitPoints)

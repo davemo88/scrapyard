@@ -41,9 +41,6 @@ protected:
   UPROPERTY(meta=(BindWidget))
   UHostEntryWidget* HostEntryWidget;
 
-  UFUNCTION()
-  void OnPlayButtonClicked();
-
 //TODO: get rid of blueprint logic
   UFUNCTION()
   void OnDraftButtonClicked();

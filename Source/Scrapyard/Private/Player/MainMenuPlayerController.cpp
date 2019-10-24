@@ -37,14 +37,15 @@ void AMainMenuPlayerController::HideEscapeMenu()
 
 void AMainMenuPlayerController::OnPlayButtonClicked()
 {
-  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
-
-  if (GameInstance->CurrentDraft != nullptr && GameInstance->CurrentDraft->CurrentPick == GameInstance->CurrentDraft->TotalPicks)
-  {
-    UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
-  }
-  else
-  {
-    UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/SoloDraftLevel");
-  }
+  UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
+//  UScrapyardGameInstance* GameInstance = Cast<UScrapyardGameInstance>(GetGameInstance());
+//
+//  if (GameInstance->CurrentDraft != nullptr && GameInstance->CurrentDraft->CurrentPick == GameInstance->CurrentDraft->TotalPicks)
+//  {
+//    UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/GarageLevel");
+//  }
+//  else
+//  {
+//    UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/SoloDraftLevel");
+//  }
 }

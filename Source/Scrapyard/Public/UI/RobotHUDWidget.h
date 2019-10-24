@@ -32,6 +32,10 @@ protected:
   void UpdatePowerBar();
   UFUNCTION()
   void UpdateHitPoints();
+  UFUNCTION()
+  void UpdateSpeed();
+  UFUNCTION()
+  void UpdateWeaponName();
 
   UFUNCTION()
   void UpdateTargetingWidget();
@@ -46,10 +50,19 @@ protected:
   UTextBlock* HitPointsText;
 
   UPROPERTY(meta=(BindWidget))
+  UProgressBar* HitPointsBar;
+
+  UPROPERTY(meta=(BindWidget))
   UTextBlock* PowerText;
 
   UPROPERTY(meta=(BindWidget))
   UProgressBar* PowerBar;
+
+  UPROPERTY(meta=(BindWidget))
+  UTextBlock* SpeedText;
+
+  UPROPERTY(meta=(BindWidget))
+  UTextBlock* WeaponNameText;
   
   UPROPERTY()
   UTargetingWidget* TargetingWidget;

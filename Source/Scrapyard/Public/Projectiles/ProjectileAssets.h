@@ -19,5 +19,9 @@ public:
 
   UPROPERTY(EditDefaultsOnly)
   TSoftObjectPtr<UParticleSystem> LaserBeamParticleSystem;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UStaticMesh> BazookaProjectileMesh;
+  UPROPERTY(EditDefaultsOnly)
+  TSoftObjectPtr<UMaterial> BazookaProjectileMaterial;
   
 };

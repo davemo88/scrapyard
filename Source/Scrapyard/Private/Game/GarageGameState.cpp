@@ -4,7 +4,7 @@
 #include "GarageGameState.h"
 #include "Game/ScrapyardGameInstance.h"
 #include "Levels/GarageLevelScriptActor.h"
-#include "Robots/RobotCharacter.h"
+#include "Robots/RobotBodyComponent.h"
 
 AGarageGameState::AGarageGameState()
 {
@@ -15,6 +15,9 @@ void AGarageGameState::BeginPlay()
 {
   UE_LOG(LogTemp, Warning, TEXT("%s::BeginPlay"), *GetName());
   Super::BeginPlay();
+  UWorld* World = GetWorld();
+  RobotCharacter = World->SpawnActor<ARobotCharacter>(FVector(175.0f, 180.0f, 70.0f), FRotator(-10.0f, 200.0f, 0.f), FActorSpawnParameters());
+  RobotCharacter->RobotBodyComponent->SetEnableGravity(false);
   SetCurrentDraft();
 }
 
@@ -35,16 +38,18 @@ void AGarageGameState::SetCurrentDraft()
     }
   }
 
-  if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
-  {
-    if (ARobotCharacter* RobotChar = GarageLSA->GetRobotCharacter())
-    {
+//  if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
+//  {
+//    UE_LOG(LogTemp, Log, TEXT("%s::SetCurrentDraft - GarageLSA ok"), *GetName());
+//    if (ARobotCharacter* RobotChar = GarageLSA->GetRobotCharacter())
+//    {
+//      UE_LOG(LogTemp, Log, TEXT("%s::SetCurrentDraft - GarageLSA Char ok"), *GetName());
       if (CurrentDraft != nullptr)
       {
-        RobotChar->SetPartAssignment(CurrentDraft->PartAssignment);
+        RobotCharacter->SetPartAssignment(CurrentDraft->PartAssignment);
       }
-    }
-  }
+//    }
+//  }
 }
 
 void AGarageGameState::EndPlay(const EEndPlayReason::Type EndPlayReason)

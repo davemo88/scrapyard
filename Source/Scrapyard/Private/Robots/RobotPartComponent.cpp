@@ -21,7 +21,7 @@ void URobotPartComponent::SetRobotPart(URobotPart* NewRobotPart)
   {
     UE_LOG(LogParts, Log, TEXT("%s::SetRobotPart"), *GetName());
     RobotPart = NewRobotPart;
-    if (GetOwner() != NULL && GetWorld() != NULL && !(GetWorld()->GetNetMode() == NM_DedicatedServer))
+    if (GetOwner() != NULL && GetWorld() != NULL && (!GetOwner()->HasAuthority() || GetWorld()->GetNetMode() == ENetMode::NM_Standalone))
     {
       UE_LOG(LogParts, Log, TEXT("%s::SetRobotPart - Loading Assets"), *GetName());
       SetSkeletalMesh(UScrapyardGameInstance::AssetsBP->GetAsset<USkeletalMesh>(RobotPart->SkeletalMesh));

@@ -9,7 +9,8 @@
 
 AHitscanAbility::AHitscanAbility()
 {
-  AbilityName = TEXT("HitscanAbility");
+  AbilityName = TEXT("Laser");
+// TODO: range is fucked up
   AbilityRange = 3000;
 //  SetActorTickEnabled(false);
 

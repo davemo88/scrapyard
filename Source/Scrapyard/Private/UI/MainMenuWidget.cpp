@@ -21,14 +21,6 @@ void UMainMenuWidget::NativeConstruct()
 
 }
 
-void UMainMenuWidget::OnPlayButtonClicked()
-{
-  APlayerController* Player = GetOwningPlayer();
-  UE_LOG(LogUI, Log, TEXT("%s::OnPlayButtonClicked"), *GetName());
-  FString TravelString = "scrapyard.xyz//Game/Levels/BattleLevel";
-  Player->ClientTravel(TravelString, ETravelType::TRAVEL_Absolute);
-}
-
 void UMainMenuWidget::OnDraftButtonClicked()
 {
   UWorld* World = GetWorld();
