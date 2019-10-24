@@ -1,2 +1,2 @@
 #!/bin/bash
-$HOME/Scrapyard/Binaries/Linux/Scrapyard -opengl4
+$HOME/Scrapyard/Binaries/Linux/Scrapyard

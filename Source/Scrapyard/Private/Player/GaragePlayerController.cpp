@@ -63,8 +63,8 @@ void AGaragePlayerController::OnTestButtonClicked()
 void AGaragePlayerController::OnBattleButtonClicked()
 {
 //TODO: use matchmaking service etc
-//  ClientTravel("scrapyard.xyz//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
-  ClientTravel("127.0.0.1//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+  ClientTravel("scrapyard.xyz//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
+//  ClientTravel("127.0.0.1//Game/Levels/BattleLevel", ETravelType::TRAVEL_Absolute);
 }
 
 void AGaragePlayerController::SetRedBot()

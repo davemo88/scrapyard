@@ -273,10 +273,6 @@
 			"Enabled": false
 		},
 		{
-			"Name": "VisualStudioSourceCodeAccess",
-			"Enabled": false
-		},
-		{
 			"Name": "MobileLauncherProfileWizard",
 			"Enabled": false
 		},
@@ -302,6 +298,10 @@
 		},
 		{
 			"Name": "CLionSourceCodeAccess",
+			"Enabled": false
+		},
+		{
+			"Name": "VisualStudioCodeSourceCodeAccess",
 			"Enabled": false
 		}
 	]
