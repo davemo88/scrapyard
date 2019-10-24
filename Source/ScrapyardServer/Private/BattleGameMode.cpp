@@ -60,7 +60,6 @@ void ABattleGameMode::Logout(AController* Exiting)
 
 bool ABattleGameMode::IsGameStateReplicatedToAllClients()
 {
-  int32 NumPlayers = GetNumPlayers();
   int32 NumReplicatedGameStates = 0;
   for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
   {
@@ -73,7 +72,7 @@ bool ABattleGameMode::IsGameStateReplicatedToAllClients()
       }
     }
   }
-  return NumPlayers == NumReplicatedGameStates;
+  return GetNumPlayers() == NumReplicatedGameStates;
 }
 
 bool ABattleGameMode::ReadyToStartMatch_Implementation()

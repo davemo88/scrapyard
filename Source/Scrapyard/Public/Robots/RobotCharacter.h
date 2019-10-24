@@ -177,7 +177,6 @@ public:
 // Targetable Interfacte
   UFUNCTION()
   virtual bool IsTargetableBy(ARobotCharacter* Robot) override;
-//  virtual bool IsTargetableBy_Implementation(ARobotCharacter* Robot) override;
 
 // for experimental movement controls
   UPROPERTY(EditAnywhere)

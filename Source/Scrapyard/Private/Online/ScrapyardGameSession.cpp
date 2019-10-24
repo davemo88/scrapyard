@@ -19,8 +19,8 @@ AScrapyardGameSession::AScrapyardGameSession()
   OnDestroySessionCompleteDelegate = FOnDestroySessionCompleteDelegate::CreateUObject(this, &AScrapyardGameSession::OnDestroySessionComplete);
 }
 
-//bool AScrapyardGameSession::HostSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
-bool AScrapyardGameSession::HostSession(FUniqueNetIdRepl UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
+//bool AScrapyardGameSession::HostSession(TSharedPtr<const FUniqueNetId> UserId, FName InSessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
+bool AScrapyardGameSession::HostSession(FUniqueNetIdRepl UserId, FName InSessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
 {
   IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get();
 
@@ -38,7 +38,7 @@ bool AScrapyardGameSession::HostSession(FUniqueNetIdRepl UserId, FName SessionNa
 
       OnCreateSessionCompleteDelegateHandle = Sessions->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
 
-      return Sessions->CreateSession(*UserId, SessionName, *SessionSettings);
+      return Sessions->CreateSession(*UserId, InSessionName, *SessionSettings);
     }
     else
     {
@@ -53,8 +53,8 @@ bool AScrapyardGameSession::HostSession(FUniqueNetIdRepl UserId, FName SessionNa
   return false;
 }
 
-//void AScrapyardGameSession::FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, bool bIsLAN, bool bIsPresence)
-void AScrapyardGameSession::FindSessions(FUniqueNetIdRepl UserId, FName SessionName, bool bIsLAN, bool bIsPresence)
+//void AScrapyardGameSession::FindSessions(TSharedPtr<const FUniqueNetId> UserId, FName InSessionName, bool bIsLAN, bool bIsPresence)
+void AScrapyardGameSession::FindSessions(FUniqueNetIdRepl UserId, FName InSessionName, bool bIsLAN, bool bIsPresence)
 {
   IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
 
@@ -80,8 +80,8 @@ void AScrapyardGameSession::FindSessions(FUniqueNetIdRepl UserId, FName SessionN
   }
 }
 
-//bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult)
-bool AScrapyardGameSession::JoinSession(FUniqueNetIdRepl UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult)
+//bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName InSessionName, const FOnlineSessionSearchResult& SearchResult)
+bool AScrapyardGameSession::JoinSession(FUniqueNetIdRepl UserId, FName InSessionName, const FOnlineSessionSearchResult& SearchResult)
 {
   // Return bool
   bool bSuccessful = false;
@@ -96,22 +96,22 @@ bool AScrapyardGameSession::JoinSession(FUniqueNetIdRepl UserId, FName SessionNa
     {
       OnJoinSessionCompleteDelegateHandle = Sessions->AddOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegate);
       
-      bSuccessful = Sessions->JoinSession(*UserId, SessionName, SearchResult);
+      bSuccessful = Sessions->JoinSession(*UserId, InSessionName, SearchResult);
     }
   }
   return bSuccessful;
 }
 
-//bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, int32 SessionIndexInSearchResults)
-bool AScrapyardGameSession::JoinSession(FUniqueNetIdRepl UserId, FName SessionName, int32 SessionIndexInSearchResults)
+//bool AScrapyardGameSession::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName InSessionName, int32 SessionIndexInSearchResults)
+bool AScrapyardGameSession::JoinSession(FUniqueNetIdRepl UserId, FName InSessionName, int32 SessionIndexInSearchResults)
 {
   const FOnlineSessionSearchResult& SearchResult = SessionSearch->SearchResults[SessionIndexInSearchResults];
-  return JoinSession(UserId, SessionName, SearchResult);
+  return JoinSession(UserId, InSessionName, SearchResult);
 }
 
-void AScrapyardGameSession::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
+void AScrapyardGameSession::OnCreateSessionComplete(FName InSessionName, bool bWasSuccessful)
 {
-  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnCreateSessionComplete %s, %d"), *SessionName.ToString(), bWasSuccessful));
+  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnCreateSessionComplete %s, %d"), *InSessionName.ToString(), bWasSuccessful));
 
   IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
   if (OnlineSub)
@@ -125,16 +125,16 @@ void AScrapyardGameSession::OnCreateSessionComplete(FName SessionName, bool bWas
       {
         OnStartSessionCompleteDelegateHandle = Sessions->AddOnStartSessionCompleteDelegate_Handle(OnStartSessionCompleteDelegate);
 
-        Sessions->StartSession(SessionName);
+        Sessions->StartSession(InSessionName);
       }
     }
     
   }
 }
 
-void AScrapyardGameSession::OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful)
+void AScrapyardGameSession::OnStartOnlineGameComplete(FName InSessionName, bool bWasSuccessful)
 {
-  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnStartSessionComplete %s, %d"), *SessionName.ToString(), bWasSuccessful));
+  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnStartSessionComplete %s, %d"), *InSessionName.ToString(), bWasSuccessful));
 
   IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
   if (OnlineSub)
@@ -181,18 +181,18 @@ void AScrapyardGameSession::OnFindSessionsComplete(bool bWasSuccessful)
         // This can be customized later on with your own classes to add more information that can be set and displayed
         for (int32 SearchIdx = 0; SearchIdx < SessionSearch->SearchResults.Num(); SearchIdx++)
         {
-          // OwningUserName is just the SessionName for now. I guess you can create your own Host Settings class and GameSession Class and add a proper GameServer Name here.
+          // OwningUserName is just the InSessionName for now. I guess you can create your own Host Settings class and GameSession Class and add a proper GameServer Name here.
           // This is something you can't do in Blueprint for example!
-          GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("Session Number: %d | Sessionname: %s "), SearchIdx+1, *(SessionSearch->SearchResults[SearchIdx].Session.OwningUserName)));
+          GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("Session Number: %d | InSessionName: %s "), SearchIdx+1, *(SessionSearch->SearchResults[SearchIdx].Session.OwningUserName)));
         }
       }
     }
   }
 }
 
-void AScrapyardGameSession::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+void AScrapyardGameSession::OnJoinSessionComplete(FName InSessionName, EOnJoinSessionCompleteResult::Type Result)
 {
-  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnJoinSessionComplete %s, %d"), *SessionName.ToString(), static_cast<int32>(Result)));
+  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnJoinSessionComplete %s, %d"), *InSessionName.ToString(), static_cast<int32>(Result)));
 
   IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
   if (OnlineSub)
@@ -207,11 +207,11 @@ void AScrapyardGameSession::OnJoinSessionComplete(FName SessionName, EOnJoinSess
       APlayerController * const PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
 
       // We need a FString to use ClientTravel and we can let the SessionInterface contruct such a
-      // String for us by giving him the SessionName and an empty String. We want to do this, because
+      // String for us by giving him the InSessionName and an empty String. We want to do this, because
       // Every OnlineSubsystem uses different TravelURLs
       FString TravelURL;
 
-      if (PlayerController && Sessions->GetResolvedConnectString(SessionName, TravelURL))
+      if (PlayerController && Sessions->GetResolvedConnectString(InSessionName, TravelURL))
       {
         // Finally call the ClienTravel. If you want, you could print the TravelURL to see
         // how it really looks like
@@ -221,9 +221,9 @@ void AScrapyardGameSession::OnJoinSessionComplete(FName SessionName, EOnJoinSess
   }
 }
 
-void AScrapyardGameSession::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
+void AScrapyardGameSession::OnDestroySessionComplete(FName InSessionName, bool bWasSuccessful)
 {
-  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnDestroySessionComplete %s, %d"), *SessionName.ToString(), bWasSuccessful));
+  GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnDestroySessionComplete %s, %d"), *InSessionName.ToString(), bWasSuccessful));
 
   IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
   if (OnlineSub)

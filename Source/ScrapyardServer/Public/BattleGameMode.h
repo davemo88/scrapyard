@@ -29,7 +29,7 @@ public:
 
 protected:
 
-  uint32 MinPlayers;
+  int32 MinPlayers;
 
   uint32 StartCountdownTime;
   uint32 BattleTime;

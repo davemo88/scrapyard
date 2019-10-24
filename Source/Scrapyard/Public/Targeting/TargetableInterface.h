@@ -27,6 +27,6 @@ class SCRAPYARD_API ITargetableInterface
 public:
   
   UFUNCTION()
-  virtual bool IsTargetableBy(ARobotCharacter* Robot);
+  virtual bool IsTargetableBy(ARobotCharacter* Robot) { return false; };
   
 };

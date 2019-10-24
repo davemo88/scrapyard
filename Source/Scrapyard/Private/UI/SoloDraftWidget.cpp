@@ -71,11 +71,11 @@ void USoloDraftWidget::DisplayNextPack()
 //    Card->bHoverBorderActive = true;
     Card->bCanBeDragged = true;
     PackDisplayPanel->AddChild(Card);
-    if (UUniformGridSlot* Slot = Cast<UUniformGridSlot>(Card->Slot))
+    if (UUniformGridSlot* GridSlot = Cast<UUniformGridSlot>(Card->Slot))
     {
-      Slot->SetColumn(i);
-      Slot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
-      Slot->SetVerticalAlignment(EVerticalAlignment::VAlign_Center);
+      GridSlot->SetColumn(i);
+      GridSlot->SetHorizontalAlignment(EHorizontalAlignment::HAlign_Center);
+      GridSlot->SetVerticalAlignment(EVerticalAlignment::VAlign_Center);
     }
   }
   UpdatePickCounter();

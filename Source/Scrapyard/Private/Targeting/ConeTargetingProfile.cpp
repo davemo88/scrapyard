@@ -37,11 +37,11 @@ TArray<FVector> UConeTargetingProfile::InitFaceVerts()
   TArray<FVector> FaceVerts;
   float FaceRadius = GetConeRadius(Range);
 // 12 points around the circular face of the cone
-  uint NumPoints = 16;
+  int32 NumPoints = 16;
 //  float RotationIncrement = (2 * GlobalVectorConstants::Pi[0]) / NumPoints;
   float RotationIncrement = 360.f / NumPoints;
   FVector NextVert;
-  for (uint i = 0; i < NumPoints; i++)
+  for (int32 i = 0; i < NumPoints; i++)
   {
     NextVert = FRotator(0, 0, i*RotationIncrement).RotateVector(FVector(Range,0,FaceRadius));
     FaceVerts.Add(NextVert);

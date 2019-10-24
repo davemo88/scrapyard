@@ -83,9 +83,9 @@ void UMiniCardWidget::ShowPartCard()
   const FVector2D ViewportOriginAbsolutePosition = ViewportWidgetGeometry.GetAbsolutePosition();
   const FVector2D ViewportPosition = GetCachedGeometry().GetAbsolutePosition() - ViewportOriginAbsolutePosition;
 
-  const float Padding = 10 * ScalingFactor;
-  const float LeftAdjustedX = ViewportPosition.X - PartCardSize.X - Padding;
-  const float RightAdjustedX = ViewportPosition.X + AbsoluteSize.X + Padding;
+  const float PartCardPadding = 10 * ScalingFactor;
+  const float LeftAdjustedX = ViewportPosition.X - PartCardSize.X - PartCardPadding;
+  const float RightAdjustedX = ViewportPosition.X + AbsoluteSize.X + PartCardPadding;
   const float AdjustedX = LeftAdjustedX > 0 ? LeftAdjustedX : RightAdjustedX;
 
   const FVector2D ViewSize = UWidgetLayoutLibrary::GetViewportSize(GetWorld());

@@ -50,11 +50,11 @@ void ARobotHUD::DrawTargetingSystem()
       {
         FVector WorldVec =  CameraLocation + ViewRotation.RotateVector(Vec);
         HUDVerts.Add(FVector2D(Project(WorldVec)));
-      }
+	  };
 
-      uint NumVerts = HUDVerts.Num();
-      uint j;
-      for (uint i = 0; i < NumVerts ; i++)
+      int32 NumVerts = HUDVerts.Num();
+      int32 j;
+      for (int32 i = 0; i < NumVerts ; i++)
       {
         j = (i+1) % NumVerts; 
         DrawLine(
@@ -201,11 +201,11 @@ void ARobotHUD::DrawControlEllipse()
       float y1;
       float x2;
       float y2;
-      uint32 j;
-      uint32 NumPoints = 40;
+      int32 j;
+      int32 NumPoints = 40;
 //      UE_LOG(LogTemp, Warning, TEXT("begin control ellipse draw loop"));
 //      UE_LOG(LogTemp, Warning, TEXT("PI - %f"), PI);
-      for (uint32 i = 0; i < NumPoints; ++i)
+      for (int32 i = 0; i < NumPoints; ++i)
       {
         theta1 = i * ((2 * PI) / NumPoints);
         r1 = GetControlEllipseRadius(theta1, a, b);

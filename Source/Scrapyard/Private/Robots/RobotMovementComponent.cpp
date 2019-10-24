@@ -336,15 +336,15 @@ float URobotMovementComponent::GetMaxSpeed() const
 
 float URobotMovementComponent::GetMaxAcceleration() const
 {
-  float MaxAcceleration = Super::GetMaxAcceleration();
+  float MaxAccel = Super::GetMaxAcceleration();
 
   if (bBoosting)
   {
 //    UE_LOG(LogMovement, Log, TEXT("%s::GetMaxAcceleration - Boost"), *GetName());
-    MaxAcceleration *= BoostAccelerationMultiplier;
+    MaxAccel *= BoostAccelerationMultiplier;
   }
 
-  return MaxAcceleration;
+  return MaxAccel;
 }
 
 class FNetworkPredictionData_Client* URobotMovementComponent::GetPredictionData_Client() const
