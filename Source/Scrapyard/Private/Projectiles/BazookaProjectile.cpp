@@ -13,7 +13,7 @@ ABazookaProjectile::ABazookaProjectile()
   StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh")); 
   StaticMeshComponent->SetupAttachment(GetRootComponent());
 
-  ProjectileSpeed = 3000.0f;
+  ProjectileSpeed = 9000.0f;
   ProjectileSize = 50.0f;
   ProjectileLifeSpan = 999.0f;
 
