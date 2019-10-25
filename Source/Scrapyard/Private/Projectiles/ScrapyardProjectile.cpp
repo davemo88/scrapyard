@@ -52,9 +52,9 @@ void AScrapyardProjectile::Tick(float DeltaTime)
   {
     UE_LOG(LogTemp,  Warning, TEXT("%s::Hit an Actor %s"), *GetName(), *OutHit.Actor->GetName());
     OutHit.Actor->TakeDamage(
-        100.0f,
+        60.0f,
         FScrapyardPointDamageEvent(
-          100.0f,
+          60.0f,
           OutHit,
           FVector::ZeroVector,
           UScrapyardDamageType::StaticClass(),

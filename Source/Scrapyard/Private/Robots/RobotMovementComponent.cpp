@@ -309,9 +309,10 @@ void URobotMovementComponent::HandleBoosting()
 //      SetRobotMovementState(ERobotMovementState::MOVE_Walk);
     }
 
+//TODO: handle booster regen in char, not movement
     if (RobotChar->HasAuthority())
     {
-      RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 1);
+      RobotChar->Power = FMath::Min(RobotChar->RobotStats->MaxPower, RobotChar->Power + 10);
     }
   }
 }

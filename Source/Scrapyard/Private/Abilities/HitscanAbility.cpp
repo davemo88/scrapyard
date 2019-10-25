@@ -14,7 +14,9 @@ AHitscanAbility::AHitscanAbility()
   AbilityRange = 3000;
 //  SetActorTickEnabled(false);
 
-  InstantHitInfo.Add(FInstantHitDamageInfo());
+  FInstantHitDamageInfo DamageInfo;
+  DamageInfo.Damage = 40;
+  InstantHitInfo.Add(DamageInfo);
 }
 
 void AHitscanAbility::Tick(float DeltaTime)

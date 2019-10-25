@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleGameState.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Player/RobotPlayerController.h"
 
 ABattleGameState::ABattleGameState()
@@ -66,6 +67,9 @@ void ABattleGameState::HandleMatchHasStarted()
     if (RobotPC)
     {
       RobotPC->MatchStatusWidget->SetAnnouncement(NSLOCTEXT("SY","BattleStartAnnouncement","Battle!"));
+//TODO: clean up this hack
+      const FVector2D ViewCenter = UWidgetLayoutLibrary::GetViewportSize(GetWorld())/2;
+      RobotPC->SetMouseLocation(ViewCenter.X, ViewCenter.Y);
     }
   }
 }

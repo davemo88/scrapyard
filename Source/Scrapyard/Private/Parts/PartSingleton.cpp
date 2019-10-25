@@ -91,8 +91,8 @@ void UPartSingleton::InitDefaultParts()
       nullptr,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Default_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->DefaultMaterial,
-      10,
-      1));
+      0,
+      0));
   PartDB.AddPart(
     UCorePart::NewCore(
       2000,
@@ -178,14 +178,14 @@ void UPartSingleton::InitRedParts()
       RedManufacturer,
       nullptr,
       100,
-      50,
+      100,
       130,
       0,
       0,
       nullptr,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Red_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
-      100,
+      0,
       0));
   PartDB.AddPart(
     UCorePart::NewCore(
@@ -194,7 +194,7 @@ void UPartSingleton::InitRedParts()
       RedManufacturer,
       nullptr,
       100,
-      50,
+      100,
       130,
       0,
       0,
@@ -202,7 +202,7 @@ void UPartSingleton::InitRedParts()
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Red_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial,
       1000,
-      1000));
+      3000));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3001,
@@ -210,7 +210,7 @@ void UPartSingleton::InitRedParts()
       RedManufacturer,
       nullptr,
       100,
-      50,
+      100,
       130,
       0,
       0,
@@ -224,7 +224,7 @@ void UPartSingleton::InitRedParts()
       RedManufacturer,
       nullptr,
       100,
-      50,
+      100,
       130,
       0,
       0,
@@ -234,7 +234,7 @@ void UPartSingleton::InitRedParts()
       2000,
       400,
       0,
-      100));
+      50));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5001,
@@ -244,7 +244,7 @@ void UPartSingleton::InitRedParts()
       100,
       50,
       1500,
-      10,
+      15,
       nullptr,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->RedMaterial));
@@ -561,7 +561,7 @@ void UPartSingleton::InitPurpleParts()
       nullptr,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->HeadPart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
-      500,
+      0,
       0));
   PartDB.AddPart(
     UCorePart::NewCore(
@@ -577,8 +577,8 @@ void UPartSingleton::InitPurpleParts()
       nullptr,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->CorePart_Purple_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial,
-      1500,
-      1000));
+      1000,
+      4000));
   PartDB.AddPart(
     UArmsPart::NewArms(
       3005,
@@ -610,7 +610,7 @@ void UPartSingleton::InitPurpleParts()
       2000,
       700,
       0,
-      200));
+      80));
   PartDB.AddPart(
     UBoosterPart::NewBooster(
       5005,
@@ -620,7 +620,7 @@ void UPartSingleton::InitPurpleParts()
       100,
       50,
       2700,
-      5,
+      20,
       nullptr,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->BoosterPart_Default_SkeletalMesh,
       UScrapyardGameInstance::AssetsBP->PartAssetsBP->PurpleMaterial));

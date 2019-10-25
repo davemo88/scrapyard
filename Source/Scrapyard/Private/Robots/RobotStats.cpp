@@ -133,7 +133,7 @@ FStatText URobotStats::GetChipSlotsStatText()
 
 FStatText URobotStats::GetWeaponDexterityStatText()
 {
-  return FStatText(NSLOCTEXT("SY", "StatWidgetWeaponDexterityName", "Weapon Dexterity"), FText::AsNumber(WeaponDexterity));
+  return FStatText(NSLOCTEXT("SY", "StatWidgetWeaponDexterityName", "Dexterity"), FText::AsNumber(WeaponDexterity));
 }
 
 FStatText URobotStats::GetPowerSupplyStatText()
