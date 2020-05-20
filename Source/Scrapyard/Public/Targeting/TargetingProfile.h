@@ -7,6 +7,7 @@
 #include "TargetingProfile.generated.h"
 
 class ARobotCharacter;
+class AProjectileAbility;
 
 /**
  * 
@@ -45,5 +46,7 @@ protected:
   bool IsInRange(ARobotCharacter* Robot, AActor* Target) const;
 
   FVector GetPredictedTargetLocation(AActor* Target, float DeltaTime);
+
+  FVector GetPredictedTargetLocation(AActor* Source, AActor* Target, AProjectileAbility* Ability);
   
 };

@@ -80,12 +80,6 @@ void UGarageWidget::SetSoloDraft(USoloDraft* NewSoloDraft)
   NewValueAssignment->SetAssignment(SoloDraft->PartAssignment);
   NewValueStats->SetPartAssignment(NewValueAssignment);
 
-//  URobotStats* RobotStats = NewObject<URobotStats>();
-//  RobotStats->SetPartAssignment(SoloDraft->PartAssignment);
-//  if (AGarageLevelScriptActor* GarageLSA = Cast<AGarageLevelScriptActor>(GetWorld()->GetLevelScriptActor()))
-//  {
-//    RobotStatsWidget->SetRobotStats(GarageLSA->GetRobotCharacter()->RobotStats);
-//  }
   if (AGarageGameState* GarageGS = GetWorld()->GetGameState<AGarageGameState>())
   {
     RobotStatsWidget->SetRobotStats(GarageGS->RobotCharacter->RobotStats);

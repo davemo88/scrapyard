@@ -47,6 +47,8 @@ public:
 // Targetable Interface
   virtual bool IsTargetableBy(ARobotCharacter* Robot) override;
 
+  
+
 protected:
   // Called when the game starts or when spawned
   virtual void BeginPlay() override;

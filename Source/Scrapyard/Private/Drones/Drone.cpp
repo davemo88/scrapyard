@@ -22,6 +22,9 @@ ADrone::ADrone()
   CapsuleComponent->SetCapsuleRadius(50.0f); 
   SetRootComponent(CapsuleComponent);
 
+  CapsuleComponent->SetSimulatePhysics(true);
+  CapsuleComponent->SetEnableGravity(false);
+
   StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 
   StaticMeshComponent->SetupAttachment(GetRootComponent());
@@ -55,7 +58,7 @@ void ADrone::BeginPlay()
 void ADrone::Tick(float DeltaTime)
 {
   Super::Tick(DeltaTime);
-
+  float TimeAlive = GetGameTimeSinceCreation();   
 }
 
 float ADrone::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)

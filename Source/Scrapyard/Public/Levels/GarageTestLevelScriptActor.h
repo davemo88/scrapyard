@@ -16,6 +16,8 @@ class SCRAPYARD_API AGarageTestLevelScriptActor : public AScrapyardLevelScriptAc
   GENERATED_BODY()
 
 public:
+
+  AGarageTestLevelScriptActor();
   
   void BeginPlay() override;
 
@@ -31,6 +33,11 @@ protected:
   ADrone* TestDrone2;
   UPROPERTY()
   ADrone* TestDrone3;
+
+  UPROPERTY()
+  TArray<AActor*> TestDrones;
+
+  int32 NumDrones;
   
 
   

@@ -53,3 +53,8 @@ void AProjectileAbility::ShowAbilityEffects(FAbilityEffectParams AbilityEffectPa
 {
 
 }
+
+float AProjectileAbility::GetProjectileSpeed()
+{
+  return ProjectileSpeed;
+}

@@ -7,6 +7,11 @@
 #include "Drafting/SoloDraft.h"
 #include "Kismet/GameplayStatics.h"
 
+AGarageTestLevelScriptActor::AGarageTestLevelScriptActor()
+{
+  NumDrones = 1;
+}
+
 
 void AGarageTestLevelScriptActor::BeginPlay()
 {
@@ -38,6 +43,16 @@ void AGarageTestLevelScriptActor::SpawnTestDrones()
   TestDrone2->Team = 1;
   UGameplayStatics::FinishSpawningActor(TestDrone1, SpawnTransform1);
   UGameplayStatics::FinishSpawningActor(TestDrone2, SpawnTransform2);
+
+  ADrone* NextDrone;
+  auto SpawnTransform = FTransform(FVector(5000.0f, 0.0f, 200.0f));
+  for (int32 i = 0; i < NumDrones; ++i)
+  {
+    SpawnTransform.AddToTranslation(FVector(0.0f, 1000.0f, 0.0f));
+    NextDrone = Cast<ADrone>(UGameplayStatics::BeginDeferredActorSpawnFromClass(GetWorld(), ADrone::StaticClass(), SpawnTransform1)); 
+    NextDrone->Team = 1;
+    UGameplayStatics::FinishSpawningActor(NextDrone, SpawnTransform);
+  }
 
 }
 
